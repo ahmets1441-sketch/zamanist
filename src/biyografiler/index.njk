@@ -1,0 +1,13 @@
+---
+layout: base.njk
+title: Biyografiler
+permalink: /biyografiler/
+---
+<h1>Biyografiler</h1>
+<ul class="liste">
+{% for p in collections.biyografiler %}
+  <li><a href="{{ p.url }}">{{ p.data.title }}</a></li>
+{% else %}
+  <li>Henüz biyografi yok.</li>
+{% endfor %}
+</ul>

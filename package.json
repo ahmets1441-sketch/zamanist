@@ -1,0 +1,23 @@
+{
+  "name": "zamanist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "eleventy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmets1441-sketch/zamanist.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmets1441-sketch/zamanist/issues"
+  },
+  "homepage": "https://github.com/ahmets1441-sketch/zamanist#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6"
+  }
+}

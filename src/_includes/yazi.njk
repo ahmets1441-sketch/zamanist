@@ -1,0 +1,12 @@
+---
+layout: base.njk
+---
+<article>
+  <h1>{{ title }}</h1>
+  {% if date %}<p class="meta">{{ date | tarih }}{% if author %} · {{ author }}{% endif %}</p>{% endif %}
+  {{ content | safe }}
+</article>
+<section class="yorumlar">
+  <h2>Yorumlar</h2>
+  <p class="meta">Yorum sistemi yakında.</p>
+</section>

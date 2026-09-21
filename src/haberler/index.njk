@@ -1,0 +1,13 @@
+---
+layout: base.njk
+title: Haberler
+permalink: /haberler/
+---
+<h1>Haberler</h1>
+<ul class="liste">
+{% for p in collections.haberler %}
+  <li><a href="{{ p.url }}">{{ p.data.title }}</a><span class="meta">{{ p.date | tarih }}</span></li>
+{% else %}
+  <li>Henüz haber yok.</li>
+{% endfor %}
+</ul>

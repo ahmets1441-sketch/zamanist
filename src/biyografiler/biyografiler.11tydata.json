@@ -1,0 +1,1 @@
+{ "layout": "yazi.njk", "permalink": "/biyografiler/{{ page.fileSlug }}/" }

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} · {% endif %}Zamanist</title>
+  <meta name="description" content="{{ description or 'Saat haberleri ve saat dünyasından biyografiler.' }}">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="/">Zamanist</a>
+    <nav>
+      <a href="/haberler/">Haberler</a>
+      <a href="/biyografiler/">Biyografiler</a>
+    </nav>
+  </header>
+  <main>{{ content | safe }}</main>
+  <footer class="site-footer">© Zamanist · Saat haberleri ve biyografileri</footer>
+</body>
+</html>

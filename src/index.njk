@@ -1,0 +1,20 @@
+---
+layout: base.njk
+title: Ana sayfa
+---
+<h1>Son haberler</h1>
+<ul class="liste">
+{% for p in collections.haberler | head(10) %}
+  <li><a href="{{ p.url }}">{{ p.data.title }}</a><span class="meta">{{ p.date | tarih }}</span></li>
+{% else %}
+  <li>Henüz haber yok.</li>
+{% endfor %}
+</ul>
+<h2>Biyografiler</h2>
+<ul class="liste">
+{% for p in collections.biyografiler %}
+  <li><a href="{{ p.url }}">{{ p.data.title }}</a></li>
+{% else %}
+  <li>Henüz biyografi yok.</li>
+{% endfor %}
+</ul>

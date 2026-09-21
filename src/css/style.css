@@ -1,0 +1,14 @@
+:root{--fg:#1a1a1a;--bg:#fbfaf7;--muted:#6b6b6b;--accent:#8a6d2f;--line:#e4e0d6}
+*{box-sizing:border-box}
+body{margin:0;font:18px/1.65 Georgia,"Times New Roman",serif;color:var(--fg);background:var(--bg)}
+a{color:var(--accent)}
+.site-header{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:baseline;padding:1rem 1.25rem;border-bottom:1px solid var(--line);max-width:52rem;margin:0 auto}
+.logo{font-size:1.6rem;font-weight:bold;text-decoration:none;color:var(--fg);letter-spacing:.02em}
+nav a{margin-left:1.25rem;text-decoration:none}
+main{max-width:52rem;margin:0 auto;padding:1.5rem 1.25rem}
+h1{line-height:1.25}
+.liste{list-style:none;padding:0}
+.liste li{padding:.6rem 0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem}
+.meta{color:var(--muted);font-size:.85rem}
+.yorumlar{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem}
+.site-footer{max-width:52rem;margin:2rem auto;padding:0 1.25rem;color:var(--muted);font-size:.85rem}
