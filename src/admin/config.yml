@@ -1,0 +1,35 @@
+locale: tr
+
+backend:
+  name: github
+  repo: ahmets1441-sketch/zamanist
+  branch: main
+  base_url: https://zamanist.com
+  auth_endpoint: api/auth
+
+media_folder: src/img/yuklenen
+public_folder: /img/yuklenen
+
+collections:
+  - name: haberler
+    label: Haberler
+    label_singular: Haber
+    folder: src/haberler
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: Başlık, name: title, widget: string }
+      - { label: Tarih, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - { label: Yazar, name: author, widget: string, default: Zamanist }
+      - { label: Metin, name: body, widget: markdown }
+
+  - name: biyografiler
+    label: Biyografiler
+    label_singular: Biyografi
+    folder: src/biyografiler
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: İsim, name: title, widget: string }
+      - { label: Metin, name: body, widget: markdown }

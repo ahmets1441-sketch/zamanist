@@ -1,5 +1,7 @@
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
+  eleventyConfig.addPassthroughCopy("src/admin");
+  eleventyConfig.addPassthroughCopy("src/img");
   eleventyConfig.addCollection("haberler", (api) =>
     api.getFilteredByGlob("src/haberler/*.md").sort((a, b) => b.date - a.date)
   );
