@@ -1,0 +1,104 @@
+---
+layout: base.njk
+title: Yurt Dışında Ara
+ozet: Ürünü yazın, seçtiğiniz ülkedeki satıcıları, fiyatları ve Türkiye'ye göre farkı görün.
+permalink: /ara/
+---
+<h1>Yurt Dışında Ara</h1>
+<p class="slogan">Ürünü yazın, seçtiğiniz ülkedeki satıcıları ve güncel kurla TL fiyatlarını görün.</p>
+
+<form class="hesap" id="arama">
+  <label>Ülke
+    <select id="ulke">
+      {%- for u in ulkeler %}
+      <option value="{{ u.kod }}">{{ u.ad }}</option>
+      {%- endfor %}
+    </select>
+  </label>
+  <label>Ürün adı veya model kodu
+    <input id="q" type="search" required minlength="2" placeholder="Örn. H70405140 veya GMW-BZ5000GD-9">
+  </label>
+  <label>Türkiye fiyatı (TL, isteğe bağlı)
+    <input id="trFiyat" type="number" inputmode="decimal" min="0" step="any" placeholder="Karşılaştırma için">
+  </label>
+  <label>Sıralama
+    <select id="sira">
+      <option value="ilgi">En ilgili</option>
+      <option value="ucuz">En ucuz</option>
+      <option value="puan">En yüksek puan</option>
+    </select>
+  </label>
+  <button type="submit">Ara</button>
+</form>
+
+<p class="meta" id="durum"></p>
+<div id="bizden"></div>
+<ul class="sonuclar" id="sonuclar"></ul>
+<p class="meta">Sonuçlar online mağazalardan gelir. Online alışverişte vergi iadesi yoktur. Ürünün Japonya'daki bir adrese (örneğin otel) gönderilmesi gerekir. Model kodunu mutlaka kontrol edin: aramada kayış ve aksesuar gibi farklı ürünler de çıkabilir.</p>
+
+<script src="/js/hesap.js"></script>
+<script>
+const ULKELER = {{ ulkeler | dump | safe }};
+const SAATLER = [
+  {%- for p in collections.saatler %}
+  { ad: {{ p.data.title | dump | safe }}, referans: {{ p.data.referans | dump | safe }}, marka: {{ p.data.marka | dump | safe }}, url: "{{ p.url }}", ulke: "{{ p.data.ulke }}", tr: {{ p.data.tr_fiyat or "null" }} },
+  {%- endfor %}
+];
+const { kurGetir, hesapla, tl, para, kararHtml, fark } = Zamanist;
+const $ = (id) => document.getElementById(id);
+const kacis = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const sade = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+let sonVeri = null;
+
+function ciz() {
+  if (!sonVeri) return;
+  const { u, kur, sonuclar } = sonVeri;
+  const trFiyat = parseFloat($("trFiyat").value);
+  const liste = sonuclar.map((r) => ({ r, s: hesapla({ fiyat: r.fiyat, ulke: u, kur, trFiyat, iadeli: false }) }));
+  const sira = $("sira").value;
+  if (sira === "ucuz") liste.sort((a, b) => a.r.fiyat - b.r.fiyat);
+  if (sira === "puan") liste.sort((a, b) => (b.r.puan || 0) - (a.r.puan || 0));
+
+  $("sonuclar").innerHTML = liste.map(({ r, s }) => `
+    <li>
+      ${r.resim ? `<img src="${kacis(r.resim)}" alt="" loading="lazy">` : "<span></span>"}
+      <div>
+        <a href="${kacis(r.link)}" target="_blank" rel="nofollow noopener">${kacis(r.ad.slice(0, 120))}</a>
+        <div class="fiyat">${para(r.fiyat, u.para)} = ${tl(s.netTl)}${r.ikinciEl ? ' <span class="etiket">İkinci el</span>' : ""}${r.kargoDahil ? ' <span class="etiket">Kargo dahil</span>' : ""}</div>
+        <div class="meta">${kacis(r.magaza)}${r.puan ? ` · ★ ${r.puan.toFixed(2)} (${r.yorumSayisi} yorum)` : ""}</div>
+        ${s.karar ? `<div class="meta">Türkiye'ye göre: ${fark(s.gumrukTl > 0 ? s.farkVergili : s.farkVergisiz, trFiyat)}${s.gumrukTl > 0 ? " (gümrük vergisi dahil)" : ""}</div>` : ""}
+      </div>
+    </li>`).join("");
+}
+
+$("arama").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const q = $("q").value.trim();
+  const u = ULKELER.find((x) => x.kod === $("ulke").value);
+  $("sonuclar").innerHTML = "";
+  sonVeri = null;
+
+  const bizden = SAATLER.filter((s) => s.ulke === u.kod && (sade(s.referans).includes(sade(q)) || sade(q).includes(sade(s.referans)) || s.ad.toLowerCase().includes(q.toLowerCase())));
+  $("bizden").innerHTML = bizden.length
+    ? `<div class="sonuc"><strong>Zamanist'te incelendi:</strong> ${bizden.map((s) => `<a href="${s.url}">${kacis(s.ad)}</a>`).join(", ")}. Mağaza adresleri ve vergi iadesi hesabı bu sayfada.</div>`
+    : "";
+
+  if (!$("trFiyat").value && bizden.length === 1 && bizden[0].tr) $("trFiyat").value = bizden[0].tr;
+  $("durum").textContent = "Aranıyor…";
+  try {
+    const [kur, cevap] = await Promise.all([
+      kurGetir(u.para),
+      fetch(`/api/ara?ulke=${u.kod}&q=${encodeURIComponent(q)}`).then((r) => r.json()),
+    ]);
+    if (cevap.hata) { $("durum").textContent = cevap.hata; return; }
+    sonVeri = { u, kur, sonuclar: cevap.sonuclar };
+    $("durum").textContent = cevap.sonuclar.length
+      ? `${cevap.kaynak}: ${cevap.sonuclar.length} sonuç. 1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru).`
+      : "Sonuç bulunamadı. Model kodunu veya İngilizce adını deneyin.";
+    ciz();
+  } catch (err) {
+    $("durum").textContent = "Arama şu an yapılamadı. Biraz sonra tekrar deneyin.";
+  }
+});
+["trFiyat", "sira"].forEach((id) => $(id).addEventListener("input", ciz));
+</script>
