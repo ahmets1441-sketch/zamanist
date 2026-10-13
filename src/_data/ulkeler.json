@@ -1,0 +1,11 @@
+[
+  {
+    "kod": "japonya",
+    "ad": "Japonya",
+    "para": "JPY",
+    "paraAdi": "Japon yeni",
+    "kdvOrani": 0.10,
+    "taxFreeAlt": 5000,
+    "not": "1 Kasım 2026'dan itibaren Japonya'da vergi mağazada düşülmüyor. Fiyatın tamamını ödüyorsunuz, vergi iadesini havalimanında çıkış yaparken alıyorsunuz. İade için en az 5.000 yen (vergisiz) alışveriş gerekiyor ve ürün 90 gün içinde Japonya'dan çıkarılmalı."
+  }
+]

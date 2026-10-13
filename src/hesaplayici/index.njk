@@ -1,0 +1,129 @@
+---
+layout: base.njk
+title: Yurt Dışı Fiyat Hesaplayıcı
+ozet: Yurt dışındaki fiyatı güncel kurla TL'ye çevirin, vergi iadesini düşün, Türkiye fiyatıyla karşılaştırın.
+permalink: /hesaplayici/
+---
+<h1>Yurt Dışı Fiyat Hesaplayıcı</h1>
+<p class="slogan">Oradan almak gerçekten daha mı ucuz? Fiyatı girin, güncel kurla hesaplayalım.</p>
+
+<form class="hesap" id="hesap" onsubmit="return false">
+  <label>Ülke
+    <select id="ulke">
+      {%- for u in ulkeler %}
+      <option value="{{ u.kod }}">{{ u.ad }} ({{ u.para }})</option>
+      {%- endfor %}
+    </select>
+  </label>
+  <label><span id="fiyatEtiket">Oradaki etiket fiyatı</span>
+    <input id="fiyat" type="number" inputmode="decimal" min="0" step="any" placeholder="Örn. 450000">
+  </label>
+  <label>Türkiye fiyatı (TL, isteğe bağlı)
+    <input id="trFiyat" type="number" inputmode="decimal" min="0" step="any" placeholder="Örn. 175000">
+  </label>
+</form>
+
+<p class="meta" id="kurBilgi">Güncel kur yükleniyor…</p>
+<div class="sonuc" id="sonuc" hidden></div>
+<p class="meta" id="ulkeNot"></p>
+
+<p class="meta">Bu hesap fikir vermek içindir. Vergi iadesi yapan firmalar komisyon kesebilir. Gümrükte uygulanacak vergi, eşyanın türüne ve memurun değerlendirmesine göre değişebilir. Seyahatten önce Ticaret Bakanlığı'nın güncel kurallarına bakın.</p>
+
+<script>
+const ULKELER = {{ ulkeler | dump | safe }};
+const GUMRUK_SINIRI_EUR = 430;   // 15 yaş üstü yolcu başına vergisiz sınır
+const MAKTU_SINIR_EUR = 1500;    // bu tutara kadar ticari olmayan eşyada maktu vergi
+const MAKTU_ORAN_AB_DISI = 0.60; // AB dışından gelen eşya
+
+const kurlar = {};
+const $ = (id) => document.getElementById(id);
+const tl = (n) => n.toLocaleString("tr-TR", { maximumFractionDigits: 0 }) + " TL";
+const para = (n, kod) => n.toLocaleString("tr-TR", { maximumFractionDigits: 0 }) + " " + kod;
+
+async function kurGetir(kod) {
+  if (kurlar[kod]) return kurlar[kod];
+  try {
+    const r = await fetch(`https://api.frankfurter.dev/v1/latest?base=${kod}&symbols=TRY,EUR`);
+    const d = await r.json();
+    kurlar[kod] = { TRY: d.rates.TRY, EUR: d.rates.EUR, tarih: d.date };
+  } catch (e) {
+    const r = await fetch(`https://open.er-api.com/v6/latest/${kod}`);
+    const d = await r.json();
+    kurlar[kod] = { TRY: d.rates.TRY, EUR: d.rates.EUR, tarih: d.time_last_update_utc.slice(5, 16) };
+  }
+  return kurlar[kod];
+}
+
+async function hesapla() {
+  const u = ULKELER.find((x) => x.kod === $("ulke").value);
+  $("fiyatEtiket").textContent = `Oradaki etiket fiyatı (${u.para}, vergiler dahil)`;
+  $("ulkeNot").textContent = u.not || "";
+  let kur;
+  try {
+    kur = await kurGetir(u.para);
+  } catch (e) {
+    $("kurBilgi").textContent = "Güncel kur alınamadı. Sayfayı yenileyip tekrar deneyin.";
+    return;
+  }
+  $("kurBilgi").textContent = `1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru)`;
+
+  const fiyat = parseFloat($("fiyat").value);
+  if (!(fiyat > 0)) { $("sonuc").hidden = true; return; }
+
+  const vergisiz = fiyat / (1 + u.kdvOrani);
+  const iadeVar = u.kdvOrani > 0 && vergisiz >= u.taxFreeAlt;
+  const iade = iadeVar ? fiyat - vergisiz : 0;
+  const net = fiyat - iade;
+  const netTl = net * kur.TRY;
+  const netEur = net * kur.EUR;
+
+  const satirlar = [
+    ["Etiket fiyatı", `${para(fiyat, u.para)} = ${tl(fiyat * kur.TRY)}`],
+  ];
+  if (u.kdvOrani > 0) {
+    satirlar.push(["Vergi iadesi", iadeVar
+      ? `− ${tl(iade * kur.TRY)} (havalimanında geri alınır)`
+      : `Yok: vergisiz tutar ${para(u.taxFreeAlt, u.para)} altında`]);
+  }
+  satirlar.push(["Size maliyeti", `<strong>${tl(netTl)}</strong> (yaklaşık ${Math.round(netEur).toLocaleString("tr-TR")} €)`]);
+
+  let gumrukTl = 0;
+  let gumrukMesaj;
+  if (netEur <= GUMRUK_SINIRI_EUR) {
+    gumrukMesaj = `430 € sınırının altında. Yanınızda getirirseniz vergi çıkmaz.`;
+  } else if (netEur <= MAKTU_SINIR_EUR) {
+    gumrukTl = netTl * MAKTU_ORAN_AB_DISI;
+    gumrukMesaj = `430 € sınırını aşıyor. Gümrükte yaklaşık %60 vergi ödemeniz gerekir: en fazla ${tl(gumrukTl)}.`;
+  } else {
+    gumrukMesaj = `1.500 € üstü. Maktu vergi uygulanmaz, normal gümrük vergileri hesaplanır ve tutar yüksek olabilir.`;
+  }
+  satirlar.push(["Gümrük", gumrukMesaj]);
+
+  const trFiyat = parseFloat($("trFiyat").value);
+  let karar = "";
+  if (trFiyat > 0) {
+    const farkVergisiz = trFiyat - netTl;
+    const farkVergili = trFiyat - netTl - gumrukTl;
+    const yuzde = (f) => Math.round((f / trFiyat) * 100);
+    if (gumrukTl > 0) {
+      satirlar.push(["Türkiye'ye göre (gümrük vergisi hariç)", farkVergisiz >= 0 ? `${tl(farkVergisiz)} ucuz (%${yuzde(farkVergisiz)})` : `${tl(-farkVergisiz)} pahalı`]);
+      satirlar.push(["Türkiye'ye göre (gümrük vergisi dahil)", farkVergili >= 0 ? `${tl(farkVergili)} ucuz (%${yuzde(farkVergili)})` : `${tl(-farkVergili)} pahalı`]);
+    } else {
+      satirlar.push(["Türkiye'ye göre", farkVergisiz >= 0 ? `${tl(farkVergisiz)} ucuz (%${yuzde(farkVergisiz)})` : `${tl(-farkVergisiz)} pahalı`]);
+    }
+    karar = farkVergisiz <= 0
+      ? `<p class="karar kotu">Türkiye'den almak daha mantıklı.</p>`
+      : netEur > MAKTU_SINIR_EUR
+        ? `<p class="karar orta">Gümrük vergisi tahmin edilemiyor. Fark, ödeyeceğiniz vergiden büyükse avantajlı.</p>`
+        : farkVergili > 0
+          ? `<p class="karar iyi">Oradan almak daha avantajlı.</p>`
+          : `<p class="karar kotu">Gümrük vergisiyle birlikte Türkiye'den almak daha mantıklı.</p>`;
+  }
+
+  $("sonuc").innerHTML = "<dl>" + satirlar.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join("") + "</dl>" + karar;
+  $("sonuc").hidden = false;
+}
+
+["ulke", "fiyat", "trFiyat"].forEach((id) => $(id).addEventListener("input", hesapla));
+hesapla();
+</script>

@@ -21,3 +21,15 @@ nav a{margin-left:0}
 .ozet{margin:.2rem 0 0;color:var(--muted);font-size:.95rem}
 .slogan{font-style:italic;color:var(--muted)}
 .bolum h2 a{color:var(--fg);text-decoration:none}
+.hesap{display:grid;gap:1rem;margin:1.5rem 0}
+.hesap label{display:grid;gap:.3rem;font-size:.95rem}
+.hesap input,.hesap select{font:inherit;padding:.6rem .7rem;border:1px solid var(--line);border-radius:4px;background:#fff;width:100%}
+.sonuc{border:1px solid var(--line);border-radius:6px;padding:1rem 1.25rem;background:#fff;margin:1rem 0}
+.sonuc dl{display:grid;grid-template-columns:minmax(8rem,auto) 1fr;gap:.5rem 1rem;margin:0}
+.sonuc dt{color:var(--muted)}
+.sonuc dd{margin:0}
+.karar{margin:1rem 0 0;padding:.6rem .8rem;border-radius:4px;font-weight:bold}
+.karar.iyi{background:#e8f3e8}
+.karar.orta{background:#f6efdc}
+.karar.kotu{background:#f6e3e0}
+@media (max-width:30rem){.sonuc dl{grid-template-columns:1fr}.sonuc dd{margin-bottom:.4rem}}
