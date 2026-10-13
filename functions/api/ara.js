@@ -23,7 +23,7 @@ export async function onRequestGet({ request, env }) {
   if (!kaynaklar.length) return json({ hata: "Bu ülke için arama servisi henüz ayarlanmadı." }, 503);
 
   const cache = caches.default;
-  const anahtar = new Request(`${u.origin}/api/ara?v=3&ulke=${ulke.kod}&tur=${urunTuru}&q=${encodeURIComponent(q.toLowerCase())}`);
+  const anahtar = new Request(`${u.origin}/api/ara?v=4&ulke=${ulke.kod}&tur=${urunTuru}&q=${encodeURIComponent(q.toLowerCase())}`);
   const onbellek = await cache.match(anahtar);
   if (onbellek) return onbellek;
 

@@ -4,7 +4,8 @@ window.Japonca = (() => {
     [/レディース|婦人/, "Kadın"], [/メンズ|紳士/, "Erkek"], [/ユニセックス|男女兼用/, "Unisex"],
     [/自動巻|オートマ/, "Otomatik"], [/手巻/, "Kurmalı"], [/クオーツ|クォーツ/, "Quartz"],
     [/ソーラー/, "Solar"], [/電波/, "Radyo ayarlı"], [/Bluetooth|ブルートゥース/i, "Bluetooth"],
-    [/国内正規/, "Japonya resmi garantili"], [/正規品|正規販売店|正規取扱/, "Resmi garantili"],
+    [/国内正規/, "Japonya resmi garantili"], [/韓国正規|海外正規/, "Yurt dışı resmi ürünü (Japonya garantisi yok)"],
+    [/正規品|正規販売店|正規取扱/, "Resmi garantili"],
     [/海外モデル|並行輸入/, "Yurt dışı modeli (paralel ithal)"], [/逆輸入/, "Geri ithal model"],
     [/限定/, "Sınırlı üretim"], [/新作|新品/, "Yeni"], [/在庫あり|即納/, "Stokta"], [/予約/, "Ön sipariş"],
     [/チタン/, "Titanyum"], [/ステンレス|メタルバンド|ブレス/, "Çelik bilezik"], [/レザー|革ベルト|本革/, "Deri kayış", { ayakkabi: "Deri" }], [/ラバー|ウレタン/, "Kauçuk kayış", { ayakkabi: "Kauçuk" }],
@@ -16,7 +17,7 @@ window.Japonca = (() => {
     [/スエード|スウェード/, "Süet"], [/キャンバス/, "Kanvas"], [/メッシュ/, "File"], [/ゴアテックス|GORE-TEX/i, "Gore-Tex"],
     [/キッズ|ジュニア|子供/, "Çocuk"], [/復刻/, "Yeniden üretim (retro)"], [/コラボ/, "İş birliği modeli"],
   ];
-  const REKLAM = /送料無料|ポイント\d*倍|最大\d+[^ ]*|クーポン[^ ]*|\d+%?OFF[^ ]*|\d+円OFF[^ ]*|ラッピング無料|あす楽|翌日配送/gi;
+  const REKLAM = /[\d/]+\s*[~〜～-]\s*[\d/]*\s*限定|\d+[/月]\d+日?限定|期間限定|送料無料|ポイント\d*倍|最大\d+[^ ]*|クーポン[^ ]*|\d+%?OFF[^ ]*|\d+円OFF[^ ]*|ラッピング無料|あす楽|翌日配送/gi;
 
   function temizle(baslik) {
     return baslik
@@ -35,6 +36,11 @@ window.Japonca = (() => {
     for (const [desen, tr, turlere] of SOZLUK) {
       const ceviri = (turlere && turlere[urunTuru]) || tr;
       if (desen.test(baslik) && !bulunan.includes(ceviri)) bulunan.push(ceviri);
+    }
+    // Daha özel bir garanti etiketi varsa genel "Resmi garantili" tekrar etmesin.
+    if (bulunan.some((e) => e !== "Resmi garantili" && /resmi/i.test(e))) {
+      const i = bulunan.indexOf("Resmi garantili");
+      if (i >= 0) bulunan.splice(i, 1);
     }
     const mm = baslik.match(/(\d{2}(?:\.\d)?)\s*(?:mm|MM|ミリ)/);
     if (mm) bulunan.unshift(`${mm[1]} mm`);

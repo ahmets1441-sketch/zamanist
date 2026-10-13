@@ -150,7 +150,9 @@ function ciz() {
   const sira = $("sira").value;
 
   // Resmi fiyat: önce markanın sitesi, yoksa markanın resmi Rakuten mağazası.
-  const resmiRakuten = sonuclar.filter((r) => r.tur === "resmi" && !r.aksesuar && !kodFarkli(r, q)).sort((a, b) => a.fiyat - b.fiyat)[0];
+  // "公式" bazı bayilerin mağaza adında da geçer; resmi sayılması için mağaza adında markanın adı da olmalı.
+  const markaMagazasi = (r) => MARKA_SITELERI.some(([desen]) => desen.test(r.ad) && desen.test(r.magaza));
+  const resmiRakuten = sonuclar.filter((r) => r.tur === "resmi" && markaMagazasi(r) && !r.aksesuar && !kodFarkli(r, q)).sort((a, b) => a.fiyat - b.fiyat)[0];
   // Panelden girilen liste önce gelir: doğruluğunu biz kontrol ettik.
   const kod = modelKodu(q);
   const listede = (sonVeri.resmiListe || []).find((x) => x.ulke === u.kod && kod.length >= 6 && (sade(x.kod).startsWith(kod) || kod.startsWith(sade(x.kod))));
