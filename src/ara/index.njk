@@ -197,7 +197,9 @@ function ciz() {
 
   let sayac = 1;
   $("kademeler").innerHTML = KADEMELER.map((k) => {
-    const ogeler = liste.filter((x) => (x.r.tur === "resmi" ? "yetkili" : x.r.tur) === k.tur);
+    // Markanın kendi mağazası yetkili sayılır; adında sadece "公式" geçen bayiler pazar yerine gider.
+    const kademe = (r) => r.tur !== "resmi" ? r.tur : markaMagazasi(r) ? "yetkili" : "pazar";
+    const ogeler = liste.filter((x) => kademe(x.r) === k.tur);
     if (!ogeler.length) return "";
     sayac++;
     const ic = `<p class="meta">${k.aciklama}</p><ul class="sonuclar">${ogeler.map((x) => satir(x, ctx)).join("")}</ul>`;
