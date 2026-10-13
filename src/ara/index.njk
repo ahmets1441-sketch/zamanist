@@ -57,7 +57,7 @@ const MARKA_SITELERI = [
   [/LONGINES|ロンジン/i, "Longines", "https://www.longines.com/ja-jp/"],
 ];
 const KADEMELER = [
-  { tur: "yetkili", baslik: "Yetkili satıcılar", aciklama: "Resmi garantili sattığını belirten mağazalar. Japonya'da yetkili mağazalar genelde resmi fiyattan satar." },
+  { tur: "yetkili", baslik: "Yetkili satıcılar", aciklama: "Resmi garantili sattığını belirten mağazalar. Bazı markalarda (ör. Seiko, Casio) resmi fiyatın altında satarlar; her ilanda resmi fiyata göre fark yazıyor." },
   { tur: "zincir", baslik: "Elektronik ve indirim mağazaları", aciklama: "Bu zincirlerin fiziksel şubelerinde pasaportla vergi iadesi de alınabilir. Saati mağazada sormak için aşağıdaki Japonca adı gösterin." },
   { tur: "pazar", baslik: "Pazar yeri satıcıları", aciklama: "Rakuten'deki diğer satıcılar. Fiyatlar resmi fiyattan yüksek veya düşük olabilir; satıcı puanına bakın." },
   { tur: "ikinciel", baslik: "İkinci el", aciklama: "Kullanılmış ürünler." },
@@ -133,7 +133,11 @@ function ciz() {
     const marka = MARKA_SITELERI.find(([desen]) => desen.test(basliklar));
     ozet += `<p class="meta">Bu ürünün resmi fiyatı otomatik bulunamadı. ${marka ? `<a href="${marka[2]}" target="_blank" rel="noopener">${marka[1]} Japonya sitesinde</a> model kodunu aratarak` : "Markanın Japonya sitesinden"} kontrol edin. Bulduğunuz resmi fiyatı <a href="/hesaplayici/">hesaplayıcıya</a> girerek vergi iadesi ve gümrükle birlikte karşılaştırabilirsiniz.</p>`;
   }
-  if (jpAd) ozet += `<div class="jp-goster"><span class="meta">Japonya'da mağazada sorarken bunu gösterin:</span><div lang="ja">${kacis(temizle(jpAd).slice(0, 80))}</div><div><strong>${kacis((q.split(/[\s,/]+/).find((t) => sade(t) === modelKodu(q)) || q).toUpperCase())}</strong></div></div>`;
+  if (jpAd) {
+    const kodYazisi = (q.split(/[\s,/]+/).find((t) => sade(t) === modelKodu(q)) || q).toUpperCase();
+    const ad = temizle(jpAd).slice(0, 80);
+    ozet += `<div class="jp-goster"><span class="meta">Japonya'da mağazada sorarken bunu gösterin:</span><div lang="ja">${kacis(ad)}</div>${sade(ad).includes(sade(kodYazisi)) ? "" : `<div><strong>${kacis(kodYazisi)}</strong></div>`}</div>`;
+  }
   ozet += `</div>`;
   $("ozet").innerHTML = ozet;
 
