@@ -1,5 +1,7 @@
 // Official Japanese list price from the brand's own site, found by model code.
 // Only brands whose product URL can be built from the code are supported.
+// Casio blocks automated requests (403), Hamilton/Longines URLs need a slug: those fall back to
+// the brand's official Rakuten store in /api/ara.
 const UA = "Mozilla/5.0 (compatible; ZamanistBot/1.0; +https://zamanist.com)";
 
 const sade = (s) => s.toUpperCase().replace(/[^A-Z0-9]/g, "");
@@ -13,15 +15,6 @@ const SWATCH = [
   { marka: "Certina", ad: "サーチナ", desen: /^C\d{12,13}$/, url: (k) => `https://www.certina.com/ja-jp/${k.toLowerCase()}.html` },
   { marka: "Rado", ad: "ラドー", desen: /^R\d{8,13}$/, url: (k) => `https://www.rado.com/ja-jp/${k.toLowerCase()}.html` },
 ];
-
-// Casio Japan: casio.com/jp/watches/<line>/product.<MODEL>/ ; Japanese models end in JF/JR.
-const CASIO_SERILER = ["gshock", "oceanus", "edifice", "protrek", "babyg", "casio"];
-function casioAdaylar(q) {
-  const m = q.toUpperCase().replace(/\s+/g, "");
-  if (!/^[A-Z]{1,6}-?[A-Z0-9]{2,}(-[A-Z0-9]+)*$/.test(m)) return [];
-  const kodlar = /(JF|JR|JA)$/.test(m) ? [m] : [m.replace(/-?\d?[A-Z]{2}$/, (s) => s) + "JF", m + "JF"].filter((v, i, a) => a.indexOf(v) === i);
-  return kodlar.flatMap((k) => CASIO_SERILER.map((s) => ({ marka: "Casio", ad: "カシオ", url: `https://www.casio.com/jp/watches/${s}/product.${k}/` })));
-}
 
 function fiyatOku(html) {
   for (const m of html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g)) {
@@ -55,7 +48,7 @@ export async function onRequestGet({ request }) {
   const u = new URL(request.url);
   const q = (u.searchParams.get("q") || "").trim().slice(0, 60);
   const kod = sade(q);
-  const adaylar = [...SWATCH.filter((b) => b.desen.test(kod)).map((b) => ({ marka: b.marka, ad: b.ad, url: b.url(kod) })), ...casioAdaylar(q)];
+  const adaylar = [...SWATCH.filter((b) => b.desen.test(kod)).map((b) => ({ marka: b.marka, ad: b.ad, url: b.url(kod) }))];
   if (!adaylar.length) return Response.json({ bulundu: false, neden: "desteklenmeyen" });
 
   const sonuclar = await Promise.all(adaylar.slice(0, 8).map(dene));

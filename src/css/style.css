@@ -44,3 +44,11 @@ nav a{margin-left:0}
 .sonuclar img{width:5rem;height:5rem;object-fit:contain;background:#fff;border-radius:4px}
 .sonuclar .fiyat{font-weight:bold}
 .etiket.uyari{border-color:#d9a441;color:#8a5a00}
+.etiket.iyi{border-color:#7fb07f;color:#2f6b2f}
+.tr-etiketler{font-size:.9rem}
+.jp-ad{font-size:.85rem}
+.kademe{margin-top:1.5rem}
+.kademe summary{cursor:pointer}
+.kademe summary h2{display:inline;font-size:1.25rem}
+.sonuc h2{margin:0 0 .6rem;font-size:1.25rem}
+.jp-goster{margin-top:1rem;padding:.7rem .9rem;border:1px dashed var(--accent);border-radius:4px;font-size:1.1rem}

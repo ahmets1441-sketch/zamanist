@@ -2,6 +2,17 @@
 // Keys live in Pages env vars RAKUTEN_APP_ID and RAKUTEN_ACCESS_KEY.
 const RAKUTEN = "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260701";
 
+// Chain electronics/discount stores: their physical branches offer tax-free shopping.
+const ZINCIRLER = /ビックカメラ|ヨドバシ|Joshin|ジョーシン|エディオン|ノジマ|コジマ|ソフマップ|ヤマダ|ケーズ|ドン・キホーテ/i;
+
+function tur(i, ikinciEl) {
+  if (ikinciEl) return "ikinciel";
+  if (/公式/.test(i.shopName)) return "resmi";
+  if (ZINCIRLER.test(i.shopName)) return "zincir";
+  if (/正規品|正規販売店|正規取扱|国内正規|メーカー保証/.test(i.itemName)) return "yetkili";
+  return "pazar";
+}
+
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
     status,
@@ -19,20 +30,24 @@ async function rakutenAra(q, env, origin) {
   const r = await fetch(url, { headers: { Referer: origin + "/", Origin: origin } });
   const d = await r.json();
   if (!r.ok) throw new Error(d.error_description || d.error || `Rakuten ${r.status}`);
-  return (d.Items || []).map((i) => ({
-    ad: i.itemName,
-    fiyat: i.itemPrice,
-    vergiDahil: i.taxFlag === 0,
-    kargoDahil: i.postageFlag === 0,
-    magaza: i.shopName,
-    magazaLink: i.shopUrl,
-    puan: i.reviewAverage || null,
-    yorumSayisi: i.reviewCount || 0,
-    link: i.itemUrl,
-    resim: (i.mediumImageUrls || [])[0] || null,
-    ikinciEl: /中古|USED|ユーズド|良品|美品|質屋/i.test(i.itemName),
-    aksesuar: /適合|互換|交換用|替えベルト|替えバンド|ベルトのみ|バンドのみ/.test(i.itemName),
-  }));
+  return (d.Items || []).map((i) => {
+    const ikinciEl = /中古|USED|ユーズド|良品|美品|質屋/i.test(i.itemName);
+    return {
+      ad: i.itemName,
+      fiyat: i.itemPrice,
+      vergiDahil: i.taxFlag === 0,
+      kargoDahil: i.postageFlag === 0,
+      magaza: i.shopName,
+      magazaLink: i.shopUrl,
+      puan: i.reviewAverage || null,
+      yorumSayisi: i.reviewCount || 0,
+      link: i.itemUrl,
+      resim: (i.mediumImageUrls || [])[0] || null,
+      ikinciEl,
+      aksesuar: /適合|互換|交換用|替えベルト|替えバンド|ベルトのみ|バンドのみ/.test(i.itemName),
+      tur: tur(i, ikinciEl),
+    };
+  });
 }
 
 export async function onRequestGet({ request, env }) {
@@ -44,7 +59,7 @@ export async function onRequestGet({ request, env }) {
   if (!env.RAKUTEN_APP_ID || !env.RAKUTEN_ACCESS_KEY) return json({ hata: "Arama servisi henüz ayarlanmadı." }, 503);
 
   const cache = caches.default;
-  const anahtar = new Request(`${u.origin}/api/ara?ulke=${ulke}&q=${encodeURIComponent(q.toLowerCase())}`);
+  const anahtar = new Request(`${u.origin}/api/ara?v=2&ulke=${ulke}&q=${encodeURIComponent(q.toLowerCase())}`);
   const onbellek = await cache.match(anahtar);
   if (onbellek) return onbellek;
 

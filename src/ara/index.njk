@@ -5,7 +5,7 @@ ozet: Ürünü yazın, seçtiğiniz ülkedeki satıcıları, fiyatları ve Türk
 permalink: /ara/
 ---
 <h1>Yurt Dışında Ara</h1>
-<p class="slogan">Ürünü yazın, seçtiğiniz ülkedeki satıcıları ve güncel kurla TL fiyatlarını görün.</p>
+<p class="slogan">Ürünü yazın: önce markanın resmi fiyatı, sonra yetkili satıcılar, elektronik mağazaları ve pazar yerleri. Hepsi güncel kurla TL olarak.</p>
 
 <form class="hesap" id="arama">
   <label>Ülke
@@ -33,18 +33,27 @@ permalink: /ara/
 
 <p class="meta" id="durum"></p>
 <div id="bizden"></div>
-<ul class="sonuclar" id="sonuclar"></ul>
-<p class="meta">Sonuçlar online mağazalardan gelir. Online alışverişte vergi iadesi yoktur. Ürünün Japonya'daki bir adrese (örneğin otel) gönderilmesi gerekir. Model kodunu mutlaka kontrol edin: aramada kayış ve aksesuar gibi farklı ürünler de çıkabilir.</p>
+<div id="ozet"></div>
+<div id="kademeler"></div>
+<p class="meta">Resmi fiyat markanın Japonya sitesinden veya markanın resmi Rakuten mağazasından alınır. Diğer fiyatlar Rakuten'deki satıcılardan gelir. Online alışverişte vergi iadesi yoktur ve ürün Japonya'daki bir adrese (örneğin otel) gönderilmelidir. "Resmi garantili" bilgisi satıcının beyanıdır. Model kodunu mutlaka kontrol edin.</p>
 
 <script src="/js/hesap.js"></script>
+<script src="/js/japonca.js"></script>
 <script>
 const ULKELER = {{ ulkeler | dump | safe }};
 const SAATLER = [
   {%- for p in collections.saatler %}
-  { ad: {{ p.data.title | dump | safe }}, referans: {{ p.data.referans | dump | safe }}, marka: {{ p.data.marka | dump | safe }}, url: "{{ p.url }}", ulke: "{{ p.data.ulke }}", tr: {{ p.data.tr_fiyat or "null" }} },
+  { ad: {{ p.data.title | dump | safe }}, referans: {{ p.data.referans | dump | safe }}, url: "{{ p.url }}", ulke: "{{ p.data.ulke }}", tr: {{ p.data.tr_fiyat or "null" }} },
   {%- endfor %}
 ];
-const { kurGetir, hesapla, tl, para, kararHtml, fark } = Zamanist;
+const KADEMELER = [
+  { tur: "yetkili", baslik: "Yetkili satıcılar", aciklama: "Resmi garantili sattığını belirten mağazalar. Japonya'da yetkili mağazalar genelde resmi fiyattan satar." },
+  { tur: "zincir", baslik: "Elektronik ve indirim mağazaları", aciklama: "Bu zincirlerin fiziksel şubelerinde pasaportla vergi iadesi de alınabilir. Saati mağazada sormak için aşağıdaki Japonca adı gösterin." },
+  { tur: "pazar", baslik: "Pazar yeri satıcıları", aciklama: "Rakuten'deki diğer satıcılar. Fiyatlar resmi fiyattan yüksek veya düşük olabilir; satıcı puanına bakın." },
+  { tur: "ikinciel", baslik: "İkinci el", aciklama: "Kullanılmış ürünler." },
+];
+const { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, kararHtml } = Zamanist;
+const { temizle, etiketler } = Japonca;
 const $ = (id) => document.getElementById(id);
 const kacis = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const sade = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -58,51 +67,102 @@ function kodFarkli(r, q) {
   return /[a-z]/.test(linkKodu) && /[0-9]/.test(linkKodu) && !linkKodu.includes(kod) && !kod.includes(linkKodu);
 }
 
-function ciz() {
-  if (!sonVeri) return;
-  const { u, kur, sonuclar, q } = sonVeri;
-  const trFiyat = parseFloat($("trFiyat").value);
-  const liste = sonuclar.map((r) => ({ r, s: hesapla({ fiyat: r.fiyat, ulke: u, kur, trFiyat, iadeli: false }) }));
-  const sira = $("sira").value;
-  if (sira === "ucuz") liste.sort((a, b) => a.r.fiyat - b.r.fiyat);
-  if (sira === "puan") liste.sort((a, b) => (b.r.puan || 0) - (a.r.puan || 0));
-  liste.sort((a, b) => a.r.aksesuar - b.r.aksesuar);
+function resmiFarki(fiyat, resmi) {
+  if (!resmi) return "";
+  const y = Math.round((fiyat / resmi.fiyat - 1) * 100);
+  if (Math.abs(y) < 3) return '<span class="etiket">Resmi fiyatla aynı</span>';
+  return y > 0 ? `<span class="etiket uyari">Resmi fiyatın %${y} üstünde</span>` : `<span class="etiket iyi">Resmi fiyatın %${-y} altında</span>`;
+}
 
-  $("sonuclar").innerHTML = liste.map(({ r, s }) => `
+function satir({ r, s }, ctx) {
+  const tr = etiketler(r.ad);
+  return `
     <li>
       ${r.resim ? `<img src="${kacis(r.resim)}" alt="" loading="lazy">` : "<span></span>"}
       <div>
-        <a href="${kacis(r.link)}" target="_blank" rel="nofollow noopener">${kacis(r.ad.slice(0, 120))}</a>
-        <div class="fiyat">${para(r.fiyat, u.para)} = ${tl(s.netTl)}${r.ikinciEl ? ' <span class="etiket">İkinci el</span>' : ""}${r.kargoDahil ? ' <span class="etiket">Kargo dahil</span>' : ""}${r.aksesuar ? ' <span class="etiket uyari">Aksesuar olabilir</span>' : ""}${kodFarkli(r, q) ? ' <span class="etiket uyari">Model kodu farklı olabilir</span>' : ""}</div>
-        <div class="meta">${kacis(r.magaza)}${r.puan ? ` · ★ ${r.puan.toFixed(2)} (${r.yorumSayisi} yorum)` : ""}</div>
-        ${s.karar ? `<div class="meta">Türkiye'ye göre: ${fark(s.gumrukTl > 0 ? s.farkVergili : s.farkVergisiz, trFiyat)}${s.gumrukTl > 0 ? " (gümrük vergisi dahil)" : ""}</div>` : ""}
+        <div class="fiyat">${para(r.fiyat, ctx.u.para)} = ${tl(s.netTl)} ${resmiFarki(r.fiyat, ctx.resmi)}</div>
+        ${tr.length ? `<div class="tr-etiketler">${tr.map(kacis).join(" · ")}</div>` : ""}
+        <a class="jp-ad" href="${kacis(r.link)}" target="_blank" rel="nofollow noopener" lang="ja">${kacis(temizle(r.ad).slice(0, 110))}</a>
+        <div class="meta">${kacis(r.magaza)}${r.puan ? ` · ★ ${r.puan.toFixed(2)} (${r.yorumSayisi} yorum)` : " · Puan yok"}${r.kargoDahil ? " · Kargo dahil" : ""}</div>
+        <div>${r.aksesuar ? '<span class="etiket uyari">Aksesuar olabilir</span> ' : ""}${kodFarkli(r, ctx.q) ? '<span class="etiket uyari">Model kodu farklı olabilir</span>' : ""}</div>
+        ${s.karar ? `<div class="meta">Türkiye'ye göre: ${fark(s.gumrukTl > 0 ? s.farkVergili : s.farkVergisiz, ctx.trFiyat)}${s.gumrukTl > 0 ? " (gümrük vergisi dahil)" : ""}</div>` : ""}
       </div>
-    </li>`).join("");
+    </li>`;
+}
+
+function ciz() {
+  if (!sonVeri) return;
+  const { u, kur, q, sonuclar, resmiSite } = sonVeri;
+  const trFiyat = parseFloat($("trFiyat").value);
+  const sira = $("sira").value;
+
+  // Resmi fiyat: önce markanın sitesi, yoksa markanın resmi Rakuten mağazası.
+  const resmiRakuten = sonuclar.filter((r) => r.tur === "resmi" && !r.aksesuar && !kodFarkli(r, q)).sort((a, b) => a.fiyat - b.fiyat)[0];
+  const resmi = resmiSite?.bulundu
+    ? { fiyat: resmiSite.fiyat, kaynak: `${resmiSite.marka} Japonya resmi sitesi`, link: resmiSite.link, jpAd: resmiSite.urunAdi }
+    : resmiRakuten ? { fiyat: resmiRakuten.fiyat, kaynak: `${resmiRakuten.magaza} (markanın resmi Rakuten mağazası)`, link: resmiRakuten.link, jpAd: temizle(resmiRakuten.ad) }
+    : null;
+  const ctx = { u, q, resmi, trFiyat };
+
+  // Mağazada gösterilecek Japonca ad
+  const jpAd = resmi?.jpAd || (sonuclar.find((r) => r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q)) || {}).ad;
+  let ozet = `<div class="sonuc"><h2>1. Markanın resmi fiyatı</h2>`;
+  if (resmi) {
+    const s = hesapla({ fiyat: resmi.fiyat, ulke: u, kur, trFiyat, iadeli: true });
+    ozet += `<dl>
+      <dt>Resmi fiyat</dt><dd><strong>${para(resmi.fiyat, u.para)} = ${tl(resmi.fiyat * kur.TRY)}</strong> · <a href="${kacis(resmi.link)}" target="_blank" rel="nofollow noopener">${kacis(resmi.kaynak)}</a></dd>
+      <dt>Mağazadan pasaportla</dt><dd>${tl(s.netTl)} (vergi iadesi sonrası, yaklaşık ${euro(s.netEur)})</dd>
+      <dt>Gümrük</dt><dd>${GUMRUK_METNI[s.gumruk](s)}</dd>
+      ${s.karar ? `<dt>Türkiye'ye göre</dt><dd>${s.gumrukTl > 0 ? `Gümrük vergisi hariç ${fark(s.farkVergisiz, trFiyat)}<br>Gümrük vergisi dahil ${fark(s.farkVergili, trFiyat)}` : fark(s.farkVergisiz, trFiyat)}</dd>` : ""}
+    </dl>${kararHtml(s.karar)}`;
+  } else {
+    ozet += `<p class="meta">Bu ürünün resmi fiyatı otomatik bulunamadı. Markanın Japonya sitesinden kontrol edin; yetkili satıcıların fiyatı genelde resmi fiyatla aynıdır.</p>`;
+  }
+  if (jpAd) ozet += `<div class="jp-goster"><span class="meta">Japonya'da mağazada sorarken bunu gösterin:</span><div lang="ja">${kacis(temizle(jpAd).slice(0, 80))}</div><div><strong>${kacis(q.toUpperCase())}</strong></div></div>`;
+  ozet += `</div>`;
+  $("ozet").innerHTML = ozet;
+
+  const liste = sonuclar.map((r) => ({ r, s: hesapla({ fiyat: r.fiyat, ulke: u, kur, trFiyat, iadeli: false }) }));
+  if (sira === "ucuz") liste.sort((a, b) => a.r.fiyat - b.r.fiyat);
+  if (sira === "puan") liste.sort((a, b) => (b.r.puan || 0) - (a.r.puan || 0));
+  liste.sort((a, b) => (a.r.aksesuar + kodFarkli(a.r, q)) - (b.r.aksesuar + kodFarkli(b.r, q)));
+
+  let sayac = 1;
+  $("kademeler").innerHTML = KADEMELER.map((k) => {
+    const ogeler = liste.filter((x) => (x.r.tur === "resmi" ? "yetkili" : x.r.tur) === k.tur);
+    if (!ogeler.length) return "";
+    sayac++;
+    const ic = `<p class="meta">${k.aciklama}</p><ul class="sonuclar">${ogeler.map((x) => satir(x, ctx)).join("")}</ul>`;
+    return k.tur === "ikinciel"
+      ? `<details class="kademe"><summary><h2>${sayac}. ${k.baslik} (${ogeler.length})</h2></summary>${ic}</details>`
+      : `<section class="kademe"><h2>${sayac}. ${k.baslik} (${ogeler.length})</h2>${ic}</section>`;
+  }).join("");
 }
 
 $("arama").addEventListener("submit", async (e) => {
   e.preventDefault();
   const q = $("q").value.trim();
   const u = ULKELER.find((x) => x.kod === $("ulke").value);
-  $("sonuclar").innerHTML = "";
+  $("ozet").innerHTML = $("kademeler").innerHTML = "";
   sonVeri = null;
 
   const bizden = SAATLER.filter((s) => s.ulke === u.kod && (sade(s.referans).includes(sade(q)) || sade(q).includes(sade(s.referans)) || s.ad.toLowerCase().includes(q.toLowerCase())));
   $("bizden").innerHTML = bizden.length
-    ? `<div class="sonuc"><strong>Zamanist'te incelendi:</strong> ${bizden.map((s) => `<a href="${s.url}">${kacis(s.ad)}</a>`).join(", ")}. Mağaza adresleri ve vergi iadesi hesabı bu sayfada.</div>`
+    ? `<div class="sonuc"><strong>Zamanist'te incelendi:</strong> ${bizden.map((s) => `<a href="${s.url}">${kacis(s.ad)}</a>`).join(", ")}. Mağaza adresleri bu sayfada.</div>`
     : "";
-
   if (!$("trFiyat").value && bizden.length === 1 && bizden[0].tr) $("trFiyat").value = bizden[0].tr;
+
   $("durum").textContent = "Aranıyor…";
   try {
-    const [kur, cevap] = await Promise.all([
+    const [kur, cevap, resmiSite] = await Promise.all([
       kurGetir(u.para),
       fetch(`/api/ara?ulke=${u.kod}&q=${encodeURIComponent(q)}`).then((r) => r.json()),
+      fetch(`/api/resmi?q=${encodeURIComponent(q)}`).then((r) => r.json()).catch(() => null),
     ]);
     if (cevap.hata) { $("durum").textContent = cevap.hata; return; }
-    sonVeri = { u, kur, q, sonuclar: cevap.sonuclar };
-    $("durum").textContent = cevap.sonuclar.length
-      ? `${cevap.kaynak}: ${cevap.sonuclar.length} sonuç. 1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru).`
+    sonVeri = { u, kur, q, sonuclar: cevap.sonuclar, resmiSite };
+    $("durum").textContent = cevap.sonuclar.length || resmiSite?.bulundu
+      ? `${cevap.sonuclar.length} satıcı ilanı. 1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru).`
       : "Sonuç bulunamadı. Model kodunu veya İngilizce adını deneyin.";
     ciz();
   } catch (err) {
