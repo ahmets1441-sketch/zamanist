@@ -1,0 +1,15 @@
+---
+layout: base.njk
+pagination:
+  data: bolumler
+  size: 1
+  alias: bolum
+permalink: "/{{ bolum.slug }}/"
+eleventyComputed:
+  title: "{{ bolum.ad }}"
+  description: "{{ bolum.aciklama }}"
+---
+<h1>{{ bolum.ad }}</h1>
+<p class="ozet">{{ bolum.aciklama }}</p>
+{% set yazilar = collections[bolum.slug] %}
+{% include "liste.njk" %}

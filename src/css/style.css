@@ -12,3 +12,12 @@ h1{line-height:1.25}
 .meta{color:var(--muted);font-size:.85rem}
 .yorumlar{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem}
 .site-footer{max-width:52rem;margin:2rem auto;padding:0 1.25rem;color:var(--muted);font-size:.85rem}
+nav{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem}
+nav a{margin-left:0}
+.liste li{align-items:center}
+.liste li>div{flex:1;min-width:12rem}
+.kapak-kucuk{width:4.5rem;height:4.5rem;object-fit:cover;border-radius:4px}
+.kapak{width:100%;height:auto;border-radius:4px;margin:.5rem 0 1rem}
+.ozet{margin:.2rem 0 0;color:var(--muted);font-size:.95rem}
+.slogan{font-style:italic;color:var(--muted)}
+.bolum h2 a{color:var(--fg);text-decoration:none}

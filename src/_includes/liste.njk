@@ -1,0 +1,14 @@
+<ul class="liste">
+{% for p in yazilar %}
+  <li>
+    {% if p.data.kapak %}<img class="kapak-kucuk" src="{{ p.data.kapak }}" alt="" loading="lazy">{% endif %}
+    <div>
+      <a href="{{ p.url }}">{{ p.data.title }}</a>
+      {% if p.data.ozet %}<p class="ozet">{{ p.data.ozet }}</p>{% endif %}
+    </div>
+    {% if bolum.siralama != "isim" %}<span class="meta">{{ p.date | tarih }}</span>{% endif %}
+  </li>
+{% else %}
+  <li>Henüz yazı yok.</li>
+{% endfor %}
+</ul>
