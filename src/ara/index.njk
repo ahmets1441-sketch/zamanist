@@ -70,8 +70,11 @@ const sade = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 let sonVeri = null;
 
 // Model koduyla arandığında, ilan linkindeki ürün kodu farklı bir modeli gösteriyorsa uyar.
+// Sorgudaki model kodu: harf ve rakam içeren en uzun kelime ("TISSOT T129... CLASSIC" -> "t129...").
+const modelKodu = (q) => q.split(/[\s,/]+/).map(sade).filter((k) => /[a-z]/.test(k) && /[0-9]/.test(k) && k.length >= 5).sort((a, b) => b.length - a.length)[0] || sade(q);
+
 function kodFarkli(r, q) {
-  const kod = sade(q);
+  const kod = modelKodu(q);
   if (!/[a-z]/.test(kod) || !/[0-9]/.test(kod)) return false;
   const linkKodu = sade(new URL(r.link).pathname.split("/").filter(Boolean).pop() || "");
   return /[a-z]/.test(linkKodu) && /[0-9]/.test(linkKodu) && !linkKodu.includes(kod) && !kod.includes(linkKodu);
