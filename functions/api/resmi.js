@@ -55,6 +55,8 @@ async function dene(aday) {
 export async function onRequestGet({ request }) {
   const u = new URL(request.url);
   const q = (u.searchParams.get("q") || "").trim().slice(0, 60);
+  // All adapters below read Japanese brand sites; other countries get their own later.
+  if ((u.searchParams.get("ulke") || "japonya") !== "japonya") return Response.json({ bulundu: false, neden: "desteklenmeyen" });
   // The query may hold brand and model words too ("TISSOT T1292102203100 CLASSIC DREAM"): try each token.
   const kodlar = [...new Set([sade(q), ...q.split(/[\s,/]+/).map(sade)])].filter((k) => k.length >= 5);
   const adaylar = [

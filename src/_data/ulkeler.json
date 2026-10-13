@@ -4,9 +4,14 @@
     "ad": "Japonya",
     "adDa": "Japonya'da",
     "para": "JPY",
-    "paraAdi": "Japon yeni",
-    "kdvOrani": 0.10,
-    "taxFreeAlt": 5000,
+    "dil": "ja",
+    "kaynaklar": ["rakuten"],
+    "vergiIadesi": {
+      "kdv": 0.10,
+      "altSinir": 5000,
+      "altSinirVergiDahil": false,
+      "geriOdenen": 1
+    },
     "not": "1 Kasım 2026'dan itibaren Japonya'da vergi mağazada düşülmüyor. Fiyatın tamamını ödüyorsunuz, vergi iadesini havalimanında çıkış yaparken alıyorsunuz. İade için en az 5.000 yen (vergisiz) alışveriş gerekiyor ve ürün 90 gün içinde Japonya'dan çıkarılmalı."
   }
 ]

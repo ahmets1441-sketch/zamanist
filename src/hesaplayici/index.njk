@@ -54,10 +54,10 @@ async function guncelle() {
   const s = hesapla({ fiyat, ulke: u, kur, trFiyat });
 
   const satirlar = [["Etiket fiyatı", `${para(fiyat, u.para)} = ${tl(fiyat * kur.TRY)}`]];
-  if (u.kdvOrani > 0) {
+  if (u.vergiIadesi?.kdv > 0) {
     satirlar.push(["Vergi iadesi", s.iadeVar
       ? `− ${tl(s.iade * kur.TRY)} (havalimanında geri alınır)`
-      : `Yok: vergisiz tutar ${para(u.taxFreeAlt, u.para)} altında`]);
+      : `Yok: ${u.vergiIadesi.altSinirVergiDahil ? "" : "vergisiz "}tutar ${para(u.vergiIadesi.altSinir, u.para)} altında`]);
   }
   satirlar.push(["Size maliyeti", `<strong>${tl(s.netTl)}</strong> (yaklaşık ${euro(s.netEur)})`]);
   satirlar.push(["Gümrük", GUMRUK_METNI[s.gumruk](s)]);

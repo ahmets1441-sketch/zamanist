@@ -22,10 +22,14 @@ window.Zamanist = (() => {
   }
 
   // fiyat: oradaki vergiler dahil etiket fiyatı. iadeli: mağazadan pasaportla alışveriş mi.
+  // ulke.vergiIadesi: kdv oranı, iade alt sınırı (vergili mi vergisiz mi) ve
+  // iade şirketlerinin komisyonundan sonra geri ödenen pay (1 = verginin tamamı).
   function hesapla({ fiyat, ulke, kur, trFiyat, iadeli = true }) {
-    const vergisiz = fiyat / (1 + ulke.kdvOrani);
-    const iadeVar = iadeli && ulke.kdvOrani > 0 && vergisiz >= ulke.taxFreeAlt;
-    const iade = iadeVar ? fiyat - vergisiz : 0;
+    const vi = ulke.vergiIadesi || { kdv: 0 };
+    const vergisiz = fiyat / (1 + vi.kdv);
+    const sinirTutari = vi.altSinirVergiDahil ? fiyat : vergisiz;
+    const iadeVar = iadeli && vi.kdv > 0 && sinirTutari >= (vi.altSinir || 0);
+    const iade = iadeVar ? (fiyat - vergisiz) * (vi.geriOdenen ?? 1) : 0;
     const net = fiyat - iade;
     const netTl = net * kur.TRY;
     const netEur = net * kur.EUR;

@@ -15,8 +15,23 @@ permalink: /ara/
       {%- endfor %}
     </select>
   </label>
+  <label>Ürün türü
+    <select id="tur">
+      {%- for t in turler %}
+      <option value="{{ t.kod }}">{{ t.ad }}</option>
+      {%- endfor %}
+    </select>
+  </label>
+  <label id="numaraAlan" hidden>Numaranız (EU, isteğe bağlı)
+    <select id="numara">
+      <option value="">Seçin</option>
+      {%- for t in turler %}{% for n in t.numaralar %}
+      <option value="{{ n.eu }}">EU {{ n.eu }}</option>
+      {%- endfor %}{% endfor %}
+    </select>
+  </label>
   <label>Ürün adı veya model kodu
-    <input id="q" type="search" required minlength="2" placeholder="Örn. H70405140 veya GMW-BZ5000GD-9">
+    <input id="q" type="search" required minlength="2" placeholder="Örn. H70405140, GMW-BZ5000GD-9 veya Air Force 1 CW2288-111">
   </label>
   <label>Türkiye fiyatı (TL, isteğe bağlı)
     <input id="trFiyat" type="number" inputmode="decimal" min="0" step="any" placeholder="Karşılaştırma için">
@@ -32,6 +47,7 @@ permalink: /ara/
 </form>
 
 <p class="meta" id="durum"></p>
+<div id="numaraBilgi"></div>
 <div id="bizden"></div>
 <div id="ozet"></div>
 <div id="kademeler"></div>
@@ -41,6 +57,7 @@ permalink: /ara/
 <script src="/js/japonca.js"></script>
 <script>
 const ULKELER = {{ ulkeler | dump | safe }};
+const TURLER = {{ turler | dump | safe }};
 const SAATLER = [
   {%- for p in collections.saatler %}
   { ad: {{ p.data.title | dump | safe }}, referans: {{ p.data.referans | dump | safe }}, url: "{{ p.url }}", ulke: "{{ p.data.ulke }}", tr: {{ p.data.tr_fiyat or "null" }} },
@@ -55,6 +72,11 @@ const MARKA_SITELERI = [
   [/HAMILTON|ハミルトン/i, "Hamilton", "https://www.hamiltonwatch.com/ja-jp/"],
   [/TISSOT|ティソ/i, "Tissot", "https://www.tissotwatches.com/ja-jp/"],
   [/LONGINES|ロンジン/i, "Longines", "https://www.longines.com/ja-jp/"],
+  [/NIKE|ナイキ/i, "Nike", "https://www.nike.com/jp/"],
+  [/ADIDAS|アディダス/i, "Adidas", "https://www.adidas.co.jp/"],
+  [/NEW BALANCE|ニューバランス/i, "New Balance", "https://shop.newbalance.jp/"],
+  [/ASICS|アシックス/i, "Asics", "https://www.asics.com/jp/ja-jp/"],
+  [/ONITSUKA|オニツカ/i, "Onitsuka Tiger", "https://www.onitsukatiger.com/jp/ja-jp/"],
 ];
 const KADEMELER = [
   { tur: "yetkili", baslik: "Yetkili satıcılar", aciklama: "Resmi garantili sattığını belirten mağazalar. Bazı markalarda (ör. Seiko, Casio) resmi fiyatın altında satarlar; her ilanda resmi fiyata göre fark yazıyor." },
@@ -63,7 +85,24 @@ const KADEMELER = [
   { tur: "ikinciel", baslik: "İkinci el", aciklama: "Kullanılmış ürünler." },
 ];
 const { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, kararHtml } = Zamanist;
-const { temizle, etiketler } = Japonca;
+const { temizle, etiketler, santimler } = Japonca;
+
+// "27 cm, 27.5 cm" -> "27 cm (EU 42.5), 27.5 cm (EU 43)"
+function cmToEu(etiket, numaralar) {
+  return etiket.split(", ").map((p) => {
+    const n = numaralar.find((x) => parseFloat(x.cm) === parseFloat(p));
+    return n ? `${p} (EU ${n.eu})` : p;
+  }).join(", ");
+}
+
+function numaraGoster() {
+  const t = TURLER.find((x) => x.kod === $("tur").value);
+  $("numaraAlan").hidden = !t.numaralar;
+  const n = t.numaralar && t.numaralar.find((x) => x.eu === $("numara").value);
+  $("numaraBilgi").innerHTML = n
+    ? `<div class="sonuc"><strong>Numaranız:</strong> EU ${n.eu} = Japonya'da <strong>${n.cm} cm</strong> = US ${n.us} = UK ${n.uk}<p class="meta">${kacis(t.numaraNotu)}</p></div>`
+    : "";
+}
 const $ = (id) => document.getElementById(id);
 const kacis = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const sade = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -88,7 +127,8 @@ function resmiFarki(fiyat, resmi) {
 }
 
 function satir({ r, s }, ctx) {
-  const tr = etiketler(r.ad);
+  const tr = etiketler(r.ad, ctx.urunTuru).map((e) => ctx.numaralar && / cm/.test(e) ? cmToEu(e, ctx.numaralar) : e);
+  const numaraVar = ctx.secili && santimler(r.ad).includes(String(parseFloat(ctx.secili.cm)));
   return `
     <li>
       ${r.resim ? `<img src="${kacis(r.resim)}" alt="" loading="lazy">` : "<span></span>"}
@@ -97,7 +137,7 @@ function satir({ r, s }, ctx) {
         ${tr.length ? `<div class="tr-etiketler">${tr.map(kacis).join(" · ")}</div>` : ""}
         <a class="jp-ad" href="${kacis(r.link)}" target="_blank" rel="nofollow noopener" lang="ja">${kacis(temizle(r.ad).slice(0, 110))}</a>
         <div class="meta">${kacis(r.magaza)}${r.puan ? ` · ★ ${r.puan.toFixed(2)} (${r.yorumSayisi} yorum)` : " · Puan yok"}${r.kargoDahil ? " · Kargo dahil" : ""}</div>
-        <div>${r.aksesuar ? '<span class="etiket uyari">Aksesuar olabilir</span> ' : ""}${kodFarkli(r, ctx.q) ? '<span class="etiket uyari">Model kodu farklı olabilir</span>' : ""}</div>
+        <div>${r.aksesuar ? '<span class="etiket uyari">Aksesuar olabilir</span> ' : ""}${kodFarkli(r, ctx.q) ? '<span class="etiket uyari">Model kodu farklı olabilir</span>' : ""}${numaraVar ? '<span class="etiket iyi">Numaranız ilanda geçiyor</span>' : ""}</div>
         ${s.karar ? `<div class="meta">Türkiye'ye göre: ${fark(s.gumrukTl > 0 ? s.farkVergili : s.farkVergisiz, ctx.trFiyat)}${s.gumrukTl > 0 ? " (gümrük vergisi dahil)" : ""}</div>` : ""}
       </div>
     </li>`;
@@ -105,17 +145,19 @@ function satir({ r, s }, ctx) {
 
 function ciz() {
   if (!sonVeri) return;
-  const { u, kur, q, sonuclar, resmiSite } = sonVeri;
+  const { u, kur, q, sonuclar, resmiSite, urunTuru } = sonVeri;
   const trFiyat = parseFloat($("trFiyat").value);
   const sira = $("sira").value;
 
   // Resmi fiyat: önce markanın sitesi, yoksa markanın resmi Rakuten mağazası.
   const resmiRakuten = sonuclar.filter((r) => r.tur === "resmi" && !r.aksesuar && !kodFarkli(r, q)).sort((a, b) => a.fiyat - b.fiyat)[0];
   const resmi = resmiSite?.bulundu
-    ? { fiyat: resmiSite.fiyat, kaynak: `${resmiSite.marka} Japonya resmi sitesi`, link: resmiSite.link, jpAd: resmiSite.urunAdi }
+    ? { fiyat: resmiSite.fiyat, kaynak: `${resmiSite.marka} ${u.ad} resmi sitesi`, link: resmiSite.link, jpAd: resmiSite.urunAdi }
     : resmiRakuten ? { fiyat: resmiRakuten.fiyat, kaynak: `${resmiRakuten.magaza} (markanın resmi Rakuten mağazası)`, link: resmiRakuten.link, jpAd: temizle(resmiRakuten.ad) }
     : null;
-  const ctx = { u, q, resmi, trFiyat };
+  const turBilgi = TURLER.find((x) => x.kod === urunTuru);
+  const secili = turBilgi.numaralar && turBilgi.numaralar.find((x) => x.eu === $("numara").value);
+  const ctx = { u, q, resmi, trFiyat, urunTuru, numaralar: turBilgi.numaralar, secili };
 
   // Mağazada gösterilecek Japonca ad
   const jpAd = resmi?.jpAd || (sonuclar.find((r) => r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q)) || {}).ad;
@@ -136,7 +178,7 @@ function ciz() {
   if (jpAd) {
     const kodYazisi = (q.split(/[\s,/]+/).find((t) => sade(t) === modelKodu(q)) || q).toUpperCase();
     const ad = temizle(jpAd).slice(0, 80);
-    ozet += `<div class="jp-goster"><span class="meta">Japonya'da mağazada sorarken bunu gösterin:</span><div lang="ja">${kacis(ad)}</div>${sade(ad).includes(sade(kodYazisi)) ? "" : `<div><strong>${kacis(kodYazisi)}</strong></div>`}</div>`;
+    ozet += `<div class="jp-goster"><span class="meta">${u.adDa} mağazada sorarken bunu gösterin:</span><div lang="ja">${kacis(ad)}</div>${sade(ad).includes(sade(kodYazisi)) ? "" : `<div><strong>${kacis(kodYazisi)}</strong></div>`}</div>`;
   }
   ozet += `</div>`;
   $("ozet").innerHTML = ozet;
@@ -162,10 +204,11 @@ $("arama").addEventListener("submit", async (e) => {
   e.preventDefault();
   const q = $("q").value.trim();
   const u = ULKELER.find((x) => x.kod === $("ulke").value);
+  const urunTuru = $("tur").value;
   $("ozet").innerHTML = $("kademeler").innerHTML = "";
   sonVeri = null;
 
-  const bizden = SAATLER.filter((s) => s.ulke === u.kod && (sade(s.referans).includes(sade(q)) || sade(q).includes(sade(s.referans)) || s.ad.toLowerCase().includes(q.toLowerCase())));
+  const bizden = SAATLER.filter((s) => urunTuru === "saat" && s.ulke === u.kod && (sade(s.referans).includes(sade(q)) || sade(q).includes(sade(s.referans)) || s.ad.toLowerCase().includes(q.toLowerCase())));
   $("bizden").innerHTML = bizden.length
     ? `<div class="sonuc"><strong>Zamanist'te incelendi:</strong> ${bizden.map((s) => `<a href="${s.url}">${kacis(s.ad)}</a>`).join(", ")}. Mağaza adresleri bu sayfada.</div>`
     : "";
@@ -175,11 +218,11 @@ $("arama").addEventListener("submit", async (e) => {
   try {
     const [kur, cevap, resmiSite] = await Promise.all([
       kurGetir(u.para),
-      fetch(`/api/ara?ulke=${u.kod}&q=${encodeURIComponent(q)}`).then((r) => r.json()),
-      fetch(`/api/resmi?q=${encodeURIComponent(q)}`).then((r) => r.json()).catch(() => null),
+      fetch(`/api/ara?ulke=${u.kod}&tur=${urunTuru}&q=${encodeURIComponent(q)}`).then((r) => r.json()),
+      fetch(`/api/resmi?ulke=${u.kod}&q=${encodeURIComponent(q)}`).then((r) => r.json()).catch(() => null),
     ]);
     if (cevap.hata) { $("durum").textContent = cevap.hata; return; }
-    sonVeri = { u, kur, q, sonuclar: cevap.sonuclar, resmiSite };
+    sonVeri = { u, kur, q, sonuclar: cevap.sonuclar, resmiSite, urunTuru };
     $("durum").textContent = cevap.sonuclar.length || resmiSite?.bulundu
       ? `${cevap.sonuclar.length} satıcı ilanı. 1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru).`
       : "Sonuç bulunamadı. Model kodunu veya İngilizce adını deneyin.";
@@ -189,4 +232,6 @@ $("arama").addEventListener("submit", async (e) => {
   }
 });
 ["trFiyat", "sira"].forEach((id) => $(id).addEventListener("input", ciz));
+["tur", "numara"].forEach((id) => $(id).addEventListener("input", () => { numaraGoster(); ciz(); }));
+numaraGoster();
 </script>
