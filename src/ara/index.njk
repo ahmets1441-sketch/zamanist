@@ -46,6 +46,16 @@ const SAATLER = [
   { ad: {{ p.data.title | dump | safe }}, referans: {{ p.data.referans | dump | safe }}, url: "{{ p.url }}", ulke: "{{ p.data.ulke }}", tr: {{ p.data.tr_fiyat or "null" }} },
   {%- endfor %}
 ];
+// Resmi fiyat otomatik bulunamazsa gösterilecek marka siteleri (ilan başlıklarından tanınır).
+const MARKA_SITELERI = [
+  [/CASIO|カシオ|G-SHOCK|Gショック/i, "Casio", "https://www.casio.com/jp/watches/"],
+  [/SEIKO|セイコー/i, "Seiko", "https://www.seikowatches.com/jp-ja"],
+  [/CITIZEN|シチズン/i, "Citizen", "https://citizen.jp/"],
+  [/ORIENT|オリエント/i, "Orient", "https://www.orient-watch.jp/"],
+  [/HAMILTON|ハミルトン/i, "Hamilton", "https://www.hamiltonwatch.com/ja-jp/"],
+  [/TISSOT|ティソ/i, "Tissot", "https://www.tissotwatches.com/ja-jp/"],
+  [/LONGINES|ロンジン/i, "Longines", "https://www.longines.com/ja-jp/"],
+];
 const KADEMELER = [
   { tur: "yetkili", baslik: "Yetkili satıcılar", aciklama: "Resmi garantili sattığını belirten mağazalar. Japonya'da yetkili mağazalar genelde resmi fiyattan satar." },
   { tur: "zincir", baslik: "Elektronik ve indirim mağazaları", aciklama: "Bu zincirlerin fiziksel şubelerinde pasaportla vergi iadesi de alınabilir. Saati mağazada sormak için aşağıdaki Japonca adı gösterin." },
@@ -116,7 +126,9 @@ function ciz() {
       ${s.karar ? `<dt>Türkiye'ye göre</dt><dd>${s.gumrukTl > 0 ? `Gümrük vergisi hariç ${fark(s.farkVergisiz, trFiyat)}<br>Gümrük vergisi dahil ${fark(s.farkVergili, trFiyat)}` : fark(s.farkVergisiz, trFiyat)}</dd>` : ""}
     </dl>${kararHtml(s.karar)}`;
   } else {
-    ozet += `<p class="meta">Bu ürünün resmi fiyatı otomatik bulunamadı. Markanın Japonya sitesinden kontrol edin; yetkili satıcıların fiyatı genelde resmi fiyatla aynıdır.</p>`;
+    const basliklar = sonuclar.map((r) => r.ad).join(" ");
+    const marka = MARKA_SITELERI.find(([desen]) => desen.test(basliklar));
+    ozet += `<p class="meta">Bu ürünün resmi fiyatı otomatik bulunamadı. ${marka ? `<a href="${marka[2]}" target="_blank" rel="noopener">${marka[1]} Japonya sitesinde</a> model kodunu aratarak` : "Markanın Japonya sitesinden"} kontrol edin. Bulduğunuz resmi fiyatı <a href="/hesaplayici/">hesaplayıcıya</a> girerek vergi iadesi ve gümrükle birlikte karşılaştırabilirsiniz.</p>`;
   }
   if (jpAd) ozet += `<div class="jp-goster"><span class="meta">Japonya'da mağazada sorarken bunu gösterin:</span><div lang="ja">${kacis(temizle(jpAd).slice(0, 80))}</div><div><strong>${kacis(q.toUpperCase())}</strong></div></div>`;
   ozet += `</div>`;
