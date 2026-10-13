@@ -78,3 +78,37 @@ collections:
       - { label: Kısa özet, name: ozet, widget: text, required: false, hint: "Listede ve Google'da başlığın altında görünür. 1-2 cümle." }
       - { label: Yazar, name: author, widget: string, default: Zamanist }
       - { label: Metin, name: body, widget: markdown }
+  - name: saatler
+    label: Saat Fiyatları
+    label_singular: Saat
+    folder: src/saatler
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [title, marka]
+    fields:
+      - { label: Saat adı, name: title, widget: string, hint: "Örn. Hamilton Khaki Field Murph 38mm" }
+      - { label: Marka, name: marka, widget: string }
+      - { label: Referans numarası, name: referans, widget: string, hint: "Kutuda ve etikette yazan model kodu, örn. H70405140" }
+      - { label: Ülke, name: ulke, widget: select, options: [{ label: Japonya, value: japonya }], default: japonya }
+      - { label: Kapak fotoğrafı, name: kapak, widget: image, required: false }
+      - { label: Türkiye fiyatı (TL), name: tr_fiyat, widget: number, value_type: int, required: false }
+      - { label: Türkiye fiyatı kaynağı, name: tr_kaynak, widget: string, required: false, hint: "Örn. Hamilton Türkiye (resmi site)" }
+      - { label: Türkiye fiyatı linki, name: tr_kaynak_link, widget: string, required: false }
+      - { label: Türkiye fiyatı notu, name: tr_not, widget: string, required: false }
+      - { label: Fiyatların kontrol tarihi, name: kontrol_tarihi, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - label: Satış yerleri
+        name: magazalar
+        widget: list
+        required: false
+        summary: "{{fields.ad}} · {{fields.fiyat}}"
+        fields:
+          - { label: Mağaza adı, name: ad, widget: string }
+          - { label: Şehir, name: sehir, widget: string, required: false }
+          - { label: Tür, name: tip, widget: select, options: [{ label: "Mağaza (vergi iadesi var)", value: magaza }, { label: "Online (vergi iadesi yok)", value: online }], default: magaza }
+          - { label: Fiyat (yerel para, vergiler dahil), name: fiyat, widget: number, value_type: int }
+          - { label: Adres, name: adres, widget: string, required: false, hint: "Japonca adres yazılırsa taksiciye gösterilebilir ve haritada doğru açılır." }
+          - { label: Telefon, name: tel, widget: string, required: false }
+          - { label: Çalışma saatleri, name: saatler, widget: string, required: false }
+          - { label: Google puanı, name: puan, widget: string, required: false, hint: "Google Haritalar'daki yıldız, örn. 4,3" }
+          - { label: Kaynak linki, name: link, widget: string, required: false }
+      - { label: Açıklama, name: body, widget: markdown }

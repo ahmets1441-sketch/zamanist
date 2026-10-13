@@ -1,0 +1,21 @@
+---
+layout: base.njk
+title: Saat Fiyatları
+ozet: Bu saat yurt dışında kaça? Güncel kurla, vergi iadesi ve gümrük dahil Türkiye fiyatıyla karşılaştırma.
+permalink: /saatler/
+---
+<h1>Saat Fiyatları</h1>
+<p class="ozet">Bu saati yurt dışından almak mantıklı mı? Japonya fiyatı, mağazalar ve gümrük dahil Türkiye karşılaştırması. Kendi fiyatınızla denemek için <a href="/hesaplayici/">hesaplayıcıyı</a> kullanın.</p>
+<ul class="liste">
+{% for p in collections.saatler %}
+  <li>
+    {% if p.data.kapak %}<img class="kapak-kucuk" src="{{ p.data.kapak }}" alt="" loading="lazy">{% endif %}
+    <div>
+      <a href="{{ p.url }}">{{ p.data.title }}</a>
+      <p class="ozet">{{ p.data.marka }} · {{ p.data.referans }}{% if p.data.tr_fiyat %} · Türkiye: {{ p.data.tr_fiyat | sayi }} TL{% endif %}</p>
+    </div>
+  </li>
+{% else %}
+  <li>Henüz saat eklenmedi.</li>
+{% endfor %}
+</ul>

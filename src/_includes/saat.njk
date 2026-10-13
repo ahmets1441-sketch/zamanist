@@ -1,0 +1,91 @@
+---
+layout: base.njk
+---
+{%- set u = ulkeler | ulkeBul(ulke) -%}
+<article class="saat">
+  <p class="meta"><a href="/saatler/">Saat Fiyatları</a> · {{ marka }} · {{ referans }}</p>
+  <h1>{{ title }}</h1>
+  {% if kapak %}<img class="kapak" src="{{ kapak }}" alt="{{ title }}">{% endif %}
+
+  <div class="sonuc" id="ozet" data-tr="{{ tr_fiyat or '' }}">
+    <dl>
+      <dt>Türkiye fiyatı</dt>
+      <dd>{% if tr_fiyat %}<strong>{{ tr_fiyat | sayi }} TL</strong>{% if tr_kaynak_link %} · <a href="{{ tr_kaynak_link }}" rel="nofollow noopener" target="_blank">{{ tr_kaynak or "Kaynak" }}</a>{% elif tr_kaynak %} · {{ tr_kaynak }}{% endif %}{% else %}Henüz eklenmedi{% endif %}</dd>
+      {%- if tr_not %}<dt></dt><dd class="meta">{{ tr_not }}</dd>{% endif %}
+      <dt>{{ u.adDa }} en iyi seçenek</dt>
+      <dd id="enIyi">{% if not magazalar or magazalar.length == 0 %}{{ u.adDa }} satış bulunamadı.{% else %}Hesaplanıyor…{% endif %}</dd>
+      {%- if magazalar and magazalar.length %}
+      <dt>Gümrük</dt>
+      <dd id="gumruk">–</dd>
+      <dt>Türkiye'ye göre</dt>
+      <dd id="fark">–</dd>
+      {%- endif %}
+    </dl>
+    <div id="karar">{% if not magazalar or magazalar.length == 0 %}<p class="karar kotu">Türkiye'den almak daha mantıklı.</p>{% endif %}</div>
+  </div>
+  <p class="meta" id="kurBilgi"></p>
+
+  {{ content | safe }}
+
+  {% if magazalar and magazalar.length %}
+  <h2>{{ u.adDa }} nereden alınır?</h2>
+  <ul class="magazalar">
+  {%- for m in magazalar %}
+    <li data-fiyat="{{ m.fiyat }}" data-iadeli="{{ 'evet' if m.tip != 'online' else 'hayir' }}">
+      <div class="magaza-baslik">
+        <strong>{{ m.ad }}</strong>{% if m.sehir %} · {{ m.sehir }}{% endif %}
+        <span class="etiket">{{ "Online" if m.tip == "online" else "Mağaza" }}</span>
+      </div>
+      <div class="magaza-fiyat">{{ m.fiyat | sayi }} {{ u.para }} <span class="maliyet"></span></div>
+      {% if m.adres %}<div>{{ m.adres }}</div>{% endif %}
+      {% if m.tel or m.saatler %}<div class="meta">{% if m.tel %}Tel {{ m.tel }}{% endif %}{% if m.tel and m.saatler %} · {% endif %}{{ m.saatler }}</div>{% endif %}
+      {% if m.puan %}<div class="meta">Google puanı: {{ m.puan }}</div>{% endif %}
+      <div class="meta">
+        {% if m.adres %}<a href="https://www.google.com/maps/search/?api=1&query={{ m.adres | urlencode }}" target="_blank" rel="noopener">Haritada aç</a> · {% endif %}
+        {% if m.link %}<a href="{{ m.link }}" target="_blank" rel="nofollow noopener">Kaynak</a>{% endif %}
+        {% if m.tip == "online" %} · Online alışverişte vergi iadesi yok{% endif %}
+      </div>
+    </li>
+  {%- endfor %}
+  </ul>
+  {% endif %}
+
+  <p class="meta">Fiyatlar {{ kontrol_tarihi | tarih }} tarihinde kontrol edildi. Kur her gün güncellenir. Mağazadan pasaportla alışverişte vergi iadesi alınır. Gümrük sınırı yolcu başına toplam 430 €'dur; aynı yolcunun getirdiği diğer eşyalar da bu sınıra sayılır.</p>
+</article>
+
+{% if magazalar and magazalar.length %}
+<script src="/js/hesap.js"></script>
+<script>
+(async () => {
+  const ULKE = {{ u | dump | safe }};
+  const { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, kararHtml } = Zamanist;
+  const $ = (id) => document.getElementById(id);
+  const trFiyat = parseFloat($("ozet").dataset.tr);
+  let kur;
+  try { kur = await kurGetir(ULKE.para); }
+  catch (e) { $("enIyi").textContent = "Güncel kur alınamadı. Sayfayı yenileyin."; return; }
+  $("kurBilgi").textContent = `1 ${ULKE.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru)`;
+
+  let enIyi = null;
+  document.querySelectorAll(".magazalar li").forEach((li) => {
+    const s = hesapla({ fiyat: parseFloat(li.dataset.fiyat), ulke: ULKE, kur, trFiyat, iadeli: li.dataset.iadeli === "evet" });
+    li.querySelector(".maliyet").textContent = s.iadeVar
+      ? `= ${tl(s.netTl)} (vergi iadesi sonrası)`
+      : `= ${tl(s.netTl)}`;
+    if (!enIyi || s.netTl < enIyi.s.netTl) enIyi = { s, ad: li.querySelector("strong").textContent };
+  });
+
+  const s = enIyi.s;
+  $("enIyi").innerHTML = `<strong>${tl(s.netTl)}</strong> (yaklaşık ${euro(s.netEur)}) · ${enIyi.ad}`;
+  $("gumruk").textContent = GUMRUK_METNI[s.gumruk](s);
+  if (s.karar) {
+    $("fark").innerHTML = s.gumrukTl > 0
+      ? `Gümrük vergisi hariç ${fark(s.farkVergisiz, trFiyat)}<br>Gümrük vergisi dahil ${fark(s.farkVergili, trFiyat)}`
+      : fark(s.farkVergisiz, trFiyat);
+    $("karar").innerHTML = kararHtml(s.karar);
+  } else {
+    $("fark").textContent = "Türkiye fiyatı eklenince hesaplanır.";
+  }
+})();
+</script>
+{% endif %}

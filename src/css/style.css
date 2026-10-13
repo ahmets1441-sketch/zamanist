@@ -33,3 +33,8 @@ nav a{margin-left:0}
 .karar.orta{background:#f6efdc}
 .karar.kotu{background:#f6e3e0}
 @media (max-width:30rem){.sonuc dl{grid-template-columns:1fr}.sonuc dd{margin-bottom:.4rem}}
+.magazalar{list-style:none;padding:0}
+.magazalar li{border-bottom:1px solid var(--line);padding:.8rem 0;display:grid;gap:.2rem}
+.magaza-fiyat{font-weight:bold}
+.maliyet{font-weight:normal;color:var(--muted)}
+.etiket{font-size:.75rem;border:1px solid var(--line);border-radius:3px;padding:0 .35rem;margin-left:.3rem;color:var(--muted)}
