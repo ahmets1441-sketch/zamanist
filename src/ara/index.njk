@@ -133,7 +133,7 @@ function ciz() {
     const marka = MARKA_SITELERI.find(([desen]) => desen.test(basliklar));
     ozet += `<p class="meta">Bu ürünün resmi fiyatı otomatik bulunamadı. ${marka ? `<a href="${marka[2]}" target="_blank" rel="noopener">${marka[1]} Japonya sitesinde</a> model kodunu aratarak` : "Markanın Japonya sitesinden"} kontrol edin. Bulduğunuz resmi fiyatı <a href="/hesaplayici/">hesaplayıcıya</a> girerek vergi iadesi ve gümrükle birlikte karşılaştırabilirsiniz.</p>`;
   }
-  if (jpAd) ozet += `<div class="jp-goster"><span class="meta">Japonya'da mağazada sorarken bunu gösterin:</span><div lang="ja">${kacis(temizle(jpAd).slice(0, 80))}</div><div><strong>${kacis(q.toUpperCase())}</strong></div></div>`;
+  if (jpAd) ozet += `<div class="jp-goster"><span class="meta">Japonya'da mağazada sorarken bunu gösterin:</span><div lang="ja">${kacis(temizle(jpAd).slice(0, 80))}</div><div><strong>${kacis((q.split(/[\s,/]+/).find((t) => sade(t) === modelKodu(q)) || q).toUpperCase())}</strong></div></div>`;
   ozet += `</div>`;
   $("ozet").innerHTML = ozet;
 
