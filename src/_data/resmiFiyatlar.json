@@ -1,0 +1,22 @@
+{
+  "fiyatlar": [
+    {
+      "marka": "Casio",
+      "kod": "GMW-BZ5000GD-9JF",
+      "ad": "カシオ G-SHOCK FULL METAL 5000 SERIES GMW-BZ5000GD-9JF",
+      "ulke": "japonya",
+      "fiyat": 102300,
+      "kaynak": "https://www.casio.com/jp/watches/gshock/product.GMW-BZ5000GD-9JF/",
+      "tarih": "2026-10-13"
+    },
+    {
+      "marka": "Hamilton",
+      "kod": "H70405140",
+      "ad": "ハミルトン カーキ フィールド マーフ 38mm H70405140",
+      "ulke": "japonya",
+      "fiyat": 161700,
+      "kaynak": "https://www.hamiltonwatch.com/ja-jp/h70405140-khaki-field-murph-auto.html",
+      "tarih": "2026-10-13"
+    }
+  ]
+}

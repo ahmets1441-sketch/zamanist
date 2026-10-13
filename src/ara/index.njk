@@ -51,7 +51,7 @@ permalink: /ara/
 <div id="bizden"></div>
 <div id="ozet"></div>
 <div id="kademeler"></div>
-<p class="meta">Resmi fiyat markanın Japonya sitesinden veya markanın resmi Rakuten mağazasından alınır. Diğer fiyatlar Rakuten'deki satıcılardan gelir. Online alışverişte vergi iadesi yoktur ve ürün Japonya'daki bir adrese (örneğin otel) gönderilmelidir. "Resmi garantili" bilgisi satıcının beyanıdır. Model kodunu mutlaka kontrol edin.</p>
+<p class="meta">Resmi fiyat sırasıyla Zamanist'in kontrol ettiği listeden, markanın sitesinden veya markanın resmi Rakuten mağazasından alınır. Diğer fiyatlar Rakuten'deki satıcılardan gelir. Online alışverişte vergi iadesi yoktur ve ürün Japonya'daki bir adrese (örneğin otel) gönderilmelidir. "Resmi garantili" bilgisi satıcının beyanıdır. Model kodunu mutlaka kontrol edin.</p>
 
 <script src="/js/hesap.js"></script>
 <script src="/js/japonca.js"></script>
@@ -151,7 +151,12 @@ function ciz() {
 
   // Resmi fiyat: önce markanın sitesi, yoksa markanın resmi Rakuten mağazası.
   const resmiRakuten = sonuclar.filter((r) => r.tur === "resmi" && !r.aksesuar && !kodFarkli(r, q)).sort((a, b) => a.fiyat - b.fiyat)[0];
-  const resmi = resmiSite?.bulundu
+  // Panelden girilen liste önce gelir: doğruluğunu biz kontrol ettik.
+  const kod = modelKodu(q);
+  const listede = (sonVeri.resmiListe || []).find((x) => x.ulke === u.kod && kod.length >= 6 && (sade(x.kod).startsWith(kod) || kod.startsWith(sade(x.kod))));
+  const resmi = listede
+    ? { fiyat: listede.fiyat, kaynak: `${listede.marka} resmi fiyatı (Zamanist listesi, ${new Date(listede.tarih).toLocaleDateString("tr-TR")})`, link: listede.kaynak, jpAd: listede.ad || listede.kod }
+    : resmiSite?.bulundu
     ? { fiyat: resmiSite.fiyat, kaynak: `${resmiSite.marka} ${u.ad} resmi sitesi`, link: resmiSite.link, jpAd: resmiSite.urunAdi }
     : resmiRakuten ? { fiyat: resmiRakuten.fiyat, kaynak: `${resmiRakuten.magaza} (markanın resmi Rakuten mağazası)`, link: resmiRakuten.link, jpAd: temizle(resmiRakuten.ad) }
     : null;
@@ -216,13 +221,14 @@ $("arama").addEventListener("submit", async (e) => {
 
   $("durum").textContent = "Aranıyor…";
   try {
-    const [kur, cevap, resmiSite] = await Promise.all([
+    const [kur, cevap, resmiSite, resmiListe] = await Promise.all([
       kurGetir(u.para),
       fetch(`/api/ara?ulke=${u.kod}&tur=${urunTuru}&q=${encodeURIComponent(q)}`).then((r) => r.json()),
       fetch(`/api/resmi?ulke=${u.kod}&q=${encodeURIComponent(q)}`).then((r) => r.json()).catch(() => null),
+      fetch("/resmi-fiyatlar.json").then((r) => r.json()).catch(() => []),
     ]);
     if (cevap.hata) { $("durum").textContent = cevap.hata; return; }
-    sonVeri = { u, kur, q, sonuclar: cevap.sonuclar, resmiSite, urunTuru };
+    sonVeri = { u, kur, q, sonuclar: cevap.sonuclar, resmiSite, resmiListe, urunTuru };
     $("durum").textContent = cevap.sonuclar.length || resmiSite?.bulundu
       ? `${cevap.sonuclar.length} satıcı ilanı. 1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru).`
       : "Sonuç bulunamadı. Model kodunu veya İngilizce adını deneyin.";

@@ -112,3 +112,24 @@ collections:
           - { label: Google puanı, name: puan, widget: string, required: false, hint: "Google Haritalar'daki yıldız, örn. 4,3" }
           - { label: Kaynak linki, name: link, widget: string, required: false }
       - { label: Açıklama, name: body, widget: markdown }
+  - name: veriler
+    label: Veriler
+    files:
+      - name: resmi-fiyatlar
+        label: Resmi fiyat listesi
+        file: src/_data/resmiFiyatlar.json
+        format: json
+        fields:
+          - label: Fiyatlar
+            name: fiyatlar
+            widget: list
+            summary: "{{fields.marka}} {{fields.kod}} · {{fields.fiyat}}"
+            hint: "Aramada otomatik bulunamayan resmi fiyatlar. Buraya girilen fiyat, aramada her kaynaktan önce gösterilir."
+            fields:
+              - { label: Marka, name: marka, widget: string }
+              - { label: Model kodu, name: kod, widget: string, hint: "O ülkede kullanılan kod, örn. GMW-BZ5000GD-9JF veya CW2288-111" }
+              - { label: O ülkedeki adı, name: ad, widget: string, required: false, hint: "Mağazada gösterilecek ad (Japonca olabilir)" }
+              - { label: Ülke, name: ulke, widget: select, options: [{ label: Japonya, value: japonya }], default: japonya }
+              - { label: Resmi fiyat (yerel para, vergiler dahil), name: fiyat, widget: number, value_type: int }
+              - { label: Kaynak linki, name: kaynak, widget: string, hint: "Markanın resmi sayfası" }
+              - { label: Kontrol tarihi, name: tarih, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
