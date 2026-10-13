@@ -40,10 +40,6 @@ magazalar:
     tel: 099-227-6270
     saatler: 10:00–19:00
     link: https://www.gressive.jp/shop/R0631/hotitem/339355
-  - ad: THREEC (Kakaku.com'daki en ucuz satıcı)
-    tip: online
-    fiyat: 148500
-    link: https://search.kakaku.com/H70405140/
   - ad: Hamilton Japonya resmi online mağaza
     tip: online
     fiyat: 161700

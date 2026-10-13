@@ -43,3 +43,4 @@ nav a{margin-left:0}
 .sonuclar li{display:grid;grid-template-columns:5rem 1fr;gap:.8rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
 .sonuclar img{width:5rem;height:5rem;object-fit:contain;background:#fff;border-radius:4px}
 .sonuclar .fiyat{font-weight:bold}
+.etiket.uyari{border-color:#d9a441;color:#8a5a00}

@@ -30,7 +30,19 @@ magazalar:
     tel: 06-6313-8641
     saatler: Hafta içi 11:00–20:00, hafta sonu 10:00–20:00
     link: https://www.gressive.jp/shop/R0516/hotitem/328321
+  - ad: mco net shop (Rakuten)
+    tip: online
+    fiyat: 71280
+    link: https://item.rakuten.co.jp/mco/gmw-bz5000gd-9jf/
+  - ad: Isshindo Tokeiten (Rakuten)
+    tip: online
+    fiyat: 81840
+    link: https://item.rakuten.co.jp/watch-isshindo/gmw-bz5000gd-9jf/
+  - ad: The Clock House (Rakuten)
+    tip: online
+    fiyat: 81840
+    link: https://item.rakuten.co.jp/theclockhouse/gmw-bz5000gd-9jf/
 ---
 Altın renkli tam metal G-Shock: güneş enerjisi, radyo ve Bluetooth ile saat ayarı, 200 m su geçirmezlik, 49,3 × 43,6 × 13 mm. Japonya'daki model kodu GMW-BZ5000GD-9JF. Benzer isimli GMW-B5000GD-9 ("Z" harfi olmayan) farklı ve daha ucuz bir model, karıştırmayın.
 
-Japonya'daki elektronik mağazaları (Bic Camera, Yodobashi gibi) Casio'yu genelde etiket fiyatının altında satıyor; Kakaku.com'da bu model için 81.840 yen civarı online ilanlar görünüyor. Mağazada sorup pasaportla alırsanız vergi iadesi de alırsınız.
+Japonya'daki elektronik mağazaları (Bic Camera, Yodobashi gibi) Casio'yu genelde etiket fiyatının altında satıyor; Rakuten'de 71.280 yenden başlayan online ilanlar var. Mağazada sorup pasaportla alırsanız vergi iadesi de alırsınız.

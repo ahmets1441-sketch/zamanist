@@ -30,7 +30,8 @@ async function rakutenAra(q, env, origin) {
     yorumSayisi: i.reviewCount || 0,
     link: i.itemUrl,
     resim: (i.mediumImageUrls || [])[0] || null,
-    ikinciEl: /中古|USED|ユーズド/i.test(i.itemName),
+    ikinciEl: /中古|USED|ユーズド|良品|美品|質屋/i.test(i.itemName),
+    aksesuar: /適合|互換|交換用|替えベルト|替えバンド|ベルトのみ|バンドのみ/.test(i.itemName),
   }));
 }
 

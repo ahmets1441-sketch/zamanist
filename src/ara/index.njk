@@ -50,21 +50,30 @@ const kacis = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": 
 const sade = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 let sonVeri = null;
 
+// Model koduyla arandığında, ilan linkindeki ürün kodu farklı bir modeli gösteriyorsa uyar.
+function kodFarkli(r, q) {
+  const kod = sade(q);
+  if (!/[a-z]/.test(kod) || !/[0-9]/.test(kod)) return false;
+  const linkKodu = sade(new URL(r.link).pathname.split("/").filter(Boolean).pop() || "");
+  return /[a-z]/.test(linkKodu) && /[0-9]/.test(linkKodu) && !linkKodu.includes(kod) && !kod.includes(linkKodu);
+}
+
 function ciz() {
   if (!sonVeri) return;
-  const { u, kur, sonuclar } = sonVeri;
+  const { u, kur, sonuclar, q } = sonVeri;
   const trFiyat = parseFloat($("trFiyat").value);
   const liste = sonuclar.map((r) => ({ r, s: hesapla({ fiyat: r.fiyat, ulke: u, kur, trFiyat, iadeli: false }) }));
   const sira = $("sira").value;
   if (sira === "ucuz") liste.sort((a, b) => a.r.fiyat - b.r.fiyat);
   if (sira === "puan") liste.sort((a, b) => (b.r.puan || 0) - (a.r.puan || 0));
+  liste.sort((a, b) => a.r.aksesuar - b.r.aksesuar);
 
   $("sonuclar").innerHTML = liste.map(({ r, s }) => `
     <li>
       ${r.resim ? `<img src="${kacis(r.resim)}" alt="" loading="lazy">` : "<span></span>"}
       <div>
         <a href="${kacis(r.link)}" target="_blank" rel="nofollow noopener">${kacis(r.ad.slice(0, 120))}</a>
-        <div class="fiyat">${para(r.fiyat, u.para)} = ${tl(s.netTl)}${r.ikinciEl ? ' <span class="etiket">İkinci el</span>' : ""}${r.kargoDahil ? ' <span class="etiket">Kargo dahil</span>' : ""}</div>
+        <div class="fiyat">${para(r.fiyat, u.para)} = ${tl(s.netTl)}${r.ikinciEl ? ' <span class="etiket">İkinci el</span>' : ""}${r.kargoDahil ? ' <span class="etiket">Kargo dahil</span>' : ""}${r.aksesuar ? ' <span class="etiket uyari">Aksesuar olabilir</span>' : ""}${kodFarkli(r, q) ? ' <span class="etiket uyari">Model kodu farklı olabilir</span>' : ""}</div>
         <div class="meta">${kacis(r.magaza)}${r.puan ? ` · ★ ${r.puan.toFixed(2)} (${r.yorumSayisi} yorum)` : ""}</div>
         ${s.karar ? `<div class="meta">Türkiye'ye göre: ${fark(s.gumrukTl > 0 ? s.farkVergili : s.farkVergisiz, trFiyat)}${s.gumrukTl > 0 ? " (gümrük vergisi dahil)" : ""}</div>` : ""}
       </div>
@@ -91,7 +100,7 @@ $("arama").addEventListener("submit", async (e) => {
       fetch(`/api/ara?ulke=${u.kod}&q=${encodeURIComponent(q)}`).then((r) => r.json()),
     ]);
     if (cevap.hata) { $("durum").textContent = cevap.hata; return; }
-    sonVeri = { u, kur, sonuclar: cevap.sonuclar };
+    sonVeri = { u, kur, q, sonuclar: cevap.sonuclar };
     $("durum").textContent = cevap.sonuclar.length
       ? `${cevap.kaynak}: ${cevap.sonuclar.length} sonuç. 1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru).`
       : "Sonuç bulunamadı. Model kodunu veya İngilizce adını deneyin.";
