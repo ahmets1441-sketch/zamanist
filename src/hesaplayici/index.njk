@@ -16,10 +16,10 @@ permalink: /hesaplayici/
     </select>
   </label>
   <label><span id="fiyatEtiket">Oradaki etiket fiyatı</span>
-    <input id="fiyat" type="number" inputmode="decimal" min="0" step="any" placeholder="Örn. 450000">
+    <input id="fiyat" class="tutar" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 450.000">
   </label>
   <label>Türkiye fiyatı (TL, isteğe bağlı)
-    <input id="trFiyat" type="number" inputmode="decimal" min="0" step="any" placeholder="Örn. 175000">
+    <input id="trFiyat" class="tutar" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 175.000">
   </label>
 </form>
 
@@ -32,7 +32,7 @@ permalink: /hesaplayici/
 <script src="/js/hesap.js"></script>
 <script>
 const ULKELER = {{ ulkeler | dump | safe }};
-const { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, kararHtml } = Zamanist;
+const { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, kararHtml, sayiOku } = Zamanist;
 const $ = (id) => document.getElementById(id);
 
 async function guncelle() {
@@ -48,9 +48,9 @@ async function guncelle() {
   }
   $("kurBilgi").textContent = `1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru)`;
 
-  const fiyat = parseFloat($("fiyat").value);
+  const fiyat = sayiOku($("fiyat").value);
   if (!(fiyat > 0)) { $("sonuc").hidden = true; return; }
-  const trFiyat = parseFloat($("trFiyat").value);
+  const trFiyat = sayiOku($("trFiyat").value);
   const s = hesapla({ fiyat, ulke: u, kur, trFiyat });
 
   const satirlar = [["Etiket fiyatı", `${para(fiyat, u.para)} = ${tl(fiyat * kur.TRY)}`]];

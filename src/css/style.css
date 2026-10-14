@@ -116,3 +116,7 @@ h1{line-height:1.25}
 .mini-hesap dt{color:var(--muted)}
 .mini-hesap dd{margin:0}
 @media (max-width:30rem){.mini-hesap dl{grid-template-columns:1fr}}
+.modeller{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(9rem,1fr));gap:.6rem}
+.model-sec{width:100%;height:100%;display:grid;gap:.2rem;justify-items:center;text-align:center;font:inherit;font-size:.9rem;background:#fff;border:1px solid var(--line);border-radius:6px;padding:.5rem;cursor:pointer}
+.model-sec:hover{border-color:var(--accent)}
+.model-sec img{width:5rem;height:5rem;object-fit:contain}

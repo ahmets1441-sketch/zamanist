@@ -32,7 +32,7 @@ permalink: /ara/
     <input id="q" type="search" required minlength="2" placeholder="Örn. H70405140, GMW-BZ5000GD-9 veya Air Force 1 CW2288-111">
   </label>
   <label>Türkiye fiyatı (TL, isteğe bağlı)
-    <input id="trFiyat" type="number" inputmode="decimal" min="0" step="any" placeholder="Karşılaştırma için">
+    <input id="trFiyat" class="tutar" type="text" inputmode="decimal" autocomplete="off" placeholder="Karşılaştırma için">
     <span class="meta" id="trKaynak"></span>
   </label>
   <label>Sıralama
@@ -63,30 +63,62 @@ const SAATLER = [
   {%- endfor %}
 ];
 // Resmi fiyat otomatik bulunamazsa gösterilecek marka siteleri (ilan başlıklarından tanınır).
+// [name pattern, brand, Japanese site, search link, product page link by model code].
+// Product links follow each brand's own URL scheme; the brand redirects them to the product page.
 const MARKA_SITELERI = [
-  [/CASIO|カシオ|G-SHOCK|Gショック/i, "Casio", "https://www.casio.com/jp/watches/"],
+  [/CASIO|カシオ|G-SHOCK|Gショック/i, "Casio", "https://www.casio.com/jp/watches/", null,
+    (k) => /^G|^DW|^GA|^GM|^GW|^MTG/.test(k) && `https://www.casio.com/jp/watches/gshock/product.${k.replace(/(JF|JR|DR|ER|PR)$/, "")}/`],
   [/SEIKO|セイコー/i, "Seiko", "https://www.seikowatches.com/jp-ja", (q) => `https://www.seikowatches.com/jp-ja/search?q=${encodeURIComponent(q)}`],
   [/CITIZEN|シチズン/i, "Citizen", "https://citizen.jp/"],
   [/ORIENT|オリエント/i, "Orient", "https://www.orient-watch.jp/"],
   [/HAMILTON|ハミルトン/i, "Hamilton", "https://www.hamiltonwatch.com/ja-jp/"],
-  [/TISSOT|ティソ/i, "Tissot", "https://www.tissotwatches.com/ja-jp/"],
+  [/TISSOT|ティソ/i, "Tissot", "https://www.tissotwatches.com/ja-jp/", null, (k) => /^T\d{12,13}$/.test(sade(k).toUpperCase()) && `https://www.tissotwatches.com/ja-jp/${sade(k).toUpperCase()}.html`],
   [/LONGINES|ロンジン/i, "Longines", "https://www.longines.com/ja-jp/"],
-  [/NIKE|ナイキ/i, "Nike", "https://www.nike.com/jp/", (q) => `https://www.nike.com/jp/w?q=${encodeURIComponent(q)}`],
-  [/ADIDAS|アディダス/i, "Adidas", "https://www.adidas.jp/"],
+  [/NIKE|ナイキ/i, "Nike", "https://www.nike.com/jp/", (q) => `https://www.nike.com/jp/w?q=${encodeURIComponent(q)}`,
+    (k) => /^([A-Z]{2}\d{4}|\d{6})-\d{3}$/.test(k) && `https://www.nike.com/jp/t/x/${k}`],
+  [/ADIDAS|アディダス/i, "Adidas", "https://www.adidas.jp/", null, (k) => /^[A-Z]{1,2}\d{4,5}$/.test(k) && `https://www.adidas.jp/-/${k}.html`],
   [/NEW BALANCE|ニューバランス/i, "New Balance", "https://shop.newbalance.jp/"],
   [/ASICS|アシックス/i, "Asics", "https://www.asics.com/jp/ja-jp/"],
   [/ONITSUKA|オニツカ/i, "Onitsuka Tiger", "https://www.onitsukatiger.com/jp/ja-jp/"],
 ];
-// Link that opens the product on the brand's site: its own search where it works for visitors,
-// otherwise a Google search limited to that site, which lands on the product page.
-const markaAramaLinki = (marka, q) => marka[3] ? marka[3](q) : `https://www.google.com/search?q=${encodeURIComponent(`site:${new URL(marka[2]).host} ${q}`)}`;
+// Link to the product on the brand's Japanese site. With a model code: the product page itself
+// (brand URL scheme, or Google's first result on that site). Without one: the brand's search.
+// yok: the brand's site was already asked for this code and has no such page.
+function markaLinki(marka, kod, q, yok) {
+  const site = new URL(marka[2]).host;
+  if (kod && yok && marka[3]) return marka[3](kod);
+  if (kod) return (!yok && marka[4] && marka[4](kod)) || `https://www.google.com/search?btnI=1&q=${encodeURIComponent(`site:${site} ${kod}`)}`;
+  return marka[3] ? marka[3](q) : `https://www.google.com/search?q=${encodeURIComponent(`site:${site} ${q}`)}`;
+}
+
+// Distinct models among the listings, most listed first: code, photo, lowest price.
+function modelSecenekleri(sonuclar) {
+  const m = {};
+  for (const r of sonuclar.filter((r) => r.tur !== "ikinciel" && !r.aksesuar)) {
+    const kod = ilanKodlari(r.ad)[0];
+    if (!kod) continue;
+    m[kod] = m[kod] || { kod, adet: 0, fiyat: Infinity, resim: r.resim };
+    m[kod].adet++;
+    m[kod].fiyat = Math.min(m[kod].fiyat, r.fiyat);
+  }
+  return Object.values(m).sort((a, b) => b.adet - a.adet).slice(0, 8);
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest(".model-sec");
+  if (!b) return;
+  $("q").value = b.dataset.kod;
+  $("arama").requestSubmit();
+  $("arama").scrollIntoView({ behavior: "smooth" });
+});
+
+// Model codes in a listing title ("DX5883-100", "GMW-BZ5000GD-9JF").
+const ilanKodlari = (ad) => [...new Set(ad.toUpperCase().split(/[^A-Z0-9-]+/).filter((k) => /[A-Z]/.test(k) && /\d/.test(k) && k.replace(/-/g, "").length >= 6 && !/^\d+(CM|MM)$/.test(k)))];
 
 // Model code most listings agree on ("DX5883-100"), for queries typed without one.
 function ilanKodu(sonuclar) {
   const sayac = {};
   for (const r of sonuclar.filter((r) => r.tur !== "ikinciel" && !r.aksesuar)) {
-    const kodlar = new Set(r.ad.toUpperCase().split(/[^A-Z0-9-]+/).filter((k) => /[A-Z]/.test(k) && /\d/.test(k) && k.replace(/-/g, "").length >= 6 && !/^\d+(CM|MM)$/.test(k)));
-    kodlar.forEach((k) => (sayac[k] = (sayac[k] || 0) + 1));
+    ilanKodlari(r.ad).forEach((k) => (sayac[k] = (sayac[k] || 0) + 1));
   }
   const [kod, adet] = Object.entries(sayac).sort((a, b) => b[1] - a[1])[0] || [];
   // Only when most listings agree; otherwise the query matches several colorways.
@@ -100,7 +132,7 @@ const KADEMELER = [
   { tur: "pazar", baslik: "Pazar yeri satıcıları", aciklama: "Rakuten'deki diğer satıcılar. Fiyatlar resmi fiyattan yüksek veya düşük olabilir; satıcı puanına bakın." },
   { tur: "ikinciel", baslik: "İkinci el", aciklama: "Kullanılmış ürünler." },
 ];
-const { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, kararHtml } = Zamanist;
+const { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, kararHtml, sayiOku } = Zamanist;
 const { temizle, etiketler, santimler } = Japonca;
 
 // "27 cm, 27.5 cm" -> "27 cm (EU 42.5), 27.5 cm (EU 43)"
@@ -186,8 +218,8 @@ function elleHesapla() {
   const kutu = $("elleSonuc");
   if (!kutu || !sonVeri) return;
   const { u, kur } = sonVeri;
-  const fiyat = parseFloat($("elleFiyat").value);
-  const trFiyat = parseFloat($("trFiyat").value);
+  const fiyat = sayiOku($("elleFiyat").value);
+  const trFiyat = sayiOku($("trFiyat").value);
   if (!(fiyat > 0)) { kutu.innerHTML = ""; return; }
   const magazada = hesapla({ fiyat, ulke: u, kur, trFiyat, iadeli: true });
   const online = hesapla({ fiyat, ulke: u, kur, trFiyat, iadeli: false });
@@ -209,7 +241,7 @@ function ciz() {
   const { u, kur, sonuclar, resmiSite, urunTuru } = sonVeri;
   // A code found in the listings stands in for a query typed without one.
   const q = sonVeri.bulunanKod || sonVeri.q;
-  const trFiyat = parseFloat($("trFiyat").value);
+  const trFiyat = sayiOku($("trFiyat").value);
   const sira = $("sira").value;
 
   // Resmi fiyat: önce markanın sitesi, yoksa markanın resmi Rakuten mağazası.
@@ -248,13 +280,21 @@ function ciz() {
   } else {
     const basliklar = sonuclar.map((r) => r.ad).join(" ");
     const marka = MARKA_SITELERI.find(([desen]) => desen.test(basliklar));
-    ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${marka
-      ? `<a class="dugme-kucuk" href="${kacis(markaAramaLinki(marka, q))}" target="_blank" rel="noopener">Ürünü ${marka[1]} ${u.ad} sitesinde aç ↗</a>`
-      : "Ürünü markanın " + u.ad + " sitesinde bulun,"} orada gördüğünüz fiyatı aşağıya yazın.</p>`;
+    const yazilanKod = (sonVeri.q.split(/[\s,/]+/).find((t) => /[a-z]/i.test(t) && /\d/.test(t) && sade(t).length >= 5) || "").toUpperCase();
+    const kod = yazilanKod || sonVeri.bulunanKod;
+    if (kod || !modelSecenekleri(sonuclar).length) {
+      ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${marka
+        ? `<a class="dugme-kucuk" href="${kacis(markaLinki(marka, kod, q, resmiSite?.neden === "bulunamadi"))}" target="_blank" rel="noopener">${kod ? `${kacis(kod)} ürün sayfasını` : "Ürünü"} ${marka[1]} ${u.ad} sitesinde aç ↗</a>`
+        : "Ürünü markanın " + u.ad + " sitesinde bulun,"} orada gördüğünüz fiyatı aşağıya yazın.</p>`;
+    } else {
+      // Name without a code matches several models: let the user pick one, then search by its code.
+      ozet += `<p>Bu adla birden fazla model var. Hangisini arıyorsunuz? Seçince o modelin resmi fiyatı ve ürün sayfası gelir.</p>
+        <ul class="modeller">${modelSecenekleri(sonuclar).map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong><span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span></button></li>`).join("")}</ul>`;
+    }
   }
   ozet += `<div class="mini-hesap">
     <label>${resmi ? "Sitede farklı bir fiyat mı gördünüz?" : "Resmi sitede gördüğünüz fiyat"} (${u.para})
-      <input id="elleFiyat" type="number" inputmode="decimal" min="0" step="any" placeholder="Örn. 16500" value="${kacis(sonVeri.elleFiyat || "")}">
+      <input id="elleFiyat" class="tutar" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 16.500" value="${kacis(sonVeri.elleFiyat || "")}">
     </label>
     <div id="elleSonuc"></div>
   </div>`;
@@ -302,7 +342,7 @@ $("arama").addEventListener("submit", async (e) => {
   $("bizden").innerHTML = bizden.length
     ? `<div class="sonuc"><strong>Zamanist'te incelendi:</strong> ${bizden.map((s) => `<a href="${s.url}">${kacis(s.ad)}</a>`).join(", ")}. Mağaza adresleri bu sayfada.</div>`
     : "";
-  if (!$("trFiyat").value && bizden.length === 1 && bizden[0].tr) { $("trFiyat").value = bizden[0].tr; $("trFiyat").dataset.otomatik = "1"; }
+  if (!$("trFiyat").value && bizden.length === 1 && bizden[0].tr) { $("trFiyat").value = Number(bizden[0].tr).toLocaleString("tr-TR"); $("trFiyat").dataset.otomatik = "1"; }
 
   // A price filled automatically for the previous product does not belong to this one.
   if ($("trFiyat").dataset.otomatik) { $("trFiyat").value = ""; delete $("trFiyat").dataset.otomatik; $("trKaynak").textContent = ""; }
@@ -324,7 +364,7 @@ $("arama").addEventListener("submit", async (e) => {
     sonVeri = { u, kur, q, bulunanKod, sonuclar: cevap.sonuclar, resmiSite, resmiListe, urunTuru: turTahmin(cevap.sonuclar, resmiSite) };
     // Fill the Turkish price from the brand's Turkish site when the user left it empty.
     if (!$("trFiyat").value && resmiSite?.tr) {
-      $("trFiyat").value = Math.round(resmiSite.tr.fiyat);
+      $("trFiyat").value = Math.round(resmiSite.tr.fiyat).toLocaleString("tr-TR");
       $("trFiyat").dataset.otomatik = "1";
       $("trKaynak").innerHTML = `Türkiye fiyatı otomatik eklendi: <a href="${kacis(resmiSite.tr.link)}" target="_blank" rel="nofollow noopener">${kacis(resmiSite.tr.kaynak)}</a>`;
     }

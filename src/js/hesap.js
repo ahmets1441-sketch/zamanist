@@ -69,7 +69,24 @@ window.Zamanist = (() => {
     "turkiye-gumruk": ["kotu", "Gümrük vergisiyle birlikte Türkiye'den almak daha mantıklı."],
     belirsiz: ["orta", "Gümrük vergisi tahmin edilemiyor. Fark, ödeyeceğiniz vergiden büyükse avantajlı."],
   };
+  // Amounts typed as "16.500" or "1.234,5": dots group thousands, comma is the decimal mark.
+  const sayiOku = (v) => parseFloat(String(v).replace(/\./g, "").replace(",", "."));
+
+  // Inputs with class "tutar" regroup digits as the user types and keep the caret after the same digit.
+  function binlikle(el) {
+    const ham = el.value.replace(/[^\d,]/g, "").replace(/,(?=.*,)/g, "");
+    const [tam, kesir] = ham.split(",");
+    const rakamOnce = el.value.slice(0, el.selectionStart ?? el.value.length).replace(/[^\d,]/g, "").length;
+    const yeni = (tam ? Number(tam).toLocaleString("tr-TR") : "") + (kesir !== undefined ? "," + kesir.slice(0, 2) : "");
+    if (yeni === el.value) return;
+    el.value = yeni;
+    let i = 0, sayilan = 0;
+    while (i < yeni.length && sayilan < rakamOnce) { if (/[\d,]/.test(yeni[i])) sayilan++; i++; }
+    try { el.setSelectionRange(i, i); } catch (e) {}
+  }
+  document.addEventListener("input", (e) => { if (e.target.classList?.contains("tutar")) binlikle(e.target); }, true);
+
   const kararHtml = (k) => k ? `<p class="karar ${KARAR[k][0]}">${KARAR[k][1]}</p>` : "";
 
-  return { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, KARAR, kararHtml };
+  return { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, KARAR, kararHtml, sayiOku, binlikle };
 })();
