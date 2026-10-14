@@ -95,6 +95,7 @@ const MARKA_SITELERI = [
   [/NEW BALANCE|ニューバランス/i, "New Balance", "https://shop.newbalance.jp/"],
   [/ASICS|アシックス/i, "Asics", "https://www.asics.com/jp/ja-jp/"],
   [/ONITSUKA|オニツカ/i, "Onitsuka Tiger", "https://www.onitsukatiger.com/jp/ja-jp/"],
+  [/GOLDEN GOOSE|ゴールデングース/i, "Golden Goose", "https://www.goldengoose.com/jp/ja/", (q) => `https://www.goldengoose.com/jp/ja/search?q=${encodeURIComponent(q)}`],
   [/LACOSTE|ラコステ/i, "Lacoste", "https://www.lacoste.jp/", (q) => `https://www.lacoste.jp/search?q=${encodeURIComponent(q)}`],
   [/PUMA|プーマ/i, "Puma", "https://jp.puma.com/"],
   [/VANS|ヴァンズ|バンズ/i, "Vans", "https://www.vans.co.jp/", (q) => `https://www.vans.co.jp/search?q=${encodeURIComponent(q)}`],
@@ -423,9 +424,13 @@ $("arama").addEventListener("submit", async (e) => {
       $("trKaynak").innerHTML = `Türkiye fiyatı otomatik eklendi: <a href="${kacis(resmiSite.tr.link)}" target="_blank" rel="nofollow noopener">${kacis(resmiSite.tr.kaynak)}</a>`;
     }
     numaraGoster();
+    // Tell the user when the search words differ from what they typed.
+    const aranan = cevap.arananSorgu && sade(cevap.arananSorgu) !== sade(q)
+      ? ` "${cevap.arananSorgu}" olarak arandı${cevap.eklenenMarka ? ` (model adından marka eklendi: ${cevap.eklenenMarka})` : ""}${cevap.cikarilanKelime ? "; renk, cinsiyet gibi Türkçe kelimeler ve mağaza kodları çıkarıldı" : ""}.`
+      : "";
     $("durum").textContent = cevap.sonuclar.length || resmiSite?.bulundu
-      ? `${cevap.sonuclar.length} satıcı ilanı. 1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru).`
-      : "Sonuç bulunamadı. Model kodunu veya İngilizce adını deneyin.";
+      ? `${cevap.sonuclar.length} satıcı ilanı.${aranan} 1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru).`
+      : `Sonuç bulunamadı.${aranan} Marka ve model adını yazarak deneyin (örn. Golden Goose Pure Star) ya da markanın model kodunu yazın.`;
     ciz();
   } catch (err) {
     $("durum").textContent = "Arama şu an yapılamadı. Biraz sonra tekrar deneyin.";

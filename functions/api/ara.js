@@ -2,6 +2,7 @@
 // Each source in lib/kaynaklar returns offers in the same shape.
 import ulkeler from "../../src/_data/ulkeler.json";
 import * as rakuten from "../../lib/kaynaklar/rakuten.js";
+import { sorguAdaylari } from "../../lib/sorgu.js";
 
 const KAYNAKLAR = { rakuten };
 
@@ -21,18 +22,24 @@ export async function onRequestGet({ request, env }) {
   if (!kaynaklar.length) return json({ hata: "Bu ülke için arama servisi henüz ayarlanmadı." }, 503);
 
   const cache = caches.default;
-  const anahtar = new Request(`${u.origin}/api/ara?v=6&ulke=${ulke.kod}&q=${encodeURIComponent(q.toLowerCase())}`);
+  const anahtar = new Request(`${u.origin}/api/ara?v=7&ulke=${ulke.kod}&q=${encodeURIComponent(q.toLowerCase())}`);
   const onbellek = await cache.match(anahtar);
   if (onbellek) return onbellek;
 
-  const sonuclar = await Promise.allSettled(kaynaklar.map((k) => k.ara({ q, env, origin: u.origin })));
+  const { adaylar, eklenenMarka, cikarilan } = sorguAdaylari(q);
+  if (!adaylar.length) return json({ hata: "Aranacak bir kelime kalmadı. Marka ve model adını yazın." }, 400);
+  const sonuclar = await Promise.allSettled(kaynaklar.map((k) => k.ara({ adaylar, env, origin: u.origin })));
   const basarili = sonuclar.filter((s) => s.status === "fulfilled");
   if (!basarili.length) {
     return json({ hata: "Arama şu an yapılamadı. Biraz sonra tekrar deneyin.", detay: String(sonuclar[0].reason?.message) }, 502);
   }
   const cevap = json({
     kaynak: kaynaklar.map((k) => k.ad).join(", "),
-    sonuclar: basarili.flatMap((s) => s.value),
+    sonuclar: basarili.flatMap((s) => s.value.teklifler),
+    // What was actually searched, so the page can say so.
+    arananSorgu: basarili.map((s) => s.value.sorgu).find(Boolean) || null,
+    eklenenMarka,
+    cikarilanKelime: cikarilan,
     eksikKaynaklar: sonuclar.filter((s) => s.status === "rejected").length,
   });
   await cache.put(anahtar, cevap.clone());
