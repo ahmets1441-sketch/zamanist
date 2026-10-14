@@ -142,7 +142,7 @@ h1{line-height:1.25}
 @keyframes parla{0%{box-shadow:0 0 0 4px var(--accent-acik)}100%{box-shadow:0 8px 24px rgba(0,0,0,.18)}}
 @media (min-width:62rem){
   .ara-duzen{display:grid;grid-template-columns:minmax(0,1fr) 18rem;gap:2rem;align-items:start}
-  .hizli-hesap{position:sticky;top:1rem;margin-top:5.5rem}
+  .hizli-hesap{position:sticky;top:max(1rem,calc(50vh - 13rem));margin-top:5.5rem}
 }
 @media (max-width:61.99rem){
   .hizli-hesap{position:fixed;left:.5rem;right:.5rem;bottom:.5rem;z-index:10;padding:.7rem .9rem}
