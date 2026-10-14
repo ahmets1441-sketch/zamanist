@@ -123,9 +123,9 @@ function markaLinki(marka, kod, q, yok) {
 }
 
 // Distinct models among the listings, most listed first: code, photo, lowest price.
-function modelSecenekleri(sonuclar) {
+function modelSecenekleri(sonuclar, urunTuru) {
   const m = {};
-  for (const r of sonuclar.filter((r) => r.tur !== "ikinciel" && !r.aksesuar)) {
+  for (const r of sonuclar.filter((r) => r.tur !== "ikinciel" && !r.aksesuar && !farkliUrun(r, urunTuru))) {
     const kod = ilanKodlari(r.ad)[0];
     if (!kod) continue;
     m[kod] = m[kod] || { kod, adet: 0, fiyat: Infinity, resim: r.resim };
@@ -143,7 +143,22 @@ document.addEventListener("click", (e) => {
 });
 
 // Model codes in a listing title ("DX5883-100", "GMW-BZ5000GD-9JF").
-const ilanKodlari = (ad) => [...new Set(ad.toUpperCase().split(/[^A-Z0-9-]+/).filter((k) => /[A-Z]/.test(k) && /\d/.test(k) && k.replace(/-/g, "").length >= 6 && !/^\d+(CM|MM)$/.test(k)))];
+// Dotted codes keep style and colour ("GWF00117.F003771"); a code right after another code is
+// its continuation ("GMF00101 F007991"), not a separate model.
+function ilanKodlari(ad) {
+  const kodlar = [];
+  let onceki = false;
+  for (const ham of ad.toUpperCase().split(/[^A-Z0-9.-]+/)) {
+    const k = ham.replace(/^[.-]+|[.-]+$/g, "").split(".").slice(0, 2).join(".");
+    const kod = /[A-Z]/.test(k) && /\d/.test(k) && k.replace(/[.-]/g, "").length >= 6 && !/^\d+(CM|MM)$/.test(k);
+    if (kod && !onceki) kodlar.push(k);
+    onceki = kod;
+  }
+  return [...new Set(kodlar)];
+}
+// Clothing and small goods that show up in brand searches but are not the shoe or watch looked for.
+const FARKLI_URUN = /Tシャツ|ベルト|バッグ|キャップ|パーカー|スウェット|財布|ソックス|ジャケット|シャツ|ニット|パンツ|ハット|ポーチ|キーホルダー/;
+const farkliUrun = (r, urunTuru) => urunTuru === "ayakkabi" ? FARKLI_URUN.test(r.ad) : urunTuru === "saat" && /バッグ|財布|Tシャツ/.test(r.ad);
 
 // Model code most listings agree on ("DX5883-100"), for queries typed without one.
 function ilanKodu(sonuclar) {
@@ -318,6 +333,7 @@ function ciz() {
   // Mağazada gösterilecek Japonca ad
   const jpAd = resmi?.jpAd || (sonuclar.find((r) => r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q)) || {}).ad;
   let ozet = `<div class="sonuc"><h2>1. Markanın resmi fiyatı</h2>`;
+  if (sonVeri.magazaKodu && !resmi) ozet += `<p class="uyari-not"><strong>${kacis(sonVeri.magazaKodu)}</strong> bir Türk mağazasının kendi stok kodu; yurt dışında geçmez. Markanın model kodunu yazın: markanın sitesinde ürün sayfasında yazar (Nike'ta "Stil: DX5883-100", Golden Goose'ta adresteki "cod-GMF00101.F007991.90100" gibi). Türk mağazasının ürün sayfasında da "Model kodu" ya da "Üretici kodu" olarak geçebilir.</p>`;
   if (sonVeri.bulunanKod) ozet += `<p class="meta">Model kodu ilanlardan bulundu: <strong>${kacis(sonVeri.bulunanKod)}</strong>. Aradığınız ürün değilse model kodunu yazarak arayın.</p>`;
   if (resmi) {
     const magazada = hesapla({ fiyat: resmi.fiyat, ulke: u, kur, trFiyat, iadeli: true });
@@ -341,17 +357,17 @@ function ciz() {
       : `<a class="dugme-kucuk" href="${kacis(genelLink(kod || sonVeri.q))}" target="_blank" rel="noopener">Markanın resmi sitesini bul ↗</a>`;
     const yazilanKod = (sonVeri.q.split(/[\s,/]+/).find((t) => /[a-z]/i.test(t) && /\d/.test(t) && sade(t).length >= 5) || "").toUpperCase();
     const kod = yazilanKod || sonVeri.bulunanKod;
-    if (kod || !modelSecenekleri(sonuclar).length) {
+    if (kod || !modelSecenekleri(sonuclar, urunTuru).length) {
       ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${siteDugmesi(kod)} Orada gördüğünüz fiyatı <strong>Hızlı hesap</strong> kutusuna yazın.</p>`;
     } else {
       // Name without a code matches several models: let the user pick one, then search by its code.
       ozet += `<p>Bu adla birden fazla model var. ${siteDugmesi(null)}</p>
         <p>Ya da hangisini aradığınızı seçin; o modelin resmi fiyatı ve ürün sayfası gelir.</p>
-        <ul class="modeller">${modelSecenekleri(sonuclar).map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong><span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span></button></li>`).join("")}</ul>`;
+        <ul class="modeller">${modelSecenekleri(sonuclar, urunTuru).map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong><span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span></button></li>`).join("")}</ul>`;
     }
   }
   // Photo of the product we matched, so the user can check it is the right model before asking in a store.
-  const ornek = resmiRakuten || sonuclar.find((r) => r.resim && r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q));
+  const ornek = resmiRakuten || sonuclar.find((r) => r.resim && r.tur !== "ikinciel" && !r.aksesuar && !farkliUrun(r, urunTuru) && !kodFarkli(r, q));
   if (ornek && ornek.resim) {
     ozet += `<div class="bulunan">${fotoDugmesi(ornek)}<p class="meta">Aradığınız ürün bu mu? Fotoğraf ${kacis(ornek.magaza)} ilanından. Büyütmek için tıklayın; ${urunTuru === "saat" ? "renk ve kadranı" : "renk ve modeli"} kontrol edin.</p></div>`;
   }
@@ -416,7 +432,7 @@ $("arama").addEventListener("submit", async (e) => {
     if (bulunanKod && !resmiSite?.bulundu) {
       resmiSite = await fetch(`/api/resmi?ulke=${u.kod}&q=${encodeURIComponent(bulunanKod)}`).then((r) => r.json()).catch(() => resmiSite);
     }
-    sonVeri = { u, kur, q, bulunanKod, sonuclar: cevap.sonuclar, resmiSite, resmiListe, urunTuru: turTahmin(cevap.sonuclar, resmiSite) };
+    sonVeri = { u, kur, q, bulunanKod, magazaKodu: cevap.magazaKodu, sonuclar: cevap.sonuclar, resmiSite, resmiListe, urunTuru: turTahmin(cevap.sonuclar, resmiSite) };
     // Fill the Turkish price from the brand's Turkish site when the user left it empty.
     if (!$("trFiyat").value && resmiSite?.tr) {
       $("trFiyat").value = Math.round(resmiSite.tr.fiyat).toLocaleString("tr-TR");

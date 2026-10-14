@@ -168,3 +168,4 @@ h2{font-size:1.4rem}
   .hh-ac{display:block;margin:.3rem auto 0;font:inherit;font-size:.8rem;background:none;border:0;color:var(--accent-acik);cursor:pointer}
   body:has(.hizli-hesap){padding-bottom:9rem}
 }
+.uyari-not{background:#FBF3E2;color:#5C4511;border-radius:8px;padding:.7rem .9rem;font-size:.92rem}

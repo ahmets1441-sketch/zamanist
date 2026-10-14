@@ -22,11 +22,11 @@ export async function onRequestGet({ request, env }) {
   if (!kaynaklar.length) return json({ hata: "Bu ülke için arama servisi henüz ayarlanmadı." }, 503);
 
   const cache = caches.default;
-  const anahtar = new Request(`${u.origin}/api/ara?v=7&ulke=${ulke.kod}&q=${encodeURIComponent(q.toLowerCase())}`);
+  const anahtar = new Request(`${u.origin}/api/ara?v=8&ulke=${ulke.kod}&q=${encodeURIComponent(q.toLowerCase())}`);
   const onbellek = await cache.match(anahtar);
   if (onbellek) return onbellek;
 
-  const { adaylar, eklenenMarka, cikarilan } = sorguAdaylari(q);
+  const { adaylar, eklenenMarka, cikarilan, magazaKodu } = sorguAdaylari(q);
   if (!adaylar.length) return json({ hata: "Aranacak bir kelime kalmadı. Marka ve model adını yazın." }, 400);
   const sonuclar = await Promise.allSettled(kaynaklar.map((k) => k.ara({ adaylar, env, origin: u.origin })));
   const basarili = sonuclar.filter((s) => s.status === "fulfilled");
@@ -40,6 +40,7 @@ export async function onRequestGet({ request, env }) {
     arananSorgu: basarili.map((s) => s.value.sorgu).find(Boolean) || null,
     eklenenMarka,
     cikarilanKelime: cikarilan,
+    magazaKodu,
     eksikKaynaklar: sonuclar.filter((s) => s.status === "rejected").length,
   });
   await cache.put(anahtar, cevap.clone());

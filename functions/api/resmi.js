@@ -30,6 +30,13 @@ const nikeAday = (k) => {
   return { marka: "Nike", ad: "ナイキ", kod: `${a}-${b}`, nike: true, url: `https://www.nike.com/jp/t/x/${a}-${b}` };
 };
 
+// Golden Goose: /jp/ja/cod-<STYLE.MATERIAL.COLOUR>.html redirects to the product page; price is in JSON-LD.
+const GG_DESEN = /^(G[A-Z]{2}\d{5})(F\d{6})(\d{5})$/;
+const ggAday = (k) => {
+  const [, a, b, c] = k.match(GG_DESEN);
+  return { marka: "Golden Goose", ad: "ゴールデングース", kod: `${a}.${b}.${c}`, url: `https://www.goldengoose.com/jp/ja/cod-${a}.${b}.${c}.html` };
+};
+
 function nikeOku(html, kod, para = "JPY") {
   const m = html.match(new RegExp(`/${kod}","canonicalUrl"[\\s\\S]{0,600}?"currency":"${para}","currentPrice":([\\d.]+),"initialPrice":([\\d.]+)`));
   if (!m) return null;
@@ -95,6 +102,7 @@ export async function onRequestGet({ request }) {
     ...SWATCH.flatMap((b) => kodlar.filter((k) => b.desen.test(k)).map((k) => ({ marka: b.marka, ad: b.ad, url: b.url(k) }))),
     ...kodlar.filter((k) => SEIKO_DESEN.test(k)).flatMap(seikoAdaylar),
     ...kodlar.filter((k) => NIKE_DESEN.test(k)).map(nikeAday),
+    ...kodlar.filter((k) => GG_DESEN.test(k)).map(ggAday),
   ];
   if (!adaylar.length) return Response.json({ bulundu: false, neden: "desteklenmeyen" });
 
