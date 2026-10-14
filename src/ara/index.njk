@@ -446,7 +446,7 @@ $("arama").addEventListener("submit", async (e) => {
     numaraGoster();
     // Tell the user when the search words differ from what they typed.
     const aranan = cevap.arananSorgu && sade(cevap.arananSorgu) !== sade(q)
-      ? ` "${cevap.arananSorgu}" olarak arandı${cevap.eklenenMarka ? ` (model adından marka eklendi: ${cevap.eklenenMarka})` : ""}${cevap.cikarilanKelime ? "; renk, cinsiyet gibi Türkçe kelimeler ve mağaza kodları çıkarıldı" : ""}.`
+      ? ` "${cevap.arananSorgu}" olarak arandı${cevap.eklenenMarka ? ` (model adından marka eklendi: ${cevap.eklenenMarka})` : ""}${/[\u30A0-\u30FF]/.test(cevap.arananSorgu) ? "; renk ve cinsiyet Japonca karşılığıyla arandı" : ""}${cevap.cikarilanKelime ? "; diğer Türkçe kelimeler ve mağaza kodları çıkarıldı" : ""}.`
       : "";
     $("durum").textContent = cevap.sonuclar.length || resmiSite?.bulundu
       ? `${cevap.sonuclar.length} satıcı ilanı.${aranan} 1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru).`
