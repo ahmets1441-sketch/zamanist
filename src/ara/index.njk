@@ -4,6 +4,8 @@ title: Yurt Dışında Ara
 ozet: Ürünü yazın, seçtiğiniz ülkedeki satıcıları, fiyatları ve Türkiye'ye göre farkı görün.
 permalink: /ara/
 ---
+<div class="ara-duzen">
+<div class="ara-icerik">
 <h1>Yurt Dışında Ara</h1>
 <p class="slogan">Ürünü yazın: önce markanın resmi fiyatı, sonra yetkili satıcılar, elektronik mağazaları ve pazar yerleri. Hepsi güncel kurla TL olarak.</p>
 
@@ -50,7 +52,19 @@ permalink: /ara/
 <div id="bizden"></div>
 <div id="ozet"></div>
 <div id="kademeler"></div>
-<p class="meta">Resmi fiyat sırasıyla Zamanist'in kontrol ettiği listeden, markanın sitesinden veya markanın resmi Rakuten mağazasından alınır. Diğer fiyatlar Rakuten'deki satıcılardan gelir. Online alışverişte vergi iadesi yoktur ve ürün Japonya'daki bir adrese (örneğin otel) gönderilmelidir. "Resmi garantili" bilgisi satıcının beyanıdır. Model kodunu mutlaka kontrol edin.</p>
+<p class="meta alt-not">Resmi fiyat sırasıyla Zamanist'in kontrol ettiği listeden, markanın sitesinden veya markanın resmi Rakuten mağazasından alınır. Diğer fiyatlar Rakuten'deki satıcılardan gelir. Online alışverişte vergi iadesi yoktur ve ürün Japonya'daki bir adrese (örneğin otel) gönderilmelidir. "Resmi garantili" bilgisi satıcının beyanıdır. Model kodunu mutlaka kontrol edin.</p>
+
+</div>
+<aside class="hizli-hesap" id="hizliHesap" aria-label="Hızlı hesap">
+  <div class="hh-ust">
+    <label for="elleFiyat" id="elleEtiket">Fiyatı yazın (JPY)</label>
+    <input id="elleFiyat" class="tutar" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 16.500">
+    <div class="hh-tl" id="elleTl">–</div>
+  </div>
+  <div class="hh-detay" id="elleSonuc"><p class="meta">Resmi sitede veya ilanda gördüğünüz fiyatı yazın ya da aşağıdaki ilanlarda bir fiyata tıklayın. TL karşılığı, vergi iadesi, gümrük ve Türkiye farkı burada çıkar.</p></div>
+  <button type="button" class="hh-ac" id="hhAc" aria-expanded="false">Ayrıntı</button>
+</aside>
+</div>
 
 <script src="/js/hesap.js"></script>
 <script src="/js/japonca.js"></script>
@@ -148,7 +162,7 @@ const KADEMELER = [
   { tur: "pazar", baslik: "Pazar yeri satıcıları", aciklama: "Rakuten'deki diğer satıcılar. Fiyatlar resmi fiyattan yüksek veya düşük olabilir; satıcı puanına bakın." },
   { tur: "ikinciel", baslik: "İkinci el", aciklama: "Kullanılmış ürünler." },
 ];
-const { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, kararHtml, sayiOku } = Zamanist;
+const { kurGetir, hesapla, tl, para, euro, fark, GUMRUK_METNI, KARAR, kararHtml, sayiOku } = Zamanist;
 const { temizle, etiketler, santimler } = Japonca;
 
 // "27 cm, 27.5 cm" -> "27 cm (EU 42.5), 27.5 cm (EU 43)"
@@ -219,7 +233,7 @@ function satir({ r, s }, ctx) {
     <li>
       ${r.resim ? fotoDugmesi(r) : "<span></span>"}
       <div>
-        <div class="fiyat">${para(r.fiyat, ctx.u.para)} = ${tl(s.netTl)} ${resmiFarki(r.fiyat, ctx.resmi)}</div>
+        <div class="fiyat"><button type="button" class="hesaba-al" data-fiyat="${r.fiyat}" title="Hızlı hesaba al">${para(r.fiyat, ctx.u.para)} = ${tl(s.netTl)}</button> ${resmiFarki(r.fiyat, ctx.resmi)}</div>
         ${tr.length ? `<div class="tr-etiketler">${tr.map(kacis).join(" · ")}</div>` : ""}
         <a class="jp-ad" href="${kacis(r.link)}" target="_blank" rel="nofollow noopener" lang="ja">${kacis(temizle(r.ad).slice(0, 110))}</a>
         <div class="meta">${kacis(r.magaza)}${r.puan ? ` · ★ ${r.puan.toFixed(2)} (${r.yorumSayisi} yorum)` : " · Puan yok"}${r.kargoDahil ? " · Kargo dahil" : ""}</div>
@@ -229,27 +243,50 @@ function satir({ r, s }, ctx) {
     </li>`;
 }
 
-// Small calculator in the summary: the price the user read on the brand's site, in TL.
-function elleHesapla() {
-  const kutu = $("elleSonuc");
-  if (!kutu || !sonVeri) return;
-  const { u, kur } = sonVeri;
+// Quick calculator beside the results (bottom bar on phones): any price in the selected
+// country's currency, typed or taken from a listing, in TL with refund, customs and Turkey gap.
+const ROZET = { yurtdisi: "Oradan ucuz", turkiye: "Türkiye ucuz", "turkiye-gumruk": "Türkiye ucuz", belirsiz: "Gümrük belirsiz" };
+async function elleHesapla() {
+  const u = ULKELER.find((x) => x.kod === $("ulke").value);
+  $("elleEtiket").textContent = `Fiyatı yazın (${u.para})`;
   const fiyat = sayiOku($("elleFiyat").value);
+  if (!(fiyat > 0)) { $("elleTl").textContent = "–"; return; }
+  let kur;
+  try { kur = sonVeri?.u.kod === u.kod ? sonVeri.kur : await kurGetir(u.para); }
+  catch (e) { $("elleTl").textContent = "Kur alınamadı"; return; }
   const trFiyat = sayiOku($("trFiyat").value);
-  if (!(fiyat > 0)) { kutu.innerHTML = ""; return; }
-  const magazada = hesapla({ fiyat, ulke: u, kur, trFiyat, iadeli: true });
+  // A listing price is an online purchase: no tax refund, so compare without it.
+  const ilandan = Boolean($("elleFiyat").dataset.online);
   const online = hesapla({ fiyat, ulke: u, kur, trFiyat, iadeli: false });
-  kutu.innerHTML = `<dl>
-    <dt>Fiyat</dt><dd><strong>${para(fiyat, u.para)} = ${tl(online.netTl)}</strong></dd>
-    ${magazada.iadeVar ? `<dt>Mağazadan pasaportla</dt><dd>${tl(magazada.netTl)} (vergi iadesi sonrası)</dd>` : ""}
+  const magazada = ilandan ? online : hesapla({ fiyat, ulke: u, kur, trFiyat, iadeli: true });
+  $("elleTl").innerHTML = `${tl(online.netTl)}${magazada.karar ? ` <span class="hh-karar ${KARAR[magazada.karar][0]}">${ROZET[magazada.karar]}</span>` : ""}`;
+  $("elleSonuc").innerHTML = `<dl>
+    <dt>Fiyat</dt><dd>${para(fiyat, u.para)} = <strong>${tl(online.netTl)}</strong></dd>
+    ${ilandan ? `<dt>Vergi iadesi</dt><dd>Yok: online ilan fiyatı. Ürün ${u.adDa}ki bir adrese (otel) gönderilir.</dd>` : ""}
+    ${!ilandan && magazada.iadeVar ? `<dt>Mağazadan pasaportla</dt><dd><strong>${tl(magazada.netTl)}</strong> (vergi iadesi sonrası)</dd>` : ""}
     <dt>Gümrük</dt><dd>${GUMRUK_METNI[magazada.gumruk](magazada)}</dd>
-    ${magazada.karar ? `<dt>Türkiye'ye göre</dt><dd>${fark(magazada.gumrukTl > 0 ? magazada.farkVergili : magazada.farkVergisiz, trFiyat)}${magazada.gumrukTl > 0 ? " (gümrük vergisi dahil)" : ""}</dd>` : `<dt></dt><dd class="meta">Türkiye fiyatını yukarıya yazarsanız karşılaştırma da çıkar.</dd>`}
+    ${magazada.karar ? `<dt>Türkiye'ye göre</dt><dd>${fark(magazada.gumrukTl > 0 ? magazada.farkVergili : magazada.farkVergisiz, trFiyat)}${magazada.gumrukTl > 0 ? " (gümrük vergisi dahil)" : ""}</dd>` : `<dt>Türkiye'ye göre</dt><dd class="meta">Formdaki Türkiye fiyatı alanına yazarsanız karşılaştırma çıkar.</dd>`}
   </dl>${kararHtml(magazada.karar)}`;
 }
-document.addEventListener("input", (e) => {
-  if (e.target.id !== "elleFiyat" || !sonVeri) return;
-  sonVeri.elleFiyat = e.target.value;
+// Fill the calculator with a price; "otomatik" prices are replaced on the next search.
+function hesabaAl(fiyat, otomatik, online) {
+  $("elleFiyat").value = Number(fiyat).toLocaleString("tr-TR");
+  if (online) $("elleFiyat").dataset.online = "1"; else delete $("elleFiyat").dataset.online;
+  if (otomatik) $("elleFiyat").dataset.otomatik = "1"; else delete $("elleFiyat").dataset.otomatik;
   elleHesapla();
+  const panel = $("hizliHesap");
+  panel.classList.remove("parla"); void panel.offsetWidth; panel.classList.add("parla");
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest(".hesaba-al");
+  if (b) hesabaAl(b.dataset.fiyat, false, true);
+});
+$("elleFiyat").addEventListener("input", () => { delete $("elleFiyat").dataset.otomatik; delete $("elleFiyat").dataset.online; elleHesapla(); });
+["trFiyat", "ulke"].forEach((id) => $(id).addEventListener("input", elleHesapla));
+$("hhAc").addEventListener("click", () => {
+  const acik = $("hizliHesap").classList.toggle("acik");
+  $("hhAc").setAttribute("aria-expanded", acik);
+  $("hhAc").textContent = acik ? "Kapat" : "Ayrıntı";
 });
 
 function ciz() {
@@ -304,7 +341,7 @@ function ciz() {
     const yazilanKod = (sonVeri.q.split(/[\s,/]+/).find((t) => /[a-z]/i.test(t) && /\d/.test(t) && sade(t).length >= 5) || "").toUpperCase();
     const kod = yazilanKod || sonVeri.bulunanKod;
     if (kod || !modelSecenekleri(sonuclar).length) {
-      ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${siteDugmesi(kod)} Orada gördüğünüz fiyatı aşağıya yazın.</p>`;
+      ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${siteDugmesi(kod)} Orada gördüğünüz fiyatı <strong>Hızlı hesap</strong> kutusuna yazın.</p>`;
     } else {
       // Name without a code matches several models: let the user pick one, then search by its code.
       ozet += `<p>Bu adla birden fazla model var. ${siteDugmesi(null)}</p>
@@ -312,12 +349,6 @@ function ciz() {
         <ul class="modeller">${modelSecenekleri(sonuclar).map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong><span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span></button></li>`).join("")}</ul>`;
     }
   }
-  ozet += `<div class="mini-hesap">
-    <label>${resmi ? "Sitede farklı bir fiyat mı gördünüz?" : "Resmi sitede gördüğünüz fiyat"} (${u.para})
-      <input id="elleFiyat" class="tutar" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 16.500" value="${kacis(sonVeri.elleFiyat || "")}">
-    </label>
-    <div id="elleSonuc"></div>
-  </div>`;
   // Photo of the product we matched, so the user can check it is the right model before asking in a store.
   const ornek = resmiRakuten || sonuclar.find((r) => r.resim && r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q));
   if (ornek && ornek.resim) {
@@ -330,7 +361,9 @@ function ciz() {
   }
   ozet += `</div>`;
   $("ozet").innerHTML = ozet;
-  elleHesapla();
+  // Official price goes into the calculator unless the user typed their own.
+  if (resmi && (!$("elleFiyat").value || $("elleFiyat").dataset.otomatik)) hesabaAl(resmi.indirimli || resmi.fiyat, true, Boolean(resmi.indirimli));
+  else elleHesapla();
 
   const liste = sonuclar.map((r) => ({ r, s: hesapla({ fiyat: r.fiyat, ulke: u, kur, trFiyat, iadeli: false }) }));
   if (sira === "ucuz") liste.sort((a, b) => a.r.fiyat - b.r.fiyat);
@@ -366,6 +399,7 @@ $("arama").addEventListener("submit", async (e) => {
 
   // A price filled automatically for the previous product does not belong to this one.
   if ($("trFiyat").dataset.otomatik) { $("trFiyat").value = ""; delete $("trFiyat").dataset.otomatik; $("trKaynak").textContent = ""; }
+  if ($("elleFiyat").dataset.otomatik) { $("elleFiyat").value = ""; delete $("elleFiyat").dataset.otomatik; elleHesapla(); }
   $("durum").textContent = "Aranıyor…";
   try {
     let [kur, cevap, resmiSite, resmiListe] = await Promise.all([

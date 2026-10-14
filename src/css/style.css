@@ -120,3 +120,38 @@ h1{line-height:1.25}
 .model-sec{width:100%;height:100%;display:grid;gap:.2rem;justify-items:center;text-align:center;font:inherit;font-size:.9rem;background:#fff;border:1px solid var(--line);border-radius:6px;padding:.5rem;cursor:pointer}
 .model-sec:hover{border-color:var(--accent)}
 .model-sec img{width:5rem;height:5rem;object-fit:contain}
+
+/* Search page: results beside a quick calculator that stays in view */
+.ara-duzen{display:block}
+.hizli-hesap{background:#1a1a1a;color:#f3efe6;border-radius:10px;padding:1rem 1.1rem;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.hizli-hesap label{font:700 1rem var(--baslik);color:var(--accent-acik)}
+.hizli-hesap input{display:block;width:100%;margin:.4rem 0 .5rem;font:inherit;font-size:1.25rem;padding:.5rem .6rem;border:0;border-radius:6px;background:#fff;color:var(--fg)}
+.hh-tl{font:700 1.5rem/1.2 var(--baslik);color:#fff}
+.hh-karar{display:inline-block;vertical-align:middle;font:bold .75rem Georgia,serif;padding:.15rem .45rem;border-radius:99px;margin-left:.3rem;color:#1a1a1a}
+.hh-karar.iyi{background:#bfe3bf}.hh-karar.kotu{background:#f1c9c2}.hh-karar.orta{background:#efe0b5}
+.hh-detay{font-size:.88rem;margin-top:.6rem}
+.hh-detay .meta{color:#bdb6a8}
+.hh-detay dl{display:grid;gap:.15rem;margin:0}
+.hh-detay dt{color:#bdb6a8;margin-top:.35rem}
+.hh-detay dd{margin:0}
+.hh-detay .karar{color:#1a1a1a;font-size:.9rem}
+.hh-ac{display:none}
+.hesaba-al{font:inherit;font-weight:bold;background:none;border:0;border-bottom:1px dashed var(--accent);padding:0;color:inherit;cursor:pointer}
+.hesaba-al:hover{color:var(--accent)}
+.hizli-hesap.parla{animation:parla .8s}
+@keyframes parla{0%{box-shadow:0 0 0 4px var(--accent-acik)}100%{box-shadow:0 8px 24px rgba(0,0,0,.18)}}
+@media (min-width:62rem){
+  .ara-duzen{display:grid;grid-template-columns:minmax(0,1fr) 18rem;gap:2rem;align-items:start}
+  .hizli-hesap{position:sticky;top:1rem;margin-top:5.5rem}
+}
+@media (max-width:61.99rem){
+  .hizli-hesap{position:fixed;left:.5rem;right:.5rem;bottom:.5rem;z-index:10;padding:.7rem .9rem}
+  .hh-ust{display:grid;grid-template-columns:1fr auto;gap:0 .6rem;align-items:center}
+  .hh-ust label{grid-column:1/-1;font-size:.85rem}
+  .hizli-hesap input{margin:.25rem 0;font-size:1.1rem;padding:.4rem .5rem}
+  .hh-tl{font-size:1.15rem;text-align:right}
+  .hh-detay{display:none;max-height:50vh;overflow:auto}
+  .hizli-hesap.acik .hh-detay{display:block}
+  .hh-ac{display:block;margin:.3rem auto 0;font:inherit;font-size:.8rem;background:none;border:0;color:var(--accent-acik);cursor:pointer}
+  body:has(.hizli-hesap){padding-bottom:9rem}
+}
