@@ -68,9 +68,10 @@ const SAATLER = [
 const MARKA_SITELERI = [
   [/CASIO|カシオ|G-SHOCK|Gショック/i, "Casio", "https://www.casio.com/jp/watches/", null,
     (k) => /^G|^DW|^GA|^GM|^GW|^MTG/.test(k) && `https://www.casio.com/jp/watches/gshock/product.${k.replace(/(JF|JR|DR|ER|PR)$/, "")}/`],
+  [/GRAND SEIKO|グランドセイコー/i, "Grand Seiko", "https://www.grand-seiko.com/jp-ja"],
   [/SEIKO|セイコー/i, "Seiko", "https://www.seikowatches.com/jp-ja", (q) => `https://www.seikowatches.com/jp-ja/search?q=${encodeURIComponent(q)}`],
   [/CITIZEN|シチズン/i, "Citizen", "https://citizen.jp/"],
-  [/ORIENT|オリエント/i, "Orient", "https://www.orient-watch.jp/"],
+  [/ORIENT|オリエント/i, "Orient", "https://orient-watch.com/ja/"],
   [/HAMILTON|ハミルトン/i, "Hamilton", "https://www.hamiltonwatch.com/ja-jp/"],
   [/TISSOT|ティソ/i, "Tissot", "https://www.tissotwatches.com/ja-jp/", null, (k) => /^T\d{12,13}$/.test(sade(k).toUpperCase()) && `https://www.tissotwatches.com/ja-jp/${sade(k).toUpperCase()}.html`],
   [/LONGINES|ロンジン/i, "Longines", "https://www.longines.com/ja-jp/"],
@@ -80,14 +81,29 @@ const MARKA_SITELERI = [
   [/NEW BALANCE|ニューバランス/i, "New Balance", "https://shop.newbalance.jp/"],
   [/ASICS|アシックス/i, "Asics", "https://www.asics.com/jp/ja-jp/"],
   [/ONITSUKA|オニツカ/i, "Onitsuka Tiger", "https://www.onitsukatiger.com/jp/ja-jp/"],
+  [/LACOSTE|ラコステ/i, "Lacoste", "https://www.lacoste.jp/", (q) => `https://www.lacoste.jp/search?q=${encodeURIComponent(q)}`],
+  [/PUMA|プーマ/i, "Puma", "https://jp.puma.com/"],
+  [/VANS|ヴァンズ|バンズ/i, "Vans", "https://www.vans.co.jp/", (q) => `https://www.vans.co.jp/search?q=${encodeURIComponent(q)}`],
+  [/CONVERSE|コンバース/i, "Converse", "https://converse.co.jp/"],
+  [/REEBOK|リーボック/i, "Reebok", "https://reebok.jp/"],
+  [/SALOMON|サロモン/i, "Salomon", "https://salomon.jp/"],
+  [/HOKA|ホカ/i, "Hoka", "https://www.hoka.com/jp/"],
+  [/ON RUNNING|オン ランニング|オンランニング/i, "On", "https://www.on.com/ja-jp", (q) => `https://www.on.com/ja-jp/search?q=${encodeURIComponent(q)}`],
+  [/BIRKENSTOCK|ビルケンシュトック/i, "Birkenstock", "https://www.birkenstock.com/jp/"],
+  [/DR\.? ?MARTENS|ドクターマーチン/i, "Dr. Martens", "https://jp.drmartens.com/"],
+  [/TIMBERLAND|ティンバーランド/i, "Timberland", "https://www.timberland.co.jp/"],
+  [/MIZUNO|ミズノ/i, "Mizuno", "https://jpn.mizuno.com/"],
 ];
 // Link to the product on the brand's Japanese site. With a model code: the product page itself
-// (brand URL scheme, or Google's first result on that site). Without one: the brand's search.
+// (brand URL scheme, else the brand's search for the code, else Google's first result on that site).
+// Without one: the brand's search for the typed words.
 // yok: the brand's site was already asked for this code and has no such page.
 function markaLinki(marka, kod, q, yok) {
   const site = new URL(marka[2]).host;
-  if (kod && yok && marka[3]) return marka[3](kod);
-  if (kod) return (!yok && marka[4] && marka[4](kod)) || `https://www.google.com/search?btnI=1&q=${encodeURIComponent(`site:${site} ${kod}`)}`;
+  if (kod && !yok && marka[4] && marka[4](kod)) return marka[4](kod);
+  // The brand's own search finds the code more reliably than Google's first result.
+  if (kod && marka[3]) return marka[3](kod);
+  if (kod) return `https://www.google.com/search?btnI=1&q=${encodeURIComponent(`site:${site} ${kod}`)}`;
   return marka[3] ? marka[3](q) : `https://www.google.com/search?q=${encodeURIComponent(`site:${site} ${q}`)}`;
 }
 
@@ -279,16 +295,20 @@ function ciz() {
     </dl>${kararHtml(s.karar)}`;
   } else {
     const basliklar = sonuclar.map((r) => r.ad).join(" ");
-    const marka = MARKA_SITELERI.find(([desen]) => desen.test(basliklar));
+    const marka = MARKA_SITELERI.find(([desen]) => desen.test(sonVeri.q)) || MARKA_SITELERI.find(([desen]) => desen.test(basliklar));
+    // Brand we have no entry for: a Google search for its official Japanese site.
+    const genelLink = (metin) => `https://www.google.com/search?q=${encodeURIComponent(`${metin} 公式 オンラインストア`)}`;
+    const siteDugmesi = (kod) => marka
+      ? `<a class="dugme-kucuk" href="${kacis(markaLinki(marka, kod, sonVeri.q, resmiSite?.neden === "bulunamadi"))}" target="_blank" rel="noopener">${kod ? `${kacis(kod)} ürün sayfasını` : "Ürünü"} ${marka[1]} ${u.ad} sitesinde aç ↗</a>`
+      : `<a class="dugme-kucuk" href="${kacis(genelLink(kod || sonVeri.q))}" target="_blank" rel="noopener">Markanın resmi sitesini bul ↗</a>`;
     const yazilanKod = (sonVeri.q.split(/[\s,/]+/).find((t) => /[a-z]/i.test(t) && /\d/.test(t) && sade(t).length >= 5) || "").toUpperCase();
     const kod = yazilanKod || sonVeri.bulunanKod;
     if (kod || !modelSecenekleri(sonuclar).length) {
-      ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${marka
-        ? `<a class="dugme-kucuk" href="${kacis(markaLinki(marka, kod, q, resmiSite?.neden === "bulunamadi"))}" target="_blank" rel="noopener">${kod ? `${kacis(kod)} ürün sayfasını` : "Ürünü"} ${marka[1]} ${u.ad} sitesinde aç ↗</a>`
-        : "Ürünü markanın " + u.ad + " sitesinde bulun,"} orada gördüğünüz fiyatı aşağıya yazın.</p>`;
+      ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${siteDugmesi(kod)} Orada gördüğünüz fiyatı aşağıya yazın.</p>`;
     } else {
       // Name without a code matches several models: let the user pick one, then search by its code.
-      ozet += `<p>Bu adla birden fazla model var. Hangisini arıyorsunuz? Seçince o modelin resmi fiyatı ve ürün sayfası gelir.</p>
+      ozet += `<p>Bu adla birden fazla model var. ${siteDugmesi(null)}</p>
+        <p>Ya da hangisini aradığınızı seçin; o modelin resmi fiyatı ve ürün sayfası gelir.</p>
         <ul class="modeller">${modelSecenekleri(sonuclar).map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong><span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span></button></li>`).join("")}</ul>`;
     }
   }
