@@ -65,18 +65,35 @@ const SAATLER = [
 // Resmi fiyat otomatik bulunamazsa gösterilecek marka siteleri (ilan başlıklarından tanınır).
 const MARKA_SITELERI = [
   [/CASIO|カシオ|G-SHOCK|Gショック/i, "Casio", "https://www.casio.com/jp/watches/"],
-  [/SEIKO|セイコー/i, "Seiko", "https://www.seikowatches.com/jp-ja"],
+  [/SEIKO|セイコー/i, "Seiko", "https://www.seikowatches.com/jp-ja", (q) => `https://www.seikowatches.com/jp-ja/search?q=${encodeURIComponent(q)}`],
   [/CITIZEN|シチズン/i, "Citizen", "https://citizen.jp/"],
   [/ORIENT|オリエント/i, "Orient", "https://www.orient-watch.jp/"],
   [/HAMILTON|ハミルトン/i, "Hamilton", "https://www.hamiltonwatch.com/ja-jp/"],
   [/TISSOT|ティソ/i, "Tissot", "https://www.tissotwatches.com/ja-jp/"],
   [/LONGINES|ロンジン/i, "Longines", "https://www.longines.com/ja-jp/"],
-  [/NIKE|ナイキ/i, "Nike", "https://www.nike.com/jp/"],
-  [/ADIDAS|アディダス/i, "Adidas", "https://www.adidas.co.jp/"],
+  [/NIKE|ナイキ/i, "Nike", "https://www.nike.com/jp/", (q) => `https://www.nike.com/jp/w?q=${encodeURIComponent(q)}`],
+  [/ADIDAS|アディダス/i, "Adidas", "https://www.adidas.jp/"],
   [/NEW BALANCE|ニューバランス/i, "New Balance", "https://shop.newbalance.jp/"],
   [/ASICS|アシックス/i, "Asics", "https://www.asics.com/jp/ja-jp/"],
   [/ONITSUKA|オニツカ/i, "Onitsuka Tiger", "https://www.onitsukatiger.com/jp/ja-jp/"],
 ];
+// Link that opens the product on the brand's site: its own search where it works for visitors,
+// otherwise a Google search limited to that site, which lands on the product page.
+const markaAramaLinki = (marka, q) => marka[3] ? marka[3](q) : `https://www.google.com/search?q=${encodeURIComponent(`site:${new URL(marka[2]).host} ${q}`)}`;
+
+// Model code most listings agree on ("DX5883-100"), for queries typed without one.
+function ilanKodu(sonuclar) {
+  const sayac = {};
+  for (const r of sonuclar.filter((r) => r.tur !== "ikinciel" && !r.aksesuar)) {
+    const kodlar = new Set(r.ad.toUpperCase().split(/[^A-Z0-9-]+/).filter((k) => /[A-Z]/.test(k) && /\d/.test(k) && k.replace(/-/g, "").length >= 6 && !/^\d+(CM|MM)$/.test(k)));
+    kodlar.forEach((k) => (sayac[k] = (sayac[k] || 0) + 1));
+  }
+  const [kod, adet] = Object.entries(sayac).sort((a, b) => b[1] - a[1])[0] || [];
+  // Only when most listings agree; otherwise the query matches several colorways.
+  const toplam = sonuclar.filter((r) => r.tur !== "ikinciel" && !r.aksesuar).length;
+  return adet >= 2 && adet * 2 >= toplam ? kod : null;
+}
+
 const KADEMELER = [
   { tur: "yetkili", baslik: "Yetkili satıcılar", aciklama: "Resmi garantili sattığını belirten mağazalar. Bazı markalarda (ör. Seiko, Casio) resmi fiyatın altında satarlar; her ilanda resmi fiyata göre fark yazıyor." },
   { tur: "zincir", baslik: "Elektronik ve indirim mağazaları", aciklama: "Bu zincirlerin fiziksel şubelerinde pasaportla vergi iadesi de alınabilir. Saati mağazada sormak için aşağıdaki Japonca adı gösterin." },
@@ -164,9 +181,34 @@ function satir({ r, s }, ctx) {
     </li>`;
 }
 
+// Small calculator in the summary: the price the user read on the brand's site, in TL.
+function elleHesapla() {
+  const kutu = $("elleSonuc");
+  if (!kutu || !sonVeri) return;
+  const { u, kur } = sonVeri;
+  const fiyat = parseFloat($("elleFiyat").value);
+  const trFiyat = parseFloat($("trFiyat").value);
+  if (!(fiyat > 0)) { kutu.innerHTML = ""; return; }
+  const magazada = hesapla({ fiyat, ulke: u, kur, trFiyat, iadeli: true });
+  const online = hesapla({ fiyat, ulke: u, kur, trFiyat, iadeli: false });
+  kutu.innerHTML = `<dl>
+    <dt>Fiyat</dt><dd><strong>${para(fiyat, u.para)} = ${tl(online.netTl)}</strong></dd>
+    ${magazada.iadeVar ? `<dt>Mağazadan pasaportla</dt><dd>${tl(magazada.netTl)} (vergi iadesi sonrası)</dd>` : ""}
+    <dt>Gümrük</dt><dd>${GUMRUK_METNI[magazada.gumruk](magazada)}</dd>
+    ${magazada.karar ? `<dt>Türkiye'ye göre</dt><dd>${fark(magazada.gumrukTl > 0 ? magazada.farkVergili : magazada.farkVergisiz, trFiyat)}${magazada.gumrukTl > 0 ? " (gümrük vergisi dahil)" : ""}</dd>` : `<dt></dt><dd class="meta">Türkiye fiyatını yukarıya yazarsanız karşılaştırma da çıkar.</dd>`}
+  </dl>${kararHtml(magazada.karar)}`;
+}
+document.addEventListener("input", (e) => {
+  if (e.target.id !== "elleFiyat" || !sonVeri) return;
+  sonVeri.elleFiyat = e.target.value;
+  elleHesapla();
+});
+
 function ciz() {
   if (!sonVeri) return;
-  const { u, kur, q, sonuclar, resmiSite, urunTuru } = sonVeri;
+  const { u, kur, sonuclar, resmiSite, urunTuru } = sonVeri;
+  // A code found in the listings stands in for a query typed without one.
+  const q = sonVeri.bulunanKod || sonVeri.q;
   const trFiyat = parseFloat($("trFiyat").value);
   const sira = $("sira").value;
 
@@ -190,6 +232,7 @@ function ciz() {
   // Mağazada gösterilecek Japonca ad
   const jpAd = resmi?.jpAd || (sonuclar.find((r) => r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q)) || {}).ad;
   let ozet = `<div class="sonuc"><h2>1. Markanın resmi fiyatı</h2>`;
+  if (sonVeri.bulunanKod) ozet += `<p class="meta">Model kodu ilanlardan bulundu: <strong>${kacis(sonVeri.bulunanKod)}</strong>. Aradığınız ürün değilse model kodunu yazarak arayın.</p>`;
   if (resmi) {
     const magazada = hesapla({ fiyat: resmi.fiyat, ulke: u, kur, trFiyat, iadeli: true });
     const indirim = resmi.indirimli && hesapla({ fiyat: resmi.indirimli, ulke: u, kur, trFiyat, iadeli: false });
@@ -205,8 +248,16 @@ function ciz() {
   } else {
     const basliklar = sonuclar.map((r) => r.ad).join(" ");
     const marka = MARKA_SITELERI.find(([desen]) => desen.test(basliklar));
-    ozet += `<p class="meta">Bu ürünün resmi fiyatı otomatik bulunamadı. ${marka ? `<a href="${marka[2]}" target="_blank" rel="noopener">${marka[1]} Japonya sitesinde</a> model kodunu aratarak` : "Markanın Japonya sitesinden"} kontrol edin. Bulduğunuz resmi fiyatı <a href="/hesaplayici/">hesaplayıcıya</a> girerek vergi iadesi ve gümrükle birlikte karşılaştırabilirsiniz.</p>`;
+    ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${marka
+      ? `<a class="dugme-kucuk" href="${kacis(markaAramaLinki(marka, q))}" target="_blank" rel="noopener">Ürünü ${marka[1]} ${u.ad} sitesinde aç ↗</a>`
+      : "Ürünü markanın " + u.ad + " sitesinde bulun,"} orada gördüğünüz fiyatı aşağıya yazın.</p>`;
   }
+  ozet += `<div class="mini-hesap">
+    <label>${resmi ? "Sitede farklı bir fiyat mı gördünüz?" : "Resmi sitede gördüğünüz fiyat"} (${u.para})
+      <input id="elleFiyat" type="number" inputmode="decimal" min="0" step="any" placeholder="Örn. 16500" value="${kacis(sonVeri.elleFiyat || "")}">
+    </label>
+    <div id="elleSonuc"></div>
+  </div>`;
   // Photo of the product we matched, so the user can check it is the right model before asking in a store.
   const ornek = resmiRakuten || sonuclar.find((r) => r.resim && r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q));
   if (ornek && ornek.resim) {
@@ -219,6 +270,7 @@ function ciz() {
   }
   ozet += `</div>`;
   $("ozet").innerHTML = ozet;
+  elleHesapla();
 
   const liste = sonuclar.map((r) => ({ r, s: hesapla({ fiyat: r.fiyat, ulke: u, kur, trFiyat, iadeli: false }) }));
   if (sira === "ucuz") liste.sort((a, b) => a.r.fiyat - b.r.fiyat);
@@ -256,14 +308,20 @@ $("arama").addEventListener("submit", async (e) => {
   if ($("trFiyat").dataset.otomatik) { $("trFiyat").value = ""; delete $("trFiyat").dataset.otomatik; $("trKaynak").textContent = ""; }
   $("durum").textContent = "Aranıyor…";
   try {
-    const [kur, cevap, resmiSite, resmiListe] = await Promise.all([
+    let [kur, cevap, resmiSite, resmiListe] = await Promise.all([
       kurGetir(u.para),
       fetch(`/api/ara?ulke=${u.kod}&q=${encodeURIComponent(q)}`).then((r) => r.json()),
       fetch(`/api/resmi?ulke=${u.kod}&q=${encodeURIComponent(q)}`).then((r) => r.json()).catch(() => null),
       fetch("/resmi-fiyatlar.json").then((r) => r.json()).catch(() => []),
     ]);
     if (cevap.hata) { $("durum").textContent = cevap.hata; return; }
-    sonVeri = { u, kur, q, sonuclar: cevap.sonuclar, resmiSite, resmiListe, urunTuru: turTahmin(cevap.sonuclar, resmiSite) };
+    // No code in the query: take it from the listings and ask the brand's site again.
+    const kodsuz = !q.split(/[\s,/]+/).some((t) => /[a-z]/i.test(t) && /\d/.test(t) && sade(t).length >= 5);
+    const bulunanKod = kodsuz ? ilanKodu(cevap.sonuclar) : null;
+    if (bulunanKod && !resmiSite?.bulundu) {
+      resmiSite = await fetch(`/api/resmi?ulke=${u.kod}&q=${encodeURIComponent(bulunanKod)}`).then((r) => r.json()).catch(() => resmiSite);
+    }
+    sonVeri = { u, kur, q, bulunanKod, sonuclar: cevap.sonuclar, resmiSite, resmiListe, urunTuru: turTahmin(cevap.sonuclar, resmiSite) };
     // Fill the Turkish price from the brand's Turkish site when the user left it empty.
     if (!$("trFiyat").value && resmiSite?.tr) {
       $("trFiyat").value = Math.round(resmiSite.tr.fiyat);
