@@ -9,7 +9,7 @@ permalink: /saatler/
 <p class="ozet">Bu saati yurt dışından almak mantıklı mı? Japonya fiyatı, mağazalar ve gümrük dahil Türkiye karşılaştırması. Kendi fiyatınızla denemek için <a href="/hesaplayici/">hesaplayıcıyı</a> kullanın.</p>
 <ul class="kartlar urunler">
 {% for p in collections.saatler %}
-  {{ kart(p.url, p.data.title, p.data.kapak, (p.data.referans + (" · Türkiye: " + (p.data.tr_fiyat | sayi) + " TL" if p.data.tr_fiyat else "")), p.data.marka) }}
+  {{ kart(p.url, p.data.title, p.data.kapak, (p.data.referans + (" · Türkiye: " + (p.data.tr_fiyat | sayi) + " TL" if p.data.tr_fiyat else "")), p.data.marka | upper) }}
 {% else %}
   <li class="bos-not">Henüz saat eklenmedi.</li>
 {% endfor %}
