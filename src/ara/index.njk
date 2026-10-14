@@ -210,7 +210,7 @@ function ciz() {
   // Photo of the product we matched, so the user can check it is the right model before asking in a store.
   const ornek = resmiRakuten || sonuclar.find((r) => r.resim && r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q));
   if (ornek && ornek.resim) {
-    ozet += `<div class="bulunan">${fotoDugmesi(ornek)}<p class="meta">Aradığınız ürün bu mu? Fotoğraf ${kacis(ornek.magaza)} ilanından. Büyütmek için tıklayın; renk ve kadranı kontrol edin.</p></div>`;
+    ozet += `<div class="bulunan">${fotoDugmesi(ornek)}<p class="meta">Aradığınız ürün bu mu? Fotoğraf ${kacis(ornek.magaza)} ilanından. Büyütmek için tıklayın; ${urunTuru === "saat" ? "renk ve kadranı" : "renk ve modeli"} kontrol edin.</p></div>`;
   }
   if (jpAd) {
     const kodYazisi = (q.split(/[\s,/]+/).find((t) => sade(t) === modelKodu(q)) || q).toUpperCase();
