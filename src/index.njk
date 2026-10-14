@@ -2,11 +2,43 @@
 layout: base.njk
 title: Ana sayfa
 ---
-<p class="slogan">Saat, stil ve beyefendi kültürü.</p>
-{% for bolum in bolumler %}
+{%- from "kart.njk" import kart -%}
+<section class="vitrin">
+  <p class="vitrin-ust">Saat, stil ve beyefendi kültürü</p>
+  <h1>Doğru saati, doğru yerden, doğru fiyata.</h1>
+  <p>Bir saatin veya sneaker'ın Japonya'daki resmi fiyatını, yetkili satıcılarını ve vergi iadesi ile gümrük sonrası Türkiye'ye göre farkını tek ekranda görün.</p>
+  <div class="vitrin-dugmeler">
+    <a class="dugme" href="/ara/">Yurt dışında ara</a>
+    <a class="dugme ikincil" href="/hesaplayici/">Hesaplayıcı</a>
+  </div>
+</section>
+
+{% if collections.saatler.length %}
 <section class="bolum">
-  <h2><a href="/{{ bolum.slug }}/">{{ bolum.ad }}</a></h2>
-  {% set yazilar = collections[bolum.slug] | head(3) %}
+  <div class="bolum-baslik"><h2><a href="/saatler/">Saat Fiyatları</a></h2><a href="/saatler/">Tümü →</a></div>
+  <ul class="kartlar urunler">
+  {% for p in collections.saatler | head(4) %}
+    {{ kart(p.url, p.data.title, p.data.kapak, p.data.referans, p.data.marka) }}
+  {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% for bolum in bolumler %}
+{% set yazilar = collections[bolum.slug] | head(3) %}
+{% if yazilar.length %}
+<section class="bolum">
+  <div class="bolum-baslik"><h2><a href="/{{ bolum.slug }}/">{{ bolum.ad }}</a></h2><a href="/{{ bolum.slug }}/">Tümü →</a></div>
   {% include "liste.njk" %}
 </section>
+{% endif %}
 {% endfor %}
+
+<section class="bolum">
+  <h2>Bölümler</h2>
+  <ul class="kartlar bolumler">
+  {% for bolum in bolumler %}
+    {{ kart("/" + bolum.slug + "/", bolum.ad, null, bolum.aciklama) }}
+  {% endfor %}
+  </ul>
+</section>

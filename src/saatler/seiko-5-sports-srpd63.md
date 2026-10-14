@@ -3,6 +3,9 @@ title: Seiko 5 Sports SRPD63 / SBSA013 (yeşil kadran)
 marka: Seiko
 referans: SRPD63K1
 ulke: japonya
+kapak: https://thumbnail.image.rakuten.co.jp/@0_mall/kawasumi/cabinet/clock/13226795/sbsa013.jpg?_ex=600x600
+kapak_kaynak: Jewelry Kawasumi (Rakuten)
+kapak_link: https://item.rakuten.co.jp/kawasumi/se-sbsa013/
 tr_fiyat: 19645
 tr_kaynak: Seiko Türkiye (resmi site)
 tr_kaynak_link: https://www.seikowatches.com/tr-tr/products/5sports/srpd63

@@ -3,6 +3,9 @@ title: Hamilton Khaki Field Murph 38mm
 marka: Hamilton
 referans: H70405140
 ulke: japonya
+kapak: https://thumbnail.image.rakuten.co.jp/@0_mall/hamiltonofficial/cabinet/thumb3/h70405140_m.jpg?_ex=600x600
+kapak_kaynak: Hamilton resmi Rakuten mağazası
+kapak_link: https://item.rakuten.co.jp/hamiltonofficial/h70405140/
 tr_fiyat: 57300
 tr_kaynak: Hamilton Türkiye (resmi site)
 tr_kaynak_link: https://www.hamiltonwatch.com/tr-tr/h70405140-khaki-field-murph-auto.html

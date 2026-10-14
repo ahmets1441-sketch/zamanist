@@ -3,23 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if title %}{{ title }} · {% endif %}Zamanist</title>
-  <meta name="description" content="{{ ozet or description or 'Saat, stil ve beyefendi kültürü: kombinler, sporcuların stili, rehberler ve biyografiler.' }}">
+  {%- set sayfaBasligi = (title + " · Zamanist") if title and title != "Ana sayfa" else "Zamanist · Saat, stil ve beyefendi kültürü" %}
+  {%- set sayfaOzeti = ozet or description or "Saat, stil ve beyefendi kültürü: kombinler, sporcuların stili, rehberler ve yurt dışı fiyat karşılaştırması." %}
+  {%- set sayfaGorseli = kapak if kapak and kapak.startsWith("http") else ("https://zamanist.com" + kapak if kapak else "https://zamanist.com/img/paylasim.png") %}
+  <title>{{ sayfaBasligi }}</title>
+  <meta name="description" content="{{ sayfaOzeti }}">
+  <meta property="og:site_name" content="Zamanist">
+  <meta property="og:type" content="{{ 'article' if layout == 'yazi.njk' else 'website' }}">
+  <meta property="og:title" content="{{ sayfaBasligi }}">
+  <meta property="og:description" content="{{ sayfaOzeti }}">
+  <meta property="og:url" content="https://zamanist.com{{ page.url }}">
+  <meta property="og:image" content="{{ sayfaGorseli }}">
+  <meta property="og:locale" content="tr_TR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <meta name="theme-color" content="#1a1a1a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header class="site-header">
-    <a class="logo" href="/">Zamanist</a>
+    <div class="ust">
+      <a class="logo" href="/"><img src="/img/logo.svg" alt="" width="34" height="34"><span>Zamanist</span></a>
+      <a class="ust-ara" href="/ara/">Yurt dışında ara</a>
+    </div>
     <nav>
       {%- for b in bolumler %}
-      <a href="/{{ b.slug }}/">{{ b.ad }}</a>
+      <a href="/{{ b.slug }}/"{% if page.url.startsWith("/" + b.slug + "/") %} aria-current="page"{% endif %}>{{ b.ad }}</a>
       {%- endfor %}
-      <a href="/ara/">Ara</a>
-      <a href="/saatler/">Saat Fiyatları</a>
-      <a href="/hesaplayici/">Hesaplayıcı</a>
+      <a href="/ara/"{% if page.url == "/ara/" %} aria-current="page"{% endif %}>Ara</a>
+      <a href="/saatler/"{% if page.url.startsWith("/saatler/") %} aria-current="page"{% endif %}>Saat Fiyatları</a>
+      <a href="/hesaplayici/"{% if page.url == "/hesaplayici/" %} aria-current="page"{% endif %}>Hesaplayıcı</a>
     </nav>
   </header>
   <main>{{ content | safe }}</main>
-  <footer class="site-footer">© Zamanist · Saat, stil ve beyefendi kültürü</footer>
+  <footer class="site-footer">
+    <a class="logo" href="/"><img src="/img/logo.svg" alt="" width="26" height="26"><span>Zamanist</span></a>
+    <p>Saat, stil ve beyefendi kültürü. Fiyatlar bilgi amaçlıdır; satın almadan önce satıcıdan teyit edin.</p>
+  </footer>
 </body>
 </html>

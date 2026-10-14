@@ -7,6 +7,11 @@ permalink: /ara/
 <h1>Yurt Dışında Ara</h1>
 <p class="slogan">Ürünü yazın: önce markanın resmi fiyatı, sonra yetkili satıcılar, elektronik mağazaları ve pazar yerleri. Hepsi güncel kurla TL olarak.</p>
 
+<dialog class="buyuk-foto" id="buyukFoto">
+  <form method="dialog"><button>Kapat ✕</button></form>
+  <img alt="Ürün fotoğrafı">
+  <p><a target="_blank" rel="nofollow noopener"></a></p>
+</dialog>
 <form class="hesap" id="arama">
   <label>Ülke
     <select id="ulke">
@@ -126,12 +131,27 @@ function resmiFarki(fiyat, resmi) {
   return y > 0 ? `<span class="etiket uyari">Resmi fiyatın %${y} üstünde</span>` : `<span class="etiket iyi">Resmi fiyatın %${-y} altında</span>`;
 }
 
+// Rakuten thumbnails carry their size in "?_ex=128x128"; ask for a larger copy for the zoom view.
+const buyukResim = (url) => url.replace(/\?_ex=\d+x\d+/, "?_ex=600x600");
+const fotoDugmesi = (r) =>
+  `<button type="button" class="foto" data-buyuk="${kacis(buyukResim(r.resim))}" data-link="${kacis(r.link)}" data-magaza="${kacis(r.magaza)}" aria-label="Fotoğrafı büyüt"><img src="${kacis(r.resim)}" alt="" loading="lazy"></button>`;
+
+document.addEventListener("click", (e) => {
+  const b = e.target.closest(".foto");
+  if (!b) return;
+  const d = $("buyukFoto");
+  d.querySelector("img").src = b.dataset.buyuk;
+  d.querySelector("a").href = b.dataset.link;
+  d.querySelector("a").textContent = `${b.dataset.magaza} ilanını aç`;
+  d.showModal();
+});
+
 function satir({ r, s }, ctx) {
   const tr = etiketler(r.ad, ctx.urunTuru).map((e) => ctx.numaralar && / cm/.test(e) ? cmToEu(e, ctx.numaralar) : e);
   const numaraVar = ctx.secili && santimler(r.ad).includes(String(parseFloat(ctx.secili.cm)));
   return `
     <li>
-      ${r.resim ? `<img src="${kacis(r.resim)}" alt="" loading="lazy">` : "<span></span>"}
+      ${r.resim ? fotoDugmesi(r) : "<span></span>"}
       <div>
         <div class="fiyat">${para(r.fiyat, ctx.u.para)} = ${tl(s.netTl)} ${resmiFarki(r.fiyat, ctx.resmi)}</div>
         ${tr.length ? `<div class="tr-etiketler">${tr.map(kacis).join(" · ")}</div>` : ""}
@@ -181,6 +201,11 @@ function ciz() {
     const basliklar = sonuclar.map((r) => r.ad).join(" ");
     const marka = MARKA_SITELERI.find(([desen]) => desen.test(basliklar));
     ozet += `<p class="meta">Bu ürünün resmi fiyatı otomatik bulunamadı. ${marka ? `<a href="${marka[2]}" target="_blank" rel="noopener">${marka[1]} Japonya sitesinde</a> model kodunu aratarak` : "Markanın Japonya sitesinden"} kontrol edin. Bulduğunuz resmi fiyatı <a href="/hesaplayici/">hesaplayıcıya</a> girerek vergi iadesi ve gümrükle birlikte karşılaştırabilirsiniz.</p>`;
+  }
+  // Photo of the product we matched, so the user can check it is the right model before asking in a store.
+  const ornek = resmiRakuten || sonuclar.find((r) => r.resim && r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q));
+  if (ornek && ornek.resim) {
+    ozet += `<div class="bulunan">${fotoDugmesi(ornek)}<p class="meta">Aradığınız ürün bu mu? Fotoğraf ${kacis(ornek.magaza)} ilanından. Büyütmek için tıklayın; renk ve kadranı kontrol edin.</p></div>`;
   }
   if (jpAd) {
     const kodYazisi = (q.split(/[\s,/]+/).find((t) => sade(t) === modelKodu(q)) || q).toUpperCase();

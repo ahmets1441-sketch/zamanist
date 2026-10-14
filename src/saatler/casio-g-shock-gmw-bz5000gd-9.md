@@ -3,6 +3,9 @@ title: Casio G-Shock Full Metal GMW-BZ5000GD-9 (altın)
 marka: Casio
 referans: GMW-BZ5000GD-9
 ulke: japonya
+kapak: https://thumbnail.image.rakuten.co.jp/@0_mall/mco/cabinet/jf/gmw-bz5000gd-9jf_1.jpg?_ex=600x600
+kapak_kaynak: mco net shop (Rakuten)
+kapak_link: https://item.rakuten.co.jp/mco/gmw-bz5000gd-9jf/
 tr_kaynak: Türkiye'de bu model için güncel ilan bulunamadı
 kontrol_tarihi: 2026-10-13
 magazalar:

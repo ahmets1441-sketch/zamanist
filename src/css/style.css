@@ -1,19 +1,26 @@
-:root{--fg:#1a1a1a;--bg:#fbfaf7;--muted:#6b6b6b;--accent:#8a6d2f;--line:#e4e0d6}
+:root{--fg:#1a1a1a;--bg:#fbfaf7;--muted:#6b6b6b;--accent:#8a6d2f;--accent-acik:#c9a45c;--line:#e4e0d6;--kart:#fff;--baslik:"Playfair Display",Georgia,serif}
 *{box-sizing:border-box}
 body{margin:0;font:18px/1.65 Georgia,"Times New Roman",serif;color:var(--fg);background:var(--bg)}
 a{color:var(--accent)}
-.site-header{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:baseline;padding:1rem 1.25rem;border-bottom:1px solid var(--line);max-width:52rem;margin:0 auto}
-.logo{font-size:1.6rem;font-weight:bold;text-decoration:none;color:var(--fg);letter-spacing:.02em}
-nav a{margin-left:1.25rem;text-decoration:none}
-main{max-width:52rem;margin:0 auto;padding:1.5rem 1.25rem}
+img{max-width:100%}
+.site-header{max-width:64rem;margin:0 auto;padding:1rem 1.25rem 0;border-bottom:1px solid var(--line)}
+.ust{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.logo{display:inline-flex;align-items:center;gap:.55rem;font:700 1.7rem/1 var(--baslik);text-decoration:none;color:var(--fg);letter-spacing:.01em}
+.ust-ara{font-size:.9rem;text-decoration:none;border:1px solid var(--accent);border-radius:99px;padding:.3rem .9rem}
+.ust-ara:hover{background:var(--accent);color:#fff}
+nav{display:flex;gap:1.25rem;overflow-x:auto;padding:.9rem 0 .7rem;scrollbar-width:none;font-size:.95rem}
+nav a{white-space:nowrap;text-decoration:none;color:var(--fg);padding-bottom:.2rem;border-bottom:2px solid transparent}
+nav a:hover,nav a[aria-current]{color:var(--accent);border-bottom-color:var(--accent)}
+main{max-width:64rem;margin:0 auto;padding:1.5rem 1.25rem}
+main>.hesap,main>form,main>.sonuc{max-width:46rem}
+h1,h2,h3{font-family:var(--baslik);font-weight:700}
 h1{line-height:1.25}
 .liste{list-style:none;padding:0}
 .liste li{padding:.6rem 0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem}
 .meta{color:var(--muted);font-size:.85rem}
 .yorumlar{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem}
-.site-footer{max-width:52rem;margin:2rem auto;padding:0 1.25rem;color:var(--muted);font-size:.85rem}
-nav{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem}
-nav a{margin-left:0}
+.site-footer{max-width:64rem;margin:3rem auto 0;padding:1.5rem 1.25rem 2rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+.site-footer .logo{font-size:1.2rem}
 .liste li{align-items:center}
 .liste li>div{flex:1;min-width:12rem}
 .kapak-kucuk{width:4.5rem;height:4.5rem;object-fit:cover;border-radius:4px}
@@ -52,3 +59,52 @@ nav a{margin-left:0}
 .kademe summary h2{display:inline;font-size:1.25rem}
 .sonuc h2{margin:0 0 .6rem;font-size:1.25rem}
 .jp-goster{margin-top:1rem;padding:.7rem .9rem;border:1px dashed var(--accent);border-radius:4px;font-size:1.1rem}
+
+/* Home page banner */
+.vitrin{background:#1a1a1a;color:#f3efe6;border-radius:10px;padding:2.5rem 2rem;margin:.5rem 0 2.5rem;position:relative;overflow:hidden}
+.vitrin::after{content:"";position:absolute;right:-5rem;top:-5rem;width:18rem;height:18rem;border:2px solid var(--accent-acik);border-radius:50%;opacity:.35}
+.vitrin h1{font-size:clamp(1.8rem,5vw,2.8rem);margin:.3rem 0 .8rem;max-width:34rem;color:#fff}
+.vitrin p{max-width:36rem;margin:0}
+.vitrin-ust{color:var(--accent-acik);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
+.vitrin-dugmeler{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem;position:relative;z-index:1}
+.dugme{display:inline-block;background:var(--accent-acik);color:#1a1a1a;text-decoration:none;font-weight:bold;padding:.65rem 1.3rem;border-radius:6px}
+.dugme.ikincil{background:transparent;color:#f3efe6;border:1px solid #f3efe6}
+.bolum{margin:2.5rem 0}
+.bolum-baslik{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.bolum-baslik>a{font-size:.9rem;text-decoration:none}
+
+/* Card grid */
+.kartlar{list-style:none;padding:0;margin:1rem 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1.25rem}
+.kart a{display:flex;flex-direction:column;height:100%;background:var(--kart);border:1px solid var(--line);border-radius:8px;overflow:hidden;text-decoration:none;color:var(--fg);transition:transform .15s,box-shadow .15s}
+.kart a:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.kart-gorsel{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#f1ede4}
+.urunler .kart-gorsel{aspect-ratio:1;object-fit:contain;background:#fff;padding:.5rem}
+.kart-gorsel.bos{display:flex;align-items:center;justify-content:center;font:700 3rem var(--baslik);color:var(--accent);background:linear-gradient(135deg,#f1ede4,#e6dcc6)}
+.bolumler .kart-gorsel.bos{aspect-ratio:3/1;font-size:2rem}
+.kart-ust{padding:.8rem 1rem 0;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.kart-baslik{padding:.3rem 1rem 0;font:700 1.1rem/1.3 var(--baslik)}
+.kart-ust+.kart-baslik{padding-top:.2rem}
+.kart-gorsel+.kart-baslik{padding-top:.8rem}
+.kart-alt{padding:.35rem 1rem 1rem;color:var(--muted);font-size:.88rem}
+.kart-baslik:last-child{padding-bottom:1rem}
+.bos-not{color:var(--muted)}
+
+/* Product photo on watch pages */
+.urun-gorsel{margin:1rem 0 1.5rem;max-width:22rem}
+.urun-gorsel img{display:block;width:100%;aspect-ratio:1;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:8px}
+.urun-gorsel figcaption{color:var(--muted);font-size:.8rem;margin-top:.4rem}
+.saat{max-width:46rem}
+@media (min-width:56rem){.saat{display:grid;grid-template-columns:18rem 1fr;gap:0 2rem;max-width:none}.saat>*{grid-column:1/-1}.saat>.urun-gorsel{grid-column:1;grid-row:3/5;margin-top:0}.saat>#ozet,.saat>#kurBilgi{grid-column:2}}
+
+/* Search: zoomable photos */
+.foto{padding:0;border:0;background:none;cursor:zoom-in;align-self:start}
+.foto img{display:block}
+.buyuk-foto{border:0;border-radius:10px;padding:1rem;max-width:min(92vw,40rem);text-align:center}
+.buyuk-foto::backdrop{background:rgba(0,0,0,.7)}
+.buyuk-foto img{width:100%;height:auto;max-height:70vh;object-fit:contain}
+.buyuk-foto p{margin:.5rem 0 0;font-size:.9rem}
+.buyuk-foto form{text-align:right;margin:0 0 .5rem}
+.buyuk-foto button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:4px;padding:.2rem .7rem;cursor:pointer}
+.bulunan{display:grid;grid-template-columns:7rem 1fr;gap:1rem;align-items:start;margin:.8rem 0 0}
+.bulunan .foto img{width:7rem;height:7rem;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:6px}
+@media (max-width:30rem){.vitrin{padding:2rem 1.25rem}.logo{font-size:1.45rem}.ust-ara{display:none}}

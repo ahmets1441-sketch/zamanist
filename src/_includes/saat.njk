@@ -5,7 +5,12 @@ layout: base.njk
 <article class="saat">
   <p class="meta"><a href="/saatler/">Saat Fiyatları</a> · {{ marka }} · {{ referans }}</p>
   <h1>{{ title }}</h1>
-  {% if kapak %}<img class="kapak" src="{{ kapak }}" alt="{{ title }}">{% endif %}
+  {% if kapak %}
+  <figure class="urun-gorsel">
+    <img src="{{ kapak }}" alt="{{ title }}">
+    {% if kapak_kaynak %}<figcaption>Görsel: {% if kapak_link %}<a href="{{ kapak_link }}" target="_blank" rel="nofollow noopener">{{ kapak_kaynak }}</a>{% else %}{{ kapak_kaynak }}{% endif %}</figcaption>{% endif %}
+  </figure>
+  {% endif %}
 
   <div class="sonuc" id="ozet" data-tr="{{ tr_fiyat or '' }}">
     <dl>

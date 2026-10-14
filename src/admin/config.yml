@@ -90,7 +90,9 @@ collections:
       - { label: Marka, name: marka, widget: string }
       - { label: Referans numarası, name: referans, widget: string, hint: "Kutuda ve etikette yazan model kodu, örn. H70405140" }
       - { label: Ülke, name: ulke, widget: select, options: [{ label: Japonya, value: japonya }], default: japonya }
-      - { label: Kapak fotoğrafı, name: kapak, widget: image, required: false }
+      - { label: Kapak fotoğrafı, name: kapak, widget: image, required: false, hint: "Kendi fotoğrafınızı yükleyin veya bir satıcı ilanındaki fotoğrafın adresini yapıştırın." }
+      - { label: Fotoğrafın kaynağı, name: kapak_kaynak, widget: string, required: false, hint: "Başkasının fotoğrafıysa sahibini yazın, örn. Hamilton resmi Rakuten mağazası" }
+      - { label: Fotoğraf kaynağının linki, name: kapak_link, widget: string, required: false }
       - { label: Türkiye fiyatı (TL), name: tr_fiyat, widget: number, value_type: int, required: false }
       - { label: Türkiye fiyatı kaynağı, name: tr_kaynak, widget: string, required: false, hint: "Örn. Hamilton Türkiye (resmi site)" }
       - { label: Türkiye fiyatı linki, name: tr_kaynak_link, widget: string, required: false }
