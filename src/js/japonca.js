@@ -1,7 +1,7 @@
 // Japonca ilan başlıklarını sadeleştirir ve önemli bilgileri Türkçe etiketlere çevirir.
 window.Japonca = (() => {
   const SOZLUK = [
-    [/レディース|婦人/, "Kadın"], [/メンズ|紳士/, "Erkek"], [/ユニセックス|男女兼用/, "Unisex"],
+    [/レディース|婦人|ウィメンズ|WMNS/i, "Kadın"], [/(?<!ウィ)メンズ|紳士/, "Erkek"], [/ユニセックス|男女兼用/, "Unisex"],
     [/自動巻|オートマ/, "Otomatik"], [/手巻/, "Kurmalı"], [/クオーツ|クォーツ/, "Quartz"],
     [/ソーラー/, "Solar"], [/電波/, "Radyo ayarlı"], [/Bluetooth|ブルートゥース/i, "Bluetooth"],
     [/国内正規/, "Japonya resmi garantili"], [/韓国正規|海外正規/, "Yurt dışı resmi ürünü (Japonya garantisi yok)"],

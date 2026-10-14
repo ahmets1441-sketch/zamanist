@@ -20,13 +20,6 @@ permalink: /ara/
       {%- endfor %}
     </select>
   </label>
-  <label>Ürün türü
-    <select id="tur">
-      {%- for t in turler %}
-      <option value="{{ t.kod }}">{{ t.ad }}</option>
-      {%- endfor %}
-    </select>
-  </label>
   <label id="numaraAlan" hidden>Numaranız (EU, isteğe bağlı)
     <select id="numara">
       <option value="">Seçin</option>
@@ -40,6 +33,7 @@ permalink: /ara/
   </label>
   <label>Türkiye fiyatı (TL, isteğe bağlı)
     <input id="trFiyat" type="number" inputmode="decimal" min="0" step="any" placeholder="Karşılaştırma için">
+    <span class="meta" id="trKaynak"></span>
   </label>
   <label>Sıralama
     <select id="sira">
@@ -100,8 +94,15 @@ function cmToEu(etiket, numaralar) {
   }).join(", ");
 }
 
+// Product type is guessed from the listings: shoe words vs watch words in the titles.
+function turTahmin(sonuclar, resmiSite) {
+  if (resmiSite?.marka === "Nike") return "ayakkabi";
+  const say = (desen) => sonuclar.filter((r) => desen.test(r.ad)).length;
+  return say(/スニーカー|シューズ|靴|sneaker|shoe/i) > say(/腕時計|ウォッチ|watch/i) ? "ayakkabi" : "saat";
+}
+
 function numaraGoster() {
-  const t = TURLER.find((x) => x.kod === $("tur").value);
+  const t = TURLER.find((x) => x.kod === (sonVeri?.urunTuru || "saat"));
   $("numaraAlan").hidden = !t.numaralar;
   const n = t.numaralar && t.numaralar.find((x) => x.eu === $("numara").value);
   $("numaraBilgi").innerHTML = n
@@ -179,7 +180,7 @@ function ciz() {
   const resmi = listede
     ? { fiyat: listede.fiyat, kaynak: `${listede.marka} resmi fiyatı (Zamanist listesi, ${new Date(listede.tarih).toLocaleDateString("tr-TR")})`, link: listede.kaynak, jpAd: listede.ad || listede.kod }
     : resmiSite?.bulundu
-    ? { fiyat: resmiSite.fiyat, kaynak: `${resmiSite.marka} ${u.ad} resmi sitesi`, link: resmiSite.link, jpAd: resmiSite.urunAdi }
+    ? { fiyat: resmiSite.fiyat, indirimli: resmiSite.indirimli, kaynak: `${resmiSite.marka} ${u.ad} resmi sitesi`, link: resmiSite.link, jpAd: resmiSite.urunAdi }
     : resmiRakuten ? { fiyat: resmiRakuten.fiyat, kaynak: `${resmiRakuten.magaza} (markanın resmi Rakuten mağazası)`, link: resmiRakuten.link, jpAd: temizle(resmiRakuten.ad) }
     : null;
   const turBilgi = TURLER.find((x) => x.kod === urunTuru);
@@ -190,10 +191,14 @@ function ciz() {
   const jpAd = resmi?.jpAd || (sonuclar.find((r) => r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q)) || {}).ad;
   let ozet = `<div class="sonuc"><h2>1. Markanın resmi fiyatı</h2>`;
   if (resmi) {
-    const s = hesapla({ fiyat: resmi.fiyat, ulke: u, kur, trFiyat, iadeli: true });
+    const magazada = hesapla({ fiyat: resmi.fiyat, ulke: u, kur, trFiyat, iadeli: true });
+    const indirim = resmi.indirimli && hesapla({ fiyat: resmi.indirimli, ulke: u, kur, trFiyat, iadeli: false });
+    // Verdict uses the cheaper of: list price in store with tax refund, or the brand's online sale price.
+    const s = indirim && indirim.netTl < magazada.netTl ? indirim : magazada;
     ozet += `<dl>
       <dt>Resmi fiyat</dt><dd><strong>${para(resmi.fiyat, u.para)} = ${tl(resmi.fiyat * kur.TRY)}</strong> · <a href="${kacis(resmi.link)}" target="_blank" rel="nofollow noopener">${kacis(resmi.kaynak)}</a></dd>
-      <dt>Mağazadan pasaportla</dt><dd>${tl(s.netTl)} (vergi iadesi sonrası, yaklaşık ${euro(s.netEur)})</dd>
+      <dt>Mağazadan pasaportla</dt><dd>${tl(magazada.netTl)} (vergi iadesi sonrası, yaklaşık ${euro(magazada.netEur)})</dd>
+      ${indirim ? `<dt>Markanın sitesinde indirimde</dt><dd><strong>${para(resmi.indirimli, u.para)} = ${tl(indirim.netTl)}</strong> · Online fiyat; vergi iadesi yok, ${u.adDa}ki bir adrese (otel) teslim. Mağazada bu indirim olmayabilir.</dd>` : ""}
       <dt>Gümrük</dt><dd>${GUMRUK_METNI[s.gumruk](s)}</dd>
       ${s.karar ? `<dt>Türkiye'ye göre</dt><dd>${s.gumrukTl > 0 ? `Gümrük vergisi hariç ${fark(s.farkVergisiz, trFiyat)}<br>Gümrük vergisi dahil ${fark(s.farkVergili, trFiyat)}` : fark(s.farkVergisiz, trFiyat)}</dd>` : ""}
     </dl>${kararHtml(s.karar)}`;
@@ -238,26 +243,34 @@ $("arama").addEventListener("submit", async (e) => {
   e.preventDefault();
   const q = $("q").value.trim();
   const u = ULKELER.find((x) => x.kod === $("ulke").value);
-  const urunTuru = $("tur").value;
   $("ozet").innerHTML = $("kademeler").innerHTML = "";
   sonVeri = null;
 
-  const bizden = SAATLER.filter((s) => urunTuru === "saat" && s.ulke === u.kod && (sade(s.referans).includes(sade(q)) || sade(q).includes(sade(s.referans)) || s.ad.toLowerCase().includes(q.toLowerCase())));
+  const bizden = SAATLER.filter((s) => s.ulke === u.kod && (sade(s.referans).includes(sade(q)) || sade(q).includes(sade(s.referans)) || s.ad.toLowerCase().includes(q.toLowerCase())));
   $("bizden").innerHTML = bizden.length
     ? `<div class="sonuc"><strong>Zamanist'te incelendi:</strong> ${bizden.map((s) => `<a href="${s.url}">${kacis(s.ad)}</a>`).join(", ")}. Mağaza adresleri bu sayfada.</div>`
     : "";
-  if (!$("trFiyat").value && bizden.length === 1 && bizden[0].tr) $("trFiyat").value = bizden[0].tr;
+  if (!$("trFiyat").value && bizden.length === 1 && bizden[0].tr) { $("trFiyat").value = bizden[0].tr; $("trFiyat").dataset.otomatik = "1"; }
 
+  // A price filled automatically for the previous product does not belong to this one.
+  if ($("trFiyat").dataset.otomatik) { $("trFiyat").value = ""; delete $("trFiyat").dataset.otomatik; $("trKaynak").textContent = ""; }
   $("durum").textContent = "Aranıyor…";
   try {
     const [kur, cevap, resmiSite, resmiListe] = await Promise.all([
       kurGetir(u.para),
-      fetch(`/api/ara?ulke=${u.kod}&tur=${urunTuru}&q=${encodeURIComponent(q)}`).then((r) => r.json()),
+      fetch(`/api/ara?ulke=${u.kod}&q=${encodeURIComponent(q)}`).then((r) => r.json()),
       fetch(`/api/resmi?ulke=${u.kod}&q=${encodeURIComponent(q)}`).then((r) => r.json()).catch(() => null),
       fetch("/resmi-fiyatlar.json").then((r) => r.json()).catch(() => []),
     ]);
     if (cevap.hata) { $("durum").textContent = cevap.hata; return; }
-    sonVeri = { u, kur, q, sonuclar: cevap.sonuclar, resmiSite, resmiListe, urunTuru };
+    sonVeri = { u, kur, q, sonuclar: cevap.sonuclar, resmiSite, resmiListe, urunTuru: turTahmin(cevap.sonuclar, resmiSite) };
+    // Fill the Turkish price from the brand's Turkish site when the user left it empty.
+    if (!$("trFiyat").value && resmiSite?.tr) {
+      $("trFiyat").value = Math.round(resmiSite.tr.fiyat);
+      $("trFiyat").dataset.otomatik = "1";
+      $("trKaynak").innerHTML = `Türkiye fiyatı otomatik eklendi: <a href="${kacis(resmiSite.tr.link)}" target="_blank" rel="nofollow noopener">${kacis(resmiSite.tr.kaynak)}</a>`;
+    }
+    numaraGoster();
     $("durum").textContent = cevap.sonuclar.length || resmiSite?.bulundu
       ? `${cevap.sonuclar.length} satıcı ilanı. 1 ${u.para} = ${kur.TRY.toLocaleString("tr-TR", { maximumFractionDigits: 4 })} TL (${kur.tarih} kuru).`
       : "Sonuç bulunamadı. Model kodunu veya İngilizce adını deneyin.";
@@ -267,6 +280,7 @@ $("arama").addEventListener("submit", async (e) => {
   }
 });
 ["trFiyat", "sira"].forEach((id) => $(id).addEventListener("input", ciz));
-["tur", "numara"].forEach((id) => $(id).addEventListener("input", () => { numaraGoster(); ciz(); }));
+$("numara").addEventListener("input", () => { numaraGoster(); ciz(); });
+$("trFiyat").addEventListener("input", () => { delete $("trFiyat").dataset.otomatik; $("trKaynak").textContent = ""; });
 numaraGoster();
 </script>

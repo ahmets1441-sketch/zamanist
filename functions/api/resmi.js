@@ -1,5 +1,6 @@
 // Official Japanese list price from the brand's own site, found by model code.
 // Only brands whose product URL can be built from the code are supported.
+// Nike pages are found by style code (DX5883-100).
 // Casio blocks automated requests (403) and Hamilton/Longines URLs need a slug: those fall back to
 // the brand's official Rakuten store in /api/ara.
 const UA = "Mozilla/5.0 (compatible; ZamanistBot/1.0; +https://zamanist.com)";
@@ -21,6 +22,23 @@ const SEIKO_KOLEKSIYONLAR = ["5sports", "presage", "prospex", "astron", "kingsei
 const SEIKO_DESEN = /^S[A-Z]{3}\d{3}$/;
 const seikoAdaylar = (k) => SEIKO_KOLEKSIYONLAR.map((c) => ({ marka: "Seiko", ad: "セイコー", kod: k, url: `https://www.seikowatches.com/jp-ja/products/${c}/${k.toLowerCase()}` }));
 
+// Nike: /<country>/t/<any slug>/<style code> redirects to the product page (robots.txt allows /t/).
+// The page JSON holds list price (initialPrice) and today's price (currentPrice) per style code.
+const NIKE_DESEN = /^([A-Z]{2}\d{4}|\d{6})(\d{3})$/;
+const nikeAday = (k) => {
+  const [, a, b] = k.match(NIKE_DESEN);
+  return { marka: "Nike", ad: "ナイキ", kod: `${a}-${b}`, nike: true, url: `https://www.nike.com/jp/t/x/${a}-${b}` };
+};
+
+function nikeOku(html, kod, para = "JPY") {
+  const m = html.match(new RegExp(`/${kod}","canonicalUrl"[\\s\\S]{0,600}?"currency":"${para}","currentPrice":([\\d.]+),"initialPrice":([\\d.]+)`));
+  if (!m) return null;
+  const ad = (html.match(/<meta property="og:title" content="([^"]+)"/) || [])[1] || "";
+  const urunAdi = ad.replace(/&#x27;/g, "'").replace(/&amp;/g, "&") + " " + kod;
+  const [simdi, liste] = [Number(m[1]), Number(m[2])];
+  return { fiyat: liste, urunAdi, ...(simdi < liste ? { indirimli: simdi } : {}) };
+}
+
 function fiyatOku(html, kod) {
   // Seiko: take the button that belongs to this exact model, not related products on the page.
   const seiko = kod && html.match(new RegExp(`data-dataLayer-id="${kod}"[^>]*?data-dataLayer-price="(\\d{3,7})"[^>]*?data-dataLayer-brand="([^"]*)"`, "i"));
@@ -41,11 +59,25 @@ function fiyatOku(html, kod) {
   return p ? { fiyat: Number(p[1]), urunAdi: (html.match(/<meta property="og:title" content="([^"]+)"/) || [])[1] || null } : null;
 }
 
+// Turkish price from the same brand's Turkish site, so the user need not look it up.
+async function trFiyati(aday) {
+  if (!aday.nike) return null;
+  const url = `https://www.nike.com/tr/t/x/${aday.kod}`;
+  try {
+    const r = await fetch(url, { headers: { "User-Agent": UA, "Accept-Language": "tr" }, redirect: "follow", cf: { cacheTtl: 21600 } });
+    const b = r.ok && nikeOku(await r.text(), aday.kod, "TRY");
+    return b ? { fiyat: b.indirimli || b.fiyat, kaynak: "Nike Türkiye resmi sitesi", link: r.url } : null;
+  } catch (e) {
+    return null;
+  }
+}
+
 async function dene(aday) {
   try {
     const r = await fetch(aday.url, { headers: { "User-Agent": UA, "Accept-Language": "ja" }, redirect: "follow", cf: { cacheTtl: 21600 } });
     if (!r.ok) return { url: aday.url, durum: r.status };
-    const bulunan = fiyatOku(await r.text(), aday.kod);
+    const html = await r.text();
+    const bulunan = aday.nike ? nikeOku(html, aday.kod) : fiyatOku(html, aday.kod);
     return bulunan ? { ...aday, ...bulunan, url: r.url } : { url: aday.url, durum: "fiyat yok" };
   } catch (e) {
     return { url: aday.url, durum: String(e.message) };
@@ -62,13 +94,15 @@ export async function onRequestGet({ request }) {
   const adaylar = [
     ...SWATCH.flatMap((b) => kodlar.filter((k) => b.desen.test(k)).map((k) => ({ marka: b.marka, ad: b.ad, url: b.url(k) }))),
     ...kodlar.filter((k) => SEIKO_DESEN.test(k)).flatMap(seikoAdaylar),
+    ...kodlar.filter((k) => NIKE_DESEN.test(k)).map(nikeAday),
   ];
   if (!adaylar.length) return Response.json({ bulundu: false, neden: "desteklenmeyen" });
 
   const sonuclar = await Promise.all(adaylar.slice(0, 10).map(dene));
   const bulunan = sonuclar.find((s) => s.fiyat);
+  const tr = bulunan && (await trFiyati(bulunan));
   const govde = bulunan
-    ? { bulundu: true, marka: bulunan.marka, markaJp: bulunan.ad, fiyat: bulunan.fiyat, urunAdi: bulunan.urunAdi, link: bulunan.url }
+    ? { bulundu: true, tr, marka: bulunan.marka, markaJp: bulunan.ad, fiyat: bulunan.fiyat, indirimli: bulunan.indirimli || null, urunAdi: bulunan.urunAdi, link: bulunan.url }
     : { bulundu: false, neden: "bulunamadi" };
   if (u.searchParams.has("hata")) govde.denemeler = sonuclar;
   return Response.json(govde, { headers: { "Cache-Control": "public, max-age=21600" } });
