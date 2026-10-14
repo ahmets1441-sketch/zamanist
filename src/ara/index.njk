@@ -252,7 +252,7 @@ function satir({ r, s }, ctx) {
     <li>
       ${r.resim ? fotoDugmesi(r) : "<span></span>"}
       <div>
-        <div class="fiyat"><button type="button" class="hesaba-al" data-fiyat="${r.fiyat}" title="Hızlı hesaba al">${para(r.fiyat, ctx.u.para)} = ${tl(s.netTl)}</button> ${resmiFarki(r.fiyat, ctx.resmi)}</div>
+        <div class="fiyat"><button type="button" class="hesaba-al" data-fiyat="${r.fiyat}" title="Hızlı hesaba al">${para(r.fiyat, ctx.u.para)} = ${tl(s.netTl)}</button> ${resmiFarki(r.fiyat, ctx.resmi)}${!ctx.resmi && ctx.medyan && r.fiyat > ctx.medyan * 1.8 && r.tur !== "ikinciel" ? '<span class="etiket uyari">Diğer ilanların yaklaşık ' + (r.fiyat / ctx.medyan).toFixed(1).replace(".", ",") + ' katı</span>' : ""}</div>
         ${tr.length ? `<div class="tr-etiketler">${tr.map(kacis).join(" · ")}</div>` : ""}
         <a class="jp-ad" href="${kacis(r.link)}" target="_blank" rel="nofollow noopener" lang="ja">${kacis(temizle(r.ad).slice(0, 110))}</a>
         <div class="meta">${kacis(r.magaza)}${r.puan ? ` · ★ ${r.puan.toFixed(2)} (${r.yorumSayisi} yorum)` : " · Puan yok"}${r.kargoDahil ? " · Kargo dahil" : ""}</div>
@@ -331,7 +331,11 @@ function ciz() {
     : null;
   const turBilgi = TURLER.find((x) => x.kod === urunTuru);
   const secili = turBilgi.numaralar && turBilgi.numaralar.find((x) => x.eu === $("numara").value);
-  const ctx = { u, q, resmi, trFiyat, urunTuru, numaralar: turBilgi.numaralar, secili };
+  // Without an official price, the median new listing shows which offers are far above the rest
+  // (often resellers importing from abroad).
+  const yeniFiyatlar = sonuclar.filter((r) => r.tur !== "ikinciel" && !r.aksesuar).map((r) => r.fiyat).sort((a, b) => a - b);
+  const medyan = yeniFiyatlar.length >= 5 ? yeniFiyatlar[Math.floor(yeniFiyatlar.length / 2)] : null;
+  const ctx = { u, q, resmi, trFiyat, urunTuru, numaralar: turBilgi.numaralar, secili, medyan };
 
   // Mağazada gösterilecek Japonca ad
   const jpAd = resmi?.jpAd || (sonuclar.find((r) => r.tur !== "ikinciel" && !r.aksesuar && !kodFarkli(r, q)) || {}).ad;
