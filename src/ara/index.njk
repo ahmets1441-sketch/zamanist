@@ -151,7 +151,8 @@ function ilanKodlari(ad) {
   for (const ham of ad.toUpperCase().split(/[^A-Z0-9.-]+/)) {
     const k = ham.replace(/^[.-]+|[.-]+$/g, "").split(".").slice(0, 2).join(".");
     const kod = /[A-Z]/.test(k) && /\d/.test(k) && k.replace(/[.-]/g, "").length >= 6 && !/^\d+(CM|MM)$/.test(k);
-    if (kod && !onceki) kodlar.push(k);
+    // "F000329" alone is a Golden Goose material code, not a model.
+    if (kod && !onceki && !/^F\d{6}$/.test(k)) kodlar.push(k);
     onceki = kod;
   }
   return [...new Set(kodlar)];
@@ -216,6 +217,8 @@ const modelKodu = (q) => q.split(/[\s,/]+/).map(sade).filter((k) => /[a-z]/.test
 function kodFarkli(r, q) {
   const kod = modelKodu(q);
   if (!/[a-z]/.test(kod) || !/[0-9]/.test(kod)) return false;
+  // The listing title naming the code settles it, whatever the shop's own URL id is.
+  if (sade(r.ad).includes(kod)) return false;
   const linkKodu = sade(new URL(r.link).pathname.split("/").filter(Boolean).pop() || "");
   return /[a-z]/.test(linkKodu) && /[0-9]/.test(linkKodu) && !linkKodu.includes(kod) && !kod.includes(linkKodu);
 }
@@ -372,9 +375,10 @@ function ciz() {
     ozet += `<div class="bulunan">${fotoDugmesi(ornek)}<p class="meta">Aradığınız ürün bu mu? Fotoğraf ${kacis(ornek.magaza)} ilanından. Büyütmek için tıklayın; ${urunTuru === "saat" ? "renk ve kadranı" : "renk ve modeli"} kontrol edin.</p></div>`;
   }
   if (jpAd) {
-    const kodYazisi = (q.split(/[\s,/]+/).find((t) => sade(t) === modelKodu(q)) || q).toUpperCase();
+    // Only a real model code (letters and digits) is worth showing; never a Turkish stock number.
+    const kodYazisi = (q.split(/[\s,/]+/).find((t) => sade(t) === modelKodu(q) && /[a-z]/i.test(t) && /\d/.test(t)) || "").toUpperCase();
     const ad = temizle(jpAd).slice(0, 80);
-    ozet += `<div class="jp-goster"><span class="meta">${u.adDa} mağazada sorarken bunu gösterin:</span><div lang="ja">${kacis(ad)}</div>${sade(ad).includes(sade(kodYazisi)) ? "" : `<div><strong>${kacis(kodYazisi)}</strong></div>`}</div>`;
+    ozet += `<div class="jp-goster"><span class="meta">${u.adDa} mağazada sorarken bunu gösterin:</span><div lang="ja">${kacis(ad)}</div>${!kodYazisi || sade(ad).includes(sade(kodYazisi)) ? "" : `<div><strong>${kacis(kodYazisi)}</strong></div>`}</div>`;
   }
   ozet += `</div>`;
   $("ozet").innerHTML = ozet;
