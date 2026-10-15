@@ -269,3 +269,20 @@ article th{background:var(--alan);color:var(--baslik-renk);font-weight:600}
 .drop-detay summary{cursor:pointer;color:var(--muted);font-size:.85rem}
 .drop .indirim-eylem{margin-top:auto;padding-top:.5rem}
 .dugme-kucuk.ikincil{background:#fff;color:var(--lacivert);border:1px solid var(--lacivert)}
+.vitrin-gorsel{display:grid;grid-template-columns:1.1fr 1fr;gap:2rem;align-items:center}
+.vitrin-gorsel::before,.vitrin-gorsel::after{display:none}
+.vitrin-mozaik{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.vitrin-mozaik a{display:block;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#F5F5F5}
+.vitrin-mozaik img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.vitrin-mozaik img.acik{object-fit:contain;padding:.4rem}
+.vitrin-mozaik a:hover img{transform:scale(1.04)}
+.vitrin-kaynak{grid-column:1/-1;font-size:.68rem;color:#9FB0C6;margin:0}
+.vitrin-kaynak a{color:inherit}
+@media (max-width:48rem){.vitrin-gorsel{grid-template-columns:1fr}}
+.yatay-kaydir{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(13rem,1fr);gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.5rem}
+.mini-drop{scroll-snap-align:start;display:flex;flex-direction:column;gap:.25rem;text-decoration:none;color:var(--fg)}
+.mini-drop-gorsel{position:relative;display:block;aspect-ratio:4/3;background:#F5F5F5;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.mini-drop-gorsel img{width:100%;height:100%;object-fit:contain;transition:transform .3s}
+.mini-drop:hover img{transform:scale(1.05)}
+.mini-drop-kat{font-size:.75rem;font-weight:600;color:var(--altin-koyu)}
+.mini-drop-ad{font:700 .98rem/1.3 var(--baslik);color:var(--baslik-renk)}

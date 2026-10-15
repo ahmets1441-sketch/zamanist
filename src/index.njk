@@ -3,15 +3,48 @@ layout: base.njk
 title: Ana sayfa
 ---
 {%- from "kart.njk" import kart -%}
-<section class="vitrin">
-  <p class="vitrin-ust">Saat, stil ve beyefendi kültürü</p>
-  <h1>Doğru saati, doğru yerden, doğru fiyata.</h1>
-  <p>Bir saatin veya sneaker'ın Japonya'daki resmi fiyatını, yetkili satıcılarını ve vergi iadesi ile gümrük sonrası Türkiye'ye göre farkını tek ekranda görün.</p>
-  <div class="vitrin-dugmeler">
-    <a class="dugme" href="/ara/">Yurt dışında ara</a>
-    <a class="dugme ikincil" href="/hesaplayici/">Hesaplayıcı</a>
+<section class="vitrin vitrin-gorsel">
+  <div class="vitrin-metin">
+    <p class="vitrin-ust">Beyefendi kültürü</p>
+    <h1>Saat, stil, sneaker ve otomobil.</h1>
+    <p>Ne çıkıyor, ne indirimde, ne giyilir? Sınırlı seriler, iş birlikleri, kombinler ve Türkiye'deki indirimler tek yerde. Yurt dışı fiyatını da Türkiye ile karşılaştırın.</p>
+    <div class="vitrin-dugmeler">
+      <a class="dugme" href="/sinirli-seri/">Sınırlı Seri</a>
+      <a class="dugme ikincil" href="/indirimler/">İndirimler</a>
+      <a class="dugme ikincil" href="/ara/">Yurt dışında ara</a>
+    </div>
   </div>
+  <div class="vitrin-mozaik" aria-hidden="true">
+    <a href="/kombinlerim/lacivert-takim-panama-sapka/" tabindex="-1"><img src="/img/foto/kombin-lacivert-takim.webp" alt=""></a>
+    <a href="/sinirli-seri/?kat=sneaker" tabindex="-1"><img src="/img/cikis/nike-af1-nigo-jhope.webp" alt="" class="acik"></a>
+    <a href="/rehberler/dalgic-saati-rehberi/" tabindex="-1"><img src="/img/foto/seiko-spb143-bilek.webp" alt=""></a>
+    <a href="/sinirli-seri/?kat=araba" tabindex="-1"><img src="/img/cikis/manthey-911-mr30.webp" alt="" class="acik"></a>
+  </div>
+  <p class="vitrin-kaynak">Fotoğraflar: <a href="https://www.flickr.com/photos/85546319@N04/42796362762" rel="nofollow noopener" target="_blank">Menswear Market</a> (CC BY 2.0), Nike, <a href="https://commons.wikimedia.org/wiki/File:Seiko_Prospex_SPB143J1.png" rel="nofollow noopener" target="_blank">Deerpeter</a> (CC BY-SA 4.0), Manthey</p>
 </section>
+
+<section class="bolum" id="anaCikis" hidden>
+  <div class="bolum-baslik"><h2><a href="/sinirli-seri/">Yaklaşan çıkışlar</a></h2><a href="/sinirli-seri/">Tümü →</a></div>
+  <div class="yatay-kaydir" id="anaCikisListe"></div>
+</section>
+<script>
+// Next releases with photos, from the same data as /sinirli-seri/.
+(() => {
+  const L = {{ sinirliSeri.cikislar | dump | safe }};
+  const bugun = new Date(new Date().toDateString());
+  const bas = (x) => { const [y, a, g] = x.tarih.split("-").map(Number); return new Date(y, a - 1, g || 1); };
+  const AY = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"];
+  const KAT = { saat: "Saat", sneaker: "Sneaker", giyim: "Giyim", araba: "Otomobil" };
+  const k = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  const xs = L.filter((x) => x.gorsel && bas(x) >= bugun).sort((a, b) => bas(a) - bas(b)).slice(0, 8);
+  if (!xs.length) return;
+  document.getElementById("anaCikisListe").innerHTML = xs.map((x) => {
+    const d = bas(x);
+    return `<a class="mini-drop" href="/sinirli-seri/?kat=${x.kategori}"><span class="mini-drop-gorsel"><img src="${k(x.gorsel)}" alt="" loading="lazy"><span class="drop-rozet">${x.hassasiyet === "ay" ? AY[d.getMonth()] + " " + d.getFullYear() : d.getDate() + " " + AY[d.getMonth()]}</span></span><span class="mini-drop-kat">${KAT[x.kategori]} · ${k(x.marka)}</span><span class="mini-drop-ad">${k(x.baslik)}</span></a>`;
+  }).join("");
+  document.getElementById("anaCikis").hidden = false;
+})();
+</script>
 
 <section class="bolum ana-indirim" id="anaIndirim" hidden>
   <div class="bolum-baslik"><h2><a href="/indirimler/">İndirim Takvimi</a></h2><a href="/indirimler/">Tümü →</a></div>
