@@ -5,6 +5,7 @@ ozet: "Kışın en iddialı kombinlerinden: bordo kruvaze takım, aynı tonda ba
 author: Zamanist
 kapak: /img/foto/kombin-bordo-takim.webp
 kapak_foto: kombin-bordo-takim
+etiketler: ["kombin", "takım elbise", "palto", "kış", "Pitti Uomo"]
 ---
 Pitti Uomo'dan (2019) renkten korkmayanlar için bir kış kombini.
 

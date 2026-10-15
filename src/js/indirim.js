@@ -48,5 +48,9 @@ window.Indirim = (() => {
     "Hoka", "Birkenstock", "Dr. Martens", "Timberland", "Mizuno"];
   const yurtdisiMarkalar = (x) => x.markalar.filter((m) => YURTDISI.includes(m));
 
-  return { yurtdisiMarkalar, liste: window.INDIRIMLER || [], GUN, bugun, tarih, anahtar, durumu, grupla, kisa, geriSayim, bitisYazisi };
+  // Same rule as tslug in .eleventy.js: the search index links to these anchors.
+  const slug = (t) => String(t).toLocaleLowerCase("tr").replace(/[çğıöşü]/g, (c) => ({ ç: "c", ğ: "g", ı: "i", ö: "o", ş: "s", ü: "u" })[c])
+    .normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+  return { slug, yurtdisiMarkalar, liste: window.INDIRIMLER || [], GUN, bugun, tarih, anahtar, durumu, grupla, kisa, geriSayim, bitisYazisi };
 })();

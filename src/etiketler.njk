@@ -1,0 +1,20 @@
+---
+layout: base.njk
+pagination:
+  data: collections.etiketListesi
+  size: 1
+  alias: etiket
+  addAllPagesToCollections: false
+permalink: "/etiketler/{{ etiket.ad | tslug }}/"
+eleventyComputed:
+  title: "#{{ etiket.ad }}"
+  ozet: "Zamanist'te {{ etiket.ad }} ile ilgili yazılar."
+---
+{%- from "kart.njk" import kart -%}
+<nav class="kirinti" aria-label="Konum"><a href="/">Ana sayfa</a> › <a href="/etiketler/">Etiketler</a> › <span aria-current="page">#{{ etiket.ad }}</span></nav>
+<h1>#{{ etiket.ad }}</h1>
+<ul class="kartlar">
+{%- for p in collections.yazilar %}{% if etiket.ad in (p.data.etiketler or []) %}
+  {{ kart(p.url, p.data.title, p.data.kapak, p.data.ozet, p.url | bolumAdi) }}
+{%- endif %}{% endfor %}
+</ul>

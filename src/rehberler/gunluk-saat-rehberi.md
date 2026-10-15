@@ -5,6 +5,7 @@ ozet: "Field saatlerden G-Shock'a, sabah ofiste akşam dışarıda takılacak da
 author: Zamanist
 kapak: /img/foto/hamilton-khaki-field.webp
 kapak_foto: hamilton-khaki-field
+etiketler: ["saat", "günlük saat", "Casio", "Hamilton", "Tissot"]
 ---
 Günlük saat, düşünmeden bileğe takılan saattir. Ofise, kahveye, yolculuğa, hafta sonu yürüyüşüne. Bu yüzden ondan beklenen şey **okunaklılık, dayanıklılık ve her kıyafete uyum**dur.
 

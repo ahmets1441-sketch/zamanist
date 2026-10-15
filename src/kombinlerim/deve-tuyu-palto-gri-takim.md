@@ -5,6 +5,7 @@ ozet: "Bej palto, gri yelek ve pantolon, siyah ayakkabı. Sonbahar ve kış içi
 author: Zamanist
 kapak: /img/foto/kombin-deve-tuyu-palto.webp
 kapak_foto: kombin-deve-tuyu-palto
+etiketler: ["kombin", "palto", "sonbahar", "Pitti Uomo"]
 ---
 Pitti Uomo'dan (2019) iki renkle kurulmuş bir sonbahar kombini: **deve tüyü** ve **gri**.
 

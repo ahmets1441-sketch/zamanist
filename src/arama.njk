@@ -1,0 +1,16 @@
+---
+layout: base.njk
+title: Sitede Ara
+ozet: Zamanist'te kombin, rehber, sınırlı seri, iş birliği ve indirim arayın.
+permalink: /arama/
+---
+<h1>Sitede Ara</h1>
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css">
+<div id="arama"></div>
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+  const ui = new PagefindUI({ element: "#arama", showSubResults: true, showImages: true, resetStyles: false,
+    translations: { placeholder: "Kombin, saat, sneaker, marka…", zero_results: "\"[SEARCH_TERM]\" için sonuç yok", many_results: "\"[SEARCH_TERM]\" için [COUNT] sonuç", one_result: "\"[SEARCH_TERM]\" için 1 sonuç", load_more: "Daha fazla göster", clear_search: "Temizle" } });
+  const q = new URLSearchParams(location.search).get("q");
+  if (q) ui.triggerSearch(q);
+</script>

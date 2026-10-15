@@ -5,6 +5,7 @@ ozet: "Kronograf nedir, spor saat hangi kıyafete gider? Speedmaster'dan Seiko S
 author: Zamanist
 kapak: /img/foto/speedmaster.webp
 kapak_foto: speedmaster
+etiketler: ["saat", "kronograf", "Omega", "Seiko", "TAG Heuer"]
 ---
 Spor saatler yarış pistlerinden, pilot kokpitlerinden ve uzay programlarından gelir. Bugün çoğu insan bunları ofiste ve hafta sonu takıyor; çünkü hem sağlam hem de karakterli duruyorlar.
 

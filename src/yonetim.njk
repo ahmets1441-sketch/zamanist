@@ -1,0 +1,38 @@
+---
+layout: base.njk
+title: Yönetim
+permalink: /yonetim/
+gizli: true
+eleventyExcludeFromCollections: true
+---
+<meta name="robots" content="noindex">
+<h1>Yönetim</h1>
+<p class="meta" id="yDurum">Yükleniyor…</p>
+<div id="yIcerik" hidden>
+  <p id="yBulten"></p>
+  <h2>Son yorumlar</h2>
+  <ul class="yorum-liste" id="yYorumlar"></ul>
+  <h2>İletişim mesajları</h2>
+  <ul class="yorum-liste" id="yMesajlar"></ul>
+</div>
+<script>
+const k = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const t = (s) => new Date(s * 1000).toLocaleString("tr-TR");
+async function yukle() {
+  const r = await fetch("/api/yonetim/ozet");
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) { document.getElementById("yDurum").innerHTML = r.status === 403 ? 'Bu sayfa için yönetici hesabıyla <a href="/uyelik/">giriş yapın</a>.' : "Yüklenemedi."; return; }
+  document.getElementById("yDurum").hidden = true;
+  document.getElementById("yIcerik").hidden = false;
+  document.getElementById("yBulten").textContent = `Bülten: ${j.bulten.toplam} kayıt (${j.bulten.onayli} onaylı).`;
+  document.getElementById("yYorumlar").innerHTML = j.yorumlar.map((y) => `<li><strong>${k(y.ad)}</strong> <span class="meta">${k(y.eposta)} · ${t(y.tarih)} · <a href="${k(y.sayfa)}">${k(y.sayfa)}</a></span><p>${k(y.metin)}</p><button class="takip" data-islem="yorumSil" data-id="${y.id}">Sil</button></li>`).join("") || "<li>Yorum yok.</li>";
+  document.getElementById("yMesajlar").innerHTML = j.iletisim.map((m) => `<li><strong>${k(m.konu)}</strong> · ${k(m.ad)} <a href="mailto:${k(m.eposta)}">${k(m.eposta)}</a> <span class="meta">${t(m.tarih)}${m.yanitlandi ? " · yanıtlandı" : ""}</span><p>${k(m.mesaj)}</p>${m.yanitlandi ? "" : `<button class="takip" data-islem="mesajYanitlandi" data-id="${m.id}">Yanıtlandı</button> `}<button class="takip" data-islem="mesajSil" data-id="${m.id}">Sil</button></li>`).join("") || "<li>Mesaj yok.</li>";
+}
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-islem]"); if (!b) return;
+  if (b.dataset.islem.endsWith("Sil") && !confirm("Silinsin mi? Geri alınamaz.")) return;
+  await fetch("/api/yonetim/islem", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ islem: b.dataset.islem, id: Number(b.dataset.id) }) });
+  yukle();
+});
+yukle();
+</script>

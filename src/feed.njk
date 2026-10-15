@@ -1,0 +1,23 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Zamanist</title>
+  <link>https://zamanist.com/</link>
+  <atom:link href="https://zamanist.com/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Beyefendi kültürü: saat, stil, sneaker ve otomobil.</description>
+  <language>tr</language>
+  {%- for p in collections.yazilar | head(30) %}
+  <item>
+    <title>{{ p.data.title }}</title>
+    <link>https://zamanist.com{{ p.url }}</link>
+    <guid>https://zamanist.com{{ p.url }}</guid>
+    <pubDate>{{ p.date.toUTCString() }}</pubDate>
+    <description>{{ p.data.ozet }}</description>
+  </item>
+  {%- endfor %}
+</channel>
+</rss>

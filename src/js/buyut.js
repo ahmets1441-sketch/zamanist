@@ -13,7 +13,7 @@
   function goster(i) {
     sira = (i + liste.length) % liste.length;
     const k = liste[sira];
-    img.src = k.currentSrc || k.src;
+    img.src = k.src; // the full-size file, not the small srcset copy
     img.alt = k.alt;
     alt.innerHTML = k.closest("figure")?.querySelector("figcaption")?.innerHTML || "";
     d.querySelectorAll(".buyut-ok").forEach((b) => (b.hidden = liste.length < 2));

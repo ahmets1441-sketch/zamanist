@@ -5,6 +5,7 @@ ozet: "Yazın takım elbise: lacivert takım, beyaz gömlek, çizgili kravat ve 
 author: Zamanist
 kapak: /img/foto/kombin-lacivert-takim.webp
 kapak_foto: kombin-lacivert-takim
+etiketler: ["kombin", "takım elbise", "yaz", "Pitti Uomo"]
 ---
 Floransa'daki Pitti Uomo fuarından (Haziran 2018) klasik ama sıkıcı olmayan bir takım elbise örneği.
 

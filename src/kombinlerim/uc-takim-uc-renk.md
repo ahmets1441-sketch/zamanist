@@ -5,6 +5,7 @@ ozet: "Lacivert ve griden sıkılanlar için takım elbise renkleri: kravatsız 
 author: Zamanist
 kapak: /img/foto/kombin-uc-takim.webp
 kapak_foto: kombin-uc-takim
+etiketler: ["kombin", "takım elbise", "renkli takım", "Pitti Uomo"]
 ---
 Pitti Uomo'dan (2018) üç arkadaş, üç farklı takım. Ortak noktaları: **kravatsız, beyaz gömlekli ve yakası açık**.
 

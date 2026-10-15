@@ -23,32 +23,93 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="canonical" href="https://zamanist.com{{ page.url }}">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="Zamanist" href="/feed.xml">
+  <script>
+    // Apply the saved theme before the page paints, so dark mode does not flash white.
+    try { const t = localStorage.getItem("tema"); if (t) document.documentElement.dataset.tema = t; } catch (e) {}
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Zamanist","url":"https://zamanist.com/","inLanguage":"tr","potentialAction":{"@type":"SearchAction","target":"https://zamanist.com/arama/?q={q}","query-input":"required name=q"}}</script>
 </head>
 <body>
-  <header class="site-header"><div class="ic">
+  <a class="atla" href="#icerik">İçeriğe geç</a>
+  <header class="site-header" id="ustBar"><div class="ic">
     <div class="ust">
       <a class="logo" href="/"><img src="/img/logo.svg" alt="" width="34" height="34"><span>Zamanist</span></a>
       <div class="ust-sag">
+        <a class="ikon-dugme" href="/arama/" aria-label="Sitede ara" title="Sitede ara"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+        <button type="button" class="ikon-dugme" id="temaDugme" aria-label="Karanlık modu aç/kapat" title="Karanlık mod"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
         <a class="ust-uye" href="/uyelik/" data-uye-link>Giriş</a>
         <a class="ust-ara" href="/ara/">Yurt dışında ara</a>
+        <button type="button" class="ikon-dugme menu-dugme" id="menuDugme" aria-label="Menü" aria-expanded="false" aria-controls="anaMenu"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       </div>
     </div>
-    <nav>
-      {%- for b in bolumler %}
-      <a href="/{{ b.slug }}/"{% if page.url.startsWith("/" + b.slug + "/") %} aria-current="page"{% endif %}>{{ b.ad }}</a>
+    <nav id="anaMenu" aria-label="Ana menü">
+      {%- set menu = [["/kombinlerim/", "Kombinler"], ["/sinirli-seri/", "Sınırlı Seri"], ["/indirimler/", "İndirimler"], ["/rehberler/", "Rehberler"], ["/sporcularin-stili/", "Sporcuların Stili"], ["/araba-ve-saat/", "Araba ve Saat"], ["/biyografiler/", "Biyografiler"], ["/ara/", "Yurt Dışı Fiyat"], ["/hesaplayici/", "Hesaplayıcı"]] %}
+      {%- for m in menu %}
+      <a href="{{ m[0] }}"{% if page.url.startsWith(m[0]) %} aria-current="page"{% endif %}>{{ m[1] }}</a>
       {%- endfor %}
-      <a href="/ara/"{% if page.url == "/ara/" %} aria-current="page"{% endif %}>Ara</a>
-      <a href="/indirimler/"{% if page.url == "/indirimler/" %} aria-current="page"{% endif %}>İndirim Takvimi</a>
-      <a href="/sinirli-seri/"{% if page.url == "/sinirli-seri/" %} aria-current="page"{% endif %}>Sınırlı Seri</a>
-      <a href="/hesaplayici/"{% if page.url == "/hesaplayici/" %} aria-current="page"{% endif %}>Hesaplayıcı</a>
     </nav>
   </div></header>
-  <main>{{ content | safe }}</main>
+  <main id="icerik">{{ content | safe }}</main>
   <footer class="site-footer"><div class="ic">
-    <a class="logo" href="/"><img src="/img/logo.svg" alt="" width="26" height="26"><span>Zamanist</span></a>
-    <p>Beyefendi kültürü: saat, stil, sneaker ve otomobil. Fiyatlar bilgi amaçlıdır; satın almadan önce satıcıdan teyit edin.</p>
+    <div class="alt-izgara">
+      <div class="alt-marka">
+        <a class="logo" href="/"><img src="/img/logo.svg" alt="" width="26" height="26"><span>Zamanist</span></a>
+        <p>Beyefendi kültürü: saat, stil, sneaker ve otomobil. Fiyatlar bilgi amaçlıdır; satın almadan önce satıcıdan teyit edin.</p>
+        {%- if site.instagram %}
+        <p><a class="sosyal" href="https://www.instagram.com/{{ site.instagram }}/" rel="me noopener" target="_blank">Instagram: @{{ site.instagram }}</a></p>
+        {%- endif %}
+      </div>
+      <div>
+        <h2>Keşfet</h2>
+        <ul>
+          <li><a href="/kombinlerim/">Kombinler</a></li>
+          <li><a href="/sinirli-seri/">Sınırlı Seri ve İş Birlikleri</a></li>
+          <li><a href="/indirimler/">İndirim Takvimi</a></li>
+          <li><a href="/rehberler/">Rehberler</a></li>
+          <li><a href="/etiketler/">Etiketler</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Araçlar</h2>
+        <ul>
+          <li><a href="/ara/">Yurt dışında ara</a></li>
+          <li><a href="/hesaplayici/">Hesaplayıcı</a></li>
+          <li><a href="/arama/">Sitede ara</a></li>
+          <li><a href="/uyelik/">Üyelik</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Zamanist</h2>
+        <ul>
+          <li><a href="/hakkimizda/">Hakkımızda</a></li>
+          <li><a href="/iletisim/">İletişim</a></li>
+          <li><a href="/gizlilik/">Gizlilik</a></li>
+          <li><a href="/cerezler/">Çerezler</a></li>
+          <li><a href="/kullanim-sartlari/">Kullanım şartları</a></li>
+        </ul>
+      </div>
+      <form class="bulten" id="bultenForm">
+        <h2>Haftalık bülten</h2>
+        <p>Yeni sınırlı seriler, iş birlikleri ve başlayan indirimler, haftada bir e-posta.</p>
+        <label class="gizli" for="bultenEposta">E-posta</label>
+        <input id="bultenEposta" type="email" required placeholder="E-posta adresiniz" autocomplete="email">
+        <label class="bulten-onay"><input type="checkbox" required> Zamanist bülteninin e-postayla gönderilmesine izin veriyorum. <a href="/gizlilik/">Gizlilik</a></label>
+        <button type="submit">Abone ol</button>
+        <p class="bulten-durum" role="status"></p>
+      </form>
+    </div>
+    <p class="alt-not">© {{ "now" | yil }} Zamanist · Fotoğrafların sahipleri her fotoğrafın altında belirtilmiştir.</p>
   </div></footer>
+  <button type="button" class="yukari" id="yukari" aria-label="Sayfanın başına dön" hidden>↑</button>
+  <div class="cerez" id="cerez" hidden>
+    <p>Bu site yalnızca çalışması için gerekli çerezleri kullanır; reklam veya takip çerezi yoktur. <a href="/cerezler/">Ayrıntılar</a></p>
+    <button type="button" id="cerezTamam">Tamam</button>
+  </div>
 <script src="/js/uye.js" defer></script>
 <script src="/js/buyut.js" defer></script>
+<script src="/js/site.js" defer></script>
 </body>
 </html>

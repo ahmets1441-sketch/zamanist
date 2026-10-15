@@ -5,6 +5,7 @@ ozet: "Ofisten akşam yemeğine: lacivert ceket, mavi polo ve fular. Gri kruvaze
 author: Zamanist
 kapak: /img/foto/kombin-lacivert-blazer.webp
 kapak_foto: kombin-lacivert-blazer
+etiketler: ["kombin", "blazer", "kravatsız", "Pitti Uomo"]
 ---
 Pitti Uomo'dan (2018) iki arkadaş, kravat takmadan şık görünmenin iki yolu.
 

@@ -2,7 +2,7 @@
 {%- macro kart(url, baslik, kapak, alt, ust) -%}
 <li class="kart">
   <a href="{{ url }}">
-    {%- if kapak %}<img class="kart-gorsel" src="{{ kapak }}" alt="" loading="lazy">
+    {%- if kapak %}<img class="kart-gorsel" src="{{ kapak | kucukGorsel }}" alt="" loading="lazy">
     {%- else %}<span class="kart-gorsel bos" aria-hidden="true">{{ baslik | first }}</span>{% endif %}
     {%- if ust %}<span class="kart-ust">{{ ust }}</span>{% endif %}
     <span class="kart-baslik">{{ baslik }}</span>

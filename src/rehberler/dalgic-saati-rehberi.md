@@ -5,6 +5,7 @@ ozet: "Dalgıç saatini dalgıç saati yapan nedir, hangi kıyafetle takılır? 
 author: Zamanist
 kapak: /img/foto/seiko-spb143-bilek.webp
 kapak_foto: seiko-spb143-bilek
+etiketler: ["saat", "dalgıç saati", "Rolex", "Seiko", "Omega"]
 ---
 Dalgıç saatleri 1950'lerde su altında hayatta kalmak için tasarlandı. Bugün çoğu hiç suya girmiyor ama sağlam yapıları ve sportif görünümleriyle en çok satan saat tipi.
 

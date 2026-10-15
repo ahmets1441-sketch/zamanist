@@ -4,6 +4,7 @@ ozet: "Tourbillon'u icat eden, ilk kol saatlerinden birini yapan ve Marie Antoin
 kapak: /img/foto/breguet-portre.webp
 kapak_foto: breguet-portre
 kapak_sinif: dikey
+etiketler: ["saat", "saat tarihi", "Breguet"]
 ---
 Abraham-Louis Breguet (1747–1823), saat tarihinin en çok icat yapan ustası kabul edilir. Bugün lüks saatlerde gördüğümüz birçok detay onun atölyesinden çıktı.
 

@@ -1,0 +1,42 @@
+---
+layout: base.njk
+title: İletişim
+ozet: "Zamanist'e yazın: öneri, düzeltme, fotoğraf kaldırma talebi, marka ve basın duyuruları."
+permalink: /iletisim/
+---
+<h1>İletişim</h1>
+<p class="slogan">Öneri, hata düzeltmesi, fotoğraf kaldırma talebi veya marka duyurusu: formu doldurun, size e-postayla dönelim.</p>
+<form class="hesap iletisim-form" id="iletisimForm">
+  <label>Adınız <input id="ilAd" required maxlength="80" autocomplete="name"></label>
+  <label>E-posta adresiniz <input id="ilEposta" type="email" required maxlength="120" autocomplete="email"></label>
+  <label>Konu
+    <select id="ilKonu">
+      <option>Öneri veya soru</option>
+      <option>Bilgi düzeltmesi</option>
+      <option>Fotoğraf kaldırma talebi</option>
+      <option>Marka / basın duyurusu</option>
+      <option>Diğer</option>
+    </select>
+  </label>
+  <label>Mesajınız <textarea id="ilMesaj" rows="6" required maxlength="4000"></textarea></label>
+  <label class="bulten-onay"><input type="checkbox" required> Mesajımı yanıtlamak için adımın ve e-posta adresimin işlenmesini kabul ediyorum. <a href="/gizlilik/">Aydınlatma metni</a></label>
+  <!-- Bots fill every field; people never see this one. -->
+  <input id="ilTuzak" class="gizli" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <button type="submit">Gönder</button>
+  <p class="meta" id="ilDurum" role="status"></p>
+</form>
+<script>
+document.getElementById("iletisimForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const v = (id) => document.getElementById(id).value;
+  const durum = document.getElementById("ilDurum");
+  durum.textContent = "Gönderiliyor…";
+  try {
+    const r = await fetch("/api/iletisim", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ad: v("ilAd"), eposta: v("ilEposta"), konu: v("ilKonu"), mesaj: v("ilMesaj"), tuzak: v("ilTuzak") }) });
+    const j = await r.json();
+    durum.textContent = j.mesaj || j.hata;
+    if (r.ok) e.target.reset();
+  } catch (h) { durum.textContent = "Şu an gönderilemedi. Biraz sonra tekrar deneyin."; }
+});
+</script>

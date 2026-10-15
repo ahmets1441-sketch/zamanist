@@ -5,6 +5,7 @@ ozet: "Dress, spor, günlük ve dalgıç saatlerin farkı ve hangi kıyafetle ta
 author: Zamanist
 kapak: /img/foto/tudor-bb54-bilek.webp
 kapak_foto: tudor-bb54-bilek
+etiketler: ["saat", "kombin", "stil rehberi"]
 ---
 Saat seçerken ilk soru marka değil, **saati nerede takacağınız**. Takım elbisenin kolunun altına girmeyen kalın bir dalgıç saati de, denize girilen bir günde deri kayışlı ince bir dress saati de yanlış seçimdir. Saatleri dört ana tipe ayırmak işi kolaylaştırır.
 

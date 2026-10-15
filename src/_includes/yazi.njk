@@ -1,13 +1,54 @@
 ---
 layout: base.njk
 ---
-<article>
+{%- from "kart.njk" import kart -%}
+{%- set bolumAd = page.url | bolumAdi %}
+<nav class="kirinti" aria-label="Konum">
+  <a href="/">Ana sayfa</a>{% if bolumAd %} › <a href="/{{ page.url | bolumSlug }}/">{{ bolumAd }}</a>{% endif %} › <span aria-current="page">{{ title }}</span>
+</nav>
+<article data-pagefind-body>
   <h1>{{ title }}</h1>
-  {% if date %}<p class="meta">{{ date | tarih }}{% if author %} · {{ author }}{% endif %}</p>{% endif %}
+  <p class="meta">{% if date and (page.url | bolumSlug) != "biyografiler" %}{{ date | tarih }} · {% endif %}{{ content | okumaSuresi }} dk okuma{% if author %} · {{ author }}{% endif %}</p>
   {% if kapak_foto %}{% foto kapak_foto, "", "kapak-foto " + (kapak_sinif or "") %}{% elif kapak %}<img class="kapak" src="{{ kapak }}" alt="{{ title }}">{% endif %}
   {{ content | safe }}
+  {%- if etiketler and etiketler.length %}
+  <p class="etiketler" data-pagefind-ignore>{% for e in etiketler %}<a href="/etiketler/{{ e | tslug }}/">#{{ e }}</a>{% endfor %}</p>
+  {%- endif %}
 </article>
-<section class="yorumlar">
-  <h2>Yorumlar</h2>
-  <p class="meta">Yorum sistemi yakında.</p>
+<div class="paylas" data-pagefind-ignore>
+  <span>Paylaş:</span>
+  <button type="button" class="paylas-yerel" hidden>Paylaş</button>
+  <a href="https://wa.me/?text={{ (title + ' https://zamanist.com' + page.url) | urlencode }}" target="_blank" rel="noopener">WhatsApp</a>
+  <a href="https://x.com/intent/post?text={{ title | urlencode }}&url={{ ('https://zamanist.com' + page.url) | urlencode }}" target="_blank" rel="noopener">X</a>
+  <a href="https://pinterest.com/pin/create/button/?url={{ ('https://zamanist.com' + page.url) | urlencode }}&description={{ title | urlencode }}{% if kapak %}&media={{ ('https://zamanist.com' + kapak) | urlencode }}{% endif %}" target="_blank" rel="noopener">Pinterest</a>
+  <button type="button" class="paylas-kopyala">Bağlantıyı kopyala</button>
+</div>
+{%- set ilgiliYazilar = collections.yazilar | ilgili(page) %}
+{%- if ilgiliYazilar.length %}
+<section class="bolum ilgili" data-pagefind-ignore>
+  <h2>Bunları da okuyun</h2>
+  <ul class="kartlar">
+  {% for p in ilgiliYazilar %}{{ kart(p.url, p.data.title, p.data.kapak, p.data.ozet, p.url | bolumAdi) }}{% endfor %}
+  </ul>
 </section>
+{%- endif %}
+<section class="yorumlar" id="yorumlar" data-pagefind-ignore data-sayfa="{{ page.url }}">
+  <h2>Yorumlar</h2>
+  <div id="yorumListe"><p class="meta">Yorumlar yükleniyor…</p></div>
+  <form id="yorumForm" hidden>
+    <label for="yorumMetin" class="gizli">Yorumunuz</label>
+    <textarea id="yorumMetin" rows="3" maxlength="1500" required placeholder="Yorumunuzu yazın…"></textarea>
+    <button type="submit" class="dugme-kucuk">Gönder</button>
+    <p class="meta" id="yorumDurum" role="status"></p>
+  </form>
+  <p class="meta" id="yorumGiris" hidden>Yorum yazmak için <a href="/uyelik/">giriş yapın</a>.</p>
+</section>
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org", "@type": "Article", "headline": title, "description": ozet,
+  "image": ("https://zamanist.com" + kapak) if kapak else "https://zamanist.com/img/paylasim.png",
+  "datePublished": page.date.toISOString(), "inLanguage": "tr",
+  "author": { "@type": "Organization", "name": author or "Zamanist" },
+  "publisher": { "@type": "Organization", "name": "Zamanist", "logo": { "@type": "ImageObject", "url": "https://zamanist.com/img/ikon-512.png" } },
+  "mainEntityOfPage": "https://zamanist.com" + page.url
+} | dump | safe }}</script>
+<script src="/js/yazi.js" defer></script>

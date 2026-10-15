@@ -1,0 +1,8 @@
+---
+layout: base.njk
+title: Etiketler
+ozet: Zamanist'teki tüm konular.
+permalink: /etiketler/
+---
+<h1>Etiketler</h1>
+<p class="etiketler buyuk">{% for e in collections.etiketListesi %}<a href="/etiketler/{{ e.ad | tslug }}/">#{{ e.ad }} <small>{{ e.adet }}</small></a>{% endfor %}</p>

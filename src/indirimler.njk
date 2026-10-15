@@ -25,7 +25,7 @@ permalink: /indirimler/
 
 {% include "indirim-veri.njk" %}
 <script>
-const { liste: INDIRIMLER, GUN, bugun, tarih, anahtar, durumu, grupla, kisa, geriSayim, bitisYazisi, yurtdisiMarkalar } = Indirim;
+const { slug, liste: INDIRIMLER, GUN, bugun, tarih, anahtar, durumu, grupla, kisa, geriSayim, bitisYazisi, yurtdisiMarkalar } = Indirim;
 const $ = (id) => document.getElementById(id);
 const kacis = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const AYLAR = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"];
@@ -51,7 +51,7 @@ function takvimDosyasi(x) {
 
 function kart(x) {
   const d = durumu(x), b = tarih(x.baslangic), takipte = takip.includes(anahtar(x));
-  return `<article class="indirim-kart${d === "gecmis" ? " gecmis" : ""}">
+  return `<article class="indirim-kart${d === "gecmis" ? " gecmis" : ""}" id="${slug(x.baslik)}">
     <div class="indirim-tarih"><span>${b.getDate()}</span>${AYLAR[b.getMonth()]}<small>${b.getFullYear()}</small></div>
     <div class="indirim-govde">
       <h3>${kacis(x.baslik)} ${d === "devam" ? "" : x.durum === "duyuruldu" ? '<span class="etiket iyi">Duyuruldu</span>' : '<span class="etiket uyari">Tahmini</span>'}</h3>
@@ -102,5 +102,7 @@ $("takvim").addEventListener("click", async (e) => {
   if (!d.uye && !d.kapali && d.google && takip.length === 1) $("uyeOneri").hidden = false;
 });
 ciz();
+// Coming from search: scroll to the card once it is drawn.
+if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
 document.addEventListener("DOMContentLoaded", () => Uye.hazir.then((d) => { takip = d.takip; ciz(); }));
 </script>

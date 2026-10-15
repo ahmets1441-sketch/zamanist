@@ -5,6 +5,7 @@ ozet: "İnce kasa, sade kadran, deri kayış. Takım elbiseyle hangi saat takıl
 author: Zamanist
 kapak: /img/foto/reverso-bilek.webp
 kapak_foto: reverso-bilek
+etiketler: ["saat", "dress saat", "takım elbise", "Cartier", "Orient"]
 ---
 Dress saat, resmi kıyafetin saatidir. Görevi dikkat çekmek değil, gömlek kolunun altından **sessizce** görünmektir.
 

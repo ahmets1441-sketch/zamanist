@@ -33,6 +33,8 @@ const CIKISLAR = {{ sinirliSeri.cikislar | dump | safe }};
 const $ = (id) => document.getElementById(id);
 const kacis = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const GUN = 864e5;
+const slug = (t) => String(t).toLocaleLowerCase("tr").replace(/[çğıöşü]/g, (c) => ({ ç: "c", ğ: "g", ı: "i", ö: "o", ş: "s", ü: "u" })[c])
+  .normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const bugun = new Date(new Date().toDateString());
 const AYLAR = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"];
 const KAT = { saat: "Saat", sneaker: "Sneaker", giyim: "Giyim", araba: "Otomobil" };
@@ -89,7 +91,7 @@ function kart(x) {
   ].filter(Boolean);
   const kisa = [x.adet && (x.adet.includes("adet") ? x.adet : `${x.adet} adet`), x.fiyat].filter(Boolean).join(" · ");
   const rozet = x.hassasiyet === "ay" ? `${AYLAR[bas.getMonth()]} ${bas.getFullYear()}` : `${bas.getDate()} ${AYLAR[bas.getMonth()]}`;
-  return `<article class="drop${d === "eski" ? " gecmis" : ""}">
+  return `<article class="drop${d === "eski" ? " gecmis" : ""}" id="${slug(x.baslik)}">
     <div class="drop-gorsel">
       ${x.gorsel ? `<figure class="cikis-gorsel"><img src="${kacis(x.gorsel)}" alt="${kacis(x.baslik)}" loading="lazy"><figcaption>Görsel: ${x.gorselLink ? `<a href="${kacis(x.gorselLink)}" target="_blank" rel="nofollow noopener">${kacis(x.gorselKaynak)}</a>` : kacis(x.gorselKaynak)}</figcaption></figure>`
         : `<div class="drop-bos" aria-hidden="true">${kacis(x.marka)}</div>`}
@@ -152,5 +154,7 @@ $("cikislar").addEventListener("click", async (e) => {
   ciz();
 });
 ciz();
+// Coming from search: scroll to the card once it is drawn.
+if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
 document.addEventListener("DOMContentLoaded", () => Uye.hazir.then((d) => { takip = d.takip; ciz(); }));
 </script>
