@@ -2,9 +2,10 @@
 // Each source in lib/kaynaklar returns offers in the same shape.
 import ulkeler from "../../src/_data/ulkeler.json";
 import * as rakuten from "../../lib/kaynaklar/rakuten.js";
+import * as ebay from "../../lib/kaynaklar/ebay.js";
 import { sorguAdaylari } from "../../lib/sorgu.js";
 
-const KAYNAKLAR = { rakuten };
+const KAYNAKLAR = { rakuten, ebay };
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -22,13 +23,13 @@ export async function onRequestGet({ request, env }) {
   if (!kaynaklar.length) return json({ hata: "Bu ülke için arama servisi henüz ayarlanmadı." }, 503);
 
   const cache = caches.default;
-  const anahtar = new Request(`${u.origin}/api/ara?v=9&ulke=${ulke.kod}&q=${encodeURIComponent(q.toLowerCase())}`);
+  const anahtar = new Request(`${u.origin}/api/ara?v=10&ulke=${ulke.kod}&q=${encodeURIComponent(q.toLowerCase())}`);
   const onbellek = await cache.match(anahtar);
   if (onbellek) return onbellek;
 
-  const { adaylar, eklenenMarka, cikarilan, magazaKodu } = sorguAdaylari(q);
+  const { adaylar, eklenenMarka, cikarilan, magazaKodu } = sorguAdaylari(q, ulke.dil);
   if (!adaylar.length) return json({ hata: "Aranacak bir kelime kalmadı. Marka ve model adını yazın." }, 400);
-  const sonuclar = await Promise.allSettled(kaynaklar.map((k) => k.ara({ adaylar, env, origin: u.origin })));
+  const sonuclar = await Promise.allSettled(kaynaklar.map((k) => k.ara({ adaylar, env, origin: u.origin, ulke })));
   const basarili = sonuclar.filter((s) => s.status === "fulfilled");
   if (!basarili.length) {
     return json({ hata: "Arama şu an yapılamadı. Biraz sonra tekrar deneyin.", detay: String(sonuclar[0].reason?.message) }, 502);
