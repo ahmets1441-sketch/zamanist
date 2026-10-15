@@ -230,7 +230,7 @@ article th{background:var(--alan);color:var(--baslik-renk);font-weight:600}
 .foto-ikili .foto img{aspect-ratio:4/5;max-height:none}
 @media (max-width:30rem){.foto-ikili{grid-template-columns:1fr}}
 .cikis-gorsel{margin:0 0 .75rem}
-.cikis-gorsel img{display:block;width:100%;max-width:36rem;height:auto;border-radius:10px}
+.cikis-gorsel img{display:block;width:auto;max-width:100%;max-height:15rem;height:auto;border-radius:10px;background:#fff}
 .cikis-gorsel figcaption{color:var(--muted);font-size:.75rem;margin-top:.3rem}
 .cikis-gorsel figcaption a{color:inherit}
 .foto.dikey img,.foto.kapak-foto.dikey img{width:auto;max-width:100%;max-height:30rem;object-fit:contain}

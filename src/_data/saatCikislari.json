@@ -33,7 +33,10 @@
       "ozellik": "43 mm çelik kasa, 8T61 quartz kronograf, 30 m su geçirmezlik",
       "kaynak": "https://oracleoftime.com/seiko-power-design-project-panda-chronograph-limited-edition/",
       "not": "Ön sipariş 6 Ekim 2026'da açıldı, teslimatlar Kasım'da başlıyor.",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "gorsel": "/img/cikis/seiko-hhk001.webp",
+      "gorselKaynak": "Seiko (HHK001)",
+      "gorselLink": "https://www.seikowatches.com/global-en/products/seiko-power-design-project"
     },
     {
       "baslik": "Christopher Ward C1 Jump Hour XV",
@@ -76,7 +79,10 @@
       ],
       "kaynak": "https://www.fratellowatches.com/patek-philippe-unveils-seven-italian-exclusives/",
       "not": "Watch Art Grand Exhibition, Milano CityOval'de 2–18 Ekim 2026 arasında açık.",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "gorsel": "/img/cikis/patek-5167a-014.webp",
+      "gorselKaynak": "Patek Philippe (Aquanaut 5167A-014)",
+      "gorselLink": "https://www.patek.com/en/collection/aquanaut/5167A-014"
     },
     {
       "baslik": "Omega Seamaster Diver 300M James Bond ve Spectre setleri",
@@ -93,7 +99,11 @@
       "ozellik": "Setlerde bir çelik ve bir platin-altın saat birlikte; sınırlı saatler ayrı satılmıyor",
       "kaynak": "https://luxe.digital/news/omega-seamaster-diver-300m-james-bond-spectre/",
       "not": "Dünya James Bond Günü'nde (5 Ekim) tanıtıldı. Çelik modeller sınırsız üretim.",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "gorsel": "/img/cikis/omega-bond.webp",
+      "gorselKaynak": "Omega (James Bond çelik model)",
+      "gorselLink": "https://www.omegawatches.com/en-us/watch-omega-seamaster-diver-300m-co-axial-master-chronometer-42-mm-21030422003004",
+      "resmi": "https://www.omegawatches.com/en-us/watch-omega-seamaster-diver-300m-co-axial-master-chronometer-42-mm-21030422003004"
     },
     {
       "baslik": "Seiko 145. yıl \"Edo moru\" sınırlı serisi",
@@ -138,7 +148,11 @@
       "ozellik": "38,3 mm Süper Titanyum kasa, el yapımı Tosa washi kâğıt kadran, A060 Eco-Drive, 100 m",
       "kaynak": "https://www.watchtime.com/brands/solar-watches/citizen-the-citizen-wosa-washi-dial-limited-edition-aq4100-65x-aq4106-00b",
       "not": "Aynı seride AQ4106-00B de var; adedi kaynakta yok.",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "gorsel": "/img/cikis/citizen-aq4100.webp",
+      "gorselKaynak": "Citizen",
+      "gorselLink": "https://www.citizenwatch.com/us/en/product/AQ4100-65X",
+      "resmi": "https://www.citizenwatch.com/us/en/product/AQ4100-65X"
     },
     {
       "baslik": "Citizen Series8 3-Hand Sport NB6086-54E",
@@ -154,7 +168,11 @@
       "pazar": "Dünya geneli (ABD'de citizenwatch.com)",
       "ozellik": "",
       "kaynak": "https://casebackchron.com/watch-releases-october-3-2026/",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "gorsel": "/img/cikis/citizen-nb6086.webp",
+      "gorselKaynak": "Citizen",
+      "gorselLink": "https://www.citizenwatch.com/us/en/product/NB6086-54E",
+      "resmi": "https://www.citizenwatch.com/us/en/product/NB6086-54E"
     },
     {
       "baslik": "Seiko Prospex Speedtimer Avrupa'ya özel HBJ008",
@@ -255,7 +273,10 @@
       "ozellik": "",
       "kaynak": "https://www.watchesandwonders.com/content/dam/waw/en/media-center/mc-geneva-2027/2026-06-23/pdf/WWG27_Press-Announcement_23.06.26_EN_Final.pdf",
       "not": "Yılın en büyük saat fuarı; Rolex ve Tudor yeni modellerini burada tanıtır. 9–11 Nisan halka açık günler.",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "gorsel": "/img/cikis/watches-wonders-2027.webp",
+      "gorselKaynak": "Watches and Wonders",
+      "gorselLink": "https://www.watchesandwonders.com/"
     }
   ]
 }
