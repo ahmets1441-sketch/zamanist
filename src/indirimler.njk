@@ -24,7 +24,13 @@ permalink: /indirimler/
 <p class="meta">Tarihler markaların duyurularından ve haberlerden derlenir; tahmini tarihler kesinleşince güncellenir.</p>
 
 <script>
-const INDIRIMLER = {{ indirimler.indirimler | dump | safe }};
+// Sales found on brand sites by the daily scan (scripts/kampanya-tara.mjs). A hand-entered running
+// sale for the same group wins; a scan result not confirmed for 3 days is dropped.
+const OTOMATIK = {{ otomatikKampanyalar.kampanyalar | dump | safe }}.map((x) => ({ ...x, otomatik: true, durum: "duyuruldu", baslangic: x.ilkGorulme, bitis: "" }));
+const INDIRIMLER = [
+  ...{{ indirimler.indirimler | dump | safe }},
+  ...OTOMATIK,
+];
 const $ = (id) => document.getElementById(id);
 const kacis = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const GUN = 864e5;
@@ -40,7 +46,7 @@ const anahtar = (x) => x.grup || x.baslik;
 // (or 45 days after it started, if never re-checked).
 function durumu(x) {
   const b = tarih(x.baslangic);
-  const s = tarih(x.bitis) || (x.kontrol ? new Date(tarih(x.kontrol).getTime() + 14 * GUN) : new Date(b.getTime() + 45 * GUN));
+  const s = tarih(x.bitis) || (x.kontrol ? new Date(tarih(x.kontrol).getTime() + (x.otomatik ? 3 : 14) * GUN) : new Date(b.getTime() + 45 * GUN));
   if (bugun < b) return "yakinda";
   if (bugun <= s) return "devam";
   return "gecmis";
@@ -84,9 +90,10 @@ function kart(x) {
       ${d === "devam" && x.oran ? `<p class="indirim-oran">${kacis(x.oran)}</p>` : ""}
       <p class="indirim-markalar">${x.markalar.map(kacis).join(" · ")}</p>
       <p>${d === "yakinda" ? `<strong class="geri-sayim">${geriSayim(x)}</strong> · ${uzun(b)}${x.bitis && x.bitis !== x.baslangic ? ` – ${uzun(tarih(x.bitis))}` : ""}`
-        : d === "devam" ? `<strong class="geri-sayim devam">İndirimde</strong> · ${x.bitis ? `${bitisYazisi(x)}` : `${kisa(tarih(x.kontrol || x.baslangic))} tarihinde kontrol edildi`}`
+        : d === "devam" ? `<strong class="geri-sayim devam">İndirimde</strong> · ${x.bitis ? `${bitisYazisi(x)}` : `${x.otomatik ? "markanın sitesinde " : ""}${kisa(tarih(x.kontrol || x.baslangic))} tarihinde kontrol edildi`}`
         : `${uzun(b)}${x.bitis && x.bitis !== x.baslangic ? ` – ${uzun(tarih(x.bitis))}` : ""}`}</p>
       ${(d !== "devam" && x.oran) || x.kanal ? `<p class="meta">${[d !== "devam" && x.oran, x.kanal].filter(Boolean).map(kacis).join(" · ")}</p>` : ""}
+      ${x.ornekler?.length ? `<ul class="indirim-ornek">${x.ornekler.map((o) => `<li>${kacis(o)}</li>`).join("")}</ul>` : ""}
       ${x.not ? `<p class="meta">${kacis(x.not)}</p>` : ""}
       <div class="indirim-eylem">
         ${d === "devam" && x.link ? `<a class="dugme-kucuk" href="${kacis(x.link)}" target="_blank" rel="nofollow noopener">İndirime git</a>` : ""}
@@ -105,7 +112,12 @@ function ciz() {
     (!kategori || (kategori === "takip" ? takip.includes(anahtar(x)) : x.kategori === kategori)) &&
     (!aranan || [x.baslik, x.grup, ...x.markalar].join(" ").toLocaleLowerCase("tr").includes(aranan)));
   const gruplar = { devam: [], yakinda: [], gecmis: [] };
-  liste.forEach((x) => gruplar[durumu(x)].push(x));
+  const elleSuren = new Set(liste.filter((x) => !x.otomatik && durumu(x) === "devam").map(anahtar));
+  liste.forEach((x) => {
+    const d = durumu(x);
+    if (x.otomatik && (d !== "devam" || elleSuren.has(anahtar(x)))) return;
+    gruplar[d].push(x);
+  });
   gruplar.devam.sort((a, b) => (a.bitis || "9999").localeCompare(b.bitis || "9999"));
   gruplar.yakinda.sort((a, b) => a.baslangic.localeCompare(b.baslangic));
   gruplar.gecmis.sort((a, b) => b.baslangic.localeCompare(a.baslangic));

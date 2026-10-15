@@ -1,0 +1,18 @@
+[
+  { "marka": "Boyner", "grup": "Boyner", "kategori": "genel", "url": "https://www.boyner.com.tr/" },
+  { "marka": "Beymen", "grup": "Beymen", "kategori": "giyim", "url": "https://www.beymen.com/" },
+  { "marka": "Vakko", "grup": "Vakko", "kategori": "giyim", "url": "https://www.vakko.com/" },
+  { "marka": "LC Waikiki", "grup": "LC Waikiki", "kategori": "giyim", "url": "https://www.lcw.com/" },
+  { "marka": "Koton", "grup": "Koton", "kategori": "giyim", "url": "https://www.koton.com/" },
+  { "marka": "Colin's", "grup": "Colin's", "kategori": "giyim", "url": "https://www.colins.com.tr/" },
+  { "marka": "Network", "grup": "Network", "kategori": "giyim", "url": "https://www.network.com.tr/" },
+  { "marka": "Altınyıldız Classics", "grup": "Altınyıldız Classics", "kategori": "giyim", "url": "https://www.altinyildizclassics.com/" },
+  { "marka": "Damat Tween", "grup": "Damat Tween", "kategori": "giyim", "url": "https://www.damattween.com/" },
+  { "marka": "Ramsey", "grup": "Ramsey", "kategori": "giyim", "url": "https://www.ramsey.com.tr/" },
+  { "marka": "Kiğılı", "grup": "Kiğılı", "kategori": "giyim", "url": "https://www.kigili.com/" },
+  { "marka": "Sarar", "grup": "Sarar", "kategori": "giyim", "url": "https://www.sarar.com/" },
+  { "marka": "Derimod", "grup": "Derimod", "kategori": "ayakkabi", "url": "https://www.derimod.com.tr/" },
+  { "marka": "U.S. Polo Assn.", "grup": "U.S. Polo Assn.", "kategori": "giyim", "url": "https://tr.uspoloassn.com/" },
+  { "marka": "FLO", "grup": "FLO", "kategori": "ayakkabi", "url": "https://www.flo.com.tr/" },
+  { "marka": "Superstep", "grup": "Superstep", "kategori": "ayakkabi", "url": "https://www.superstep.com.tr/" }
+]

@@ -1,0 +1,71 @@
+{
+  "guncelleme": "2026-10-15",
+  "kampanyalar": [
+    {
+      "baslik": "Boyner indirimi",
+      "grup": "Boyner",
+      "markalar": [
+        "Boyner"
+      ],
+      "kategori": "genel",
+      "oran": "%70'e varan",
+      "ornekler": [
+        "Brooks Brothers %70'e Varan İndirim",
+        "Network %70'e Varan İndirim",
+        "Discovery Expedition %70'e Varan İndirim"
+      ],
+      "link": "https://www.boyner.com.tr/",
+      "ilkGorulme": "2026-10-15",
+      "kontrol": "2026-10-15"
+    },
+    {
+      "baslik": "Beymen indirimi",
+      "grup": "Beymen",
+      "markalar": [
+        "Beymen"
+      ],
+      "kategori": "giyim",
+      "oran": "%30",
+      "ornekler": [
+        "DIVARESE Sezon koleksiyonlarında %30 indirim",
+        "BBS Seçili ürünlerde %25 indirim",
+        "Seçili ürünlerde sepette %20 indirim"
+      ],
+      "link": "https://www.beymen.com/",
+      "ilkGorulme": "2026-10-15",
+      "kontrol": "2026-10-15"
+    },
+    {
+      "baslik": "Vakko indirimi",
+      "grup": "Vakko",
+      "markalar": [
+        "Vakko"
+      ],
+      "kategori": "giyim",
+      "oran": "%25",
+      "ornekler": [
+        "Monogram SEÇİLİ ÜRÜNLERDE %25 İNDİRİM"
+      ],
+      "link": "https://www.vakko.com/",
+      "ilkGorulme": "2026-10-15",
+      "kontrol": "2026-10-15"
+    },
+    {
+      "baslik": "Sarar indirimi",
+      "grup": "Sarar",
+      "markalar": [
+        "Sarar"
+      ],
+      "kategori": "giyim",
+      "oran": "%50",
+      "ornekler": [
+        "Robin Yayla Ürünlerinde %50 İndirim",
+        "Seçili Erkek Ürünlerinde %30 İndirim",
+        "%30 İndirim"
+      ],
+      "link": "https://www.sarar.com/",
+      "ilkGorulme": "2026-10-15",
+      "kontrol": "2026-10-15"
+    }
+  ]
+}
