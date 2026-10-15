@@ -1,0 +1,74 @@
+---
+layout: base.njk
+title: Üyelik
+ozet: Takip ettiğiniz markalar indirime girdiğinde haberiniz olsun.
+permalink: /uyelik/
+---
+<div class="uyelik">
+<h1>Üyelik</h1>
+<div id="uyeAlan"><p class="meta">Yükleniyor…</p></div>
+</div>
+
+<script>
+const HATALAR = {
+  istek: "Giriş isteğinin süresi doldu. Tekrar deneyin.",
+  google: "Google girişi tamamlanamadı. Tekrar deneyin.",
+  eposta: "Google hesabınızın e-posta adresi doğrulanmamış.",
+};
+const kacis = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const alan = document.getElementById("uyeAlan");
+const hata = new URLSearchParams(location.search).get("hata");
+
+function ciz(d) {
+  const uyari = hata && HATALAR[hata] ? `<p class="uyari-not">${HATALAR[hata]}</p>` : "";
+  if (d.kapali || (!d.uye && !d.google)) {
+    alan.innerHTML = `${uyari}<p>Üyelik çok yakında açılıyor. O zamana kadar <a href="/indirimler/">İndirim Takvimi</a>'ndeki “Takip et” düğmesiyle markaları bu tarayıcıda takip edebilirsiniz; üye olunca takipleriniz hesabınıza aktarılır.</p>`;
+    return;
+  }
+  if (!d.uye) {
+    alan.innerHTML = `${uyari}
+      <p class="slogan">Ücretsiz üye olun; takip ettiğiniz markaların indirim tarihleri açıklandığında ve indirim başladığında size haber verelim.</p>
+      <ul class="uyelik-artilar"><li>İstediğiniz markaları takip edin: Zara, Nike, Inditex grubu…</li><li>Takipleriniz her cihazda sizinle</li><li>Şifre yok: Google hesabınızla tek tıkla giriş</li></ul>
+      <a class="google-giris" href="/api/uye/google">Google ile giriş yap</a>
+      <p class="meta">Giriş yaparak <a href="/gizlilik/">Aydınlatma Metni</a>'ni okuduğunuzu kabul edersiniz. Sadece e-posta adresiniz ve adınız saklanır.</p>`;
+    return;
+  }
+  const u = d.uye;
+  alan.innerHTML = `${uyari}
+    <p class="slogan">Hoş geldiniz${u.ad ? ", " + kacis(u.ad) : ""}.</p>
+    <p class="meta">${kacis(u.eposta)}</p>
+    <h2>Takip ettikleriniz</h2>
+    ${d.takip.length ? `<ul class="takip-liste">${d.takip.map((a) => `<li><span>${kacis(a)}</span><button type="button" class="takip acik" data-anahtar="${kacis(a)}">Takibi bırak</button></li>`).join("")}</ul>`
+      : `<p>Henüz takip ettiğiniz marka yok. <a href="/indirimler/">İndirim Takvimi</a>'nden ekleyin.</p>`}
+    <h2>Bildirimler</h2>
+    <label class="izin"><input type="checkbox" id="epostaIzni"${u.epostaIzni ? " checked" : ""}> Takip ettiğim markaların indirimleri hakkında bana e-posta gönderilsin. İstediğim zaman buradan kapatabilirim.</label>
+    <p class="meta" id="izinDurum"></p>
+    <div class="uyelik-eylem">
+      <button type="button" class="dugme-kucuk" id="cikis">Çıkış yap</button>
+      <button type="button" class="sil" id="sil">Hesabımı sil</button>
+    </div>`;
+}
+
+document.addEventListener("DOMContentLoaded", () => Uye.hazir.then((d) => {
+  ciz(d);
+  alan.addEventListener("click", async (e) => {
+    const t = e.target;
+    try {
+      if (t.matches(".takip-liste .takip")) { await Uye.takipDegistir(t.dataset.anahtar); ciz(Uye.durum()); }
+      if (t.id === "cikis") { await Uye.gonder("/api/uye/cikis", {}); location.href = "/uyelik/"; }
+      if (t.id === "sil" && confirm("Hesabınız ve tüm takipleriniz kalıcı olarak silinecek. Emin misiniz?")) {
+        await Uye.gonder("/api/uye/sil", {}); location.href = "/uyelik/";
+      }
+    } catch (h) { alert(h.message); }
+  });
+  alan.addEventListener("change", async (e) => {
+    if (e.target.id !== "epostaIzni") return;
+    const durum = document.getElementById("izinDurum");
+    try {
+      const r = await Uye.gonder("/api/uye/ayar", { epostaIzni: e.target.checked });
+      Uye.durum().uye.epostaIzni = r.epostaIzni;
+      durum.textContent = r.epostaIzni ? "E-posta bildirimleri açık." : "E-posta bildirimleri kapalı.";
+    } catch (h) { e.target.checked = !e.target.checked; durum.textContent = h.message; }
+  });
+}));
+</script>

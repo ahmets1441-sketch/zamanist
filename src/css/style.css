@@ -17,6 +17,9 @@ img{max-width:100%}
 .logo{display:inline-flex;align-items:center;gap:.6rem;font:700 1.65rem/1 var(--baslik);text-decoration:none;color:#fff;letter-spacing:.01em}
 .logo:hover{color:#fff}
 .ust-ara{font-size:.88rem;font-weight:600;text-decoration:none;color:var(--lacivert);background:var(--altin);border-radius:6px;padding:.45rem .95rem}
+.ust-sag{display:flex;align-items:center;gap:1rem}
+.ust-uye{font-size:.88rem;font-weight:600;color:#fff;text-decoration:none}
+.ust-uye:hover{color:var(--altin-acik)}
 .ust-ara:hover{background:var(--altin-acik);color:var(--lacivert)}
 nav{display:flex;gap:1.6rem;overflow-x:auto;padding:.85rem 0 0;scrollbar-width:none;font-size:.9rem}
 nav a{white-space:nowrap;text-decoration:none;color:#C9D3E0;padding-bottom:.7rem;border-bottom:2px solid transparent}
@@ -188,3 +191,14 @@ h2{font-size:1.4rem}
 .takip{font:inherit;font-size:.9rem;font-weight:600;padding:.4rem .9rem;border-radius:8px;border:1px solid var(--altin);background:#fff;color:var(--altin-koyu);cursor:pointer}
 .takip.acik{background:var(--altin);color:var(--lacivert)}
 @media (max-width:30rem){.indirim-kart{grid-template-columns:3.6rem 1fr;gap:.75rem;padding:.8rem}.indirim-tarih span{font-size:1.4rem}}
+.uyelik{max-width:40rem}
+.uyelik-artilar{padding-left:1.2rem;line-height:1.8}
+.google-giris{display:inline-flex;align-items:center;gap:.6rem;background:#fff;color:#1f1f1f;border:1px solid #747775;border-radius:99px;padding:.65rem 1.4rem;font-weight:600;text-decoration:none;margin:1rem 0}
+.google-giris:hover{background:#F2F2F2;color:#1f1f1f}
+.takip-liste{list-style:none;padding:0}
+.takip-liste li{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--line)}
+.izin{display:flex;gap:.6rem;align-items:flex-start;line-height:1.5}
+.izin input{margin-top:.3rem}
+.uyelik-eylem{display:flex;gap:1rem;align-items:center;margin-top:2rem}
+.uyelik-eylem button{font:inherit;cursor:pointer;border:0}
+.sil{background:none;color:#A33;text-decoration:underline;font-size:.9rem}

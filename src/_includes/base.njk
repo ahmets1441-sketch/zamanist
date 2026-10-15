@@ -28,7 +28,10 @@
   <header class="site-header"><div class="ic">
     <div class="ust">
       <a class="logo" href="/"><img src="/img/logo.svg" alt="" width="34" height="34"><span>Zamanist</span></a>
-      <a class="ust-ara" href="/ara/">Yurt dışında ara</a>
+      <div class="ust-sag">
+        <a class="ust-uye" href="/uyelik/" data-uye-link>Giriş</a>
+        <a class="ust-ara" href="/ara/">Yurt dışında ara</a>
+      </div>
     </div>
     <nav>
       {%- for b in bolumler %}
@@ -45,5 +48,6 @@
     <a class="logo" href="/"><img src="/img/logo.svg" alt="" width="26" height="26"><span>Zamanist</span></a>
     <p>Saat, stil ve beyefendi kültürü. Fiyatlar bilgi amaçlıdır; satın almadan önce satıcıdan teyit edin.</p>
   </div></footer>
+<script src="/js/uye.js" defer></script>
 </body>
 </html>

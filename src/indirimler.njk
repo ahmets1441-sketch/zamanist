@@ -18,6 +18,7 @@ permalink: /indirimler/
 </div>
 <input id="markaAra" class="indirim-ara" type="search" placeholder="Marka ara: Zara, Nike…" autocomplete="off">
 
+<p class="uyari-not" id="uyeOneri" hidden>Takibiniz bu tarayıcıda saklandı. Her cihazda görmek ve indirim başlayınca haber almak için <a href="/uyelik/">ücretsiz üye olun</a>.</p>
 <div id="takvim"></div>
 
 <p class="meta">Tarihler markaların duyurularından ve haberlerden derlenir; tahmini tarihler kesinleşince güncellenir.</p>
@@ -33,8 +34,6 @@ const AYLAR = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", 
 const uzun = (d) => d.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric", weekday: "long" });
 
 let takip = [];
-try { takip = JSON.parse(localStorage.getItem("takipMarkalar") || "[]"); } catch {}
-const takipKaydet = () => { try { localStorage.setItem("takipMarkalar", JSON.stringify(takip)); } catch {} };
 const anahtar = (x) => x.grup || x.baslik;
 
 // An event without an end date counts as over 45 days after it started.
@@ -110,12 +109,14 @@ document.querySelector(".indirim-filtre").addEventListener("click", (e) => {
   ciz();
 });
 $("markaAra").addEventListener("input", ciz);
-$("takvim").addEventListener("click", (e) => {
+$("takvim").addEventListener("click", async (e) => {
   const b = e.target.closest(".takip"); if (!b) return;
-  const k = b.dataset.anahtar;
-  takip = takip.includes(k) ? takip.filter((x) => x !== k) : [...takip, k];
-  takipKaydet();
+  b.disabled = true;
+  try { takip = await Uye.takipDegistir(b.dataset.anahtar); } catch (h) { alert(h.message); }
   ciz();
+  const d = Uye.durum();
+  if (!d.uye && !d.kapali && d.google && takip.length === 1) $("uyeOneri").hidden = false;
 });
 ciz();
+document.addEventListener("DOMContentLoaded", () => Uye.hazir.then((d) => { takip = d.takip; ciz(); }));
 </script>
