@@ -142,5 +142,50 @@
     "lisans": "CC BY-SA 3.0",
     "lisansLink": "https://creativecommons.org/licenses/by-sa/3.0",
     "kaynak": "https://commons.wikimedia.org/wiki/File:TAG_Heuer_Carrera_chronograph_CV2010_retusche_(cropped).jpg"
+  },
+  "kombin-lacivert-takim": {
+    "src": "/img/foto/kombin-lacivert-takim.webp",
+    "en": 1000,
+    "boy": 714,
+    "yazar": "Menswear Market",
+    "lisans": "CC BY 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by/2.0/",
+    "kaynak": "https://www.flickr.com/photos/85546319@N04/42796362762"
+  },
+  "kombin-deve-tuyu-palto": {
+    "src": "/img/foto/kombin-deve-tuyu-palto.webp",
+    "en": 682,
+    "boy": 1023,
+    "yazar": "Menswear Market",
+    "lisans": "CC BY 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by/2.0/",
+    "kaynak": "https://www.flickr.com/photos/85546319@N04/45938202335"
+  },
+  "kombin-uc-takim": {
+    "src": "/img/foto/kombin-uc-takim.webp",
+    "en": 1000,
+    "boy": 714,
+    "yazar": "Menswear Market",
+    "lisans": "CC BY 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by/2.0/",
+    "kaynak": "https://www.flickr.com/photos/85546319@N04/41943787385"
+  },
+  "kombin-lacivert-blazer": {
+    "src": "/img/foto/kombin-lacivert-blazer.webp",
+    "en": 1000,
+    "boy": 714,
+    "yazar": "Menswear Market",
+    "lisans": "CC BY 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by/2.0/",
+    "kaynak": "https://www.flickr.com/photos/85546319@N04/42844906091"
+  },
+  "kombin-bordo-takim": {
+    "src": "/img/foto/kombin-bordo-takim.webp",
+    "en": 682,
+    "boy": 1023,
+    "yazar": "Menswear Market",
+    "lisans": "CC BY 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by/2.0/",
+    "kaynak": "https://www.flickr.com/photos/85546319@N04/46852814831"
   }
 }
