@@ -1,0 +1,25 @@
+name: Kampanya tarama
+# Daily scan of brand home pages for running sales; commits the result so the site rebuilds.
+on:
+  schedule:
+    - cron: "15 5 * * *" # 08:15 Turkey time
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  tara:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/kampanya-tara.mjs
+      - name: Commit changes
+        run: |
+          git diff --quiet -- src/_data/otomatikKampanyalar.json && exit 0
+          git config user.name "zamanist-bot"
+          git config user.email "zamanist-bot@users.noreply.github.com"
+          git add src/_data/otomatikKampanyalar.json
+          git commit -m "Update campaigns found on brand sites"
+          git push
