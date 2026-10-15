@@ -35,5 +35,5 @@ Aynı saat, kayışı değişince başka bir kıyafete uyar. Çelik bilezikli bi
 ## Sonra ne yapmalı?
 
 - Her tip için ayrıntılı rehberlere tablodaki bağlantılardan gidin.
-- Sınırlı sayıda çıkacak modelleri [Saat Çıkış Takvimi](/saat-cikislari/)'nden takip edin.
+- Sınırlı sayıda çıkacak modelleri [Sınırlı Seri](/sinirli-seri/) sayfasından takip edin.
 - Beğendiğiniz modelin yurt dışı fiyatını [Yurt Dışında Ara](/ara/) ile Türkiye fiyatıyla karşılaştırın.

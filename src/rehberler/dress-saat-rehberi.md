@@ -52,4 +52,4 @@ Dress saat, resmi kıyafetin saatidir. Görevi dikkat çekmek değil, gömlek ko
 - Kahverengi ayakkabıyla siyah deri kayış: küçük ama gözden kaçmayan bir uyumsuzluk.
 - Çok büyük kasa: 42 mm ve üstü, dress saat için genelde fazla.
 
-Sınırlı sayıda çıkan dress saatler için [Saat Çıkış Takvimi](/saat-cikislari/)'ne bakın. Diğer saat tipleri: [Hangi saat hangi kombine?](/rehberler/hangi-saat-hangi-kombine/)
+Sınırlı sayıda çıkan dress saatler için [Sınırlı Seri](/sinirli-seri/) sayfasına bakın. Diğer saat tipleri: [Hangi saat hangi kombine?](/rehberler/hangi-saat-hangi-kombine/)

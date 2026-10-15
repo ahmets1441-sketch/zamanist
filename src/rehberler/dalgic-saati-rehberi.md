@@ -44,7 +44,7 @@ Kadranda "Diver's 200m" yazan saatler genelde bu standarda göre test edilmişti
 
 **Üst segment**
 - **Rolex Submariner:** 1953'ten beri dalgıç saatinin referansı; bugünkü versiyonu 41 mm, 300 m.
-- **Omega Seamaster Diver 300M:** dalga desenli kadranıyla James Bond filmlerinden tanınır; 42 mm, 300 m. Ekim 2026'da tanıtılan James Bond ve Spectre setleri için [Saat Çıkış Takvimi](/saat-cikislari/)'ne bakın.
+- **Omega Seamaster Diver 300M:** dalga desenli kadranıyla James Bond filmlerinden tanınır; 42 mm, 300 m. Ekim 2026'da tanıtılan James Bond ve Spectre setleri için [Sınırlı Seri](/sinirli-seri/) sayfasına bakın.
 
 ## Bakım
 

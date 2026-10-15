@@ -16,7 +16,8 @@
       "kaynak": "https://www.gearpatrol.com/watches/tag-heuer-formula-1-solargraph-oracle-red-bull-racing/",
       "resmi": "https://www.tagheuer.com/us/en/timepieces/collections/tag-heuer-formula-1/38-mm-th50-00/WBY111F.BA0042.html",
       "not": "TAG Heuer sitesinde \"Special Edition\" olarak geçiyor; üretim adedi açıklanmadı. Erken erişim ABD'de 03:00 EDT, Avrupa'da 09:00 CEST'te açılıyor.",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "kategori": "saat"
     },
     {
       "baslik": "Seiko Power Design Project Panda Chronograph",
@@ -24,7 +25,7 @@
       "tur": "sinirli",
       "tarz": "spor",
       "referans": "HHK001 (beyaz), HHK002 (pembe)",
-      "adet": "5.000 (3.000 beyaz, 2.000 pembe)",
+      "adet": "5.000 adet (3.000 beyaz, 2.000 pembe)",
       "tarih": "2026-11",
       "hassasiyet": "ay",
       "tarihTuru": "Teslimat",
@@ -36,7 +37,8 @@
       "kontrol": "2026-10-15",
       "gorsel": "/img/cikis/seiko-hhk001.webp",
       "gorselKaynak": "Seiko (HHK001)",
-      "gorselLink": "https://www.seikowatches.com/global-en/products/seiko-power-design-project"
+      "gorselLink": "https://www.seikowatches.com/global-en/products/seiko-power-design-project",
+      "kategori": "saat"
     },
     {
       "baslik": "Christopher Ward C1 Jump Hour XV",
@@ -53,7 +55,8 @@
       "ozellik": "Atlayan saat (jump hour) göstergesi",
       "kaynak": "https://casebackchron.com/watch-releases-october-3-2026/",
       "not": "Ön sipariş 2 Ekim 2026'da açıldı; markaya göre gönderim Kasım 2026 sonunda başlıyor.",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "kategori": "saat"
     },
     {
       "baslik": "Patek Philippe İtalya'ya özel 7 model (Milano Watch Art sergisi)",
@@ -82,7 +85,8 @@
       "kontrol": "2026-10-15",
       "gorsel": "/img/cikis/patek-5167a-014.webp",
       "gorselKaynak": "Patek Philippe (Aquanaut 5167A-014)",
-      "gorselLink": "https://www.patek.com/en/collection/aquanaut/5167A-014"
+      "gorselLink": "https://www.patek.com/en/collection/aquanaut/5167A-014",
+      "kategori": "saat"
     },
     {
       "baslik": "Omega Seamaster Diver 300M James Bond ve Spectre setleri",
@@ -103,7 +107,8 @@
       "gorsel": "/img/cikis/omega-bond.webp",
       "gorselKaynak": "Omega (James Bond çelik model)",
       "gorselLink": "https://www.omegawatches.com/en-us/watch-omega-seamaster-diver-300m-co-axial-master-chronometer-42-mm-21030422003004",
-      "resmi": "https://www.omegawatches.com/en-us/watch-omega-seamaster-diver-300m-co-axial-master-chronometer-42-mm-21030422003004"
+      "resmi": "https://www.omegawatches.com/en-us/watch-omega-seamaster-diver-300m-co-axial-master-chronometer-42-mm-21030422003004",
+      "kategori": "saat"
     },
     {
       "baslik": "Seiko 145. yıl \"Edo moru\" sınırlı serisi",
@@ -111,7 +116,7 @@
       "tur": "sinirli",
       "tarz": "",
       "referans": "",
-      "adet": "2.000 ile 9.999 arası, modele göre",
+      "adet": "Modele göre 2.000–9.999 adet",
       "tarih": "2026-10",
       "hassasiyet": "ay",
       "tarihTuru": "Satış",
@@ -131,7 +136,8 @@
       "kontrol": "2026-10-15",
       "gorsel": "/img/cikis/seiko-145-yil.webp",
       "gorselKaynak": "Seiko resmi duyurusu",
-      "gorselLink": "https://www.seikowatches.com/us-en/news/2026/pr/20260806"
+      "gorselLink": "https://www.seikowatches.com/us-en/news/2026/pr/20260806",
+      "kategori": "saat"
     },
     {
       "baslik": "The Citizen Tosa Washi kadran AQ4100-65X",
@@ -152,7 +158,8 @@
       "gorsel": "/img/cikis/citizen-aq4100.webp",
       "gorselKaynak": "Citizen",
       "gorselLink": "https://www.citizenwatch.com/us/en/product/AQ4100-65X",
-      "resmi": "https://www.citizenwatch.com/us/en/product/AQ4100-65X"
+      "resmi": "https://www.citizenwatch.com/us/en/product/AQ4100-65X",
+      "kategori": "saat"
     },
     {
       "baslik": "Citizen Series8 3-Hand Sport NB6086-54E",
@@ -172,7 +179,8 @@
       "gorsel": "/img/cikis/citizen-nb6086.webp",
       "gorselKaynak": "Citizen",
       "gorselLink": "https://www.citizenwatch.com/us/en/product/NB6086-54E",
-      "resmi": "https://www.citizenwatch.com/us/en/product/NB6086-54E"
+      "resmi": "https://www.citizenwatch.com/us/en/product/NB6086-54E",
+      "kategori": "saat"
     },
     {
       "baslik": "Seiko Prospex Speedtimer Avrupa'ya özel HBJ008",
@@ -188,7 +196,8 @@
       "pazar": "Yalnızca Avrupa",
       "ozellik": "",
       "kaynak": "https://casebackchron.com/watch-releases-october-3-2026/",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "kategori": "saat"
     },
     {
       "baslik": "Porsche Design Chronograph 1 Utility for Hodinkee",
@@ -204,7 +213,8 @@
       "pazar": "Hodinkee; ilk 100 adet Watches of Switzerland'a özel",
       "ozellik": "",
       "kaynak": "https://casebackchron.com/watch-releases-october-3-2026/",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "kategori": "saat"
     },
     {
       "baslik": "Hanhart 417 ES Heritage Flyback Steve McQueen Limited Edition No. 1",
@@ -220,7 +230,8 @@
       "pazar": "Hanhart; ABD'de WatchBuys",
       "ozellik": "Flyback kronograf",
       "kaynak": "https://casebackchron.com/watch-releases-october-3-2026/",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "kategori": "saat"
     },
     {
       "baslik": "Norqain Wild One Skeleton Titanium 39 mm gri",
@@ -237,12 +248,13 @@
       "ozellik": "Titanyum kasa, iskelet kadran",
       "kaynak": "https://casebackchron.com/watch-releases-october-3-2026/",
       "not": "42 mm meteorit kadranlı versiyon sınırlı değil (7.750 $).",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "kategori": "saat"
     },
     {
       "baslik": "LVMH Watch Week 2027",
       "marka": "LVMH (TAG Heuer, Zenith, Hublot, Bulgari)",
-      "tur": "fuar",
+      "tur": "etkinlik",
       "tarz": "",
       "referans": "",
       "adet": "",
@@ -255,12 +267,13 @@
       "ozellik": "",
       "kaynak": "https://www.lvmh.com/en/news-lvmh/lvmh-watch-week-2026-milan-a-new-european-edition-of-the-early-year-watchmaking-event",
       "not": "2027 tarihi henüz açıklanmadı. 2026'da 19–21 Ocak'ta Milano'daydı.",
-      "kontrol": "2026-10-15"
+      "kontrol": "2026-10-15",
+      "kategori": "saat"
     },
     {
       "baslik": "Watches and Wonders Cenevre 2027",
       "marka": "Rolex, Patek Philippe, Tudor, Cartier dahil 75 marka",
-      "tur": "fuar",
+      "tur": "etkinlik",
       "tarz": "",
       "referans": "",
       "adet": "",
@@ -276,7 +289,144 @@
       "kontrol": "2026-10-15",
       "gorsel": "/img/cikis/watches-wonders-2027.webp",
       "gorselKaynak": "Watches and Wonders",
-      "gorselLink": "https://www.watchesandwonders.com/"
+      "gorselLink": "https://www.watchesandwonders.com/",
+      "kategori": "saat"
+    },
+    {
+      "baslik": "Converse x GOLF le FLEUR* Pro Leather",
+      "marka": "Converse",
+      "kategori": "sneaker",
+      "tur": "isbirligi",
+      "tarz": "",
+      "referans": "A24028C-102",
+      "adet": "",
+      "tarih": "2026-10-16",
+      "hassasiyet": "gun",
+      "tarihTuru": "Satış",
+      "fiyat": "105 $ (ABD)",
+      "pazar": "Nike SNKRS (ABD)",
+      "ozellik": "Tyler, The Creator tasarımı; abartılı oranlarla yeniden yorumlanmış Pro Leather",
+      "kaynak": "https://www.nike.com/launch/t/converse-golf-le-fleur-pro-leather-shoes-1",
+      "resmi": "https://www.nike.com/launch/t/converse-golf-le-fleur-pro-leather-shoes-1",
+      "gorsel": "/img/cikis/nike-golf-le-fleur.webp",
+      "gorselKaynak": "Nike SNKRS",
+      "gorselLink": "https://www.nike.com/launch/t/converse-golf-le-fleur-pro-leather-shoes-1",
+      "not": "",
+      "kontrol": "2026-10-15"
+    },
+    {
+      "baslik": "Air Jordan 5 Retro \"Halloween\"",
+      "marka": "Jordan",
+      "kategori": "sneaker",
+      "tur": "ozel",
+      "tarz": "",
+      "referans": "HQ7978-001",
+      "adet": "",
+      "tarih": "2026-10-17",
+      "hassasiyet": "gun",
+      "tarihTuru": "Satış",
+      "fiyat": "215 $ (ABD)",
+      "pazar": "Nike SNKRS (ABD)",
+      "ozellik": "Siyah nubuk, Picante Red detaylar, karanlıkta parlayan ayrıntılar",
+      "kaynak": "https://www.nike.com/launch/t/air-jordan-5-halloween-black-and-picante-red",
+      "resmi": "https://www.nike.com/launch/t/air-jordan-5-halloween-black-and-picante-red",
+      "gorsel": "/img/cikis/nike-aj5-halloween.webp",
+      "gorselKaynak": "Nike SNKRS",
+      "gorselLink": "https://www.nike.com/launch/t/air-jordan-5-halloween-black-and-picante-red",
+      "not": "",
+      "kontrol": "2026-10-15"
+    },
+    {
+      "baslik": "Air Force 1 '01 x NIGO x J-HOPE",
+      "marka": "Nike",
+      "kategori": "sneaker",
+      "tur": "isbirligi",
+      "tarz": "",
+      "referans": "IO8766-800",
+      "adet": "",
+      "tarih": "2026-10-22",
+      "hassasiyet": "gun",
+      "tarihTuru": "Satış",
+      "fiyat": "150 $ (ABD)",
+      "pazar": "Nike SNKRS (ABD)",
+      "ozellik": "NIGO ve BTS üyesi J-HOPE iş birliği; Burnt Sunrise ve Metallic Gold parlak deri",
+      "kaynak": "https://www.nike.com/launch/t/air-force-1-01-nigo-j-hope-burnt-sunrise-and-metallic-gold-us",
+      "resmi": "https://www.nike.com/launch/t/air-force-1-01-nigo-j-hope-burnt-sunrise-and-metallic-gold-us",
+      "gorsel": "/img/cikis/nike-af1-nigo-jhope.webp",
+      "gorselKaynak": "Nike SNKRS",
+      "gorselLink": "https://www.nike.com/launch/t/air-force-1-01-nigo-j-hope-burnt-sunrise-and-metallic-gold-us",
+      "not": "",
+      "kontrol": "2026-10-15"
+    },
+    {
+      "baslik": "Kobe 10 Protro \"Blue Lagoon\"",
+      "marka": "Nike",
+      "kategori": "sneaker",
+      "tur": "ozel",
+      "tarz": "",
+      "referans": "IQ5339-400",
+      "adet": "",
+      "tarih": "2026-10-24",
+      "hassasiyet": "gun",
+      "tarihTuru": "Satış",
+      "fiyat": "10.999 TL",
+      "pazar": "Nike SNKRS Türkiye",
+      "ozellik": "2015'teki ilk renk yeniden; Air Zoom Strobel ve Cushlon 3.0 ile performans yenilemesi",
+      "kaynak": "https://www.nike.com/tr/launch/t/kobe-10-protro-blue-lagoon",
+      "resmi": "https://www.nike.com/tr/launch/t/kobe-10-protro-blue-lagoon",
+      "gorsel": "/img/cikis/nike-kobe10-blue-lagoon.webp",
+      "gorselKaynak": "Nike SNKRS",
+      "gorselLink": "https://www.nike.com/tr/launch/t/kobe-10-protro-blue-lagoon",
+      "not": "Türkiye'de Nike SNKRS'te satışa çıkıyor.",
+      "kontrol": "2026-10-15"
+    },
+    {
+      "baslik": "Air Jordan 12 Retro \"Fireside\"",
+      "marka": "Jordan",
+      "kategori": "sneaker",
+      "tur": "ozel",
+      "tarz": "",
+      "referans": "CT8013-105",
+      "adet": "",
+      "tarih": "2026-10-24",
+      "hassasiyet": "gun",
+      "tarihTuru": "Satış",
+      "fiyat": "215 $ (ABD)",
+      "pazar": "Nike SNKRS (ABD)",
+      "ozellik": "Light Orewood Brown deri, Cacao Wow detaylar, tam boy Air Zoom",
+      "kaynak": "https://www.nike.com/launch/t/air-jordan-12-fireside-light-orewood-brown-and-cacao-wow",
+      "resmi": "https://www.nike.com/launch/t/air-jordan-12-fireside-light-orewood-brown-and-cacao-wow",
+      "gorsel": "/img/cikis/nike-aj12-fireside.webp",
+      "gorselKaynak": "Nike SNKRS",
+      "gorselLink": "https://www.nike.com/launch/t/air-jordan-12-fireside-light-orewood-brown-and-cacao-wow",
+      "not": "",
+      "kontrol": "2026-10-15"
+    },
+    {
+      "baslik": "Manthey MR 30: 911 GT3 Cup ve 718 Cayman GT4 RS Clubsport",
+      "marka": "Porsche / Manthey",
+      "kategori": "araba",
+      "tur": "sinirli",
+      "tarz": "",
+      "referans": "",
+      "adet": "Her model için 15",
+      "tarih": "2026-10-30",
+      "hassasiyet": "gun",
+      "tarihTuru": "Sipariş son günü",
+      "fiyat": "",
+      "pazar": "Manthey (pist araçları)",
+      "ozellik": "Manthey'in 30. yılı için iki yarış aracı; 9 Ekim 2026'da Hockenheim'da tanıtıldı",
+      "modeller": [
+        "718 Cayman GT4 RS Clubsport MR 30 · 15 adet · teslimat Kasım 2026",
+        "911 GT3 Cup MR 30 · 15 adet · teslimat 2027 ilk çeyrek"
+      ],
+      "kaynak": "https://www.dailysportscar.com/2026/10/09/manthey-unveils-limited-edition-cup-gt4-models-to-mark-30th-anniversary.html",
+      "resmi": "https://www.manthey-racing.com/porsche-911-gt3-cup-mr-30",
+      "gorsel": "/img/cikis/manthey-911-mr30.webp",
+      "gorselKaynak": "Manthey",
+      "gorselLink": "https://www.manthey-racing.com/porsche-911-gt3-cup-mr-30",
+      "not": "Sipariş talepleri 30 Ekim'de kapanıyor; araçlar sınırlı olduğu için Manthey sonra dağıtım yapacak. Fiyat kaynaklarda tutarsız olduğu için yazılmadı.",
+      "kontrol": "2026-10-15"
     }
   ]
 }

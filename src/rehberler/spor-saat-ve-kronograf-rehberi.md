@@ -53,4 +53,4 @@ Kronograf, saatin içinde çalışan bir **kronometredir**. Kasanın yanındaki 
 
 Kronografı su altında çalıştırmak çoğu saatte önerilmez; düğmelerden su girebilir. Saatinizin kılavuzuna bakın.
 
-Sınırlı sayıda çıkan spor modeller (Seiko Panda, TAG Heuer Red Bull gibi) için [Saat Çıkış Takvimi](/saat-cikislari/)'ne bakın. Diğer saat tipleri: [Hangi saat hangi kombine?](/rehberler/hangi-saat-hangi-kombine/)
+Sınırlı sayıda çıkan spor modeller (Seiko Panda, TAG Heuer Red Bull gibi) için [Sınırlı Seri](/sinirli-seri/) sayfasına bakın. Diğer saat tipleri: [Hangi saat hangi kombine?](/rehberler/hangi-saat-hangi-kombine/)

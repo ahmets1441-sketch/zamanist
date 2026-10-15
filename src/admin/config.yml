@@ -105,21 +105,22 @@ collections:
               - { label: İndirim sayfası linki, name: link, widget: string, required: false, hint: "Süren kampanyalarda 'İndirime git' düğmesi bu adrese gider (markanın indirim sayfası)" }
               - { label: Son kontrol tarihi, name: kontrol, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false, hint: "Bitiş tarihi belli değilse: kampanya bu tarihten 14 gün sonra listeden düşer. Hâlâ sürüyorsa tarihi yenileyin." }
               - { label: Not, name: not, widget: text, required: false }
-      - name: saat-cikislari
-        label: Saat çıkış takvimi
-        file: src/_data/saatCikislari.json
+      - name: sinirli-seri
+        label: Sınırlı seri ve iş birlikleri
+        file: src/_data/sinirliSeri.json
         format: json
         fields:
           - label: Çıkışlar
             name: cikislar
             widget: list
             summary: "{{fields.tarih}} · {{fields.baslik}}"
-            hint: "Sınırlı üretim ve özel tasarım saatler, saat fuarları. Her kayıtta kaynak linki zorunlu."
+            hint: "Saat, sneaker, giyim ve otomobilde sınırlı seriler, iş birlikleri, fuarlar. Her kayıtta kaynak linki zorunlu."
             fields:
               - { label: Başlık, name: baslik, widget: string, hint: "örn. Omega Seamaster Diver 300M James Bond seti" }
               - { label: Marka, name: marka, widget: string, hint: "Takip bu ada göre yapılır" }
-              - { label: Tür, name: tur, widget: select, options: [{ label: Sınırlı üretim (adet açıklandı), value: sinirli }, { label: Özel tasarım (adet yok), value: ozel }, { label: Fuar, value: fuar }] }
-              - { label: Tarz, name: tarz, widget: select, required: false, options: [{ label: Dress, value: dress }, { label: Spor, value: spor }, { label: Dalgıç, value: dalgic }, { label: Günlük, value: gunluk }, { label: Pilot, value: pilot }] }
+              - { label: Kategori, name: kategori, widget: select, options: [{ label: Saat, value: saat }, { label: Sneaker, value: sneaker }, { label: Giyim, value: giyim }, { label: Otomobil, value: araba }] }
+              - { label: Tür, name: tur, widget: select, options: [{ label: Sınırlı üretim (adet açıklandı), value: sinirli }, { label: İş birliği, value: isbirligi }, { label: Özel seri (adet yok), value: ozel }, { label: Fuar / etkinlik, value: etkinlik }] }
+              - { label: Saat tarzı (yalnızca saatler), name: tarz, widget: select, required: false, options: [{ label: Dress, value: dress }, { label: Spor, value: spor }, { label: Dalgıç, value: dalgic }, { label: Günlük, value: gunluk }, { label: Pilot, value: pilot }] }
               - { label: Referans, name: referans, widget: string, required: false }
               - { label: Adet, name: adet, widget: string, required: false, hint: "örn. 300 veya 5.000 (3.000 beyaz, 2.000 pembe)" }
               - { label: Tarih, name: tarih, widget: string, hint: "Gün belliyse 2026-11-05, sadece ay belliyse 2026-11" }
