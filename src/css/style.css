@@ -202,3 +202,4 @@ h2{font-size:1.4rem}
 .uyelik-eylem{display:flex;gap:1rem;align-items:center;margin-top:2rem}
 .uyelik-eylem button{font:inherit;cursor:pointer;border:0}
 .sil{background:none;color:#A33;text-decoration:underline;font-size:.9rem}
+.indirim-oran{display:inline-block;margin:.2rem 0 .3rem !important;font-family:"Playfair Display",Georgia,serif;font-size:1.35rem;font-weight:700;color:#A3262A}

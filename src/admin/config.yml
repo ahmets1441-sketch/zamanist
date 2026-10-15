@@ -126,7 +126,7 @@ collections:
             name: indirimler
             widget: list
             summary: "{{fields.baslangic}} · {{fields.baslik}} ({{fields.durum}})"
-            hint: "Türkiye'deki indirim dönemleri. Tarihi kesinleşmemişse durumu Tahmini yapın ve notta neye göre tahmin ettiğinizi yazın."
+            hint: "Süren kampanyalar ve yaklaşan indirim dönemleri. Süren kampanya için başlangıç tarihini, oranı ve indirim linkini girin; bitişi bilinmiyorsa son kontrol tarihini girin. Tarihi kesinleşmemiş dönemlerde durumu Tahmini yapın."
             fields:
               - { label: Başlık, name: baslik, widget: string, hint: "örn. Inditex kış sezon sonu indirimi" }
               - { label: Grup, name: grup, widget: string, hint: "Takip bu ada göre yapılır: Inditex, Nike, Pazar yerleri…" }
@@ -138,6 +138,8 @@ collections:
               - { label: Oran, name: oran, widget: string, required: false, hint: "örn. %50'ye varan" }
               - { label: Kanal, name: kanal, widget: string, required: false, hint: "online, mağaza, önce online…" }
               - { label: Kaynak linki, name: kaynak, widget: string, required: false, hint: "Duyuruldu ise markanın veya haberin linki" }
+              - { label: İndirim sayfası linki, name: link, widget: string, required: false, hint: "Süren kampanyalarda 'İndirime git' düğmesi bu adrese gider (markanın indirim sayfası)" }
+              - { label: Son kontrol tarihi, name: kontrol, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false, hint: "Bitiş tarihi belli değilse: kampanya bu tarihten 14 gün sonra listeden düşer. Hâlâ sürüyorsa tarihi yenileyin." }
               - { label: Not, name: not, widget: text, required: false }
       - name: resmi-fiyatlar
         label: Resmi fiyat listesi

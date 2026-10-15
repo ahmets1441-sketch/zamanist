@@ -5,7 +5,7 @@ ozet: Türkiye'de hangi marka ne zaman indirime giriyor? Duyurulan ve beklenen b
 permalink: /indirimler/
 ---
 <h1>İndirim Takvimi</h1>
-<p class="slogan">Türkiye'deki büyük indirimler tek yerde. Markanın duyurduğu tarihler <span class="etiket iyi">Duyuruldu</span>, geçmiş yıllara göre beklenenler <span class="etiket uyari">Tahmini</span> olarak işaretli.</p>
+<p class="slogan">Türkiye'deki indirimler tek yerde: şu an süren kampanyalar ve yaklaşan büyük indirimler. Markanın duyurduğu tarihler <span class="etiket iyi">Duyuruldu</span>, geçmiş yıllara göre beklenenler <span class="etiket uyari">Tahmini</span> olarak işaretli.</p>
 
 <div class="indirim-filtre" role="group" aria-label="Kategori">
   <button type="button" data-kat="" aria-pressed="true">Tümü</button>
@@ -36,9 +36,11 @@ const uzun = (d) => d.toLocaleDateString("tr-TR", { day: "numeric", month: "long
 let takip = [];
 const anahtar = (x) => x.grup || x.baslik;
 
-// An event without an end date counts as over 45 days after it started.
+// Without an end date, a sale counts as running until 14 days after it was last checked
+// (or 45 days after it started, if never re-checked).
 function durumu(x) {
-  const b = tarih(x.baslangic), s = tarih(x.bitis) || new Date(b.getTime() + 45 * GUN);
+  const b = tarih(x.baslangic);
+  const s = tarih(x.bitis) || (x.kontrol ? new Date(tarih(x.kontrol).getTime() + 14 * GUN) : new Date(b.getTime() + 45 * GUN));
   if (bugun < b) return "yakinda";
   if (bugun <= s) return "devam";
   return "gecmis";
@@ -49,6 +51,12 @@ function geriSayim(x) {
   if (g === 0) return "Bugün başlıyor";
   if (g === 1) return "Yarın başlıyor";
   return `${g} gün kaldı`;
+}
+
+const kisa = (d) => d.toLocaleDateString("tr-TR", { day: "numeric", month: "long" });
+function bitisYazisi(x) {
+  const g = Math.round((tarih(x.bitis) - bugun) / GUN);
+  return g === 0 ? "Bugün son gün" : g === 1 ? "Yarın bitiyor" : `${kisa(tarih(x.bitis))} tarihine kadar (${g} gün)`;
 }
 
 function takvimDosyasi(x) {
@@ -72,13 +80,17 @@ function kart(x) {
   return `<article class="indirim-kart${d === "gecmis" ? " gecmis" : ""}">
     <div class="indirim-tarih"><span>${b.getDate()}</span>${AYLAR[b.getMonth()]}<small>${b.getFullYear()}</small></div>
     <div class="indirim-govde">
-      <h3>${kacis(x.baslik)} ${x.durum === "duyuruldu" ? '<span class="etiket iyi">Duyuruldu</span>' : '<span class="etiket uyari">Tahmini</span>'}</h3>
+      <h3>${kacis(x.baslik)} ${d === "devam" ? "" : x.durum === "duyuruldu" ? '<span class="etiket iyi">Duyuruldu</span>' : '<span class="etiket uyari">Tahmini</span>'}</h3>
+      ${d === "devam" && x.oran ? `<p class="indirim-oran">${kacis(x.oran)}</p>` : ""}
       <p class="indirim-markalar">${x.markalar.map(kacis).join(" · ")}</p>
-      <p>${d === "yakinda" ? `<strong class="geri-sayim">${geriSayim(x)}</strong> · ` : d === "devam" ? '<strong class="geri-sayim devam">Devam ediyor</strong> · ' : ""}${uzun(b)}${x.bitis && x.bitis !== x.baslangic ? ` – ${uzun(tarih(x.bitis))}` : ""}</p>
-      ${x.oran || x.kanal ? `<p class="meta">${[x.oran, x.kanal].filter(Boolean).map(kacis).join(" · ")}</p>` : ""}
+      <p>${d === "yakinda" ? `<strong class="geri-sayim">${geriSayim(x)}</strong> · ${uzun(b)}${x.bitis && x.bitis !== x.baslangic ? ` – ${uzun(tarih(x.bitis))}` : ""}`
+        : d === "devam" ? `<strong class="geri-sayim devam">İndirimde</strong> · ${x.bitis ? `${bitisYazisi(x)}` : `${kisa(tarih(x.kontrol || x.baslangic))} tarihinde kontrol edildi`}`
+        : `${uzun(b)}${x.bitis && x.bitis !== x.baslangic ? ` – ${uzun(tarih(x.bitis))}` : ""}`}</p>
+      ${(d !== "devam" && x.oran) || x.kanal ? `<p class="meta">${[d !== "devam" && x.oran, x.kanal].filter(Boolean).map(kacis).join(" · ")}</p>` : ""}
       ${x.not ? `<p class="meta">${kacis(x.not)}</p>` : ""}
       <div class="indirim-eylem">
-        ${d !== "gecmis" ? `<a class="dugme-kucuk" href="${takvimDosyasi(x)}" download="${kacis(x.baslik)}.ics">Takvime ekle</a>` : ""}
+        ${d === "devam" && x.link ? `<a class="dugme-kucuk" href="${kacis(x.link)}" target="_blank" rel="nofollow noopener">İndirime git</a>` : ""}
+        ${d === "yakinda" ? `<a class="dugme-kucuk" href="${takvimDosyasi(x)}" download="${kacis(x.baslik)}.ics">Takvime ekle</a>` : ""}
         <button type="button" class="takip${takipte ? " acik" : ""}" data-anahtar="${kacis(anahtar(x))}" aria-pressed="${takipte}">${takipte ? "Takip ediliyor" : "Takip et"}</button>
         ${x.kaynak ? `<a class="meta" href="${kacis(x.kaynak)}" target="_blank" rel="nofollow noopener">Kaynak</a>` : ""}
       </div>
@@ -94,11 +106,11 @@ function ciz() {
     (!aranan || [x.baslik, x.grup, ...x.markalar].join(" ").toLocaleLowerCase("tr").includes(aranan)));
   const gruplar = { devam: [], yakinda: [], gecmis: [] };
   liste.forEach((x) => gruplar[durumu(x)].push(x));
-  gruplar.devam.sort((a, b) => a.baslangic.localeCompare(b.baslangic));
+  gruplar.devam.sort((a, b) => (a.bitis || "9999").localeCompare(b.bitis || "9999"));
   gruplar.yakinda.sort((a, b) => a.baslangic.localeCompare(b.baslangic));
   gruplar.gecmis.sort((a, b) => b.baslangic.localeCompare(a.baslangic));
   const bolum = (baslik, xs) => xs.length ? `<section class="indirim-bolum"><h2>${baslik}</h2>${xs.map(kart).join("")}</section>` : "";
-  $("takvim").innerHTML = (bolum("Şu an devam eden", gruplar.devam) + bolum("Yaklaşan", gruplar.yakinda) + bolum("Geçmiş indirimler", gruplar.gecmis))
+  $("takvim").innerHTML = (bolum("Şu an indirimde", gruplar.devam) + bolum("Yaklaşan", gruplar.yakinda) + bolum("Geçmiş indirimler", gruplar.gecmis))
     || `<p class="meta">${kategori === "takip" ? "Henüz takip ettiğiniz bir indirim yok. Kartlardaki “Takip et” düğmesini kullanın." : "Bu aramaya uyan indirim yok."}</p>`;
 }
 
