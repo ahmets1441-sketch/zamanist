@@ -1,9 +1,31 @@
 {
   "indirimler": [
     {
+      "baslik": "H&M sezon sonu indirimi",
+      "grup": "H&M",
+      "markalar": [
+        "H&M"
+      ],
+      "kategori": "giyim",
+      "baslangic": "2026-10-15",
+      "bitis": "2026-10-15",
+      "durum": "duyuruldu",
+      "oran": "%60'a varan",
+      "kanal": "yalnızca online",
+      "kaynak": "https://www2.hm.com/tr_tr/index.html",
+      "link": "https://www2.hm.com/tr_tr/index.html",
+      "kontrol": "2026-10-15",
+      "not": "Seçili ürünlerde. H&M'nin sitesine göre son gün 15 Ekim; diğer kampanyalarla birleştirilemez, stoklarla sınırlı."
+    },
+    {
       "baslik": "11.11 Bekarlar Günü",
       "grup": "Pazar yerleri",
-      "markalar": ["Trendyol", "Hepsiburada", "Amazon Türkiye", "AliExpress"],
+      "markalar": [
+        "Trendyol",
+        "Hepsiburada",
+        "Amazon Türkiye",
+        "AliExpress"
+      ],
       "kategori": "pazaryeri",
       "baslangic": "2026-11-11",
       "bitis": "2026-11-11",
@@ -16,7 +38,14 @@
     {
       "baslik": "Efsane Cuma / Black Friday",
       "grup": "Çoğu marka",
-      "markalar": ["Inditex", "H&M", "Nike", "Adidas", "Trendyol", "Hepsiburada"],
+      "markalar": [
+        "Inditex",
+        "H&M",
+        "Nike",
+        "Adidas",
+        "Trendyol",
+        "Hepsiburada"
+      ],
       "kategori": "genel",
       "baslangic": "2026-11-27",
       "bitis": "2026-11-30",
@@ -29,7 +58,14 @@
     {
       "baslik": "Inditex kış sezon sonu indirimi",
       "grup": "Inditex",
-      "markalar": ["Zara", "Bershka", "Pull&Bear", "Stradivarius", "Massimo Dutti", "Oysho"],
+      "markalar": [
+        "Zara",
+        "Bershka",
+        "Pull&Bear",
+        "Stradivarius",
+        "Massimo Dutti",
+        "Oysho"
+      ],
       "kategori": "giyim",
       "baslangic": "2027-01-05",
       "bitis": "",
@@ -42,7 +78,14 @@
     {
       "baslik": "Inditex yaz indirimi 2026",
       "grup": "Inditex",
-      "markalar": ["Zara", "Bershka", "Pull&Bear", "Stradivarius", "Massimo Dutti", "Oysho"],
+      "markalar": [
+        "Zara",
+        "Bershka",
+        "Pull&Bear",
+        "Stradivarius",
+        "Massimo Dutti",
+        "Oysho"
+      ],
       "kategori": "giyim",
       "baslangic": "2026-06-24",
       "bitis": "",
