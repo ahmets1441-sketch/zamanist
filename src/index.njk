@@ -38,17 +38,6 @@ title: Ana sayfa
 })();
 </script>
 
-{% if collections.saatler.length %}
-<section class="bolum">
-  <div class="bolum-baslik"><h2><a href="/saatler/">Saat Fiyatları</a></h2><a href="/saatler/">Tümü →</a></div>
-  <ul class="kartlar urunler">
-  {% for p in collections.saatler | head(4) %}
-    {{ kart(p.url, p.data.title, p.data.kapak, p.data.referans, p.data.marka | upper) }}
-  {% endfor %}
-  </ul>
-</section>
-{% endif %}
-
 {% for bolum in bolumler %}
 {% set yazilar = collections[bolum.slug] | head(3) %}
 {% if yazilar.length %}

@@ -7,9 +7,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/img");
   eleventyConfig.addPassthroughCopy("src/_redirects");
   eleventyConfig.addPassthroughCopy("src/js");
-  eleventyConfig.addCollection("saatler", (api) =>
-    api.getFilteredByGlob("src/saatler/*.md").sort((x, y) => x.data.title.localeCompare(y.data.title, "tr"))
-  );
   for (const b of bolumler) {
     eleventyConfig.addCollection(b.slug, (api) => {
       const yazilar = api.getFilteredByGlob(`src/${b.slug}/*.md`);

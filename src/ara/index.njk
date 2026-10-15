@@ -49,7 +49,6 @@ permalink: /ara/
 
 <p class="meta" id="durum"></p>
 <div id="numaraBilgi"></div>
-<div id="bizden"></div>
 <div id="ozet"></div>
 <div id="kademeler"></div>
 <p class="meta alt-not">Resmi fiyat sırasıyla Zamanist'in kontrol ettiği listeden, markanın sitesinden veya markanın resmi Rakuten mağazasından alınır. Diğer fiyatlar Rakuten'deki satıcılardan gelir. Online alışverişte vergi iadesi yoktur ve ürün Japonya'daki bir adrese (örneğin otel) gönderilmelidir. "Resmi garantili" bilgisi satıcının beyanıdır. Model kodunu mutlaka kontrol edin.</p>
@@ -71,11 +70,6 @@ permalink: /ara/
 <script>
 const ULKELER = {{ ulkeler | dump | safe }};
 const TURLER = {{ turler | dump | safe }};
-const SAATLER = [
-  {%- for p in collections.saatler %}
-  { ad: {{ p.data.title | dump | safe }}, referans: {{ p.data.referans | dump | safe }}, url: "{{ p.url }}", ulke: "{{ p.data.ulke }}", tr: {{ p.data.tr_fiyat or "null" }} },
-  {%- endfor %}
-];
 // Resmi fiyat otomatik bulunamazsa gösterilecek marka siteleri (ilan başlıklarından tanınır).
 // [name pattern, brand, Japanese site, search link, product page link by model code].
 // Product links follow each brand's own URL scheme; the brand redirects them to the product page.
@@ -415,12 +409,6 @@ $("arama").addEventListener("submit", async (e) => {
   const u = ULKELER.find((x) => x.kod === $("ulke").value);
   $("ozet").innerHTML = $("kademeler").innerHTML = "";
   sonVeri = null;
-
-  const bizden = SAATLER.filter((s) => s.ulke === u.kod && (sade(s.referans).includes(sade(q)) || sade(q).includes(sade(s.referans)) || s.ad.toLowerCase().includes(q.toLowerCase())));
-  $("bizden").innerHTML = bizden.length
-    ? `<div class="sonuc"><strong>Zamanist'te incelendi:</strong> ${bizden.map((s) => `<a href="${s.url}">${kacis(s.ad)}</a>`).join(", ")}. Mağaza adresleri bu sayfada.</div>`
-    : "";
-  if (!$("trFiyat").value && bizden.length === 1 && bizden[0].tr) { $("trFiyat").value = Number(bizden[0].tr).toLocaleString("tr-TR"); $("trFiyat").dataset.otomatik = "1"; }
 
   // A price filled automatically for the previous product does not belong to this one.
   if ($("trFiyat").dataset.otomatik) { $("trFiyat").value = ""; delete $("trFiyat").dataset.otomatik; $("trKaynak").textContent = ""; }
