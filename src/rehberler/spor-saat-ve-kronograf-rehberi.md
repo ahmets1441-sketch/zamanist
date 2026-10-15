@@ -3,6 +3,8 @@ title: "Spor saat ve kronograf rehberi: ceketle, kotla, hafta sonunda"
 date: 2026-10-15
 ozet: "Kronograf nedir, spor saat hangi kıyafete gider? Speedmaster'dan Seiko Speedtimer'a popüler modeller ve kombin önerileri."
 author: Zamanist
+kapak: /img/foto/speedmaster.webp
+kapak_foto: speedmaster
 ---
 Spor saatler yarış pistlerinden, pilot kokpitlerinden ve uzay programlarından gelir. Bugün çoğu insan bunları ofiste ve hafta sonu takıyor; çünkü hem sağlam hem de karakterli duruyorlar.
 
@@ -16,6 +18,8 @@ Kronograf, saatin içinde çalışan bir **kronometredir**. Kasanın yanındaki 
 - 39–42 mm kasa, genelde çelik bilezik
 - 100 m ve üstü su geçirmezlik
 - Okunaklı, kontrastlı kadran
+
+{% foto "daytona", "Rolex Daytona: kronograf sayaçları ve takometreli bezel" %}
 
 ## Hangi kıyafetle?
 
@@ -35,6 +39,11 @@ Kronograf, saatin içinde çalışan bir **kronometredir**. Kasanın yanındaki 
 - **TAG Heuer Carrera:** adını 1950'lerin Carrera Panamericana yarışından alır; 1963'ten beri üretiliyor.
 - **Tudor Black Bay Chrono:** dalgıç kasasında kronograf; sportif ve sağlam.
 - **Hamilton Intra-Matic Chronograph ve Khaki Aviation:** 1960'lar yarış ve pilot çizgisi. [Yurt dışında kaça?](/ara/?q=Hamilton%20Chronograph)
+
+<div class="foto-ikili">
+{% foto "tudor-bb-chrono", "Tudor Black Bay Chrono" %}
+{% foto "carrera", "TAG Heuer Carrera kronograf" %}
+</div>
 
 **Üst segment**
 - **Omega Speedmaster Moonwatch Professional:** 1969'da Ay'da takılan kronografın bugünkü versiyonu; 42 mm, kurmalı.

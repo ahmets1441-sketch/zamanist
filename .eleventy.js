@@ -15,6 +15,15 @@ module.exports = function (eleventyConfig) {
         : yazilar.sort((x, y) => y.date - x.date);
     });
   }
+  // {% foto "slug", "caption" %}: an open-licence photo from src/_data/gorseller.json with its credit.
+  const kacis = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  eleventyConfig.addShortcode("foto", function (slug, aciklama = "", sinif = "") {
+    const g = this.ctx.gorseller[slug];
+    if (!g) throw new Error(`foto: no photo "${slug}" in gorseller.json`);
+    const lisans = g.lisansLink ? `<a href="${kacis(g.lisansLink)}" rel="license nofollow noopener" target="_blank">${kacis(g.lisans)}</a>` : kacis(g.lisans);
+    return `<figure class="foto ${sinif}"><img src="${g.src}" width="${g.en}" height="${g.boy}" alt="${kacis(aciklama)}" loading="lazy">` +
+      `<figcaption>${aciklama ? kacis(aciklama) + " · " : ""}Foto: <a href="${kacis(g.kaynak)}" rel="nofollow noopener" target="_blank">${kacis(g.yazar)}</a>, ${lisans}</figcaption></figure>`;
+  });
   eleventyConfig.addFilter("ulkeBul", (liste, kod) => liste.find((u) => u.kod === kod) || ulkeler[0]);
   eleventyConfig.addFilter("sayi", (n) => Number(n).toLocaleString("tr-TR"));
   eleventyConfig.addFilter("head", (arr, n) => arr.slice(0, n));

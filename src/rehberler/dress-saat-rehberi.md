@@ -3,6 +3,8 @@ title: "Dress saat rehberi: takım elbisenin saati nasıl seçilir?"
 date: 2026-10-15
 ozet: "İnce kasa, sade kadran, deri kayış. Takım elbiseyle hangi saat takılır, hangi ölçüler doğrudur ve hangi modellerden başlanır?"
 author: Zamanist
+kapak: /img/foto/reverso-bilek.webp
+kapak_foto: reverso-bilek
 ---
 Dress saat, resmi kıyafetin saatidir. Görevi dikkat çekmek değil, gömlek kolunun altından **sessizce** görünmektir.
 
@@ -13,6 +15,8 @@ Dress saat, resmi kıyafetin saatidir. Görevi dikkat çekmek değil, gömlek ko
 - **Orta veya küçük çap.** 34–40 mm. Büyük kasa takım elbisenin çizgisini bozar.
 - **Deri kayış.** Siyah ayakkabıya siyah, kahverengi ayakkabıya kahverengi kayış.
 - **Bezel yok.** Dönen bezel, takometre, büyük sayaçlar spor saatin işaretleridir.
+
+{% foto "cartier-tank", "Cartier Tank: dress saatin en tanınan ikonlarından" %}
 
 ## Hangi kıyafetle?
 
@@ -26,6 +30,11 @@ Dress saat, resmi kıyafetin saatidir. Görevi dikkat çekmek değil, gömlek ko
 **Başlangıç bütçesi**
 - **Orient Bambino:** kubbeli camı ve sade kadranıyla en çok önerilen ilk dress saatlerden. 38 mm versiyonu ince bileklerde iyi durur. [Yurt dışında kaça?](/ara/?q=Orient%20Bambino)
 - **Seiko Presage Cocktail Time:** kokteyllerden esinlenen dokulu kadranlarıyla bilinir; 40,5 mm kasa. [Yurt dışında kaça?](/ara/?q=Seiko%20Presage%20Cocktail%20Time)
+
+<div class="foto-ikili">
+{% foto "orient-bambino", "Orient Bambino" %}
+{% foto "reverso", "Jaeger-LeCoultre Reverso" %}
+</div>
 
 **Orta bütçe**
 - **Hamilton Intra-Matic ve Jazzmaster serisi:** 1960'ların sade çizgisi. [Yurt dışında kaça?](/ara/?q=Hamilton%20Intra-Matic)

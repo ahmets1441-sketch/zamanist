@@ -1,0 +1,146 @@
+{
+  "submariner": {
+    "src": "/img/foto/submariner.webp",
+    "en": 1200,
+    "boy": 900,
+    "yazar": "Dr.K.",
+    "lisans": "CC BY-SA 3.0",
+    "lisansLink": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Rolex_Submariner_Professional.JPG"
+  },
+  "seiko-spb143-bilek": {
+    "src": "/img/foto/seiko-spb143-bilek.webp",
+    "en": 1200,
+    "boy": 800,
+    "yazar": "Deerpeter",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Seiko_Prospex_SPB143J1.png"
+  },
+  "seiko-tuna": {
+    "src": "/img/foto/seiko-tuna.webp",
+    "en": 1024,
+    "boy": 768,
+    "yazar": "Francis Flinch",
+    "lisans": "Public domain",
+    "lisansLink": "",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Seiko_SBBN007_Diver%27s_300m_on_a_4-ring_NATO_style_strap.jpg"
+  },
+  "cartier-tank": {
+    "src": "/img/foto/cartier-tank.webp",
+    "en": 1200,
+    "boy": 800,
+    "yazar": "Guy Sie",
+    "lisans": "CC BY-SA 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/2.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Cartier_Tank.jpg"
+  },
+  "cartier-tank-americaine": {
+    "src": "/img/foto/cartier-tank-americaine.webp",
+    "en": 1200,
+    "boy": 1554,
+    "yazar": "Daderot",
+    "lisans": "CC0",
+    "lisansLink": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Tank_Americaine,_designed_by_Louis_Cartier,_1917_-_Design_Museum,_Kensington_-_London_-_DSC01588.jpg"
+  },
+  "orient-bambino": {
+    "src": "/img/foto/orient-bambino.webp",
+    "en": 1200,
+    "boy": 1800,
+    "yazar": "MIKI Yoshihito from Sapporo City,Hokkaido., JAPAN",
+    "lisans": "CC BY 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by/2.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Orient_Watch_-_Bambino_(ER24005W)_(29121883374).jpg"
+  },
+  "speedmaster": {
+    "src": "/img/foto/speedmaster.webp",
+    "en": 1200,
+    "boy": 1607,
+    "yazar": "Shane Lin",
+    "lisans": "CC BY-SA 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/2.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Vintage_Omega_Speedmaster_%22Pre-moon%22.jpg"
+  },
+  "hamilton-khaki-field": {
+    "src": "/img/foto/hamilton-khaki-field.webp",
+    "en": 1200,
+    "boy": 1903,
+    "yazar": "Giordano Tonelli",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Hamilton_Khaki_Field_Mechanical_39.jpg"
+  },
+  "tudor-bb-chrono": {
+    "src": "/img/foto/tudor-bb-chrono.webp",
+    "en": 1200,
+    "boy": 1600,
+    "yazar": "EMore98",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Tudor_Black_Bay_Chrono_ref._79350.jpg"
+  },
+  "tudor-bb54-bilek": {
+    "src": "/img/foto/tudor-bb54-bilek.webp",
+    "en": 823,
+    "boy": 932,
+    "yazar": "EMore98",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Tudor_Black_Bay_54_ref._m79000n-0001.jpg"
+  },
+  "tissot-prx": {
+    "src": "/img/foto/tissot-prx.webp",
+    "en": 1200,
+    "boy": 1600,
+    "yazar": "Soulreaper",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Tissot_PRX_35mm.jpg"
+  },
+  "reverso-bilek": {
+    "src": "/img/foto/reverso-bilek.webp",
+    "en": 1200,
+    "boy": 1600,
+    "yazar": "Tiberido",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Jaeger-LeCoultre-Reverso.jpg"
+  },
+  "reverso": {
+    "src": "/img/foto/reverso.webp",
+    "en": 1200,
+    "boy": 1500,
+    "yazar": "Provo rossi",
+    "lisans": "CC BY 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Jaeger-LeCoultre_Reverso_2011.jpg"
+  },
+  "daytona": {
+    "src": "/img/foto/daytona.webp",
+    "en": 1060,
+    "boy": 1301,
+    "yazar": "Clyde94",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Rolex_Daytona_ref._16523,_fine_anni_%2790.jpg"
+  },
+  "seiko-5-sports": {
+    "src": "/img/foto/seiko-5-sports.webp",
+    "en": 1200,
+    "boy": 800,
+    "yazar": "Daniel Zimmermann",
+    "lisans": "CC BY 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by/2.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Seiko_5_Sports_SNZH53K1.jpg"
+  },
+  "carrera": {
+    "src": "/img/foto/carrera.webp",
+    "en": 643,
+    "boy": 910,
+    "yazar": "Pinback66",
+    "lisans": "CC BY-SA 3.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/3.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:TAG_Heuer_Carrera_chronograph_CV2010_retusche_(cropped).jpg"
+  }
+}

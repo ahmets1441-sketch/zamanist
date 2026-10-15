@@ -3,6 +3,8 @@ title: "Hangi saat hangi kombine? Dört saat tipi, tek rehber"
 date: 2026-10-15T12:00:00
 ozet: "Dress, spor, günlük ve dalgıç saatlerin farkı ve hangi kıyafetle takılacağı. Kararsız kalanlar için kısa bir yol haritası."
 author: Zamanist
+kapak: /img/foto/tudor-bb54-bilek.webp
+kapak_foto: tudor-bb54-bilek
 ---
 Saat seçerken ilk soru marka değil, **saati nerede takacağınız**. Takım elbisenin kolunun altına girmeyen kalın bir dalgıç saati de, denize girilen bir günde deri kayışlı ince bir dress saati de yanlış seçimdir. Saatleri dört ana tipe ayırmak işi kolaylaştırır.
 
@@ -12,6 +14,11 @@ Saat seçerken ilk soru marka değil, **saati nerede takacağınız**. Takım el
 | [Spor ve kronograf](/rehberler/spor-saat-ve-kronograf-rehberi/) | Kronometre düğmeleri, takometre veya sayaçlar | Ceket ve kot, triko, smart casual | Smokin, çok resmi davet |
 | [Günlük saat](/rehberler/gunluk-saat-rehberi/) | Okunaklı kadran, orta boy, dayanıklı | Kot, chino, oxford gömlek, triko | Siyah kravat davetleri |
 | [Dalgıç saati](/rehberler/dalgic-saati-rehberi/) | Tek yöne dönen bezel, yüksek su geçirmezlik | Keten gömlek, polo, yaz kombinleri | İnce gömlek kolu, smokin |
+
+<div class="foto-ikili">
+{% foto "reverso-bilek", "Dress: Jaeger-LeCoultre Reverso ceket koluyla" %}
+{% foto "seiko-spb143-bilek", "Dalgıç: Seiko Prospex SPB143 gömlekle" %}
+</div>
 
 ## Tek saatiniz olacaksa
 

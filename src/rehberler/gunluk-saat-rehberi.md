@@ -3,6 +3,8 @@ title: "Günlük saat rehberi: her gün takılacak tek saat"
 date: 2026-10-15
 ozet: "Field saatlerden G-Shock'a, sabah ofiste akşam dışarıda takılacak dayanıklı ve okunaklı saatler. Ölçüler, kayışlar ve kombin önerileri."
 author: Zamanist
+kapak: /img/foto/hamilton-khaki-field.webp
+kapak_foto: hamilton-khaki-field
 ---
 Günlük saat, düşünmeden bileğe takılan saattir. Ofise, kahveye, yolculuğa, hafta sonu yürüyüşüne. Bu yüzden ondan beklenen şey **okunaklılık, dayanıklılık ve her kıyafete uyum**dur.
 
@@ -20,6 +22,8 @@ Günlük saat, düşünmeden bileğe takılan saattir. Ofise, kahveye, yolculuğ
 - **Dijital ve dayanıklı:** G-Shock gibi darbeye dayanıklı saatler.
 - **Entegre bilezikli:** kasayla bütünleşen bilezik. Son yılların en güçlü trendi.
 
+{% foto "tudor-bb54-bilek", "Tudor Black Bay 54: flanel gömlekle günlük kullanım" %}
+
 ## Hangi kıyafetle?
 
 - **Kot, beyaz tişört, oxford gömlek:** field saati veya Explorer tarzı saat en doğal haliyle.
@@ -33,6 +37,11 @@ Günlük saat, düşünmeden bileğe takılan saattir. Ofise, kahveye, yolculuğ
 - **Casio G-Shock GA-2100:** sekizgen kasası nedeniyle "CasiOak" lakabıyla bilinir; ince ve hafif bir G-Shock. [Yurt dışında kaça?](/ara/?q=GA-2100)
 - **Seiko 5 Sports:** otomatik mekanizmalı, uygun fiyatlı, çok sayıda renk seçeneği olan seri. [Yurt dışında kaça?](/ara/?q=Seiko%205%20Sports)
 - **Citizen Tsuyosa:** renkli kadranlı, entegre bilezik görünümlü otomatik. [Yurt dışında kaça?](/ara/?q=Citizen%20Tsuyosa)
+
+<div class="foto-ikili">
+{% foto "seiko-5-sports", "Seiko 5 Sports" %}
+{% foto "tissot-prx", "Tissot PRX 35 mm" %}
+</div>
 
 **Orta bütçe**
 - **Hamilton Khaki Field Mechanical:** 38 mm, kurmalı H-50 mekanizması ve 80 saat güç rezervi; klasik field saati. [Yurt dışında kaça?](/ara/?q=Hamilton%20Khaki%20Field%20Mechanical)

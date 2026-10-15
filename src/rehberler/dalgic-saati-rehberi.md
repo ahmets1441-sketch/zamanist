@@ -3,6 +3,8 @@ title: "Dalgıç saati rehberi: Submariner'dan Seiko Turtle'a"
 date: 2026-10-15
 ozet: "Dalgıç saatini dalgıç saati yapan nedir, hangi kıyafetle takılır? ISO 6425 kuralları, popüler modeller ve yaz kombinleri."
 author: Zamanist
+kapak: /img/foto/seiko-spb143-bilek.webp
+kapak_foto: seiko-spb143-bilek
 ---
 Dalgıç saatleri 1950'lerde su altında hayatta kalmak için tasarlandı. Bugün çoğu hiç suya girmiyor ama sağlam yapıları ve sportif görünümleriyle en çok satan saat tipi.
 
@@ -15,6 +17,11 @@ Gerçek dalgıç saatlerinin uluslararası standardı **ISO 6425**'tir. Bu stand
 - Karanlıkta 25 cm'den okunabilmeli.
 
 Kadranda "Diver's 200m" yazan saatler genelde bu standarda göre test edilmiştir. Sadece "Water Resistant 200m" yazması aynı şey değildir.
+
+<div class="foto-ikili">
+{% foto "submariner", "Rolex Submariner" %}
+{% foto "seiko-tuna", "Seiko Diver's 300m (SBBN007) NATO kayışla" %}
+</div>
 
 ## Hangi kıyafetle?
 
