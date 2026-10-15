@@ -105,6 +105,36 @@ collections:
               - { label: İndirim sayfası linki, name: link, widget: string, required: false, hint: "Süren kampanyalarda 'İndirime git' düğmesi bu adrese gider (markanın indirim sayfası)" }
               - { label: Son kontrol tarihi, name: kontrol, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false, hint: "Bitiş tarihi belli değilse: kampanya bu tarihten 14 gün sonra listeden düşer. Hâlâ sürüyorsa tarihi yenileyin." }
               - { label: Not, name: not, widget: text, required: false }
+      - name: saat-cikislari
+        label: Saat çıkış takvimi
+        file: src/_data/saatCikislari.json
+        format: json
+        fields:
+          - label: Çıkışlar
+            name: cikislar
+            widget: list
+            summary: "{{fields.tarih}} · {{fields.baslik}}"
+            hint: "Sınırlı üretim ve özel tasarım saatler, saat fuarları. Her kayıtta kaynak linki zorunlu."
+            fields:
+              - { label: Başlık, name: baslik, widget: string, hint: "örn. Omega Seamaster Diver 300M James Bond seti" }
+              - { label: Marka, name: marka, widget: string, hint: "Takip bu ada göre yapılır" }
+              - { label: Tür, name: tur, widget: select, options: [{ label: Sınırlı üretim (adet açıklandı), value: sinirli }, { label: Özel tasarım (adet yok), value: ozel }, { label: Fuar, value: fuar }] }
+              - { label: Tarz, name: tarz, widget: select, required: false, options: [{ label: Dress, value: dress }, { label: Spor, value: spor }, { label: Dalgıç, value: dalgic }, { label: Günlük, value: gunluk }, { label: Pilot, value: pilot }] }
+              - { label: Referans, name: referans, widget: string, required: false }
+              - { label: Adet, name: adet, widget: string, required: false, hint: "örn. 300 veya 5.000 (3.000 beyaz, 2.000 pembe)" }
+              - { label: Tarih, name: tarih, widget: string, hint: "Gün belliyse 2026-11-05, sadece ay belliyse 2026-11" }
+              - { label: Tarih gün mü ay mı, name: hassasiyet, widget: select, options: [{ label: Gün, value: gun }, { label: Ay, value: ay }], default: gun }
+              - { label: Bitiş (fuarlar için), name: bitis, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false }
+              - { label: Tarih ne?, name: tarihTuru, widget: string, hint: "Satış, Ön sipariş, Teslimat, Tanıtım…" }
+              - { label: Tarih tahmini mi, name: durum, widget: select, required: false, options: [{ label: Tahmini, value: tahmini }] }
+              - { label: Fiyat, name: fiyat, widget: string, required: false, hint: "Markanın açıkladığı para birimiyle, örn. 2.495 $" }
+              - { label: Nerede satılıyor, name: pazar, widget: string, required: false }
+              - { label: Özellikler, name: ozellik, widget: string, required: false }
+              - { label: Modeller (seri ise), name: modeller, widget: list, required: false, field: { label: Model, name: model, widget: string } }
+              - { label: Kaynak linki, name: kaynak, widget: string }
+              - { label: Markanın ürün sayfası, name: resmi, widget: string, required: false }
+              - { label: Not, name: not, widget: text, required: false }
+              - { label: Kontrol tarihi, name: kontrol, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
       - name: resmi-fiyatlar
         label: Resmi fiyat listesi
         file: src/_data/resmiFiyatlar.json

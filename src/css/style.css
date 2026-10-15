@@ -214,3 +214,6 @@ h2{font-size:1.4rem}
 .ana-indirim-liste li:last-child{border-bottom:0}
 .ana-indirim-liste a{text-decoration:none}
 .ana-oran{color:#A3262A;font-weight:700}
+.cikis-bilgi{display:grid;grid-template-columns:max-content 1fr;gap:.15rem .9rem;margin:.4rem 0;font-size:.92rem}
+.cikis-bilgi dt{color:var(--muted)}
+.cikis-bilgi dd{margin:0}

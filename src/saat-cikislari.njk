@@ -1,0 +1,132 @@
+---
+layout: base.njk
+title: Saat Çıkış Takvimi
+ozet: Sınırlı sayıda üretilen ve özel tasarım saatlerin çıkış tarihleri, adetleri ve fiyatları; büyük saat fuarlarının takvimi.
+permalink: /saat-cikislari/
+---
+<h1>Saat Çıkış Takvimi</h1>
+<p class="slogan">Sınırlı sayıda üretilen ve özel tasarım saatler ne zaman çıkıyor, kaç adet, kaça? Her bilgi markanın duyurusundan veya saat basınından, kaynağıyla birlikte. Fiyatlar markanın açıkladığı para biriminde.</p>
+
+<div class="indirim-filtre" role="group" aria-label="Tür">
+  <button type="button" data-tur="" aria-pressed="true">Tümü</button>
+  <button type="button" data-tur="sinirli" aria-pressed="false">Sınırlı üretim</button>
+  <button type="button" data-tur="ozel" aria-pressed="false">Özel tasarım</button>
+  <button type="button" data-tur="fuar" aria-pressed="false">Fuarlar</button>
+  <button type="button" data-tur="takip" aria-pressed="false">Takip ettiklerim</button>
+</div>
+<input id="markaAra" class="indirim-ara" type="search" placeholder="Marka ara: Seiko, Omega…" autocomplete="off">
+
+<div id="cikislar"></div>
+
+<p class="meta">Sınırlı üretim: marka adet açıkladı. Özel tasarım: işbirliği veya özel seri, adet açıklanmadı. Türkiye'de satışı ve fiyatı için markanın Türkiye satıcısına sorun.</p>
+
+<script>
+const CIKISLAR = {{ saatCikislari.cikislar | dump | safe }};
+const $ = (id) => document.getElementById(id);
+const kacis = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const GUN = 864e5;
+const bugun = new Date(new Date().toDateString());
+const AYLAR = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"];
+const TUR = { sinirli: "Sınırlı üretim", ozel: "Özel tasarım", fuar: "Fuar" };
+const TARZ = { dress: "Dress", spor: "Spor", dalgic: "Dalgıç", gunluk: "Günlük", pilot: "Pilot" };
+
+// A month-precision date ("2026-11") covers the whole month.
+function aralik(x) {
+  const [y, a, g] = x.tarih.split("-").map(Number);
+  const bas = new Date(y, a - 1, g || 1);
+  const son = x.bitis ? new Date(x.bitis + "T00:00:00") : g ? bas : new Date(y, a, 0);
+  return [bas, son];
+}
+function durumu(x) {
+  const [bas, son] = aralik(x);
+  if (bugun < bas) return "yakinda";
+  if (bugun <= son) return "simdi";
+  return (bugun - son) / GUN <= 60 ? "yeni" : "eski";
+}
+function tarihYazisi(x) {
+  const [bas, son] = aralik(x);
+  if (x.hassasiyet === "ay") return bas.toLocaleDateString("tr-TR", { month: "long", year: "numeric" });
+  const uzun = (d) => d.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
+  return x.bitis ? `${bas.getDate()}–${uzun(son)}` : uzun(bas);
+}
+function sayac(x) {
+  const [bas] = aralik(x);
+  const g = Math.round((bas - bugun) / GUN);
+  if (x.hassasiyet === "ay") return g <= 31 ? "Gelecek ay" : `${Math.round(g / 30)} ay kaldı`;
+  return g === 0 ? "Bugün" : g === 1 ? "Yarın" : `${g} gün kaldı`;
+}
+
+function takvimDosyasi(x) {
+  const [bas, son] = aralik(x);
+  const t = (d) => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+  return "data:text/calendar;charset=utf-8," + encodeURIComponent([
+    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Zamanist//Saat Cikislari//TR", "BEGIN:VEVENT",
+    `UID:${t(bas)}-${encodeURIComponent(x.baslik).slice(0, 40)}@zamanist.com`,
+    `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").slice(0, 15)}Z`,
+    `DTSTART;VALUE=DATE:${t(bas)}`, `DTEND;VALUE=DATE:${t(new Date(son.getTime() + GUN))}`,
+    `SUMMARY:${x.baslik}`, `DESCRIPTION:${[x.tarihTuru, x.adet && x.adet + " adet", x.fiyat, "zamanist.com/saat-cikislari"].filter(Boolean).join(" · ").replace(/[,;]/g, "\\$&")}`,
+    "BEGIN:VALARM", "TRIGGER:-P1D", "ACTION:DISPLAY", `DESCRIPTION:Yarın: ${x.baslik}`, "END:VALARM",
+    "END:VEVENT", "END:VCALENDAR",
+  ].join("\r\n"));
+}
+
+let takip = [];
+const anahtar = (x) => x.marka;
+
+function kart(x) {
+  const d = durumu(x), [bas] = aralik(x), takipte = takip.includes(anahtar(x));
+  const bilgi = [
+    x.referans && ["Referans", x.referans], x.adet && ["Adet", x.adet], x.fiyat && ["Fiyat", x.fiyat],
+    x.pazar && ["Satış", x.pazar], x.ozellik && ["Özellik", x.ozellik],
+  ].filter(Boolean);
+  return `<article class="indirim-kart${d === "eski" ? " gecmis" : ""}">
+    <div class="indirim-tarih">${x.hassasiyet === "ay" ? `<span>${AYLAR[bas.getMonth()]}</span>` : `<span>${bas.getDate()}</span>${AYLAR[bas.getMonth()]}`}<small>${bas.getFullYear()}</small></div>
+    <div class="indirim-govde">
+      <h3>${kacis(x.baslik)}</h3>
+      <p class="indirim-markalar">${kacis(x.marka)} · <span class="etiket">${TUR[x.tur]}</span>${x.tarz ? ` <span class="etiket">${TARZ[x.tarz]}</span>` : ""}${x.durum === "tahmini" ? ' <span class="etiket uyari">Tarih tahmini</span>' : ""}</p>
+      <p>${d === "yakinda" ? `<strong class="geri-sayim">${sayac(x)}</strong> · ` : d === "simdi" ? '<strong class="geri-sayim devam">Şu an</strong> · ' : ""}${kacis(x.tarihTuru)}: ${tarihYazisi(x)}</p>
+      ${bilgi.length ? `<dl class="cikis-bilgi">${bilgi.map(([a, b]) => `<dt>${a}</dt><dd>${kacis(b)}</dd>`).join("")}</dl>` : ""}
+      ${x.modeller?.length ? `<ul class="indirim-ornek">${x.modeller.map((m) => `<li>${kacis(m)}</li>`).join("")}</ul>` : ""}
+      ${x.not ? `<p class="meta">${kacis(x.not)}</p>` : ""}
+      <div class="indirim-eylem">
+        ${d === "yakinda" && x.hassasiyet === "gun" ? `<a class="dugme-kucuk" href="${takvimDosyasi(x)}" download="${kacis(x.baslik)}.ics">Takvime ekle</a>` : ""}
+        ${x.resmi ? `<a class="dugme-kucuk" href="${kacis(x.resmi)}" target="_blank" rel="nofollow noopener">Markanın sayfası</a>` : ""}
+        ${x.tur !== "fuar" ? `<button type="button" class="takip${takipte ? " acik" : ""}" data-anahtar="${kacis(anahtar(x))}" aria-pressed="${takipte}">${takipte ? `${kacis(x.marka)} takipte` : `${kacis(x.marka)} markasını takip et`}</button>` : ""}
+        <a class="meta" href="${kacis(x.kaynak)}" target="_blank" rel="nofollow noopener">Kaynak</a>
+        <span class="meta">Kontrol: ${new Date(x.kontrol + "T00:00:00").toLocaleDateString("tr-TR")}</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+let tur = "";
+function ciz() {
+  const aranan = $("markaAra").value.trim().toLocaleLowerCase("tr");
+  const liste = CIKISLAR.filter((x) =>
+    (!tur || (tur === "takip" ? takip.includes(anahtar(x)) : x.tur === tur)) &&
+    (!aranan || [x.baslik, x.marka].join(" ").toLocaleLowerCase("tr").includes(aranan)));
+  const g = { yakinda: [], simdi: [], yeni: [], eski: [] };
+  liste.forEach((x) => g[durumu(x)].push(x));
+  const sira = (a, b) => aralik(a)[0] - aralik(b)[0];
+  g.yakinda.sort(sira); g.simdi.sort(sira); g.yeni.sort((a, b) => -sira(a, b)); g.eski.sort((a, b) => -sira(a, b));
+  const bolum = (baslik, xs) => xs.length ? `<section class="indirim-bolum"><h2>${baslik}</h2>${xs.map(kart).join("")}</section>` : "";
+  $("cikislar").innerHTML = (bolum("Yaklaşan", g.yakinda) + bolum("Bu ay", g.simdi) + bolum("Yeni çıktı", g.yeni) + bolum("Daha önce", g.eski))
+    || `<p class="meta">${tur === "takip" ? "Henüz takip ettiğiniz bir marka yok." : "Bu aramaya uyan saat yok."}</p>`;
+}
+
+document.querySelector(".indirim-filtre").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  tur = b.dataset.tur;
+  document.querySelectorAll(".indirim-filtre button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+  ciz();
+});
+$("markaAra").addEventListener("input", ciz);
+$("cikislar").addEventListener("click", async (e) => {
+  const b = e.target.closest(".takip"); if (!b) return;
+  b.disabled = true;
+  try { takip = await Uye.takipDegistir(b.dataset.anahtar); } catch (h) { alert(h.message); }
+  ciz();
+});
+ciz();
+document.addEventListener("DOMContentLoaded", () => Uye.hazir.then((d) => { takip = d.takip; ciz(); }));
+</script>
