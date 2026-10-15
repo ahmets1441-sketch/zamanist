@@ -1,0 +1,121 @@
+---
+layout: base.njk
+title: İndirim Takvimi
+ozet: Türkiye'de hangi marka ne zaman indirime giriyor? Duyurulan ve beklenen büyük indirimler, geri sayımla.
+permalink: /indirimler/
+---
+<h1>İndirim Takvimi</h1>
+<p class="slogan">Türkiye'deki büyük indirimler tek yerde. Markanın duyurduğu tarihler <span class="etiket iyi">Duyuruldu</span>, geçmiş yıllara göre beklenenler <span class="etiket uyari">Tahmini</span> olarak işaretli.</p>
+
+<div class="indirim-filtre" role="group" aria-label="Kategori">
+  <button type="button" data-kat="" aria-pressed="true">Tümü</button>
+  <button type="button" data-kat="giyim" aria-pressed="false">Giyim</button>
+  <button type="button" data-kat="ayakkabi" aria-pressed="false">Ayakkabı</button>
+  <button type="button" data-kat="saat" aria-pressed="false">Saat ve aksesuar</button>
+  <button type="button" data-kat="pazaryeri" aria-pressed="false">Pazar yerleri</button>
+  <button type="button" data-kat="genel" aria-pressed="false">Genel</button>
+  <button type="button" data-kat="takip" aria-pressed="false">Takip ettiklerim</button>
+</div>
+<input id="markaAra" class="indirim-ara" type="search" placeholder="Marka ara: Zara, Nike…" autocomplete="off">
+
+<div id="takvim"></div>
+
+<p class="meta">Tarihler markaların duyurularından ve haberlerden derlenir; tahmini tarihler kesinleşince güncellenir.</p>
+
+<script>
+const INDIRIMLER = {{ indirimler.indirimler | dump | safe }};
+const $ = (id) => document.getElementById(id);
+const kacis = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const GUN = 864e5;
+const bugun = new Date(new Date().toDateString());
+const tarih = (s) => (s ? new Date(s + "T00:00:00") : null);
+const AYLAR = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"];
+const uzun = (d) => d.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric", weekday: "long" });
+
+let takip = [];
+try { takip = JSON.parse(localStorage.getItem("takipMarkalar") || "[]"); } catch {}
+const takipKaydet = () => { try { localStorage.setItem("takipMarkalar", JSON.stringify(takip)); } catch {} };
+const anahtar = (x) => x.grup || x.baslik;
+
+// An event without an end date counts as over 45 days after it started.
+function durumu(x) {
+  const b = tarih(x.baslangic), s = tarih(x.bitis) || new Date(b.getTime() + 45 * GUN);
+  if (bugun < b) return "yakinda";
+  if (bugun <= s) return "devam";
+  return "gecmis";
+}
+
+function geriSayim(x) {
+  const g = Math.round((tarih(x.baslangic) - bugun) / GUN);
+  if (g === 0) return "Bugün başlıyor";
+  if (g === 1) return "Yarın başlıyor";
+  return `${g} gün kaldı`;
+}
+
+function takvimDosyasi(x) {
+  const t = (s) => s.replaceAll("-", "");
+  const son = tarih(x.bitis || x.baslangic);
+  const ertesi = new Date(son.getTime() + GUN).toISOString().slice(0, 10);
+  const metin = [x.markalar.join(", "), x.oran, x.durum === "tahmini" ? "Tarih tahmini." : "", "zamanist.com/indirimler"].filter(Boolean).join(" · ");
+  return "data:text/calendar;charset=utf-8," + encodeURIComponent([
+    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Zamanist//Indirim Takvimi//TR", "BEGIN:VEVENT",
+    `UID:${t(x.baslangic)}-${encodeURIComponent(anahtar(x))}@zamanist.com`,
+    `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").slice(0, 15)}Z`,
+    `DTSTART;VALUE=DATE:${t(x.baslangic)}`, `DTEND;VALUE=DATE:${t(ertesi)}`,
+    `SUMMARY:${x.baslik}`, `DESCRIPTION:${metin.replace(/[,;]/g, "\\$&")}`,
+    "BEGIN:VALARM", "TRIGGER:-P1D", "ACTION:DISPLAY", `DESCRIPTION:Yarın: ${x.baslik}`, "END:VALARM",
+    "END:VEVENT", "END:VCALENDAR",
+  ].join("\r\n"));
+}
+
+function kart(x) {
+  const d = durumu(x), b = tarih(x.baslangic), takipte = takip.includes(anahtar(x));
+  return `<article class="indirim-kart${d === "gecmis" ? " gecmis" : ""}">
+    <div class="indirim-tarih"><span>${b.getDate()}</span>${AYLAR[b.getMonth()]}<small>${b.getFullYear()}</small></div>
+    <div class="indirim-govde">
+      <h3>${kacis(x.baslik)} ${x.durum === "duyuruldu" ? '<span class="etiket iyi">Duyuruldu</span>' : '<span class="etiket uyari">Tahmini</span>'}</h3>
+      <p class="indirim-markalar">${x.markalar.map(kacis).join(" · ")}</p>
+      <p>${d === "yakinda" ? `<strong class="geri-sayim">${geriSayim(x)}</strong> · ` : d === "devam" ? '<strong class="geri-sayim devam">Devam ediyor</strong> · ' : ""}${uzun(b)}${x.bitis && x.bitis !== x.baslangic ? ` – ${uzun(tarih(x.bitis))}` : ""}</p>
+      ${x.oran || x.kanal ? `<p class="meta">${[x.oran, x.kanal].filter(Boolean).map(kacis).join(" · ")}</p>` : ""}
+      ${x.not ? `<p class="meta">${kacis(x.not)}</p>` : ""}
+      <div class="indirim-eylem">
+        ${d !== "gecmis" ? `<a class="dugme-kucuk" href="${takvimDosyasi(x)}" download="${kacis(x.baslik)}.ics">Takvime ekle</a>` : ""}
+        <button type="button" class="takip${takipte ? " acik" : ""}" data-anahtar="${kacis(anahtar(x))}" aria-pressed="${takipte}">${takipte ? "Takip ediliyor" : "Takip et"}</button>
+        ${x.kaynak ? `<a class="meta" href="${kacis(x.kaynak)}" target="_blank" rel="nofollow noopener">Kaynak</a>` : ""}
+      </div>
+    </div>
+  </article>`;
+}
+
+let kategori = "";
+function ciz() {
+  const aranan = $("markaAra").value.trim().toLocaleLowerCase("tr");
+  const liste = INDIRIMLER.filter((x) =>
+    (!kategori || (kategori === "takip" ? takip.includes(anahtar(x)) : x.kategori === kategori)) &&
+    (!aranan || [x.baslik, x.grup, ...x.markalar].join(" ").toLocaleLowerCase("tr").includes(aranan)));
+  const gruplar = { devam: [], yakinda: [], gecmis: [] };
+  liste.forEach((x) => gruplar[durumu(x)].push(x));
+  gruplar.devam.sort((a, b) => a.baslangic.localeCompare(b.baslangic));
+  gruplar.yakinda.sort((a, b) => a.baslangic.localeCompare(b.baslangic));
+  gruplar.gecmis.sort((a, b) => b.baslangic.localeCompare(a.baslangic));
+  const bolum = (baslik, xs) => xs.length ? `<section class="indirim-bolum"><h2>${baslik}</h2>${xs.map(kart).join("")}</section>` : "";
+  $("takvim").innerHTML = (bolum("Şu an devam eden", gruplar.devam) + bolum("Yaklaşan", gruplar.yakinda) + bolum("Geçmiş indirimler", gruplar.gecmis))
+    || `<p class="meta">${kategori === "takip" ? "Henüz takip ettiğiniz bir indirim yok. Kartlardaki “Takip et” düğmesini kullanın." : "Bu aramaya uyan indirim yok."}</p>`;
+}
+
+document.querySelector(".indirim-filtre").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  kategori = b.dataset.kat;
+  document.querySelectorAll(".indirim-filtre button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+  ciz();
+});
+$("markaAra").addEventListener("input", ciz);
+$("takvim").addEventListener("click", (e) => {
+  const b = e.target.closest(".takip"); if (!b) return;
+  const k = b.dataset.anahtar;
+  takip = takip.includes(k) ? takip.filter((x) => x !== k) : [...takip, k];
+  takipKaydet();
+  ciz();
+});
+ciz();
+</script>

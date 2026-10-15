@@ -1,0 +1,56 @@
+{
+  "indirimler": [
+    {
+      "baslik": "11.11 Bekarlar Günü",
+      "grup": "Pazar yerleri",
+      "markalar": ["Trendyol", "Hepsiburada", "Amazon Türkiye", "AliExpress"],
+      "kategori": "pazaryeri",
+      "baslangic": "2026-11-11",
+      "bitis": "2026-11-11",
+      "durum": "tahmini",
+      "oran": "",
+      "kanal": "online",
+      "kaynak": "",
+      "not": "Tarih her yıl aynı gün. Hangi markaların katılacağı ve oranlar kampanyaya birkaç gün kala duyurulur."
+    },
+    {
+      "baslik": "Efsane Cuma / Black Friday",
+      "grup": "Çoğu marka",
+      "markalar": ["Inditex", "H&M", "Nike", "Adidas", "Trendyol", "Hepsiburada"],
+      "kategori": "genel",
+      "baslangic": "2026-11-27",
+      "bitis": "2026-11-30",
+      "durum": "tahmini",
+      "oran": "",
+      "kanal": "online ve mağaza",
+      "kaynak": "",
+      "not": "Kasım'ın son cuması; pazartesi (Cyber Monday) ile biter. 2025'te 28 Kasım'daydı. Bazı markalar birkaç gün önce başlatıyor."
+    },
+    {
+      "baslik": "Inditex kış sezon sonu indirimi",
+      "grup": "Inditex",
+      "markalar": ["Zara", "Bershka", "Pull&Bear", "Stradivarius", "Massimo Dutti", "Oysho"],
+      "kategori": "giyim",
+      "baslangic": "2027-01-05",
+      "bitis": "",
+      "durum": "tahmini",
+      "oran": "%50'ye varan",
+      "kanal": "önce online, ertesi gün mağaza",
+      "kaynak": "",
+      "not": "Kesin tarih henüz yok. Haberlere göre 2024'te 4 Ocak'ta, 2025'te 6 Ocak'ta (online) başladı. Tarih açıklanınca güncellenecek."
+    },
+    {
+      "baslik": "Inditex yaz indirimi 2026",
+      "grup": "Inditex",
+      "markalar": ["Zara", "Bershka", "Pull&Bear", "Stradivarius", "Massimo Dutti", "Oysho"],
+      "kategori": "giyim",
+      "baslangic": "2026-06-24",
+      "bitis": "",
+      "durum": "duyuruldu",
+      "oran": "%50'ye varan",
+      "kanal": "24 Haziran online, 25 Haziran mağaza",
+      "kaynak": "https://www.milliyet.com.tr/galeri/2026-inditex-yaz-indirimi-tarihleri-belli-oldu-zara-bershka-pull-bear-stradivarius-oysho-indirimi-ne-zaman-basliyor-saat-kacta-7610100",
+      "not": "Gelecek yaz için fikir verir: online indirim mağazadan bir gün önce başladı."
+    }
+  ]
+}

@@ -117,6 +117,28 @@ collections:
   - name: veriler
     label: Veriler
     files:
+      - name: indirimler
+        label: İndirim takvimi
+        file: src/_data/indirimler.json
+        format: json
+        fields:
+          - label: İndirimler
+            name: indirimler
+            widget: list
+            summary: "{{fields.baslangic}} · {{fields.baslik}} ({{fields.durum}})"
+            hint: "Türkiye'deki indirim dönemleri. Tarihi kesinleşmemişse durumu Tahmini yapın ve notta neye göre tahmin ettiğinizi yazın."
+            fields:
+              - { label: Başlık, name: baslik, widget: string, hint: "örn. Inditex kış sezon sonu indirimi" }
+              - { label: Grup, name: grup, widget: string, hint: "Takip bu ada göre yapılır: Inditex, Nike, Pazar yerleri…" }
+              - { label: Markalar, name: markalar, widget: list, field: { label: Marka, name: marka, widget: string } }
+              - { label: Kategori, name: kategori, widget: select, options: [{ label: Giyim, value: giyim }, { label: Ayakkabı, value: ayakkabi }, { label: Saat ve aksesuar, value: saat }, { label: Pazar yerleri, value: pazaryeri }, { label: Genel, value: genel }] }
+              - { label: Başlangıç, name: baslangic, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+              - { label: Bitiş, name: bitis, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false }
+              - { label: Durum, name: durum, widget: select, options: [{ label: Duyuruldu, value: duyuruldu }, { label: Tahmini, value: tahmini }], default: tahmini }
+              - { label: Oran, name: oran, widget: string, required: false, hint: "örn. %50'ye varan" }
+              - { label: Kanal, name: kanal, widget: string, required: false, hint: "online, mağaza, önce online…" }
+              - { label: Kaynak linki, name: kaynak, widget: string, required: false, hint: "Duyuruldu ise markanın veya haberin linki" }
+              - { label: Not, name: not, widget: text, required: false }
       - name: resmi-fiyatlar
         label: Resmi fiyat listesi
         file: src/_data/resmiFiyatlar.json
