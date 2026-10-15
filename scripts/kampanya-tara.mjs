@@ -48,7 +48,7 @@ const metin = (html) =>
 // "İ" does not case-fold to "i" in JavaScript, so the dotted capital is spelled out.
 const KALIP = /((?:[\p{L}&'’.]+\s){0,3})%\s?(\d{2})[^%]{0,30}?[iİI]nd[iİI]r[iİI]m/giu;
 const VARAN = /%\s?\d{2}\s?['’]?\s?[eyEYaA]{0,2}\s?(?:varan|VARAN|Varan)/;
-const HARIC = /card|kart|app|uygulama|kupon|kod|ilk alışveriş|öğrenci|üyelere|sepette \d|ikinci ürün|2\.\s?ürün|ve üzeri|ikili|üçlü|\d['’]?l[iı] al|alımda|alışverişler için/i;
+const HARIC = /card|kart|app|uygulama|kupon|kod|ilk alışveriş|öğrenci|üyelere|sepette \d|ikinci ürün|2\.\s?ürün|ve üzeri|ikili|üçlü|\d['’]?l[iı] al|alımda|alışverişler için|seçene|ödeme|havale|ekstra/i;
 
 function basliklar(t) {
   const bulunan = [];

@@ -51,37 +51,6 @@
       "kontrol": "2026-10-15"
     },
     {
-      "baslik": "Ramsey indirimi",
-      "grup": "Ramsey",
-      "markalar": [
-        "Ramsey"
-      ],
-      "kategori": "giyim",
-      "oran": "%50",
-      "ornekler": [
-        "Yaz Ürünlerinde Net %50 İndirim",
-        "Online Özel Ürünlerde %50'ye Varan İndirim"
-      ],
-      "link": "https://www.ramsey.com.tr/",
-      "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-15"
-    },
-    {
-      "baslik": "Kiğılı indirimi",
-      "grup": "Kiğılı",
-      "markalar": [
-        "Kiğılı"
-      ],
-      "kategori": "giyim",
-      "oran": "%30",
-      "ornekler": [
-        "Seçeneği Sepette Ekstra %30 İndirim"
-      ],
-      "link": "https://www.kigili.com/",
-      "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-15"
-    },
-    {
       "baslik": "Sarar indirimi",
       "grup": "Sarar",
       "markalar": [
