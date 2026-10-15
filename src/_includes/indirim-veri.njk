@@ -1,0 +1,8 @@
+<script>
+// Hand-entered sales plus those found on brand sites by the daily scan (scripts/kampanya-tara.mjs).
+window.INDIRIMLER = [
+  ...{{ indirimler.indirimler | dump | safe }},
+  ...{{ otomatikKampanyalar.kampanyalar | dump | safe }}.map((x) => ({ ...x, otomatik: true, durum: "duyuruldu", baslangic: x.ilkGorulme, bitis: "" })),
+];
+</script>
+<script src="/js/indirim.js"></script>

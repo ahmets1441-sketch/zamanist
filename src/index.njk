@@ -13,6 +13,31 @@ title: Ana sayfa
   </div>
 </section>
 
+<section class="bolum ana-indirim" id="anaIndirim" hidden>
+  <div class="bolum-baslik"><h2><a href="/indirimler/">İndirim Takvimi</a></h2><a href="/indirimler/">Tümü →</a></div>
+  <div class="ana-indirim-ic">
+    <div id="anaDevam"></div>
+    <div id="anaYakin"></div>
+  </div>
+</section>
+{% include "indirim-veri.njk" %}
+<script>
+// Fills the box from the same data and rules as /indirimler/, so both always agree.
+(() => {
+  const { liste, grupla, tarih, kisa, geriSayim, bitisYazisi } = Indirim;
+  const kacis = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  const g = grupla(liste);
+  // Running sales are named by brand with their rate; upcoming ones by event name, since the rate is not known yet.
+  const satir = (ad, oran, yan) => `<li><a href="/indirimler/"><strong>${kacis(ad)}</strong>${oran ? ` <span class="ana-oran">${kacis(oran)}</span>` : ""}</a><span class="meta">${yan}</span></li>`;
+  const blok = (baslik, xs) => xs.length ? `<h3>${baslik}</h3><ul class="ana-indirim-liste">${xs.join("")}</ul>` : "";
+  document.getElementById("anaDevam").innerHTML = blok("Şu an indirimde", g.devam.slice(0, 5).map((x) =>
+    satir(x.grup || x.baslik, x.oran, x.bitis ? bitisYazisi(x) : `kontrol: ${kisa(tarih(x.kontrol || x.baslangic))}`)));
+  document.getElementById("anaYakin").innerHTML = blok("Yaklaşan", g.yakinda.slice(0, 4).map((x) =>
+    satir(x.baslik, "", `${geriSayim(x)} · ${kisa(tarih(x.baslangic))}${x.durum === "tahmini" ? " (tahmini)" : ""}`)));
+  if (g.devam.length || g.yakinda.length) document.getElementById("anaIndirim").hidden = false;
+})();
+</script>
+
 {% if collections.saatler.length %}
 <section class="bolum">
   <div class="bolum-baslik"><h2><a href="/saatler/">Saat Fiyatları</a></h2><a href="/saatler/">Tümü →</a></div>

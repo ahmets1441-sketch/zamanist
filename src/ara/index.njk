@@ -464,4 +464,8 @@ $("arama").addEventListener("submit", async (e) => {
 $("numara").addEventListener("input", () => { numaraGoster(); ciz(); });
 $("trFiyat").addEventListener("input", () => { delete $("trFiyat").dataset.otomatik; $("trKaynak").textContent = ""; });
 numaraGoster();
+// Links from other pages (e.g. the discount calendar) open with a search already filled: /ara/?q=Nike&ulke=jp
+const giris = new URLSearchParams(location.search);
+if (ULKELER.some((x) => x.kod === giris.get("ulke"))) $("ulke").value = giris.get("ulke");
+if ((giris.get("q") || "").trim().length >= 2) { $("q").value = giris.get("q").trim(); $("arama").requestSubmit(); }
 </script>
