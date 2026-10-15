@@ -133,6 +133,9 @@ collections:
               - { label: Modeller (seri ise), name: modeller, widget: list, required: false, field: { label: Model, name: model, widget: string } }
               - { label: Kaynak linki, name: kaynak, widget: string }
               - { label: Markanın ürün sayfası, name: resmi, widget: string, required: false }
+              - { label: Görsel, name: gorsel, widget: image, required: false, hint: "Yalnızca kullanım izni olan görsel: markanın basın kiti, Türkiye distribütörünün gönderdiği görsel veya kendi fotoğrafınız." }
+              - { label: Görselin sahibi, name: gorselKaynak, widget: string, required: false, hint: "Görselin altında yazar, örn. Seiko basın görseli" }
+              - { label: Görselin kaynak linki, name: gorselLink, widget: string, required: false }
               - { label: Not, name: not, widget: text, required: false }
               - { label: Kontrol tarihi, name: kontrol, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
       - name: resmi-fiyatlar

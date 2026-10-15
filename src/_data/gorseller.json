@@ -187,5 +187,23 @@
     "lisans": "CC BY 2.0",
     "lisansLink": "https://creativecommons.org/licenses/by/2.0/",
     "kaynak": "https://www.flickr.com/photos/85546319@N04/46852814831"
+  },
+  "breguet-portre": {
+    "src": "/img/foto/breguet-portre.webp",
+    "en": 1000,
+    "boy": 1335,
+    "yazar": "Bilinmeyen ressam",
+    "lisans": "Public domain",
+    "lisansLink": "",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Abraham-Louis_Breguet_(around_1810)_painted_portrait.jpg"
+  },
+  "breguet-cep-saati": {
+    "src": "/img/foto/breguet-cep-saati.webp",
+    "en": 1200,
+    "boy": 1521,
+    "yazar": "Abraham-Louis Breguet / David Martin",
+    "lisans": "Public domain",
+    "lisansLink": "",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Breguet_et_fils_-_Watch_with_Benjamin_Franklin_-_Walters_58147.jpg"
   }
 }

@@ -4,7 +4,7 @@ layout: base.njk
 <article>
   <h1>{{ title }}</h1>
   {% if date %}<p class="meta">{{ date | tarih }}{% if author %} · {{ author }}{% endif %}</p>{% endif %}
-  {% if kapak_foto %}{% foto kapak_foto, "", "kapak-foto" %}{% elif kapak %}<img class="kapak" src="{{ kapak }}" alt="{{ title }}">{% endif %}
+  {% if kapak_foto %}{% foto kapak_foto, "", "kapak-foto " + (kapak_sinif or "") %}{% elif kapak %}<img class="kapak" src="{{ kapak }}" alt="{{ title }}">{% endif %}
   {{ content | safe }}
 </article>
 <section class="yorumlar">

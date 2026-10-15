@@ -82,6 +82,7 @@ function kart(x) {
   return `<article class="indirim-kart${d === "eski" ? " gecmis" : ""}">
     <div class="indirim-tarih">${x.hassasiyet === "ay" ? `<span>${AYLAR[bas.getMonth()]}</span>` : `<span>${bas.getDate()}</span>${AYLAR[bas.getMonth()]}`}<small>${bas.getFullYear()}</small></div>
     <div class="indirim-govde">
+      ${x.gorsel ? `<figure class="cikis-gorsel"><img src="${kacis(x.gorsel)}" alt="${kacis(x.baslik)}" loading="lazy"><figcaption>Görsel: ${x.gorselLink ? `<a href="${kacis(x.gorselLink)}" target="_blank" rel="nofollow noopener">${kacis(x.gorselKaynak)}</a>` : kacis(x.gorselKaynak)}</figcaption></figure>` : ""}
       <h3>${kacis(x.baslik)}</h3>
       <p class="indirim-markalar">${kacis(x.marka)} · <span class="etiket">${TUR[x.tur]}</span>${x.tarz ? ` <span class="etiket">${TARZ[x.tarz]}</span>` : ""}${x.durum === "tahmini" ? ' <span class="etiket uyari">Tarih tahmini</span>' : ""}</p>
       <p>${d === "yakinda" ? `<strong class="geri-sayim">${sayac(x)}</strong> · ` : d === "simdi" ? '<strong class="geri-sayim devam">Şu an</strong> · ' : ""}${kacis(x.tarihTuru)}: ${tarihYazisi(x)}</p>
@@ -92,7 +93,7 @@ function kart(x) {
         ${d === "yakinda" && x.hassasiyet === "gun" ? `<a class="dugme-kucuk" href="${takvimDosyasi(x)}" download="${kacis(x.baslik)}.ics">Takvime ekle</a>` : ""}
         ${x.resmi ? `<a class="dugme-kucuk" href="${kacis(x.resmi)}" target="_blank" rel="nofollow noopener">Markanın sayfası</a>` : ""}
         ${x.tur !== "fuar" ? `<button type="button" class="takip${takipte ? " acik" : ""}" data-anahtar="${kacis(anahtar(x))}" aria-pressed="${takipte}">${takipte ? `${kacis(x.marka)} takipte` : `${kacis(x.marka)} markasını takip et`}</button>` : ""}
-        <a class="meta" href="${kacis(x.kaynak)}" target="_blank" rel="nofollow noopener">Kaynak</a>
+        <a class="meta" href="${kacis(x.kaynak)}" target="_blank" rel="nofollow noopener">${x.gorsel || x.tur === "fuar" ? "Kaynak" : "Fotoğraflar ve ayrıntılar (kaynak)"}</a>
         <span class="meta">Kontrol: ${new Date(x.kontrol + "T00:00:00").toLocaleDateString("tr-TR")}</span>
       </div>
     </div>
