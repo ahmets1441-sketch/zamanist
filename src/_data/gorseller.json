@@ -205,5 +205,95 @@
     "lisans": "Public domain",
     "lisansLink": "",
     "kaynak": "https://commons.wikimedia.org/wiki/File:Breguet_et_fils_-_Watch_with_Benjamin_Franklin_-_Walters_58147.jpg"
+  },
+  "monaco-mcqueen": {
+    "src": "/img/foto/monaco-mcqueen.webp",
+    "en": 1200,
+    "boy": 1484,
+    "yazar": "DavidBSV12",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Steve_McQueen_Monaco_White_face_CW2118.jpg"
+  },
+  "monaco-40-yil": {
+    "src": "/img/foto/monaco-40-yil.webp",
+    "en": 1200,
+    "boy": 1805,
+    "yazar": "Ferengi",
+    "lisans": "CC BY-SA 3.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/3.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:TAG_Heuer_Monaco_40th_Anniversary_re-edition.JPG"
+  },
+  "porsche-917k-gulf": {
+    "src": "/img/foto/porsche-917k-gulf.webp",
+    "en": 1200,
+    "boy": 634,
+    "yazar": "MrWalkr",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:1970_Porsche_917K_Gulf.jpg"
+  },
+  "le-mans-film-cekimi": {
+    "src": "/img/foto/le-mans-film-cekimi.webp",
+    "en": 1200,
+    "boy": 861,
+    "yazar": "Marc Le Beller (ZANTAFIO56)",
+    "lisans": "CC BY-SA 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/2.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Tournage_du_film_%22Le_Mans%22_en_1970.jpg"
+  },
+  "porsche-917k-23": {
+    "src": "/img/foto/porsche-917k-23.webp",
+    "en": 1200,
+    "boy": 803,
+    "yazar": "Eduardo Parise / eduparise",
+    "lisans": "CC BY 2.0",
+    "lisansLink": "https://creativecommons.org/licenses/by/2.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Porsche_917_K_n%C2%B023_(winner_of_the_1970_24h_of_Le_Mans_race)_-_Front.jpg"
+  },
+  "daytona-panda": {
+    "src": "/img/foto/daytona-panda.webp",
+    "en": 1200,
+    "boy": 1487,
+    "yazar": "Shuntfield",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Rolex_Cosmograph_Daytona_Panda.jpg"
+  },
+  "heuer-carrera-1964": {
+    "src": "/img/foto/heuer-carrera-1964.webp",
+    "en": 665,
+    "boy": 705,
+    "yazar": "Jeff stein",
+    "lisans": "Public domain",
+    "lisansLink": "",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Heuer_Carrera_1964.jpg"
+  },
+  "carrera-cv2010": {
+    "src": "/img/foto/carrera-cv2010.webp",
+    "en": 643,
+    "boy": 910,
+    "yazar": "Pinback66",
+    "lisans": "CC BY-SA 3.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/3.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:TAG_Heuer_Carrera_chronograph_CV2010_retusche_(cropped).jpg"
+  },
+  "panamericana-1952-kazananlar": {
+    "src": "/img/foto/panamericana-1952-kazananlar.webp",
+    "en": 625,
+    "boy": 720,
+    "yazar": "La Carrera Panamericana",
+    "lisans": "CC BY-SA 4.0",
+    "lisansLink": "https://creativecommons.org/licenses/by-sa/4.0",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Hans_Klenk_y_Karl_king_ganadores_Carrera_Panamericana_1952.jpg"
+  },
+  "panamericana-1952": {
+    "src": "/img/foto/panamericana-1952.webp",
+    "en": 700,
+    "boy": 493,
+    "yazar": "The original uploader was Cete at German Wikipedia.",
+    "lisans": "CC BY-SA 3.0",
+    "lisansLink": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "kaynak": "https://commons.wikimedia.org/wiki/File:Carrera_Panamericana-Mexico_1952.jpg"
   }
 }
