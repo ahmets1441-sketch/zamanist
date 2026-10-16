@@ -98,6 +98,34 @@ h2{font-size:1.4rem}
 .bolum{margin:3rem 0}
 .bolum-baslik{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
 .bolum-baslik>a{font-size:.88rem;font-weight:600;text-decoration:none;color:var(--altin-koyu)}
+.bolum-aciklama{margin:.2rem 0 0;color:var(--muted);font-size:.95rem}
+
+/* Home page: short intro, then one section per feature */
+.ana-giris{margin:1.5rem 0 2rem}
+.ana-giris h1{font-size:clamp(1.7rem,4.5vw,2.5rem);margin:.3rem 0 .4rem}
+.ana-giris>p:not(.vitrin-ust){margin:0;color:var(--muted)}
+.ana-giris .vitrin-ust{color:var(--altin-koyu);margin:0}
+.hizli-linkler{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.hizli-linkler a{padding:.4rem .9rem;border:1px solid var(--line);border-radius:999px;font-size:.88rem;font-weight:600;text-decoration:none;color:var(--baslik-renk);background:var(--kart)}
+.hizli-linkler a:hover{border-color:var(--altin);color:var(--altin-koyu)}
+.tanitim{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:var(--kart);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--golge);margin:0 0 3rem;scroll-margin-top:5rem}
+.tanitim figure{margin:0;position:relative;min-height:18rem}
+.tanitim figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tanitim figcaption{position:absolute;left:0;right:0;bottom:0;padding:.4rem .8rem;font-size:.72rem;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.6))}
+.tanitim figcaption a{color:#fff}
+.tanitim-metin{padding:2rem 2rem 1.6rem}
+.tanitim-ust{margin:0;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--altin-koyu)}
+.tanitim h2{margin:.3rem 0 1rem;font-size:clamp(1.4rem,3vw,1.9rem)}
+.adimlar{list-style:none;counter-reset:adim;padding:0;margin:0 0 1.2rem;display:grid;gap:.7rem}
+.adimlar li{counter-increment:adim;display:grid;grid-template-columns:2rem 1fr;gap:.7rem;align-items:start}
+.adimlar li::before{content:counter(adim);display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:var(--lacivert);color:var(--altin-acik);font-weight:700;font-size:.9rem}
+.tanitim-form{display:flex;gap:.5rem;margin-bottom:.7rem}
+.tanitim-form input{flex:1;min-width:0;font:inherit;padding:.7rem .9rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+.tanitim-form button{font:inherit;font-weight:600;border:0;border-radius:8px;padding:.7rem 1.3rem;background:var(--altin);color:var(--lacivert);cursor:pointer}
+.tanitim-form button:hover{background:var(--altin-acik)}
+.bolum[id]{scroll-margin-top:5rem}
+.bolum[id] .kartlar{grid-template-columns:repeat(auto-fill,minmax(18rem,1fr))}
+@media (max-width:48rem){.tanitim{grid-template-columns:minmax(0,1fr)}.tanitim figure{min-height:0;aspect-ratio:16/9}.tanitim-metin{padding:1.4rem 1.2rem}}
 
 /* Card grid */
 .kartlar{list-style:none;padding:0;margin:1rem 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1.25rem}

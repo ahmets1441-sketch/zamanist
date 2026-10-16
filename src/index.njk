@@ -2,29 +2,41 @@
 layout: base.njk
 title: Ana sayfa
 ---
-{%- from "kart.njk" import kart -%}
-<section class="vitrin vitrin-gorsel">
-  <div class="vitrin-metin">
-    <p class="vitrin-ust">Beyefendi kültürü</p>
-    <h1>Saat, stil, sneaker ve otomobil.</h1>
-    <p>Ne çıkıyor, ne indirimde, ne giyilir? Sınırlı seriler, iş birlikleri, kombinler ve Türkiye'deki indirimler tek yerde. Yurt dışı fiyatını da Türkiye ile karşılaştırın.</p>
-    <div class="vitrin-dugmeler">
-      <a class="dugme" href="/sinirli-seri/">Sınırlı Seri</a>
-      <a class="dugme ikincil" href="/indirimler/">İndirimler</a>
-      <a class="dugme ikincil" href="/ara/">Yurt dışında ara</a>
-    </div>
+<header class="ana-giris">
+  <p class="vitrin-ust">Beyefendi kültürü</p>
+  <h1>Saat, stil, sneaker ve otomobil</h1>
+  <p>Yurt dışı fiyatlar, sınırlı seriler, indirimler ve kombinler. Hepsi tek yerde.</p>
+  <nav class="hizli-linkler" aria-label="Bölümlere git">
+    <a href="#yurtdisi">Yurt dışı fiyat</a><a href="#anaCikis">Sınırlı seri</a><a href="#anaIndirim">İndirimler</a><a href="#kombinlerim">Kombinler</a><a href="#rehberler">Rehberler</a>
+  </nav>
+</header>
+
+{% set g = gorseller["ginza-wako"] %}
+<section class="tanitim" id="yurtdisi">
+  <figure>
+    <img src="{{ g.src | kucukGorsel }}" srcset="{{ g.src | kucukGorsel }} 600w, {{ g.src }} {{ g.en }}w" sizes="(max-width:48rem) 100vw, 50vw" alt="Tokyo Ginza'daki Wako binası ve saat kulesi" width="{{ g.en }}" height="{{ g.boy }}">
+    <figcaption>Ginza, Tokyo · Foto: <a href="{{ g.kaynak }}" rel="nofollow noopener" target="_blank">{{ g.yazar }}</a>, <a href="{{ g.lisansLink }}" rel="nofollow noopener" target="_blank">{{ g.lisans }}</a></figcaption>
+  </figure>
+  <div class="tanitim-metin">
+    <p class="tanitim-ust">Yurt dışında ara</p>
+    <h2>Japonya'da kaça, Türkiye'de kaça?</h2>
+    <ol class="adimlar">
+      <li>Ürün adını veya model kodunu yazın.</li>
+      <li>Markanın resmi fiyatını, yetkili satıcıları ve pazar yerlerini görün. Hepsi güncel kurla TL.</li>
+      <li>Türkiye fiyatını girin, aradaki farkı görün.</li>
+    </ol>
+    <form class="tanitim-form" action="/ara/" method="get">
+      <label class="gizli" for="anaAra">Ürün adı veya model kodu</label>
+      <input id="anaAra" name="q" type="search" required minlength="2" placeholder="Örn. Seiko SPB143 veya Air Force 1">
+      <button type="submit">Ara</button>
+    </form>
+    <p class="meta">Şimdilik Japonya. Elinizde bir fiyat varsa <a href="/hesaplayici/">Hesaplayıcı</a> TL'ye çevirir ve vergi iadesini düşer.</p>
   </div>
-  <div class="vitrin-mozaik" aria-hidden="true">
-    <a href="/kombinlerim/lacivert-takim-panama-sapka/" tabindex="-1"><img src="/img/foto/kombin-lacivert-takim.webp" alt=""></a>
-    <a href="/sinirli-seri/?kat=sneaker" tabindex="-1"><img src="/img/cikis/nike-af1-nigo-jhope.webp" alt="" class="acik"></a>
-    <a href="/rehberler/dalgic-saati-rehberi/" tabindex="-1"><img src="/img/foto/seiko-spb143-bilek.webp" alt=""></a>
-    <a href="/sinirli-seri/?kat=araba" tabindex="-1"><img src="/img/cikis/manthey-911-mr30.webp" alt="" class="acik"></a>
-  </div>
-  <p class="vitrin-kaynak">Fotoğraflar: <a href="https://www.flickr.com/photos/85546319@N04/42796362762" rel="nofollow noopener" target="_blank">Menswear Market</a> (CC BY 2.0), Nike, <a href="https://commons.wikimedia.org/wiki/File:Seiko_Prospex_SPB143J1.png" rel="nofollow noopener" target="_blank">Deerpeter</a> (CC BY-SA 4.0), Manthey</p>
 </section>
 
 <section class="bolum" id="anaCikis" hidden>
-  <div class="bolum-baslik"><h2><a href="/sinirli-seri/">Yaklaşan çıkışlar</a></h2><a href="/sinirli-seri/">Tümü →</a></div>
+  <div class="bolum-baslik"><h2><a href="/sinirli-seri/">Sınırlı Seri ve İş Birlikleri</a></h2><a href="/sinirli-seri/">Tümü →</a></div>
+  <p class="bolum-aciklama">Saat, sneaker, giyim ve otomobilde yaklaşan sınırlı üretimler ve çıkış tarihleri.</p>
   <div class="yatay-kaydir" id="anaCikisListe"></div>
 </section>
 <script>
@@ -48,6 +60,7 @@ title: Ana sayfa
 
 <section class="bolum ana-indirim" id="anaIndirim" hidden>
   <div class="bolum-baslik"><h2><a href="/indirimler/">İndirim Takvimi</a></h2><a href="/indirimler/">Tümü →</a></div>
+  <p class="bolum-aciklama">Türk markalarının indirimleri. Markaların sitesi her sabah kontrol edilir.</p>
   <div class="ana-indirim-ic">
     <div id="anaDevam"></div>
     <div id="anaYakin"></div>
@@ -74,18 +87,10 @@ title: Ana sayfa
 {% for bolum in bolumler %}
 {% set yazilar = collections[bolum.slug] | head(3) %}
 {% if yazilar.length %}
-<section class="bolum">
+<section class="bolum" id="{{ bolum.slug }}">
   <div class="bolum-baslik"><h2><a href="/{{ bolum.slug }}/">{{ bolum.ad }}</a></h2><a href="/{{ bolum.slug }}/">Tümü →</a></div>
+  <p class="bolum-aciklama">{{ bolum.aciklama }}</p>
   {% include "liste.njk" %}
 </section>
 {% endif %}
 {% endfor %}
-
-<section class="bolum">
-  <h2>Bölümler</h2>
-  <ul class="kartlar bolumler">
-  {% for bolum in bolumler %}
-    {{ kart("/" + bolum.slug + "/", bolum.ad, null, bolum.aciklama) }}
-  {% endfor %}
-  </ul>
-</section>
