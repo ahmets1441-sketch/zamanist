@@ -1,4 +1,4 @@
-// Site-wide behaviour: mobile menu, dark mode, back-to-top, cookie notice, newsletter, offline support.
+// Site-wide behaviour: mobile menu, dark mode, back-to-top, newsletter, offline support.
 (() => {
   const $ = (id) => document.getElementById(id);
   const sakla = (k, v) => { try { v === null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
@@ -36,10 +36,6 @@
     });
   }, { passive: true });
   yukari.addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
-
-  // Cookie notice, shown once.
-  if (!oku("cerez")) $("cerez").hidden = false;
-  $("cerezTamam").addEventListener("click", () => { sakla("cerez", "1"); $("cerez").hidden = true; });
 
   // Newsletter sign-up
   const form = $("bultenForm");

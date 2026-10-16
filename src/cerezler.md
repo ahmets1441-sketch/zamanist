@@ -23,7 +23,6 @@ Aşağıdakiler çerez değildir; yalnızca sizin tarayıcınızda durur ve bize
 |---|---|
 | `takipMarkalar` | Üye olmadan takip ettiğiniz markalar |
 | `tema` | Karanlık veya aydınlık mod seçiminiz |
-| `cerez` | Bu bildirimi kapattığınızı hatırlar |
 
 Tarayıcınızın ayarlarından çerezleri ve bu kayıtları silebilirsiniz; bu durumda girişiniz kapanır ve tercihleriniz sıfırlanır.
 
