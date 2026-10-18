@@ -13,20 +13,21 @@ layout: base.njk
     <h1>{{ title }}</h1>
     <p class="meta">{{ date | tarih }} · <a href="https://www.instagram.com/{{ site.instagram }}/" rel="noopener" target="_blank">@{{ site.instagram }}</a></p>
     <p>{{ ozet }}</p>
+    {{ content | safe }}
     <ul class="insta-urunler">
     {%- for u in urunler %}
       <li>
         <img src="{{ u.gorsel }}" alt="{{ u.marka }} {{ u.ad }}" loading="lazy">
         <div>
-          <span class="iu-marka">{{ u.marka }}</span>
+          <span class="iu-marka"{% if not r/[çğıöşüİ]/i.test(u.marka) %} lang="en"{% endif %}>{{ u.marka }}</span>
           <span class="iu-ad">{{ u.ad }}</span>
           <span class="iu-kod">Model kodu: {{ u.kod }}</span>
-          <span class="iu-fiyat">{{ u.fiyat | sayi }} TL{% if u.eskiFiyat %} <s>{{ u.eskiFiyat | sayi }} TL</s>{% endif %}</span>
+          <span class="iu-fiyat">{{ u.fiyat | sayi }} TL{% if u.eskiFiyat %} <s>{{ u.eskiFiyat | sayi }} TL</s>{% endif %}{% if u.fiyatNot %} <small>{{ u.fiyatNot }}</small>{% endif %}</span>
         </div>
         <a class="dugme-kucuk" href="{{ u.link }}" rel="nofollow noopener" target="_blank">Ürüne git</a>
       </li>
     {%- endfor %}
     </ul>
-    <p class="meta alt-not">Fiyatlar {{ kontrol | tarih }} tarihinde markanın kendi sitesinde kontrol edildi; fiyat ve stok değişebilir, satın almadan önce sitede kontrol edin. Ürün görselleri markalara aittir. Bu linklerden komisyon almıyoruz.</p>
+    <p class="meta alt-not">Fiyatlar {{ kontrol | tarih }} tarihinde {% if satici %}{{ satici }} sitesinde{% else %}markanın kendi sitesinde{% endif %} kontrol edildi; fiyat ve stok değişebilir, satın almadan önce sitede kontrol edin. Ürün görselleri {% if satici %}{{ satici }} sitesinden alınmıştır{% else %}markalara aittir{% endif %}. Bu linklerden komisyon almıyoruz.</p>
   </div>
 </div>

@@ -1,11 +1,12 @@
 // node scripts/instagram/uret.js post.json -> out/<n>.png, 1080x1350 slides for @basiclinkk.
-// post.json: {baslik, alt, tarih, urunler:[{dosya, marka, ad, kod, fiyat, link}]}, "dosya" relative to post.json.
+// post.json: {baslik, alt, tarih, satici?, urunler:[{dosya, marka, ad, kod, fiyat, eskiFiyat?, fiyatNot?, link}]}, "dosya" relative to post.json.
+// satici: the shop the prices and photos come from, when it is not the brand itself.
 // Needs playwright (npx playwright install chromium); product photos are trimmed white-background shots.
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path");
 const veri = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
 const kok = path.dirname(path.resolve(process.argv[2]));
-const tl = (n) => n.toLocaleString("tr-TR", { maximumFractionDigits: 2 }) + " TL";
+const tl = (n) => n.toLocaleString("tr-TR", { minimumFractionDigits: Number.isInteger(n) ? 0 : 2, maximumFractionDigits: 2 }) + " TL";
 const k = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const src = (u) => "file://" + path.join(kok, u.dosya);
 const U = veri.urunler;
@@ -22,7 +23,7 @@ const urunSlayt = (grup, no) => `<section class="slayt liste">
   <div class="marka-ust"><img class="logo-img" src="file://${path.join(__dirname, "logo-b-yuvarlak.png")}"><span class="yazi">basiclink<i>.</i></span></div>
   ${grup.map((u, i) => `<div class="satir ${i % 2 ? "ters" : ""}">
     <img src="${src(u)}">
-    <div class="etiket"><span class="m">${k(u.marka)}</span><span class="ad">${k(u.ad)}</span><span class="kod">${k(u.kod)}</span><span class="fiyat">${tl(u.fiyat)}</span></div>
+    <div class="etiket"><span class="m" lang="${/[çğıöşüİ]/i.test(u.marka) ? "tr" : "en"}">${k(u.marka)}</span><span class="ad">${k(u.ad)}</span><span class="kod">${k(u.kod)}</span>${u.eskiFiyat ? `<span class="eski"><s>${tl(u.eskiFiyat)}</s>${u.fiyatNot ? ` · ${k(u.fiyatNot)}` : ""}</span>` : ""}<span class="fiyat">${tl(u.fiyat)}</span></div>
   </div>`).join("")}
   <p class="sayfa">${no}</p>
 </section>`;
@@ -33,10 +34,10 @@ const son = `<section class="slayt son">
   <h2>Linkler ve güncel fiyatlar</h2>
   <p class="site">zamanist.com</p>
   <p>Profildeki linke dokun.</p>
-  <p class="not">Fiyatlar ${k(veri.tarih)} tarihinde markanın kendi sitesinde kontrol edildi. Fiyat ve stok değişebilir. Ürün görselleri: ${k([...new Set(U.map((u) => u.marka))].join(", "))}.</p>
+  <p class="not">Fiyatlar ${k(veri.tarih)} tarihinde ${veri.satici ? k(veri.satici) + " sitesinde" : "markanın kendi sitesinde"} kontrol edildi. Fiyat ve stok değişebilir. Ürün görselleri: ${k(veri.satici || [...new Set(U.map((u) => u.marka))].join(", "))}.</p>
 </section>`;
 const gruplar = parca(U, 3);
-const html = `<!doctype html><html><head><meta charset="utf-8">
+const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0}
@@ -66,6 +67,8 @@ body{background:#888;font-family:Inter,sans-serif}
 .etiket .ad{font:700 34px/1.15 Inter;letter-spacing:-.02em}
 .etiket .kod{font:500 24px Inter;color:#888;letter-spacing:.04em}
 .etiket .fiyat{font:700 46px Inter;margin-top:6px}
+.etiket .eski{font:500 24px Inter;color:#B23A2E;margin-top:6px}
+.etiket .eski s{color:#888}
 .sayfa{position:absolute;left:60px;top:52px;font:600 22px Inter;color:#888}
 .son{background:#111;color:#EEE;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:18px;padding:80px}
 .son .logo.buyuk{width:120px;height:120px;font-size:64px;color:#fff;border-width:3px;margin-bottom:20px}

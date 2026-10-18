@@ -35,7 +35,7 @@ module.exports = function (eleventyConfig) {
       `<figcaption>${aciklama ? kacis(aciklama) + " · " : ""}Foto: <a href="${kacis(g.kaynak)}" rel="nofollow noopener" target="_blank">${kacis(g.yazar)}</a>, ${lisans}</figcaption></figure>`;
   });
   eleventyConfig.addFilter("ulkeBul", (liste, kod) => liste.find((u) => u.kod === kod) || ulkeler[0]);
-  eleventyConfig.addFilter("sayi", (n) => Number(n).toLocaleString("tr-TR"));
+  eleventyConfig.addFilter("sayi", (n) => Number(n).toLocaleString("tr-TR", { minimumFractionDigits: Number.isInteger(Number(n)) ? 0 : 2, maximumFractionDigits: 2 }));
   // About 200 words a minute for Turkish prose.
   eleventyConfig.addFilter("okumaSuresi", (html) => Math.max(1, Math.round(String(html).replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 200)));
   eleventyConfig.addFilter("bolumAdi", (url) => (bolumler.find((b) => url.startsWith(`/${b.slug}/`)) || {}).ad);
