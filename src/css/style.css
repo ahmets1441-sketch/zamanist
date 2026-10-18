@@ -19,7 +19,8 @@ img{max-width:100%}
 .site-header.kucuk{box-shadow:0 6px 20px rgba(0,0,0,.18)}
 .site-header .ic{max-width:72rem;margin:0 auto;padding:.9rem 1.25rem 0}
 .ust{display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.logo{display:inline-flex;align-items:center;gap:.6rem;font:700 1.65rem/1 var(--baslik);text-decoration:none;color:#fff;letter-spacing:.01em}
+.logo{display:inline-flex;align-items:center;gap:.6rem;font:700 1.6rem/1 "Space Grotesk",Inter,sans-serif;text-decoration:none;color:#fff;letter-spacing:-.02em}
+.logo-nokta{color:var(--altin)}
 .logo:hover{color:#fff}
 .ust-ara{font-size:.88rem;font-weight:600;text-decoration:none;color:var(--lacivert);background:var(--altin);border-radius:6px;padding:.45rem .95rem}
 .ust-sag{display:flex;align-items:center;gap:1rem}
