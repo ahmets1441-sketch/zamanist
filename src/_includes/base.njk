@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- set sayfaBasligi = (title + " · Zamanist") if title and title != "Ana sayfa" else "Zamanist · Saat, stil, sneaker ve otomobil" %}
-  {%- set sayfaOzeti = ozet or description or "Saat, stil, sneaker ve otomobil; klasikten sokak stiline. Sınırlı seriler, iş birlikleri, kombinler, Türkiye indirimleri ve yurt dışı fiyat karşılaştırması." %}
+  {%- set sayfaOzeti = ozet or description or "Doğru parça, doğru fiyat. Saat, stil, sneaker ve otomobil. Sınırlı seriler, iş birlikleri, kombinler, Türkiye indirimleri ve yurt dışı fiyat karşılaştırması." %}
   {%- set sayfaGorseli = kapak if kapak and kapak.startsWith("http") else ("https://zamanist.com" + kapak if kapak else "https://zamanist.com/img/paylasim.png") %}
   <title>{{ sayfaBasligi }}</title>
   <meta name="description" content="{{ sayfaOzeti }}">
@@ -61,7 +61,7 @@
     <div class="alt-izgara">
       <div class="alt-marka">
         <a class="logo" href="/"><img src="/img/logo.svg" alt="" width="26" height="26"><span>zamanist<span class="logo-nokta">.</span></span></a>
-        <p>Saat, stil, sneaker ve otomobil; klasikten sokak stiline. Fiyatlar bilgi amaçlıdır; satın almadan önce satıcıdan teyit edin.</p>
+        <p>Doğru parça, doğru fiyat. Saat, stil, sneaker ve otomobil. Fiyatlar bilgi amaçlıdır; satın almadan önce satıcıdan teyit edin.</p>
         {%- if site.instagram %}
         <p><a class="sosyal" href="https://www.instagram.com/{{ site.instagram }}/" rel="me noopener" target="_blank">Instagram: @{{ site.instagram }}</a></p>
         {%- endif %}

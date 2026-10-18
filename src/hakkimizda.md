@@ -6,7 +6,7 @@ permalink: /hakkimizda/
 ---
 # Hakkımızda
 
-Zamanist; saat, stil, sneaker ve otomobil üzerine bağımsız bir Türkçe yayın. Klasik takımdan sokak stiline kadar.
+Zamanist; saat, stil, sneaker ve otomobil üzerine bağımsız bir Türkçe yayın. İlkemiz basit: doğru parça, doğru fiyat.
 
 ## Ne yapıyoruz?
 
