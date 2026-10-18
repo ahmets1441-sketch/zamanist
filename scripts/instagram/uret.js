@@ -1,5 +1,6 @@
 // node scripts/instagram/uret.js post.json -> out/<n>.png, 1080x1350 slides for @basiclinkk.
 // post.json: {baslik, alt, tarih, satici?, urunler:[{dosya, marka, ad, kod, fiyat, eskiFiyat?, fiyatNot?, link}]}, "dosya" relative to post.json.
+// hikaye: false hides the "links are in the story" badge on the last slide.
 // satici: the shop the prices and photos come from, when it is not the brand itself.
 // Needs playwright (npx playwright install chromium); product photos are trimmed white-background shots.
 const { chromium } = require("playwright");
@@ -31,6 +32,7 @@ const son = `<section class="slayt son">
   <img class="logo-img buyuk" src="file://${path.join(__dirname, "logo-b-yuvarlak.png")}">
   <p class="yazi">basiclink<i>.</i></p>
   <p class="hesap">@basiclinkk</p>
+  ${veri.hikaye === false ? "" : `<p class="hikaye-not">Ürün linkleri story'de</p>`}
   <h2>Linkler ve güncel fiyatlar</h2>
   <p class="site">zamanist.com</p>
   <p>Profildeki linke dokun.</p>
@@ -77,6 +79,7 @@ body{background:#888;font-family:Inter,sans-serif}
 .son h2{font:800 68px Inter;letter-spacing:-.04em;color:#fff}
 .son .site{font:700 60px Inter;color:#CFA65A;letter-spacing:-.02em}
 .son p{font:500 34px Inter}
+.son .hikaye-not{font:700 40px Inter;color:#111;background:#CFA65A;border-radius:999px;padding:22px 48px;margin-bottom:34px}
 .son .not{font:400 24px Inter;color:#888;margin-top:60px;max-width:760px}
 </style></head><body>${kapak}${gruplar.map((g, i) => urunSlayt(g, `${i + 1}/${gruplar.length}`)).join("")}${son}</body></html>`;
 fs.writeFileSync(path.join(kok, "post.html"), html);
