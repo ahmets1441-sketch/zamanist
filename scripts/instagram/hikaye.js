@@ -1,5 +1,5 @@
 // node scripts/instagram/hikaye.js post.json -> out/hikaye.png, one 1080x1920 story listing every product.
-// Each row leaves an empty slot on the right for an Instagram link sticker; the image itself cannot hold links.
+// A single empty slot under the list is left for one Instagram link sticker; the image itself cannot hold links.
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path");
 const veri = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
@@ -19,24 +19,24 @@ const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8">
 h1{font:800 76px/1 Inter;letter-spacing:-.04em;text-transform:uppercase}
 .alt{font:500 32px Inter;color:#666;margin:14px 0 30px}
 .liste{flex:1;display:flex;flex-direction:column;justify-content:space-between}
-.satir{display:flex;align-items:center;gap:18px;height:236px;border-top:1px solid #DDD;padding-top:8px}
-.satir img{width:300px;height:200px;object-fit:contain;mix-blend-mode:multiply}
+.satir{display:flex;align-items:center;gap:28px;height:220px;border-top:1px solid #DDD;padding-top:8px}
+.satir img{width:340px;height:196px;object-fit:contain;mix-blend-mode:multiply}
 .bilgi{flex:1;display:flex;flex-direction:column;gap:4px;min-width:0}
 .ad{font:700 30px/1.15 Inter;letter-spacing:-.02em}
 .kod{font:500 22px Inter;color:#888}
 .eski{font:500 22px Inter;color:#B23A2E}.eski s{color:#888}
 .fiyat{font:800 38px Inter;letter-spacing:-.02em}
-.yer{width:250px;height:90px;border:3px dashed #BBB;border-radius:20px;display:grid;place-items:center;font:600 24px Inter;color:#AAA}
+.yer{margin-top:26px;height:130px;border:3px dashed #CFA65A;border-radius:28px;display:grid;place-items:center;font:700 30px Inter;color:#B08A44}
 .not{font:400 21px Inter;color:#888;margin-top:22px}
 </style></head><body><section class="h">
 <div class="ust"><img src="${logo}"><span>basiclink<i>.</i></span></div>
 <h1>${k(veri.baslik)}</h1>
 <p class="alt">${k(veri.alt)}</p>
-<div class="liste">${U.map((u, i) => `<div class="satir">
+<div class="liste">${U.map((u) => `<div class="satir">
   <img src="file://${path.join(kok, u.dosya)}">
   <div class="bilgi"><span class="ad">${k(u.ad)}</span><span class="kod">${k(u.kod)}</span>${u.eskiFiyat ? `<span class="eski"><s>${tl(u.eskiFiyat)}</s>${u.fiyatNot ? ` · ${k(u.fiyatNot)}` : ""}</span>` : ""}<span class="fiyat">${tl(u.fiyat)}</span></div>
-  <div class="yer">Link ${i + 1}</div>
 </div>`).join("")}</div>
+<div class="yer">Tüm ürün linkleri · buraya dokun</div>
 <p class="not">Fiyatlar ${k(veri.tarih)} · ${k(veri.satici || "marka sitesi")}. Fiyat ve stok değişebilir.</p>
 </section></body></html>`;
 fs.writeFileSync(path.join(kok, "hikaye.html"), html);
