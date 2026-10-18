@@ -1,0 +1,1 @@
+{ "layout": "insta-post.njk", "permalink": "/insta/{{ page.fileSlug }}/", "tags": ["insta"] }

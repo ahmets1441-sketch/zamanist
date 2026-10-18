@@ -1,0 +1,23 @@
+---
+layout: base.njk
+title: "basiclink. | Instagram postlarının linkleri"
+description: "@basiclinkk Instagram postlarındaki ürünlerin linkleri, model kodları ve fiyatları."
+permalink: /insta/
+eleventyExcludeFromCollections: true
+---
+<header class="insta-ust">
+  <img src="/img/insta/basiclink.webp" width="120" height="120" alt="basiclink logosu">
+  <div>
+    <h1>basiclink<span class="altin">.</span></h1>
+    <p>Uygun fiyatlı erkek kombinleri, indirimdeki parçalar ve ürün kodları. Instagram'da gördüğün postun ürünleri aşağıda.</p>
+    <a class="dugme-kucuk" href="https://www.instagram.com/{{ site.instagram }}/" rel="noopener" target="_blank">@{{ site.instagram }}</a>
+  </div>
+</header>
+<ul class="insta-izgara">
+{%- for p in collections.insta | reverse %}
+  <li><a href="{{ p.url }}"><img src="{{ p.data.kapak }}" width="1080" height="1350" alt="" loading="lazy"><span>{{ p.data.title }}</span></a></li>
+{%- else %}
+  <li class="bos-not">Henüz post yok.</li>
+{%- endfor %}
+</ul>
+<p class="meta"><a href="/indirimler/">İndirim takvimi</a> · <a href="/kombinlerim/">Kombinler</a> · <a href="/ara/">Yurt dışında fiyat ara</a></p>

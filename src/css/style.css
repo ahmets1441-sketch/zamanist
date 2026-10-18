@@ -376,3 +376,27 @@ article th{background:var(--alan);color:var(--baslik-renk);font-weight:600}
 #yorumForm textarea{width:100%;font:inherit;padding:.7rem;border:1px solid var(--line);border-radius:8px;background:var(--kart);color:var(--fg);margin-bottom:.5rem}
 .iletisim-form{max-width:36rem}
 .iletisim-form textarea{font:inherit;padding:.65rem .8rem;border:1px solid var(--line);border-radius:8px;background:var(--kart);color:var(--fg);width:100%}
+
+/* Instagram (@basiclinkk): link-in-bio page and one page per post */
+.insta-ust{display:flex;gap:1.2rem;align-items:center;margin:1.5rem 0 2rem}
+.insta-ust img{width:96px;height:96px;border-radius:50%;flex:none}
+.insta-ust h1{font-family:"Space Grotesk",var(--govde);font-weight:700;margin:0;letter-spacing:-.02em}
+.insta-ust p{margin:.3rem 0 .7rem;color:var(--muted)}
+.altin{color:var(--altin)}
+.insta-izgara{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1rem}
+.insta-izgara a{display:block;text-decoration:none;color:var(--fg);font-weight:600}
+.insta-izgara img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:10px;border:1px solid var(--line);margin-bottom:.4rem}
+.insta-post{display:grid;grid-template-columns:minmax(0,26rem) minmax(0,1fr);gap:2rem;align-items:start}
+.insta-slaytlar{display:flex;gap:.6rem;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:12px}
+.insta-slaytlar img{flex:0 0 100%;width:100%;height:auto;scroll-snap-align:start;border-radius:12px}
+.insta-bilgi h1{margin-top:0}
+.insta-urunler{list-style:none;padding:0;margin:1.2rem 0;display:grid;gap:.7rem}
+.insta-urunler li{display:grid;grid-template-columns:5.5rem 1fr auto;gap:1rem;align-items:center;background:var(--kart);border:1px solid var(--line);border-radius:12px;padding:.6rem .9rem}
+.insta-urunler img{width:5.5rem;height:4.5rem;object-fit:contain;background:#fff;border-radius:8px}
+.insta-urunler div{display:flex;flex-direction:column;gap:.1rem}
+.iu-marka{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.iu-ad{font-weight:600}
+.iu-kod{font-size:.82rem;color:var(--muted)}
+.iu-fiyat{font-weight:700;font-size:1.05rem}
+.iu-fiyat s{font-weight:400;color:var(--muted);font-size:.85rem}
+@media (max-width:48rem){.insta-post{grid-template-columns:minmax(0,1fr)}.insta-urunler li{grid-template-columns:4.5rem 1fr}.insta-urunler img{width:4.5rem}.insta-urunler .dugme-kucuk{grid-column:1/-1;text-align:center}}
