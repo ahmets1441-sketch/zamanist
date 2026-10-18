@@ -1,6 +1,5 @@
 [
   { "slug": "kombinlerim", "ad": "Kombinlerim", "aciklama": "Günün kombinleri ve onlara eşlik eden saatler.", "siralama": "tarih" },
-  { "slug": "sporcularin-stili", "ad": "Sporcuların Stili", "aciklama": "Futbolcuların ve NBA oyuncularının saatleri ve kıyafetleri.", "siralama": "tarih" },
   { "slug": "rehberler", "ad": "Rehberler", "aciklama": "Satın alma ve stil rehberleri: yurt dışından alışverişten takım elbiseye saat seçimine.", "siralama": "tarih" },
   { "slug": "biyografiler", "ad": "Biyografiler", "aciklama": "Saatçiler ve marka kurucularının hikâyeleri.", "siralama": "isim" },
   { "slug": "araba-ve-saat", "ad": "Araba ve Saat", "aciklama": "F1 sponsorlukları, otomobil ve saat markalarının ortaklıkları.", "siralama": "tarih" }

@@ -10,6 +10,7 @@ Zamanist, **beyefendi kültürü** üzerine bağımsız bir Türkçe yayın: saa
 
 ## Ne yapıyoruz?
 
+- **[Basiclink](/basiclink/):** Instagram'daki [@basiclinkk](https://www.instagram.com/basiclinkk/) hesabımızda paylaştığımız uygun fiyatlı kombinler ve indirimdeki parçalar; her ürünün model kodu, fiyatı ve linkiyle.
 - **[Sınırlı Seri ve İş Birlikleri](/sinirli-seri/):** sınırlı sayıda üretilen saatler, sneaker'lar, giyim iş birlikleri ve özel seri otomobiller. Ne zaman çıkıyor, kaç adet, kaça?
 - **[İndirim Takvimi](/indirimler/):** Türkiye'de şu an süren ve yaklaşan indirimler. Takip ettiğiniz marka indirime girince haberiniz olsun.
 - **[Kombinler](/kombinlerim/) ve [Rehberler](/rehberler/):** ne giyilir, hangi saat hangi kıyafete gider?

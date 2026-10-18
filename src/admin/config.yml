@@ -25,20 +25,6 @@ collections:
       - { label: Kısa özet, name: ozet, widget: text, required: false, hint: "Listede ve Google'da başlığın altında görünür. 1-2 cümle." }
       - { label: Yazar, name: author, widget: string, default: Zamanist }
       - { label: Metin, name: body, widget: markdown }
-  - name: sporcularin-stili
-    label: Sporcuların Stili
-    label_singular: Sporcu yazısı
-    folder: src/sporcularin-stili
-    create: true
-    slug: "{{slug}}"
-    sortable_fields: [date, title]
-    fields:
-      - { label: Başlık, name: title, widget: string }
-      - { label: Tarih, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
-      - { label: Kapak fotoğrafı, name: kapak, widget: image, required: false }
-      - { label: Kısa özet, name: ozet, widget: text, required: false, hint: "Listede ve Google'da başlığın altında görünür. 1-2 cümle." }
-      - { label: Yazar, name: author, widget: string, default: Zamanist }
-      - { label: Metin, name: body, widget: markdown }
   - name: rehberler
     label: Rehberler
     label_singular: Rehber

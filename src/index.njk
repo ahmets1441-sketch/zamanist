@@ -7,7 +7,7 @@ title: Ana sayfa
   <h1>Saat, stil, sneaker ve otomobil</h1>
   <p>Yurt dışı fiyatlar, sınırlı seriler, indirimler ve kombinler. Hepsi tek yerde.</p>
   <nav class="hizli-linkler" aria-label="Bölümlere git">
-    <a href="#yurtdisi">Yurt dışı fiyat</a><a href="#anaCikis">Sınırlı seri</a><a href="#anaIndirim">İndirimler</a><a href="#kombinlerim">Kombinler</a><a href="#rehberler">Rehberler</a>
+    <a href="#basiclink">Basiclink</a><a href="#yurtdisi">Yurt dışı fiyat</a><a href="#anaCikis">Sınırlı seri</a><a href="#anaIndirim">İndirimler</a><a href="#kombinlerim">Kombinler</a><a href="#rehberler">Rehberler</a>
   </nav>
 </header>
 
@@ -90,6 +90,19 @@ title: Ana sayfa
     <p class="meta">Şimdilik Japonya. Elinizde bir fiyat varsa <a href="/hesaplayici/">Hesaplayıcı</a> TL'ye çevirir ve vergi iadesini düşer.</p>
   </div>
 </section>
+
+{% set postlar = collections.basiclink | reverse | head(4) %}
+{% if postlar.length %}
+<section class="bolum" id="basiclink">
+  <div class="bolum-baslik"><h2><a href="/basiclink/">Basiclink</a></h2><a href="/basiclink/">Tümü →</a></div>
+  <p class="bolum-aciklama">Instagram'da <a href="https://www.instagram.com/{{ site.instagram }}/" rel="noopener" target="_blank">@{{ site.instagram }}</a> hesabında paylaştığımız uygun fiyatlı kombinler ve indirimdeki parçalar. Model kodları, fiyatlar ve linkler.</p>
+  <ul class="insta-izgara">
+  {%- for p in postlar %}
+    <li><a href="{{ p.url }}"><img src="{{ p.data.kapak }}" width="1080" height="1350" alt="" loading="lazy"><span>{{ p.data.title }}</span></a></li>
+  {%- endfor %}
+  </ul>
+</section>
+{% endif %}
 
 <section class="bolum" id="anaCikis" hidden>
   <div class="bolum-baslik"><h2><a href="/sinirli-seri/">Sınırlı Seri ve İş Birlikleri</a></h2><a href="/sinirli-seri/">Tümü →</a></div>

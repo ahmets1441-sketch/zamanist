@@ -4,3 +4,7 @@
 /saatler /ara/ 301
 /saat-cikislari/ /sinirli-seri/ 301
 /saat-cikislari /sinirli-seri/ 301
+/insta /basiclink/ 301
+/insta/* /basiclink/:splat 301
+/sporcularin-stili/* /basiclink/ 301
+/sporcularin-stili /basiclink/ 301
