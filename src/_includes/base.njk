@@ -48,7 +48,11 @@
     <nav id="anaMenu" aria-label="Ana menü">
       {%- set menu = [["/basiclink/", "Basiclink"], ["/kombinlerim/", "Kombinler"], ["/sinirli-seri/", "Sınırlı Seri"], ["/indirimler/", "İndirimler"], ["/rehberler/", "Rehberler"], ["/araba-ve-saat/", "Araba ve Saat"], ["/biyografiler/", "Biyografiler"], ["/ara/", "Yurt Dışı Fiyat"], ["/hesaplayici/", "Hesaplayıcı"]] %}
       {%- for m in menu %}
+      {%- if m[0] == "/basiclink/" %}
+      <a href="{{ m[0] }}" class="menu-basiclink"{% if page.url.startsWith(m[0]) %} aria-current="page"{% endif %}>basiclink<span aria-hidden="true">.</span></a>
+      {%- else %}
       <a href="{{ m[0] }}"{% if page.url.startsWith(m[0]) %} aria-current="page"{% endif %}>{{ m[1] }}</a>
+      {%- endif %}
       {%- endfor %}
     </nav>
   </div></header>
