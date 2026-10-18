@@ -6,7 +6,7 @@ permalink: /hakkimizda/
 ---
 # Hakkımızda
 
-Zamanist, **beyefendi kültürü** üzerine bağımsız bir Türkçe yayın: saat, stil, sneaker ve otomobil.
+Zamanist; saat, stil, sneaker ve otomobil üzerine bağımsız bir Türkçe yayın. Klasik takımdan sokak stiline kadar.
 
 ## Ne yapıyoruz?
 
