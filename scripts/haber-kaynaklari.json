@@ -1,0 +1,13 @@
+[
+  { "ad": "Carscoops", "konu": "Otomobil", "url": "https://www.carscoops.com/feed/" },
+  { "ad": "Motor1", "konu": "Otomobil", "url": "https://www.motor1.com/rss/news/all/" },
+  { "ad": "CarBuzz", "konu": "Otomobil", "url": "https://carbuzz.com/feed/" },
+  { "ad": "The Drive", "konu": "Otomobil", "url": "https://www.thedrive.com/feed" },
+  { "ad": "Hodinkee", "konu": "Saat", "url": "https://www.hodinkee.com/articles/rss.xml" },
+  { "ad": "Monochrome", "konu": "Saat", "url": "https://monochrome-watches.com/feed/" },
+  { "ad": "Fratello", "konu": "Saat", "url": "https://www.fratellowatches.com/feed/" },
+  { "ad": "Worn & Wound", "konu": "Saat", "url": "https://wornandwound.com/feed/" },
+  { "ad": "G-Central", "konu": "Saat", "url": "https://www.g-central.com/feed/" },
+  { "ad": "Sneaker News", "konu": "Sneaker", "url": "https://sneakernews.com/feed/" },
+  { "ad": "Hypebeast", "konu": "Sneaker ve stil", "url": "https://hypebeast.com/feed", "sadeceOnemli": true }
+]

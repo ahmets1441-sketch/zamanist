@@ -1,0 +1,25 @@
+name: Haber tarama
+# Daily list of new car, watch and sneaker reveals from news feeds, opened as an issue for the editor.
+on:
+  schedule:
+    - cron: "0 6 * * *" # 09:00 Turkey time
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  tara:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/haber-tara.mjs 24 > adaylar.md
+      - name: Open issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          grep -q "^## " adaylar.md || exit 0
+          gh label create haber --color CFA65A --description "Günlük haber adayları" 2>/dev/null || true
+          gh issue create --title "Haber adayları: $(TZ=Europe/Istanbul date +%d.%m.%Y)" --label haber --body-file adaylar.md
