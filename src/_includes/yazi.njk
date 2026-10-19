@@ -8,7 +8,7 @@ layout: base.njk
 </nav>
 <article data-pagefind-body>
   <h1>{{ title }}</h1>
-  <p class="meta">{% if date and (page.url | bolumSlug) != "biyografiler" %}{{ date | tarih }} · {% endif %}{{ content | okumaSuresi }} dk okuma{% if author %} · {{ author }}{% endif %}</p>
+  <p class="meta">{% if date %}{{ date | tarih }} · {% endif %}{{ content | okumaSuresi }} dk okuma{% if author %} · {{ author }}{% endif %}</p>
   {% if kapak_foto %}{% foto kapak_foto, "", "kapak-foto " + (kapak_sinif or "") %}{% elif kapak %}<img class="kapak" src="{{ kapak }}" alt="{{ title }}">{% endif %}
   {{ content | safe }}
   {%- if etiketler and etiketler.length %}

@@ -1,5 +1,6 @@
 ---
 title: Abraham-Louis Breguet
+date: 2026-09-21T08:00:00
 ozet: "Tourbillon'u icat eden, ilk kol saatlerinden birini yapan ve Marie Antoinette'in saatini üreten saatçi. Modern saatçiliğin babası sayılan adamın hikâyesi."
 kapak: /img/foto/breguet-portre.webp
 kapak_foto: breguet-portre

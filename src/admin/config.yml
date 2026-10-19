@@ -39,21 +39,24 @@ collections:
       - { label: Kısa özet, name: ozet, widget: text, required: false, hint: "Listede ve Google'da başlığın altında görünür. 1-2 cümle." }
       - { label: Yazar, name: author, widget: string, default: Zamanist }
       - { label: Metin, name: body, widget: markdown }
-  - name: biyografiler
-    label: Biyografiler
-    label_singular: Biyografi
-    folder: src/biyografiler
+  - name: saat
+    label: Saat
+    label_singular: Saat yazısı
+    folder: src/saat
     create: true
     slug: "{{slug}}"
+    sortable_fields: [date, title]
     fields:
-      - { label: İsim, name: title, widget: string }
+      - { label: Başlık, name: title, widget: string }
+      - { label: Tarih, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
       - { label: Kapak fotoğrafı, name: kapak, widget: image, required: false }
       - { label: Kısa özet, name: ozet, widget: text, required: false, hint: "Listede ve Google'da başlığın altında görünür. 1-2 cümle." }
+      - { label: Yazar, name: author, widget: string, default: Zamanist }
       - { label: Metin, name: body, widget: markdown }
-  - name: araba-ve-saat
-    label: Araba ve Saat
-    label_singular: Araba ve saat yazısı
-    folder: src/araba-ve-saat
+  - name: otomobil
+    label: Otomobil
+    label_singular: Otomobil yazısı
+    folder: src/otomobil
     create: true
     slug: "{{slug}}"
     sortable_fields: [date, title]

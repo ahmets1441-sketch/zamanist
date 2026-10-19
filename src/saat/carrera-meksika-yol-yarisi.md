@@ -6,7 +6,7 @@ author: Zamanist
 kapak: /img/foto/heuer-carrera-1964.webp
 kapak_foto: heuer-carrera-1964
 kapak_sinif: dikey
-etiketler: ["araba ve saat", "Heuer", "Carrera", "Mercedes-Benz", "Porsche"]
+etiketler: ["saat", "yarış", "Heuer", "Carrera", "Mercedes-Benz", "Porsche"]
 ---
 **Carrera Panamericana**, Meksika'yı boydan boya geçen bir yol yarışıydı. 1950–1954 arasında düzenlendi. Ölümlü kazalar yüzünden 1954'ten sonra durduruldu.
 

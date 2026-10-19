@@ -6,7 +6,7 @@ author: Zamanist
 kapak: /img/foto/daytona-panda.webp
 kapak_foto: daytona-panda
 kapak_sinif: dikey
-etiketler: ["araba ve saat", "Rolex", "Daytona", "Paul Newman"]
+etiketler: ["saat", "yarış", "Rolex", "Daytona", "Paul Newman"]
 ---
 Rolex Cosmograph 1963'te çıktı. Kısa süre sonra kadranına Florida'daki ünlü yarış pistinin adı yazıldı: **Daytona**.
 
