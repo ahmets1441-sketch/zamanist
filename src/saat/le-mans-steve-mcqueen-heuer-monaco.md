@@ -5,7 +5,7 @@ ozet: "Kare kasalı bir kronograf, Gulf renklerinde bir Porsche ve 1971 yapımı
 author: Zamanist
 kapak: /img/foto/porsche-917k-gulf.webp
 kapak_foto: porsche-917k-gulf
-etiketler: ["araba ve saat", "Heuer", "Monaco", "Porsche", "Le Mans"]
+etiketler: ["saat", "yarış", "Heuer", "Monaco", "Porsche", "Le Mans"]
 ---
 1971'de çekilen **Le Mans** filminde Steve McQueen, 24 saat yarışını kazanmaya çalışan pilot Michael Delaney'yi oynadı. Filmden geriye iki görüntü kaldı: açık mavi-turuncu Gulf renkleri ve McQueen'in bileğindeki kare saat.
 

@@ -5,7 +5,7 @@ ozet: "Tesla, 2017'den beri beklenen yeni Roadster'ı 15 Ekim'de Teksas'ta göst
 author: Zamanist
 kapak: /img/foto/tesla-roadster-2017-prototip.webp
 kapak_foto: tesla-roadster-2017-prototip
-etiketler: ["araba ve saat", "otomobil haberleri", "Tesla", "Roadster"]
+etiketler: ["otomobil", "otomobil haberleri", "Tesla", "Roadster"]
 ---
 Tesla, yıllardır ertelenen ikinci nesil **Roadster**'ı 15 Ekim 2026'da Teksas'ta, Waco yakınındaki bir SpaceX tesisinde tanıttı. Şirket ona "uçan araba" diyor. Gösteride görülen ise uçuştan çok kısa, güçlü sıçramalardı.
 

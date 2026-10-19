@@ -8,3 +8,11 @@
 /insta/* /basiclink/:splat 301
 /sporcularin-stili/* /basiclink/ 301
 /sporcularin-stili /basiclink/ 301
+/araba-ve-saat/tesla-roadster-ucan-araba/ /otomobil/tesla-roadster-ucan-araba/ 301
+/araba-ve-saat/porsche-mission-s/ /otomobil/porsche-mission-s/ 301
+/araba-ve-saat/tesla-roadster-ucan-araba /otomobil/tesla-roadster-ucan-araba/ 301
+/araba-ve-saat/porsche-mission-s /otomobil/porsche-mission-s/ 301
+/araba-ve-saat/* /saat/:splat 301
+/araba-ve-saat /saat/ 301
+/biyografiler/* /saat/:splat 301
+/biyografiler /saat/ 301

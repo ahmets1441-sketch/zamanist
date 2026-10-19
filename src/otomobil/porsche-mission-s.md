@@ -5,7 +5,7 @@ ozet: "Porsche, 911'in üzerinde konumlanacak orta motorlu süper otomobil platf
 author: Zamanist
 kapak: /img/foto/porsche-mission-s-new-york.webp
 kapak_foto: porsche-mission-s-new-york
-etiketler: ["araba ve saat", "otomobil haberleri", "Porsche", "Mission S"]
+etiketler: ["otomobil", "otomobil haberleri", "Porsche", "Mission S"]
 ---
 Porsche, **Mission S** konseptini 15 Ekim 2026'da New York'ta, Queens'teki bir iskelede tanıttı. Mekân rastgele seçilmedi: markanın ilk süper sporu **550 Spyder**'ın dünyaya yayılan ilk fotoğrafları 1953'te aynı iskelede çekildi.
 

@@ -46,7 +46,7 @@
       </div>
     </div>
     <nav id="anaMenu" aria-label="Ana menü">
-      {%- set menu = [["/basiclink/", "Basiclink"], ["/kombinlerim/", "Kombinler"], ["/sinirli-seri/", "Sınırlı Seri"], ["/indirimler/", "İndirimler"], ["/rehberler/", "Rehberler"], ["/araba-ve-saat/", "Araba ve Saat"], ["/biyografiler/", "Biyografiler"], ["/ara/", "Yurt Dışı Fiyat"], ["/hesaplayici/", "Hesaplayıcı"]] %}
+      {%- set menu = [["/basiclink/", "Basiclink"], ["/kombinlerim/", "Kombinler"], ["/sinirli-seri/", "Sınırlı Seri"], ["/indirimler/", "İndirimler"], ["/rehberler/", "Rehberler"], ["/saat/", "Saat"], ["/otomobil/", "Otomobil"], ["/ara/", "Yurt Dışı Fiyat"], ["/hesaplayici/", "Hesaplayıcı"]] %}
       {%- for m in menu %}
       {%- if m[0] == "/basiclink/" %}
       <a href="{{ m[0] }}" class="menu-basiclink"{% if page.url.startsWith(m[0]) %} aria-current="page"{% endif %}>basiclink<span aria-hidden="true">.</span></a>
@@ -74,6 +74,8 @@
           <li><a href="/sinirli-seri/">Sınırlı Seri ve İş Birlikleri</a></li>
           <li><a href="/indirimler/">İndirim Takvimi</a></li>
           <li><a href="/rehberler/">Rehberler</a></li>
+          <li><a href="/saat/">Saat</a></li>
+          <li><a href="/otomobil/">Otomobil</a></li>
           <li><a href="/etiketler/">Etiketler</a></li>
         </ul>
       </div>
