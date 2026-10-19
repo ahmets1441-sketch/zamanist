@@ -24,7 +24,7 @@ const urunSlayt = (grup, no) => `<section class="slayt liste">
   <div class="marka-ust"><img class="logo-img" src="file://${path.join(__dirname, "logo-b-yuvarlak.png")}"><span class="yazi">basiclink<i>.</i></span></div>
   ${grup.map((u, i) => `<div class="satir ${i % 2 ? "ters" : ""}">
     <img src="${src(u)}">
-    <div class="etiket"><span class="m" lang="${/[çğıöşüİ]/i.test(u.marka) ? "tr" : "en"}">${k(u.marka)}</span><span class="ad">${k(u.ad)}</span><span class="kod">${k(u.kod)}</span>${u.eskiFiyat ? `<span class="eski"><s>${tl(u.eskiFiyat)}</s>${u.fiyatNot ? ` · ${k(u.fiyatNot)}` : ""}</span>` : ""}<span class="fiyat">${tl(u.fiyat)}</span></div>
+    <div class="etiket"><span class="m" lang="${/[çğıöşüİ]/i.test(u.marka) ? "tr" : "en"}">${k(u.marka)}</span><span class="ad">${k(u.ad)}</span><span class="kod">${k(u.kod)}</span>${u.eskiFiyat || u.fiyatNot ? `<span class="eski">${u.eskiFiyat ? `<s>${tl(u.eskiFiyat)}</s>` : ""}${u.eskiFiyat && u.fiyatNot ? " · " : ""}${u.fiyatNot ? k(u.fiyatNot) : ""}</span>` : ""}<span class="fiyat">${tl(u.fiyat)}</span></div>
   </div>`).join("")}
   <p class="sayfa">${no}</p>
 </section>`;

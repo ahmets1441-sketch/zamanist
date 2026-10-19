@@ -1,5 +1,5 @@
 // node scripts/instagram/hikaye.js post.json -> out/hikaye.png, one 1080x1920 story listing every product.
-// A single empty slot under the list is left for one Instagram link sticker; the image itself cannot hold links.
+// The title is printed as written. A single empty slot under the list is left for one Instagram link sticker; the image itself cannot hold links.
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path");
 const veri = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
@@ -16,7 +16,7 @@ const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8">
 .h{width:1080px;height:1920px;background:#F4F4F2;color:#111;font-family:Inter,sans-serif;padding:150px 56px 170px;display:flex;flex-direction:column}
 .ust{display:flex;align-items:center;gap:12px;margin-bottom:26px}
 .ust img{width:48px;height:48px}.ust span{font:700 32px "Space Grotesk";letter-spacing:-.02em}.ust i{font-style:normal;color:#CFA65A}
-h1{font:800 76px/1 Inter;letter-spacing:-.04em;text-transform:uppercase}
+h1{font:800 76px/1 Inter;letter-spacing:-.04em;text-wrap:balance}
 .alt{font:500 32px Inter;color:#666;margin:14px 0 30px}
 .liste{flex:1;display:flex;flex-direction:column;justify-content:space-between}
 .satir{display:flex;align-items:center;gap:28px;height:220px;border-top:1px solid #DDD;padding-top:8px}
@@ -34,7 +34,7 @@ h1{font:800 76px/1 Inter;letter-spacing:-.04em;text-transform:uppercase}
 <p class="alt">${k(veri.alt)}</p>
 <div class="liste">${U.map((u) => `<div class="satir">
   <img src="file://${path.join(kok, u.dosya)}">
-  <div class="bilgi"><span class="ad">${k(u.ad)}</span><span class="kod">${k(u.kod)}</span>${u.eskiFiyat ? `<span class="eski"><s>${tl(u.eskiFiyat)}</s>${u.fiyatNot ? ` · ${k(u.fiyatNot)}` : ""}</span>` : ""}<span class="fiyat">${tl(u.fiyat)}</span></div>
+  <div class="bilgi"><span class="ad">${k(u.ad)}</span><span class="kod">${k(u.kod)}</span>${u.eskiFiyat || u.fiyatNot ? `<span class="eski">${u.eskiFiyat ? `<s>${tl(u.eskiFiyat)}</s>` : ""}${u.eskiFiyat && u.fiyatNot ? " · " : ""}${u.fiyatNot ? k(u.fiyatNot) : ""}</span>` : ""}<span class="fiyat">${tl(u.fiyat)}</span></div>
 </div>`).join("")}</div>
 <div class="yer">Tüm ürün linkleri · buraya dokun</div>
 <p class="not">Fiyatlar ${k(veri.tarih)} · ${k(veri.satici || "marka sitesi")}. Fiyat ve stok değişebilir.</p>
