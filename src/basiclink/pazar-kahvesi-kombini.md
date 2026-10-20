@@ -1,8 +1,8 @@
 ---
-title: "Spor siyah kaban kombini"
+title: "Pazar kahvesi kombini"
 date: 2026-10-20T12:00:00
-ozet: "Uzun siyah kaban, gri eşofman takımı ve Jordan 1 Mid ile şehir kombini. 6 parça, 4 mağaza. Model kodları, fiyatlar ve linkler burada."
-kapak: /img/insta/spor-siyah-kaban-kombini/1.webp
+ozet: "Pazar kahvesi için rahat ama derli toplu: uzun siyah kaban, gri eşofman takımı ve Jordan 1 Mid. 6 parça, 4 mağaza. Model kodları, fiyatlar ve linkler burada."
+kapak: /img/insta/pazar-kahvesi-kombini/1.webp
 slaytlar: 4
 kontrol: 2026-10-20
 satici: "H&M, Pull&Bear, LC Waikiki, Sanal Çadır"
