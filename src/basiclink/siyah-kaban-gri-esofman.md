@@ -1,9 +1,9 @@
 ---
 title: "Kombin: siyah kaban, gri eşofman"
 date: 2026-10-20T12:00:00
-ozet: "Uzun siyah kaban, gri eşofman takımı ve Jordan 1 Mid ile şehir kombini. 6 parça, 4 mağaza, toplam 14.376 TL. Model kodları, fiyatlar ve linkler burada."
+ozet: "Uzun siyah kaban, gri eşofman takımı ve Jordan 1 Mid ile şehir kombini. 6 parça, 4 mağaza. Model kodları, fiyatlar ve linkler burada."
 kapak: /img/insta/siyah-kaban-gri-esofman/1.webp
-slaytlar: 5
+slaytlar: 4
 kontrol: 2026-10-20
 satici: "H&M, Pull&Bear, LC Waikiki, Sanal Çadır"
 urunler:
@@ -52,6 +52,6 @@ urunler:
     gorsel: /img/insta/urun/sanalcadir-133-60595360.webp
     link: https://www.sanalcadir.com/new-era-9forty-new-york-yankees-velour-kadin-siyah-sapka-133-60595360/
 ---
-Uzun siyah kaban, eşofmanı sokakta da giyilir hâle getiriyor. Gri sweatshirt ve geniş paça jogger aynı takımdan; altına ekru kalın bir tişört, ayağa siyah-beyaz-pembe Jordan 1 Mid ve siyah bir şapka yeterli. Etiket fiyatlarıyla toplam 17.325 TL olan kombin, bugünkü indirimlerle 14.376 TL.
+Uzun siyah kaban, eşofmanı sokakta da giyilir hâle getiriyor. Gri sweatshirt ve geniş paça jogger aynı takımdan; altına ekru kalın bir tişört, ayağa siyah-beyaz-pembe Jordan 1 Mid ve siyah bir şapka yeterli.
 
 Pull&Bear'da aynı anda 2 ürün alana %5, 3 ve üzeri ürüne %10 ek indirim var; yukarıdaki fiyatlara dahil değil. H&M kabanındaki %20 sepette uygulanıyor. Sanal Çadır'daki New Era şapka sitede kadın kategorisinde listeleniyor; ayarlanabilir tek beden. Kombin fikrinin ilham fotoğrafı Pinterest'ten.
