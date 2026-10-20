@@ -17,11 +17,13 @@ urunler:
     link: https://www2.hm.com/tr_tr/productpage.1344383001.html
   - marka: Pull&Bear
     ad: "STWD kapüşonlu sweatshirt, gri"
+    kod: 7551/504/827
     fiyat: 2190
     gorsel: /img/insta/urun/pullandbear-stwd-kapusonlu-sweatshirt.webp
     link: https://www.pullandbear.com/tr/stili-kesfet-l91163281391BSBS?cS=827&pelement=764375849
   - marka: Pull&Bear
     ad: "STWD baggy jogger pantolon, gri"
+    kod: 7670/510/827
     fiyat: 1790
     gorsel: /img/insta/urun/pullandbear-stwd-baggy-jogger.webp
     link: https://www.pullandbear.com/tr/stili-kesfet-l91163281391BSBS?cS=827&pelement=764375849
