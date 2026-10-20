@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-19",
+  "guncelleme": "2026-10-20",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -16,7 +16,7 @@
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-19"
+      "kontrol": "2026-10-20"
     },
     {
       "baslik": "Beymen indirimi",
@@ -25,15 +25,15 @@
         "Beymen"
       ],
       "kategori": "giyim",
-      "oran": "%30",
+      "oran": "%40",
       "ornekler": [
-        "DIVARESE Sezon koleksiyonlarında %30 indirim",
-        "BBS Seçili ürünlerde %25 indirim",
-        "seçili Çanta tasarımlarında %20 indirim"
+        "CONVERSE Seçili ürünlerde %40 indirim",
+        "Estée Lauder alışverişlerinde %30’a varan indirim",
+        "DIVARESE Sezon koleksiyonlarında %30 indirim"
       ],
       "link": "https://www.beymen.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-19"
+      "kontrol": "2026-10-20"
     },
     {
       "baslik": "Vakko indirimi",
@@ -48,7 +48,7 @@
       ],
       "link": "https://www.vakko.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-19"
+      "kontrol": "2026-10-20"
     },
     {
       "baslik": "Ramsey indirimi",
@@ -63,7 +63,7 @@
       ],
       "link": "https://www.ramsey.com.tr/",
       "ilkGorulme": "2026-10-16",
-      "kontrol": "2026-10-19"
+      "kontrol": "2026-10-20"
     },
     {
       "baslik": "Sarar indirimi",
@@ -80,7 +80,7 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-19"
+      "kontrol": "2026-10-20"
     }
   ]
 }
