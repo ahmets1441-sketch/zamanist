@@ -21,13 +21,13 @@ layout: base.njk
         <div>
           <span class="iu-marka"{% if not r/[çğıöşüİ]/i.test(u.marka) %} lang="en"{% endif %}>{{ u.marka }}</span>
           <span class="iu-ad">{{ u.ad }}</span>
-          <span class="iu-kod">Model kodu: {{ u.kod }}</span>
+          {% if u.kod %}<span class="iu-kod">Model kodu: {{ u.kod }}</span>{% endif %}{% if u.satici and u.satici != u.marka %}<span class="iu-kod">Satıcı: {{ u.satici }}</span>{% endif %}
           <span class="iu-fiyat">{{ u.fiyat | sayi }} TL{% if u.eskiFiyat %} <s>{{ u.eskiFiyat | sayi }} TL</s>{% endif %}{% if u.fiyatNot %} <small>{{ u.fiyatNot }}</small>{% endif %}</span>
         </div>
         <a class="dugme-kucuk" href="{{ u.link }}" rel="nofollow noopener" target="_blank">Ürüne git</a>
       </li>
     {%- endfor %}
     </ul>
-    <p class="meta alt-not">Fiyatlar {{ kontrol | tarih }} tarihinde {% if satici %}{{ satici }} sitesinde{% else %}markanın kendi sitesinde{% endif %} kontrol edildi; fiyat ve stok değişebilir, satın almadan önce sitede kontrol edin. Ürün görselleri {% if satici %}{{ satici }} sitesinden alınmıştır{% else %}markalara aittir{% endif %}. Bu linklerden komisyon almıyoruz.</p>
+    <p class="meta alt-not">Fiyatlar {{ kontrol | tarih }} tarihinde {% if satici %}{{ satici }} {{ "sitelerinde" if "," in satici else "sitesinde" }}{% else %}markanın kendi sitesinde{% endif %} kontrol edildi; fiyat ve stok değişebilir, satın almadan önce sitede kontrol edin. Ürün görselleri {% if satici %}{{ satici }} {{ "sitelerinden" if "," in satici else "sitesinden" }} alınmıştır{% else %}markalara aittir{% endif %}. Bu linklerden komisyon almıyoruz.</p>
   </div>
 </div>
