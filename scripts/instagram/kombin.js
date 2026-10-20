@@ -1,4 +1,4 @@
-// node scripts/instagram/kombin.js post.json -> out/<n>.png (1080x1350 carousel) and out/hikaye.png (1080x1920 story) for an outfit post.
+// node scripts/instagram/kombin.js post.json -> out/<n>.png (1080x1350 carousel) and out/hikaye-<n>.png (1080x1920 stories: 0 = cover, then one per product) for an outfit post.
 // post.json: {ust, baslik, tarih, referans:{dosya, kaynak}, urunler:[{dosya, zemin, marka, ad, kod, fiyat, eskiFiyat?, fiyatNot?, satici, link}]}
 // "zemin" is the photo's own background colour; each product sits on a tile of that colour so shop photos with grey or white
 // backgrounds both look clean. The reference photo is the look being recreated and is credited on the cover.
@@ -46,12 +46,28 @@ const son = `<section class="slayt son">
   <p>Profildeki linke dokun.</p>
   <p class="not">Fiyatlar ${k(veri.tarih)} tarihinde ${k(saticilar.join(", "))} sitelerinde kontrol edildi; sepette indirimler sepet fiyatıyla yazıldı. Fiyat ve stok değişebilir. Ürün görselleri satıcı sitelerinden, ilham fotoğrafı ${k(veri.referans.kaynak)}.</p>
 </section>`;
-// Story: the cover layout with one empty slot below for the Instagram link sticker (the image itself cannot hold links).
+// Stories: Instagram allows one link sticker per story, so the first story is the cover layout (its slot links the site page)
+// and every product gets its own story with an empty slot for that product's link sticker.
 const hikaye = `<section class="hikaye kapak">
   ${serili(150)}
   <div class="kapak-yazi" style="bottom:auto;top:1330px">${veri.ust ? `<p class="kicker">${k(veri.ust)}</p>` : ""}<h1>${k(veri.baslik)}</h1></div>
-  <div class="yer">Tüm ürün linkleri · buraya dokun</div>
-  <p class="h-not">Fiyatlar ve linkler zamanist.com'da · ${k(veri.tarih)}. İlham fotoğrafı: ${k(veri.referans.kaynak)}.</p>
+  <div class="yer">Kombinin sayfası · buraya dokun</div>
+  <p class="h-not">Her parçanın linki sonraki story'lerde → · İlham fotoğrafı: ${k(veri.referans.kaynak)}.</p>
+</section>`;
+const hikayeUrun = (u, i) => `<section class="hikaye h-urun">
+  <div class="marka-ust sol" style="top:150px"><img src="${logo}"><span>basiclink<i>.</i></span></div>
+  <p class="h-sira">${k(veri.baslik)} · ${i + 1}/${U.length}</p>
+  <div class="h-gorsel"><img src="${src(u.kesik)}"></div>
+  <div class="h-bilgi">
+    <b lang="${lang(u.marka)}">${k(u.marka)}</b>
+    <span class="ad">${k(u.ad)}</span>
+    ${u.kod ? `<span class="kod">${k(u.kod)}</span>` : ""}
+    <span class="fiyat">${tl(u.fiyat)}</span>
+    ${eski(u)}
+    ${u.satici !== u.marka ? `<span class="kod">Satıcı: ${k(u.satici)}</span>` : ""}
+  </div>
+  <div class="yer">Ürüne git · buraya dokun</div>
+  <p class="h-not">Fiyat ${k(veri.tarih)} tarihinde ${k(u.satici)} sitesinde kontrol edildi; değişebilir.</p>
 </section>`;
 
 const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8">
@@ -100,8 +116,18 @@ body{background:#888;font-family:Inter,sans-serif}
 .son .not{font:400 24px Inter;color:#888;margin-top:60px;max-width:800px}
 .hikaye{width:1080px;height:1920px;position:relative;overflow:hidden;color:#111}
 .hikaye .yer{position:absolute;left:56px;right:56px;top:1580px;height:120px;border:3px dashed #CFA65A;border-radius:28px;display:grid;place-items:center;font:700 30px Inter;color:#B08A44}
+.h-urun{background:#E9E7E2}
+.h-sira{position:absolute;right:56px;top:160px;font:600 24px Inter;color:#777}
+.h-gorsel{position:absolute;left:90px;right:90px;top:260px;height:820px;display:flex;align-items:center;justify-content:center}
+.h-gorsel img{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 16px 18px rgba(0,0,0,.16))}
+.h-bilgi{position:absolute;left:56px;right:56px;top:1130px;display:flex;flex-direction:column;gap:8px}
+.h-bilgi b{font:700 44px/1 "Playfair Display";text-transform:uppercase}
+.h-bilgi .ad{font:700 42px/1.15 Inter;letter-spacing:-.02em}
+.h-bilgi .kod{font:500 26px Inter;color:#666}
+.h-bilgi .fiyat{font:800 76px Inter;letter-spacing:-.03em;margin-top:10px}
+.h-bilgi .eski{font:500 28px Inter;color:#B23A2E}.h-bilgi .eski s{color:#888}
 .h-not{position:absolute;left:56px;right:56px;top:1716px;font:400 20px Inter;color:#888}
-</style></head><body>${kapak}${gruplar.map((g, i) => liste(g, `${i + 1}/${gruplar.length}`)).join("")}${son}${hikaye}</body></html>`;
+</style></head><body>${kapak}${gruplar.map((g, i) => liste(g, `${i + 1}/${gruplar.length}`)).join("")}${son}${hikaye}${U.map(hikayeUrun).join("")}</body></html>`;
 fs.writeFileSync(path.join(kok, "post.html"), html);
 (async () => {
   const b = await chromium.launch();
@@ -111,7 +137,8 @@ fs.writeFileSync(path.join(kok, "post.html"), html);
   fs.mkdirSync(path.join(kok, "out"), { recursive: true });
   const s = await p.$$(".slayt");
   for (const [i, el] of s.entries()) await el.screenshot({ path: path.join(kok, "out", `${i + 1}.png`) });
-  await (await p.$(".hikaye")).screenshot({ path: path.join(kok, "out", "hikaye.png") });
+  const h = await p.$$(".hikaye");
+  for (const [i, el] of h.entries()) await el.screenshot({ path: path.join(kok, "out", `hikaye-${i}.png`) });
   await b.close();
-  console.log(s.length, "slayt + hikaye");
+  console.log(s.length, "slayt +", h.length, "story");
 })();
