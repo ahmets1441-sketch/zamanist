@@ -23,6 +23,11 @@ const KALIP = /((?:[\p{L}&'’.]+\s){0,3})%\s?(\d{2})[^%]{0,30}?[iİI]nd[iİI]r[
 const VARAN = /%\s?\d{2}\s?['’]?\s?[eyEYaA]{0,2}\s?(?:varan|VARAN|Varan)/;
 const HARIC = /card|kart|app|uygulama|kupon|kod|ilk alışveriş|öğrenci|üyelere|sepette \d|ikinci ürün|2\.\s?ürün|ve üzeri|ikili|üçlü|\d['’]?l[iı] al|alımda|alışverişler için|seçene|ödeme|havale|ekstra/i;
 
+// Turkish dative suffix as the number is read aloud: %70'e, %60'a, %50'ye.
+const EK_BIRLER = ["", "e", "ye", "e", "e", "e", "ya", "ye", "e", "a"];
+const EK_ONLAR = ["", "a", "ye", "a", "a", "ye", "a", "e", "e", "a"];
+const varanEtiket = (n) => `%${n}'${n % 10 ? EK_BIRLER[n % 10] : EK_ONLAR[Math.floor(n / 10)]} varan`;
+
 function basliklar(t) {
   const bulunan = [];
   for (const m of t.matchAll(KALIP)) {
@@ -50,7 +55,13 @@ for (const k of kaynaklar) {
       await new Promise((ok) => setTimeout(ok, Math.min(60, Number(r.headers.get("Retry-After")) || 20) * 1000));
       r = await getir();
     }
-    if (!r.ok) { console.log(`${k.marka}: HTTP ${r.status}`); continue; }
+    if (!r.ok) {
+      // A busy or briefly blocked site keeps yesterday's entry for a few days instead of vanishing.
+      const eski = onceki.find((x) => x.grup === k.grup);
+      if (eski && (new Date(bugun) - new Date(eski.kontrol)) / 864e5 <= 3) kampanyalar.push(eski);
+      console.log(`${k.marka}: HTTP ${r.status}${eski ? " (önceki kayıt korundu)" : ""}`);
+      continue;
+    }
     const b = basliklar(metin(await r.text()));
     if (!b.length) { console.log(`${k.marka}: indirim başlığı yok`); continue; }
     const eski = onceki.find((x) => x.grup === k.grup);
@@ -60,7 +71,8 @@ for (const k of kaynaklar) {
       grup: k.grup,
       markalar: [k.marka],
       kategori: k.kategori,
-      oran: en.etiket,
+      // Sale pages list many product badges; the top one is an upper bound, not the rate for everything.
+      oran: k.sayfa === "urunler" ? varanEtiket(en.oran) : en.etiket,
       ornekler: [...new Set(b.map((x) => x.metin))].slice(0, 3),
       link: k.url,
       ilkGorulme: eski?.ilkGorulme || bugun,

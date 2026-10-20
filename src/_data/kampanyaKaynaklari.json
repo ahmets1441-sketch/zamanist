@@ -14,5 +14,19 @@
   { "marka": "Derimod", "grup": "Derimod", "kategori": "ayakkabi", "url": "https://www.derimod.com.tr/" },
   { "marka": "U.S. Polo Assn.", "grup": "U.S. Polo Assn.", "kategori": "giyim", "url": "https://tr.uspoloassn.com/" },
   { "marka": "FLO", "grup": "FLO", "kategori": "ayakkabi", "url": "https://www.flo.com.tr/" },
-  { "marka": "Superstep", "grup": "Superstep", "kategori": "ayakkabi", "url": "https://www.superstep.com.tr/" }
+  { "marka": "Superstep", "grup": "Superstep", "kategori": "ayakkabi", "url": "https://www.superstep.com.tr/" },
+  { "marka": "Sanal Çadır", "grup": "Sanal Çadır", "kategori": "genel", "url": "https://www.sanalcadir.com/secili-urunlerde-sepette-indirim/", "sayfa": "urunler" },
+  { "marka": "Occasion", "grup": "Occasion", "kategori": "genel", "url": "https://www.occasion.com.tr/son-firsat-urunleri/", "sayfa": "urunler" },
+  { "marka": "Intersport", "grup": "Intersport", "kategori": "ayakkabi", "url": "https://www.intersport.com.tr/" },
+  { "marka": "Columbia", "grup": "Columbia", "kategori": "giyim", "url": "https://www.columbia.com.tr/" },
+  { "marka": "Timberland", "grup": "Timberland", "kategori": "ayakkabi", "url": "https://www.timberland.com.tr/" },
+  { "marka": "Skechers", "grup": "Skechers", "kategori": "ayakkabi", "url": "https://www.skechers.com.tr/" },
+  { "marka": "Mavi", "grup": "Mavi", "kategori": "giyim", "url": "https://www.mavi.com/" },
+  { "marka": "Tommy Hilfiger", "grup": "Tommy Hilfiger", "kategori": "giyim", "url": "https://www.tommy.com/tr" },
+  { "marka": "Lacoste", "grup": "Lacoste", "kategori": "giyim", "url": "https://www.lacoste.com.tr/" },
+  { "marka": "Levi's", "grup": "Levi's", "kategori": "giyim", "url": "https://www.levi.com.tr/" },
+  { "marka": "Sportive", "grup": "Sportive", "kategori": "ayakkabi", "url": "https://www.sportive.com.tr/" },
+  { "marka": "Instreet", "grup": "Instreet", "kategori": "ayakkabi", "url": "https://www.instreet.com.tr/" },
+  { "marka": "Korayspor", "grup": "Korayspor", "kategori": "ayakkabi", "url": "https://www.korayspor.com/" },
+  { "marka": "Puma", "grup": "Puma", "kategori": "ayakkabi", "url": "https://www.puma.com/tr/tr" }
 ]
