@@ -23,8 +23,8 @@ const kapak = `<section class="slayt kapak">
   <div class="marka-ust sol"><img src="${logo}"><span>basiclink<i>.</i></span></div>
   <figure class="ref"><img src="${src(veri.referans.dosya)}"><figcaption>İlham fotoğrafı: ${k(veri.referans.kaynak)}</figcaption></figure>
   ${U.map((u) => `<img class="parca" src="${src(u.kesik)}" style="left:${u.kapak.x}px;top:${u.kapak.y}px;width:${u.kapak.w}px">
-  <span class="ad-etiket" lang="${lang(u.marka)}" style="left:${u.kapak.lx}px;top:${u.kapak.ly}px">${k(u.marka)}</span>`).join("")}
-  <div class="kapak-yazi"><p class="kicker">${k(veri.ust)}</p><h1>${k(veri.baslik)}</h1><p class="kaydir">Kaydır →</p></div>
+  <span class="ad-etiket" style="left:${u.kapak.lx}px;top:${u.kapak.ly}px"><b lang="${lang(u.marka)}">${k(u.marka)}</b>${u.kod ? `<small>${k(u.kod)}</small>` : ""}</span>`).join("")}
+  <div class="kapak-yazi">${veri.ust ? `<p class="kicker">${k(veri.ust)}</p>` : ""}<h1>${k(veri.baslik)}</h1><p class="kaydir">Kaydır →</p></div>
 </section>`;
 const parca = (xs, n) => xs.reduce((a, x, i) => (i % n ? a[a.length - 1].push(x) : a.push([x]), a), []);
 const gruplar = parca(U, 3);
@@ -46,7 +46,7 @@ const son = `<section class="slayt son">
 </section>`;
 const hikaye = `<section class="hikaye">
   ${ust.replace("marka-ust", "marka-ust sol")}
-  <div class="h-ust"><img class="h-ref" src="${src(veri.referans.dosya)}"><div><p class="kicker">${k(veri.ust)}</p><h1>${k(veri.baslik)}</h1></div></div>
+  <div class="h-ust"><img class="h-ref" src="${src(veri.referans.dosya)}"><div>${veri.ust ? `<p class="kicker">${k(veri.ust)}</p>` : ""}<h1>${k(veri.baslik)}</h1></div></div>
   <div class="h-liste">${U.map((u) => `<div class="h-satir">${karo(u)}<div class="etiket"><span class="m" lang="${lang(u.marka)}">${k(u.marka)}</span><span class="ad">${k(u.ad)}</span>${eski(u)}</div><span class="fiyat">${tl(u.fiyat)}</span></div>`).join("")}</div>
   <div class="yer">Tüm ürün linkleri · buraya dokun</div>
   <p class="h-not">Fiyatlar ${k(veri.tarih)} · ${k(saticilar.join(", "))}. Fiyat ve stok değişebilir. İlham fotoğrafı: ${k(veri.referans.kaynak)}.</p>
@@ -67,11 +67,13 @@ body{background:#888;font-family:Inter,sans-serif}
 .kicker{font:700 26px Inter;letter-spacing:.3em;color:#B08A44}
 .kapak{background:#E9E7E2}
 .marka-ust.sol{left:44px;right:auto}
-.ref{position:absolute;left:40px;top:110px;width:400px;height:637px;margin:0;border-radius:18px;overflow:hidden;box-shadow:0 14px 30px rgba(0,0,0,.18)}
+.ref{position:absolute;left:40px;top:110px;width:380px;height:600px;margin:0;border-radius:18px;overflow:hidden;box-shadow:0 14px 30px rgba(0,0,0,.18)}
 .ref img{width:100%;height:100%;object-fit:cover}
 .ref figcaption{position:absolute;left:12px;bottom:12px;font:500 17px Inter;color:#fff;background:rgba(0,0,0,.45);padding:5px 10px;border-radius:7px}
 .parca{position:absolute;filter:drop-shadow(0 10px 12px rgba(0,0,0,.16))}
-.ad-etiket{position:absolute;font:700 30px/1 "Playfair Display";letter-spacing:.01em;color:#222;text-transform:uppercase}
+.ad-etiket{position:absolute;display:flex;flex-direction:column;gap:4px;color:#222}
+.ad-etiket b{font:700 28px/1 "Playfair Display";letter-spacing:.01em;text-transform:uppercase}
+.ad-etiket small{font:500 19px Inter;color:#555;letter-spacing:.02em}
 .kapak-yazi{position:absolute;left:470px;right:44px;bottom:48px}
 .kapak h1{font:800 64px/0.98 Inter;letter-spacing:-.045em;margin-top:12px;text-wrap:balance}
 .kaydir{font:600 24px Inter;margin-top:18px;text-align:right}
