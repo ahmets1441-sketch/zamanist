@@ -12,31 +12,19 @@ const src = (d) => "file://" + path.join(kok, d);
 const lang = (s) => (/[çğıöşüİ]/i.test(s) ? "tr" : "en");
 const logo = "file://" + path.join(__dirname, "logo-b-yuvarlak.png");
 const U = veri.urunler;
-const toplam = Math.round(U.reduce((a, u) => a + u.fiyat, 0) * 100) / 100;
-const etiketToplam = Math.round(U.reduce((a, u) => a + (u.eskiFiyat || u.fiyat), 0) * 100) / 100;
 const saticilar = [...new Set(U.map((u) => u.satici))];
 const ust = `<div class="marka-ust"><img src="${logo}"><span>basiclink<i>.</i></span></div>`;
 const eski = (u) => u.eskiFiyat || u.fiyatNot ? `<span class="eski">${u.eskiFiyat ? `<s>${tl(u.eskiFiyat)}</s>` : ""}${u.eskiFiyat && u.fiyatNot ? " · " : ""}${u.fiyatNot ? k(u.fiyatNot) : ""}</span>` : "";
 const karo = (u, sinif = "") => `<div class="karo ${sinif}" style="background:${u.zemin}"><img src="${src(u.dosya)}"></div>`;
 
+// Cover: the reference look next to the pieces laid out flat, each labelled with its brand. No prices on the cover.
+// Every product carries "kesik" (a cut-out PNG from kes.mjs) and "kapak" {x, y, w, lx, ly}: its place and its label's place.
 const kapak = `<section class="slayt kapak">
-  <img class="ref" src="${src(veri.referans.dosya)}">
-  <div class="kapak-yazi">
-    ${ust}
-    <p class="kicker">${k(veri.ust)}</p>
-    <h1>${k(veri.baslik)}</h1>
-    <p class="alt">${U.length} parça · ${saticilar.length} mağaza</p>
-    <p class="toplam-k">Toplam<br><b>${tl(toplam)}</b></p>
-    <div class="mini">${U.map((u) => karo(u)).join("")}</div>
-    <p class="kaydir">Kaydır →</p>
-  </div>
-  <p class="kredi">İlham fotoğrafı: ${k(veri.referans.kaynak)}</p>
-</section>`;
-const izgara = `<section class="slayt izgara">
-  ${ust}
-  <h2>Parça parça</h2>
-  <div class="grid">${U.map((u) => `<div class="hucre">${karo(u)}<span class="m" lang="${lang(u.marka)}">${k(u.marka)}</span><span class="f">${tl(u.fiyat)}</span></div>`).join("")}</div>
-  <div class="toplam"><span>Kombinin toplamı</span><b>${tl(toplam)}</b>${etiketToplam > toplam ? `<s>${tl(etiketToplam)}</s>` : ""}</div>
+  <div class="marka-ust sol"><img src="${logo}"><span>basiclink<i>.</i></span></div>
+  <figure class="ref"><img src="${src(veri.referans.dosya)}"><figcaption>İlham fotoğrafı: ${k(veri.referans.kaynak)}</figcaption></figure>
+  ${U.map((u) => `<img class="parca" src="${src(u.kesik)}" style="left:${u.kapak.x}px;top:${u.kapak.y}px;width:${u.kapak.w}px">
+  <span class="ad-etiket" lang="${lang(u.marka)}" style="left:${u.kapak.lx}px;top:${u.kapak.ly}px">${k(u.marka)}</span>`).join("")}
+  <div class="kapak-yazi"><p class="kicker">${k(veri.ust)}</p><h1>${k(veri.baslik)}</h1><p class="kaydir">Kaydır →</p></div>
 </section>`;
 const parca = (xs, n) => xs.reduce((a, x, i) => (i % n ? a[a.length - 1].push(x) : a.push([x]), a), []);
 const gruplar = parca(U, 3);
@@ -58,14 +46,14 @@ const son = `<section class="slayt son">
 </section>`;
 const hikaye = `<section class="hikaye">
   ${ust.replace("marka-ust", "marka-ust sol")}
-  <div class="h-ust"><img class="h-ref" src="${src(veri.referans.dosya)}"><div><p class="kicker">${k(veri.ust)}</p><h1>${k(veri.baslik)}</h1><p class="toplam-k">Toplam<br><b>${tl(toplam)}</b></p></div></div>
+  <div class="h-ust"><img class="h-ref" src="${src(veri.referans.dosya)}"><div><p class="kicker">${k(veri.ust)}</p><h1>${k(veri.baslik)}</h1></div></div>
   <div class="h-liste">${U.map((u) => `<div class="h-satir">${karo(u)}<div class="etiket"><span class="m" lang="${lang(u.marka)}">${k(u.marka)}</span><span class="ad">${k(u.ad)}</span>${eski(u)}</div><span class="fiyat">${tl(u.fiyat)}</span></div>`).join("")}</div>
   <div class="yer">Tüm ürün linkleri · buraya dokun</div>
   <p class="h-not">Fiyatlar ${k(veri.tarih)} · ${k(saticilar.join(", "))}. Fiyat ve stok değişebilir. İlham fotoğrafı: ${k(veri.referans.kaynak)}.</p>
 </section>`;
 
 const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0}
 body{background:#888;font-family:Inter,sans-serif}
@@ -77,28 +65,16 @@ body{background:#888;font-family:Inter,sans-serif}
 .karo{border-radius:22px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .karo img{width:100%;height:100%;min-width:0;min-height:0;object-fit:contain}
 .kicker{font:700 26px Inter;letter-spacing:.3em;color:#B08A44}
-.kapak .ref{position:absolute;left:0;top:0;width:560px;height:1350px;object-fit:cover}
-.kapak-yazi{position:absolute;left:560px;top:0;right:0;bottom:0;padding:150px 50px 60px 50px}
-.kapak .marka-ust{right:50px}
-.kapak h1{font:800 76px/0.98 Inter;letter-spacing:-.045em;margin-top:18px;text-wrap:balance}
-.kapak .alt{font:500 30px Inter;color:#666;margin-top:22px}
-.toplam-k{font:500 26px Inter;color:#666;margin-top:34px}
-.toplam-k b{display:block;font:800 60px Inter;color:#111;letter-spacing:-.03em;margin-top:4px}
-.kapak .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
-.kapak .mini .karo{height:170px;padding:10px;border-radius:16px}
-.kaydir{position:absolute;right:50px;bottom:52px;font:600 26px Inter}
-.kredi{position:absolute;left:20px;bottom:18px;font:500 18px Inter;color:#fff;background:rgba(0,0,0,.45);padding:6px 12px;border-radius:8px}
-.izgara{padding:120px 56px 56px}
-.izgara h2,.liste h2{font:800 64px Inter;letter-spacing:-.04em}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 18px;margin-top:34px}
-.hucre{display:flex;flex-direction:column;gap:6px}
-.hucre .karo{height:380px;padding:18px}
-.hucre .m{font:600 19px Inter;letter-spacing:.18em;text-transform:uppercase;color:#888;margin-top:6px}
-.hucre .f{font:800 32px Inter;letter-spacing:-.02em}
-.toplam{position:absolute;left:56px;right:56px;bottom:56px;background:#111;color:#fff;border-radius:22px;padding:26px 34px;display:flex;align-items:baseline;gap:22px}
-.toplam span{font:600 30px Inter;flex:1}
-.toplam b{font:800 52px Inter;color:#CFA65A;letter-spacing:-.03em}
-.toplam s{font:500 26px Inter;color:#888}
+.kapak{background:#E9E7E2}
+.marka-ust.sol{left:44px;right:auto}
+.ref{position:absolute;left:40px;top:110px;width:400px;height:637px;margin:0;border-radius:18px;overflow:hidden;box-shadow:0 14px 30px rgba(0,0,0,.18)}
+.ref img{width:100%;height:100%;object-fit:cover}
+.ref figcaption{position:absolute;left:12px;bottom:12px;font:500 17px Inter;color:#fff;background:rgba(0,0,0,.45);padding:5px 10px;border-radius:7px}
+.parca{position:absolute;filter:drop-shadow(0 10px 12px rgba(0,0,0,.16))}
+.ad-etiket{position:absolute;font:700 30px/1 "Playfair Display";letter-spacing:.01em;color:#222;text-transform:uppercase}
+.kapak-yazi{position:absolute;left:470px;right:44px;bottom:48px}
+.kapak h1{font:800 64px/0.98 Inter;letter-spacing:-.045em;margin-top:12px;text-wrap:balance}
+.kaydir{font:600 24px Inter;margin-top:18px;text-align:right}
 .liste{padding:130px 56px 56px;display:flex;flex-direction:column;gap:28px}
 .sayfa{position:absolute;left:60px;top:52px;font:600 22px Inter;color:#888}
 .satir{display:flex;gap:34px;align-items:center;height:370px}
@@ -119,11 +95,11 @@ body{background:#888;font-family:Inter,sans-serif}
 .son .hikaye-not{font:700 40px Inter;color:#111;background:#CFA65A;border-radius:999px;padding:22px 48px;margin-bottom:34px}
 .son .not{font:400 24px Inter;color:#888;margin-top:60px;max-width:800px}
 .hikaye{width:1080px;height:1920px;position:relative;background:#F4F4F2;color:#111;padding:150px 56px 150px;display:flex;flex-direction:column}
-.marka-ust.sol{left:56px;right:auto;top:150px;position:relative;margin-bottom:24px}
+.hikaye .marka-ust.sol{left:56px;right:auto;top:150px;position:relative;margin-bottom:24px}
 .h-ust{display:flex;gap:34px;align-items:center}
 .h-ref{width:300px;height:420px;object-fit:cover;border-radius:22px;flex:none}
 .hikaye h1{font:800 68px/1 Inter;letter-spacing:-.04em;margin-top:12px;text-wrap:balance}
-.marka-ust.sol{position:static}
+.hikaye .marka-ust.sol{position:static}
 .h-liste{flex:1;display:flex;flex-direction:column;justify-content:space-between;margin-top:30px}
 .h-satir{display:flex;align-items:center;gap:24px;height:150px}
 .h-satir .karo{width:150px;height:150px;padding:10px;border-radius:16px;flex:none}
@@ -131,7 +107,7 @@ body{background:#888;font-family:Inter,sans-serif}
 .h-satir .fiyat{font:800 36px Inter;letter-spacing:-.02em;white-space:nowrap}
 .yer{margin-top:26px;height:120px;border:3px dashed #CFA65A;border-radius:28px;display:grid;place-items:center;font:700 30px Inter;color:#B08A44;flex:none}
 .h-not{font:400 20px Inter;color:#888;margin-top:18px}
-</style></head><body>${kapak}${izgara}${gruplar.map((g, i) => liste(g, `${i + 1}/${gruplar.length}`)).join("")}${son}${hikaye}</body></html>`;
+</style></head><body>${kapak}${gruplar.map((g, i) => liste(g, `${i + 1}/${gruplar.length}`)).join("")}${son}${hikaye}</body></html>`;
 fs.writeFileSync(path.join(kok, "post.html"), html);
 (async () => {
   const b = await chromium.launch();
@@ -143,5 +119,5 @@ fs.writeFileSync(path.join(kok, "post.html"), html);
   for (const [i, el] of s.entries()) await el.screenshot({ path: path.join(kok, "out", `${i + 1}.png`) });
   await (await p.$(".hikaye")).screenshot({ path: path.join(kok, "out", "hikaye.png") });
   await b.close();
-  console.log(s.length, "slayt + hikaye · toplam", tl(toplam));
+  console.log(s.length, "slayt + hikaye");
 })();
