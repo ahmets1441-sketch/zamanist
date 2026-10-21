@@ -12,6 +12,8 @@ const src = (d) => "file://" + path.join(kok, d);
 const lang = (s) => (/[çğıöşüİ]/i.test(s) ? "tr" : "en");
 const logo = "file://" + path.join(__dirname, "logo-b-yuvarlak.png");
 const U = veri.urunler;
+const topYeni = Math.round(U.reduce((a, u) => a + u.fiyat, 0) * 100) / 100;
+const toplam = veri.toplam ? `<div class="toplam"><span class="t-ust">${k(veri.toplam.ust || "Bu kombin toplamda")}</span><span class="t-satir">${veri.toplam.on ? `<i>${k(veri.toplam.on)}</i>` : ""}<b>${k(veri.toplam.tutar || tl(Math.round(topYeni)))}</b></span><span class="t-oran">${k(veri.toplam.alt || "Linkler story'de, kaçırma!")}</span></div>` : "";
 const saticilar = [...new Set(U.map((u) => u.satici))];
 const ust = `<div class="marka-ust"><img src="${logo}"><span>basiclink<i>.</i></span></div>`;
 const eski = (u) => u.eskiFiyat || u.fiyatNot ? `<span class="eski">${u.eskiFiyat ? `<s>${tl(u.eskiFiyat)}</s>` : ""}${u.eskiFiyat && u.fiyatNot ? " · " : ""}${u.fiyatNot ? k(u.fiyatNot) : ""}</span>` : "";
@@ -21,12 +23,12 @@ const karo = (u, sinif = "") => `<div class="karo ${sinif}" style="background:${
 // Every product carries "kesik" (a cut-out PNG from kes.mjs) and "kapak" {x, y, w, lx, ly}: its place and its label's place
 // on the 1080x1350 cover; the story reuses the same layout shifted down by "dy".
 const serili = (dy) => `<div class="marka-ust sol" style="top:${44 + dy}px"><img src="${logo}"><span>basiclink<i>.</i></span></div>
-  <figure class="ref" style="top:${110 + dy}px"><img src="${src(veri.referans.dosya)}"><figcaption>İlham fotoğrafı: ${k(veri.referans.kaynak)}</figcaption></figure>
+  <figure class="ref" style="top:${110 + dy}px"><img src="${src(veri.referans.dosya)}">${veri.referans.etiketGizle ? "" : `<figcaption>${veri.referans.etiket ? k(veri.referans.etiket) : "İlham fotoğrafı: " + k(veri.referans.kaynak)}</figcaption>`}</figure>
   ${U.map((u) => `<img class="parca" src="${src(u.kesik)}" style="left:${u.kapak.x}px;top:${u.kapak.y + dy}px;width:${u.kapak.w}px">
   <span class="ad-etiket" style="left:${u.kapak.lx}px;top:${u.kapak.ly + dy}px"><b lang="${lang(u.marka)}">${k(u.marka)}</b>${u.kod ? `<small>${k(u.kod)}</small>` : ""}</span>`).join("")}`;
 const kapak = `<section class="slayt kapak">
   ${serili(0)}
-  <div class="kapak-yazi">${veri.ust ? `<p class="kicker">${k(veri.ust)}</p>` : ""}<h1>${k(veri.baslik)}</h1><p class="kaydir">Kaydır →</p></div>
+  <div class="kapak-yazi">${toplam}${veri.ust ? `<p class="kicker">${k(veri.ust)}</p>` : ""}${veri.baslikGizle ? "" : `<h1>${k(veri.baslik)}</h1>`}<p class="kaydir">Kaydır →</p></div>
 </section>`;
 const parca = (xs, n) => xs.reduce((a, x, i) => (i % n ? a[a.length - 1].push(x) : a.push([x]), a), []);
 const gruplar = parca(U, 3);
@@ -44,15 +46,15 @@ const son = `<section class="slayt son">
   <h2>Linkler ve güncel fiyatlar</h2>
   <p class="site">zamanist.com</p>
   <p>Profildeki linke dokun.</p>
-  <p class="not">Fiyatlar ${k(veri.tarih)} tarihinde ${k(saticilar.join(", "))} sitelerinde kontrol edildi; sepette indirimler sepet fiyatıyla yazıldı. Fiyat ve stok değişebilir. Ürün görselleri satıcı sitelerinden, ilham fotoğrafı ${k(veri.referans.kaynak)}.</p>
+  <p class="not">Fiyatlar ${k(veri.tarih)} tarihinde ${k(saticilar.join(", "))} sitelerinde kontrol edildi; sepette indirimler sepet fiyatıyla yazıldı. Fiyat ve stok değişebilir. Ürün görselleri satıcı sitelerinden, ${veri.referans.etiket ? "kapaktaki manken görseli yapay zekâ ile oluşturuldu" : "ilham fotoğrafı " + k(veri.referans.kaynak)}.</p>
 </section>`;
 // Stories: Instagram allows one link sticker per story, so the first story is the cover layout (its slot links the site page)
 // and every product gets its own story with an empty slot for that product's link sticker.
 const hikaye = `<section class="hikaye kapak">
   ${serili(150)}
-  <div class="kapak-yazi" style="bottom:auto;top:1330px">${veri.ust ? `<p class="kicker">${k(veri.ust)}</p>` : ""}<h1>${k(veri.baslik)}</h1></div>
+  <div class="kapak-yazi" style="bottom:auto;top:1250px">${toplam}${veri.ust ? `<p class="kicker">${k(veri.ust)}</p>` : ""}${veri.baslikGizle ? "" : `<h1>${k(veri.baslik)}</h1>`}</div>
   <div class="yer">Kombinin sayfası · buraya dokun</div>
-  <p class="h-not">Her parçanın linki sonraki story'lerde → · İlham fotoğrafı: ${k(veri.referans.kaynak)}.</p>
+  <p class="h-not">Her parçanın linki sonraki story'lerde →${veri.referans.etiketGizle ? "" : ` · ${veri.referans.etiket ? k(veri.referans.etiket) : "İlham fotoğrafı: " + k(veri.referans.kaynak)}.`}</p>
 </section>`;
 const hikayeUrun = (u, i) => `<section class="hikaye h-urun">
   <div class="marka-ust sol" style="top:150px"><img src="${logo}"><span>basiclink<i>.</i></span></div>
@@ -94,6 +96,12 @@ body{background:#888;font-family:Inter,sans-serif}
 .ad-etiket small{font:500 19px Inter;color:#555;letter-spacing:.02em}
 .kapak-yazi{position:absolute;left:470px;right:44px;bottom:48px}
 .kapak h1{font:800 64px/0.98 Inter;letter-spacing:-.045em;margin-top:12px;text-wrap:balance}
+.toplam{display:flex;flex-direction:column;gap:4px;margin-bottom:22px}
+.t-ust{font:italic 700 30px/1.15 "Playfair Display";color:#5a4a35;text-wrap:balance;margin-bottom:6px}
+.t-satir i{font:700 34px Inter;font-style:normal;color:#111;letter-spacing:-.02em}
+.t-satir{display:flex;align-items:baseline;gap:16px}
+.t-satir b{font:800 64px/1 Inter;letter-spacing:-.03em;color:#111}
+.t-oran{font:700 24px Inter;color:#B08A44;margin-top:4px}
 .kaydir{font:600 24px Inter;margin-top:18px;text-align:right}
 .liste{padding:130px 56px 56px;display:flex;flex-direction:column;gap:28px}
 .sayfa{position:absolute;left:60px;top:52px;font:600 22px Inter;color:#888}

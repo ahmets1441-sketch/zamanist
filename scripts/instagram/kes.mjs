@@ -26,7 +26,7 @@ while (yigin.length) {
 // Crop to what is left, then soften the cut edge by a pixel so it does not look jagged.
 let [x0, y0, x1, y1] = [w, h, 0, 0];
 for (let i = 0; i < w * h; i++) if (data[i * 4 + 3]) { const x = i % w, y = (i - x) / w; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
-const alfa = await sharp(data, { raw: info }).extractChannel(3).blur(0.6).toBuffer();
-await sharp(await sharp(data, { raw: info }).removeAlpha().joinChannel(alfa, { raw: { width: w, height: h, channels: 1 } }).png().toBuffer())
-  .extract({ left: x0, top: y0, width: x1 - x0 + 1, height: y1 - y0 + 1 }).toFile(cikis);
+const alfa = await sharp(data, { raw: info }).extractChannel(3).blur(0.6).raw().toBuffer();
+for (let i = 0; i < w * h; i++) data[i * 4 + 3] = alfa[i];
+await sharp(data, { raw: info }).extract({ left: x0, top: y0, width: x1 - x0 + 1, height: y1 - y0 + 1 }).png().toFile(cikis);
 console.log(cikis, "zemin", zemin.map(Math.round).join(","));
