@@ -140,6 +140,8 @@ h2{font-size:1.4rem}
 .kart a:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.12);color:var(--fg)}
 .kart-gorsel{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--alan)}
 .urunler .kart-gorsel{aspect-ratio:1;object-fit:contain;background:#fff;padding:.5rem}
+/* Instagram covers are 4:5 portraits; their top holds the look, so crop from the top. */
+.kart-gorsel[src*="/img/insta/"]{object-position:50% 0}
 .kart-gorsel.bos{display:flex;align-items:center;justify-content:center;font:700 3rem var(--baslik);color:var(--altin-acik);background:linear-gradient(135deg,var(--lacivert),var(--lacivert-2))}
 .bolumler .kart-gorsel.bos{aspect-ratio:3/1;font-size:2rem}
 .kart-ust{padding:.9rem 1.1rem 0;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--altin-koyu)}
