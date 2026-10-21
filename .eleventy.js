@@ -18,7 +18,8 @@ module.exports = function (eleventyConfig) {
   );
   for (const b of bolumler) {
     eleventyConfig.addCollection(b.slug, (api) => {
-      const yazilar = api.getFilteredByGlob(`src/${b.slug}/*.md`);
+      // A section can also list pages from other folders that carry its tag, e.g. basiclink outfit posts in Kombinlerim.
+      const yazilar = [...new Set([...api.getFilteredByGlob(`src/${b.slug}/*.md`), ...api.getFilteredByTag(b.slug)])];
       return b.siralama === "isim"
         ? yazilar.sort((x, y) => x.data.title.localeCompare(y.data.title, "tr"))
         : yazilar.sort((x, y) => y.date - x.date);
