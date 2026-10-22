@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-21",
+  "guncelleme": "2026-10-22",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -16,7 +16,7 @@
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-21"
+      "kontrol": "2026-10-22"
     },
     {
       "baslik": "Beymen indirimi",
@@ -33,22 +33,7 @@
       ],
       "link": "https://www.beymen.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-21"
-    },
-    {
-      "baslik": "Vakko indirimi",
-      "grup": "Vakko",
-      "markalar": [
-        "Vakko"
-      ],
-      "kategori": "giyim",
-      "oran": "%25",
-      "ornekler": [
-        "Monogram SEÇİLİ ÜRÜNLERDE %25 İNDİRİM"
-      ],
-      "link": "https://www.vakko.com/",
-      "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-21"
+      "kontrol": "2026-10-22"
     },
     {
       "baslik": "Ramsey indirimi",
@@ -63,7 +48,7 @@
       ],
       "link": "https://www.ramsey.com.tr/",
       "ilkGorulme": "2026-10-16",
-      "kontrol": "2026-10-21"
+      "kontrol": "2026-10-22"
     },
     {
       "baslik": "Sarar indirimi",
@@ -80,7 +65,7 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-21"
+      "kontrol": "2026-10-22"
     }
   ]
 }
