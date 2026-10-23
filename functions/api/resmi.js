@@ -96,14 +96,14 @@ async function dene(aday, ulke) {
 
 export async function onRequestGet({ request }) {
   const u = new URL(request.url);
-  const q = (u.searchParams.get("q") || "").trim().slice(0, 60);
+  const q = (u.searchParams.get("q") || "").trim().slice(0, u.searchParams.has("hepsi") ? 120 : 60);
   const ulke = ulkeler.find((x) => x.kod === (u.searchParams.get("ulke") || "japonya"));
   const yer = ulke?.resmiYerel;
   if (!yer) return Response.json({ bulundu: false, neden: "desteklenmeyen" });
   // The query may hold brand and model words too ("TISSOT T1292102203100 CLASSIC DREAM"): try each token.
   const kodlar = [...new Set([sade(q), ...q.split(/[\s,/]+/).map(sade)])].filter((k) => k.length >= 5);
   const adaylar = [
-    ...(yer.swatch ? SWATCH.flatMap((b) => kodlar.filter((k) => b.desen.test(k)).map((k) => ({ marka: b.marka, ad: b.ad, url: `https://${b.site}/${yer.swatch}/${k.toLowerCase()}.html` }))) : []),
+    ...(yer.swatch ? SWATCH.flatMap((b) => kodlar.filter((k) => b.desen.test(k)).map((k) => ({ marka: b.marka, ad: b.ad, kod: k, url: `https://${b.site}/${yer.swatch}/${k.toLowerCase()}.html` }))) : []),
     ...(yer.seiko ? kodlar.filter((k) => SEIKO_DESEN.test(k)).flatMap((k) => seikoAdaylar(k, yer.seiko)) : []),
     ...("nike" in yer ? kodlar.filter((k) => NIKE_DESEN.test(k)).map((k) => nikeAday(k, yer.nike)) : []),
     ...(yer.gg ? kodlar.filter((k) => GG_DESEN.test(k)).map((k) => ggAday(k, yer.gg)) : []),
@@ -111,6 +111,11 @@ export async function onRequestGet({ request }) {
   if (!adaylar.length) return Response.json({ bulundu: false, neden: "desteklenmeyen" });
 
   const sonuclar = await Promise.all(adaylar.slice(0, 10).map((a) => dene(a, ulke)));
+  // hepsi=1: several model codes at once (the model choice for a name search); every one with a price.
+  if (u.searchParams.has("hepsi")) {
+    const modeller = sonuclar.filter((s, i) => s.fiyat && sonuclar.findIndex((x) => x.kod === s.kod && x.fiyat) === i).map(({ kod, fiyat, indirimli, urunAdi, url }) => ({ kod, fiyat, indirimli: indirimli || null, urunAdi, link: url }));
+    return Response.json({ modeller }, { headers: { "Cache-Control": "public, max-age=21600" } });
+  }
   const bulunan = sonuclar.find((s) => s.fiyat);
   const tr = bulunan && (await trFiyati(bulunan));
   const govde = bulunan
