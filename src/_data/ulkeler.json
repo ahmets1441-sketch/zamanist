@@ -45,30 +45,9 @@
       "gg": "us/en"
     },
     "satisVergisi": {
-      "secenekler": [
-        {
-          "ad": "New York City (%8,875)",
-          "oran": 0.08875
-        },
-        {
-          "ad": "New York City, 110 $ altı giyim ve ayakkabı (%0)",
-          "oran": 0
-        },
-        {
-          "ad": "Los Angeles (%10,25)",
-          "oran": 0.1025
-        },
-        {
-          "ad": "Miami (%7)",
-          "oran": 0.07
-        },
-        {
-          "ad": "Delaware veya Oregon (%0)",
-          "oran": 0
-        }
-      ]
+      "bilgi": "ABD'de etiket fiyatına satış vergisi dahil değil; kasada eyalete ve şehre göre yaklaşık %0–10 eklenir (New York City %8,875, Los Angeles %10,25, Miami %7; Delaware ve Oregon'da yok). Turistlere iadesi yapılmaz."
     },
-    "aramaNotu": "Resmi fiyat Zamanist'in kontrol ettiği listeden veya markanın ABD sitesinden alınır. ABD'de etiket fiyatlarına satış vergisi dahil değildir; hesapta seçtiğiniz şehrin oranı eklenir. Turistlere satış vergisi iadesi yapılmaz. Model kodunu mutlaka kontrol edin.",
+    "aramaNotu": "Resmi fiyat Zamanist'in kontrol ettiği listeden veya markanın ABD sitesinden alınır. ABD'de etiket fiyatlarına satış vergisi dahil değildir; kasada eyalete göre eklenir, hesapta gösterilen fiyata dahil değildir. Turistlere satış vergisi iadesi yapılmaz. Model kodunu mutlaka kontrol edin.",
     "ornekFiyat": "150",
     "not": "ABD'de etiket fiyatlarına satış vergisi dahil değil; kasada eyalete ve şehre göre eklenir (Delaware ve Oregon'da yok). Turistlere satış vergisi iadesi yapılmaz. New York City'de 110 doların altındaki giyim ve ayakkabıda satış vergisi yok; saat ve aksesuarda var."
   }
