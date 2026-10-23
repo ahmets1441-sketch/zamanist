@@ -21,10 +21,13 @@ window.Zamanist = (() => {
     return kurlar[kod];
   }
 
-  // fiyat: oradaki vergiler dahil etiket fiyatı. iadeli: mağazadan pasaportla alışveriş mi.
+  // fiyat: oradaki etiket fiyatı. iadeli: mağazadan pasaportla alışveriş mi.
   // ulke.vergiIadesi: kdv oranı, iade alt sınırı (vergili mi vergisiz mi) ve
   // iade şirketlerinin komisyonundan sonra geri ödenen pay (1 = verginin tamamı).
-  function hesapla({ fiyat, ulke, kur, trFiyat, iadeli = true }) {
+  // satisOrani: etikete dahil olmayan, kasada eklenen vergi (ABD'de satış vergisi, örn. 0.08875).
+  function hesapla({ fiyat: etiket, ulke, kur, trFiyat, iadeli = true, satisOrani = 0 }) {
+    const satisVergisi = etiket * satisOrani;
+    const fiyat = etiket + satisVergisi;
     const vi = ulke.vergiIadesi || { kdv: 0 };
     const vergisiz = fiyat / (1 + vi.kdv);
     const sinirTutari = vi.altSinirVergiDahil ? fiyat : vergisiz;
@@ -48,11 +51,12 @@ window.Zamanist = (() => {
         : farkVergili > 0 ? "yurtdisi"
         : "turkiye-gumruk";
     }
-    return { fiyat, iadeVar, iade, net, netTl, netEur, gumruk, gumrukTl, farkVergisiz, farkVergili, karar };
+    return { fiyat, satisVergisi, iadeVar, iade, net, netTl, netEur, gumruk, gumrukTl, farkVergisiz, farkVergili, karar };
   }
 
   const tl = (n) => n.toLocaleString("tr-TR", { maximumFractionDigits: 0 }) + " TL";
-  const para = (n, kod) => n.toLocaleString("tr-TR", { maximumFractionDigits: 0 }) + " " + kod;
+  // Yen has no cents; dollar and euro prices keep them ("119,99 USD").
+  const para = (n, kod) => n.toLocaleString("tr-TR", { maximumFractionDigits: kod === "JPY" ? 0 : 2 }) + " " + kod;
   const euro = (n) => Math.round(n).toLocaleString("tr-TR") + " €";
   const yuzde = (fark, trFiyat) => Math.round((fark / trFiyat) * 100);
   const fark = (f, trFiyat) => f >= 0 ? `${tl(f)} ucuz (%${yuzde(f, trFiyat)})` : `${tl(-f)} pahalı`;

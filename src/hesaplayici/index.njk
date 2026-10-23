@@ -15,6 +15,9 @@ permalink: /hesaplayici/
       {%- endfor %}
     </select>
   </label>
+  <label id="vergiAlan" hidden>Satış vergisi (alışveriş yapacağınız yer)
+    <select id="vergiYeri"></select>
+  </label>
   <label><span id="fiyatEtiket">Oradaki etiket fiyatı</span>
     <input id="fiyat" class="tutar" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 450.000">
   </label>
@@ -37,7 +40,15 @@ const $ = (id) => document.getElementById(id);
 
 async function guncelle() {
   const u = ULKELER.find((x) => x.kod === $("ulke").value);
-  $("fiyatEtiket").textContent = `Oradaki etiket fiyatı (${u.para}, vergiler dahil)`;
+  const sv = u.satisVergisi;
+  $("fiyatEtiket").textContent = sv ? `Oradaki etiket fiyatı (${u.para}, satış vergisi hariç)` : `Oradaki etiket fiyatı (${u.para}, vergiler dahil)`;
+  $("fiyat").placeholder = `Örn. ${sv ? "150" : "450.000"}`;
+  $("vergiAlan").hidden = !sv;
+  if (sv && $("vergiYeri").dataset.ulke !== u.kod) {
+    $("vergiYeri").innerHTML = sv.secenekler.map((x) => `<option value="${x.oran}">${x.ad}</option>`).join("");
+    $("vergiYeri").dataset.ulke = u.kod;
+  }
+  const satisOrani = sv ? Number($("vergiYeri").value) || 0 : 0;
   $("ulkeNot").textContent = u.not || "";
   let kur;
   try {
@@ -51,9 +62,12 @@ async function guncelle() {
   const fiyat = sayiOku($("fiyat").value);
   if (!(fiyat > 0)) { $("sonuc").hidden = true; return; }
   const trFiyat = sayiOku($("trFiyat").value);
-  const s = hesapla({ fiyat, ulke: u, kur, trFiyat });
+  const s = hesapla({ fiyat, ulke: u, kur, trFiyat, satisOrani });
 
   const satirlar = [["Etiket fiyatı", `${para(fiyat, u.para)} = ${tl(fiyat * kur.TRY)}`]];
+  if (sv) {
+    satirlar.push(["Satış vergisi", s.satisVergisi ? `+ ${para(s.satisVergisi, u.para)} = ${tl(s.satisVergisi * kur.TRY)} (kasada eklenir, iadesi yok)` : "Yok"]);
+  }
   if (u.vergiIadesi?.kdv > 0) {
     satirlar.push(["Vergi iadesi", s.iadeVar
       ? `− ${tl(s.iade * kur.TRY)} (havalimanında geri alınır)`
@@ -73,6 +87,6 @@ async function guncelle() {
   $("sonuc").hidden = false;
 }
 
-["ulke", "fiyat", "trFiyat"].forEach((id) => $(id).addEventListener("input", guncelle));
+["ulke", "vergiYeri", "fiyat", "trFiyat"].forEach((id) => $(id).addEventListener("input", guncelle));
 guncelle();
 </script>
