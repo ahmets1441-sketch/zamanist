@@ -162,6 +162,34 @@ function modelSecenekleri(sonuclar, urunTuru) {
   }
   return Object.values(m).sort((a, b) => b.adet - a.adet).slice(0, 8);
 }
+// Model not sold in this country: the same family's models sold here ("Nike Air Force 1 '07 EasyOn"
+// -> "Nike Air Force 1 '07"), found by dropping words from the end, with their price range.
+// Models in the original's colour come first: words in the query, else the Nike colour code of the
+// model sold elsewhere (1xx white, 0xx black).
+async function muadilBul(q, u, tur, baskaUlkeler) {
+  const kelimeler = q.trim().split(/\s+/);
+  const renkKodu = /beyaz|white/i.test(q) ? "1" : /siyah|black/i.test(q) ? "0"
+    : ((baskaUlkeler[0]?.modeller[0]?.kod || "").split("-")[1] || "")[0];
+  for (let n = kelimeler.length - 1; n >= 2 && n >= kelimeler.length - 2; n--) {
+    const aile = kelimeler.slice(0, n).join(" ");
+    const cevap = await fetch(`/api/ara?ulke=${u.kod}&q=${encodeURIComponent(aile)}`).then((r) => r.json()).catch(() => null);
+    const ilanlar = cevap ? (cevap.sonuclar.length ? cevap.sonuclar : cevap.kodIlanlari || []) : [];
+    const kodlar = modelSecenekleri(ilanlar, tur).map((m) => m.kod);
+    if (!kodlar.length) continue;
+    const r = await fetch(`/api/resmi?ulke=${u.kod}&hepsi=1&q=${encodeURIComponent(kodlar.join(" "))}`).then((r) => r.json()).catch(() => null);
+    const modeller = (r?.modeller || []).sort((a, b) => (b.kod.split("-")[1]?.[0] === renkKodu) - (a.kod.split("-")[1]?.[0] === renkKodu));
+    if (modeller.length) return { aile, modeller, renkKodu };
+  }
+  return null;
+}
+function muadilHtml({ aile, modeller }, u, kur) {
+  const fiyatlar = modeller.map((m) => m.indirimli || m.fiyat);
+  const ort = fiyatlar.reduce((a, b) => a + b, 0) / fiyatlar.length;
+  const [enAz, enCok] = [Math.min(...fiyatlar), Math.max(...fiyatlar)];
+  return `<h3>${kacis(aile)}: ${u.adDa} satılan benzer modeller</h3>
+    <p>${modeller.length} model · ortalama <strong>${para(Math.round(ort), u.para)} = ${tl(ort * kur.TRY)}</strong>${enAz < enCok ? ` · ${para(enAz, u.para)} ile ${para(enCok, u.para)} arası (${tl(enAz * kur.TRY)} – ${tl(enCok * kur.TRY)})` : ""}</p>
+    <ul class="modeller">${modeller.slice(0, 12).map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong><span>${kacis((m.urunAdi || "").replace(m.kod, "").trim())}</span>${m.renk ? `<span class="meta">${kacis(m.renk)}</span>` : ""}<span class="meta">Resmi fiyat ${para(m.indirimli || m.fiyat, u.para)}</span><strong>${tl((m.indirimli || m.fiyat) * kur.TRY)}</strong></button></li>`).join("")}</ul>`;
+}
 document.addEventListener("click", (e) => {
   const b = e.target.closest(".model-sec");
   if (!b) return;
@@ -410,6 +438,7 @@ function ciz() {
     const modeller = modelSecenekleri(sonVeri.kodIlanlari, urunTuru).filter((m) => sonuclar.length || resmiFiyat(m.kod));
     if (!kod && !modeller.length && sonVeri.modelFiyatlari) {
       ozet += `<p>Bu ürün ${u.adDa} markanın sitesinde şu an satılmıyor. ${siteDugmesi(null)}</p>`;
+      if (sonVeri.muadil) ozet += muadilHtml(sonVeri.muadil, u, kur);
       for (const d of sonVeri.baskaUlkeler) {
         ozet += `<p>${d.u.adDa} satılıyor; modeli seçince ${d.u.adDa}ki fiyatı ve hesabı gelir:</p>
           <ul class="modeller">${d.modeller.slice(0, 8).map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}" data-ulke="${d.u.kod}"><strong>${kacis(m.kod)}</strong><span>${kacis((m.urunAdi || "").replace(m.kod, "").trim())}</span><span class="meta">Resmi fiyat ${para(m.indirimli || m.fiyat, d.u.para)}</span><strong>${tl((m.indirimli || m.fiyat) * d.kur.TRY)}</strong></button></li>`).join("")}</ul>`;
@@ -488,7 +517,7 @@ $("arama").addEventListener("submit", async (e) => {
     }
     // Several models for the name: ask the brand's site for each, so the choice shows which ones are
     // sold in this country and at what price (listings often hold old colourways no longer sold).
-    let modelFiyatlari = null, baskaUlkeler = [];
+    let modelFiyatlari = null, baskaUlkeler = [], muadil = null;
     const tur = turTahmin(kodIlanlari, resmiSite);
     if (kodsuz && !resmiSite?.bulundu) {
       const kodlar = modelSecenekleri(kodIlanlari, tur).map((m) => m.kod);
@@ -503,9 +532,10 @@ $("arama").addEventListener("submit", async (e) => {
           const r = await fetch(`/api/resmi?ulke=${x.kod}&hepsi=1&q=${encodeURIComponent(kodlar.join(" "))}`).then((r) => r.json()).catch(() => null);
           return r?.modeller?.length ? { u: x, modeller: r.modeller, kur: await kurGetir(x.para).catch(() => null) } : null;
         }))).filter((x) => x && x.kur);
+        muadil = await muadilBul(q, u, tur, baskaUlkeler);
       }
     }
-    sonVeri = { u, kur, q, bulunanKod, modelFiyatlari, baskaUlkeler, magazaKodu: cevap.magazaKodu, sonuclar: cevap.sonuclar, kodIlanlari, resmiSite, resmiListe, urunTuru: tur };
+    sonVeri = { u, kur, q, bulunanKod, modelFiyatlari, baskaUlkeler, muadil, magazaKodu: cevap.magazaKodu, sonuclar: cevap.sonuclar, kodIlanlari, resmiSite, resmiListe, urunTuru: tur };
     // Fill the Turkish price from the brand's Turkish site when the user left it empty.
     if (!$("trFiyat").value && resmiSite?.tr) {
       $("trFiyat").value = Math.round(resmiSite.tr.fiyat).toLocaleString("tr-TR");
