@@ -415,7 +415,7 @@ function ciz() {
       // Name without a code matches several models: let the user pick one, then search by its code.
       ozet += `<p>Bu adla birden fazla model var. ${siteDugmesi(null)}</p>
         <p>Ya da hangisini aradığınızı seçin; o modelin resmi fiyatı ve ürün sayfası gelir.</p>
-        <ul class="modeller">${modeller.map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong>${resmiFiyat(m.kod) ? `<span>${kacis((resmiFiyat(m.kod).urunAdi || "").replace(resmiFiyat(m.kod).kod, "").trim())}</span><span class="meta">Resmi fiyat ${para(resmiFiyat(m.kod).fiyat, u.para)}</span>` : ""}${sonuclar.length && m.fiyat < Infinity ? `<span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span>` : ""}</button></li>`).join("")}</ul>`;
+        <ul class="modeller">${modeller.map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong>${resmiFiyat(m.kod) ? `<span>${kacis((resmiFiyat(m.kod).urunAdi || "").replace(resmiFiyat(m.kod).kod, "").trim())}</span><span class="meta">Resmi fiyat ${para(resmiFiyat(m.kod).fiyat, u.para)}</span><strong>${tl(resmiFiyat(m.kod).fiyat * kur.TRY)}</strong>` : ""}${sonuclar.length && m.fiyat < Infinity ? `<span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span>` : ""}</button></li>`).join("")}</ul>`;
     }
   }
   // Photo of the product we matched, so the user can check it is the right model before asking in a store.
