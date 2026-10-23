@@ -116,7 +116,14 @@ export async function onRequestGet({ request }) {
   ];
   if (!adaylar.length) return Response.json({ bulundu: false, neden: "desteklenmeyen" });
 
-  const sonuclar = await Promise.all(adaylar.slice(0, 10).map((a) => dene(a, ulke)));
+  // Listings often carry colourways no longer sold; the style's white (-100) and black (-001) pages,
+  // when they exist, list the colourways sold now.
+  if (u.searchParams.has("hepsi")) {
+    for (const stil of new Set(adaylar.filter((a) => a.nike).map((a) => a.kod.split("-")[0]))) {
+      for (const renk of ["100", "001"]) if (!adaylar.some((a) => a.kod === `${stil}-${renk}`)) adaylar.push(nikeAday(`${stil}${renk}`, yer.nike));
+    }
+  }
+  const sonuclar = await Promise.all(adaylar.slice(0, u.searchParams.has("hepsi") ? 20 : 10).map((a) => dene(a, ulke)));
   // hepsi=1: several model codes at once (the model choice for a name search); every one with a price.
   if (u.searchParams.has("hepsi")) {
     const hepsi = sonuclar.flatMap((s) => (s.fiyat ? [s, ...(s.renkler || [])] : []));
