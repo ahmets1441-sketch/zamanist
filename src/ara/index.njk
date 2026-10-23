@@ -166,6 +166,7 @@ document.addEventListener("click", (e) => {
   const b = e.target.closest(".model-sec");
   if (!b) return;
   $("q").value = b.dataset.kod;
+  if (b.dataset.ulke) { $("ulke").value = b.dataset.ulke; ulkeAyarla(); numaraGoster(); }
   $("arama").requestSubmit();
   $("arama").scrollIntoView({ behavior: "smooth" });
 });
@@ -408,7 +409,11 @@ function ciz() {
     const resmiFiyat = (k) => (sonVeri.modelFiyatlari || []).find((x) => sade(x.kod) === sade(k));
     const modeller = modelSecenekleri(sonVeri.kodIlanlari, urunTuru).filter((m) => sonuclar.length || resmiFiyat(m.kod));
     if (!kod && !modeller.length && sonVeri.modelFiyatlari) {
-      ozet += `<p>Bu adla bulunan modeller ${u.adDa} markanın sitesinde şu an satılmıyor (eski renkler olabilir). ${siteDugmesi(null)} Orada gördüğünüz fiyatı <strong>Hızlı hesap</strong> kutusuna yazın.</p>`;
+      ozet += `<p>Bu ürün ${u.adDa} markanın sitesinde şu an satılmıyor. ${siteDugmesi(null)}</p>`;
+      for (const d of sonVeri.baskaUlkeler) {
+        ozet += `<p>${d.u.adDa} satılıyor; modeli seçince ${d.u.adDa}ki fiyatı ve hesabı gelir:</p>
+          <ul class="modeller">${d.modeller.slice(0, 8).map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}" data-ulke="${d.u.kod}"><strong>${kacis(m.kod)}</strong><span>${kacis((m.urunAdi || "").replace(m.kod, "").trim())}</span><span class="meta">Resmi fiyat ${para(m.indirimli || m.fiyat, d.u.para)}</span><strong>${tl((m.indirimli || m.fiyat) * d.kur.TRY)}</strong></button></li>`).join("")}</ul>`;
+      }
     } else if (kod || !modeller.length) {
       ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${siteDugmesi(kod)} Orada gördüğünüz fiyatı <strong>Hızlı hesap</strong> kutusuna yazın.</p>`;
     } else {
@@ -483,7 +488,7 @@ $("arama").addEventListener("submit", async (e) => {
     }
     // Several models for the name: ask the brand's site for each, so the choice shows which ones are
     // sold in this country and at what price (listings often hold old colourways no longer sold).
-    let modelFiyatlari = null;
+    let modelFiyatlari = null, baskaUlkeler = [];
     const tur = turTahmin(kodIlanlari, resmiSite);
     if (kodsuz && !resmiSite?.bulundu) {
       const kodlar = modelSecenekleri(kodIlanlari, tur).map((m) => m.kod);
@@ -491,8 +496,16 @@ $("arama").addEventListener("submit", async (e) => {
         const r = await fetch(`/api/resmi?ulke=${u.kod}&hepsi=1&q=${encodeURIComponent(kodlar.join(" "))}`).then((r) => r.json()).catch(() => null);
         modelFiyatlari = r?.modeller || null;
       }
+      // None sold here: where the brand does sell them, so the user sees it is this country, not the search.
+      if (modelFiyatlari && !modelFiyatlari.length && !cevap.sonuclar.length) {
+        const digerleri = ULKELER.filter((x) => x.kod !== u.kod && x.resmiYerel);
+        baskaUlkeler = (await Promise.all(digerleri.map(async (x) => {
+          const r = await fetch(`/api/resmi?ulke=${x.kod}&hepsi=1&q=${encodeURIComponent(kodlar.join(" "))}`).then((r) => r.json()).catch(() => null);
+          return r?.modeller?.length ? { u: x, modeller: r.modeller, kur: await kurGetir(x.para).catch(() => null) } : null;
+        }))).filter((x) => x && x.kur);
+      }
     }
-    sonVeri = { u, kur, q, bulunanKod, modelFiyatlari, magazaKodu: cevap.magazaKodu, sonuclar: cevap.sonuclar, kodIlanlari, resmiSite, resmiListe, urunTuru: tur };
+    sonVeri = { u, kur, q, bulunanKod, modelFiyatlari, baskaUlkeler, magazaKodu: cevap.magazaKodu, sonuclar: cevap.sonuclar, kodIlanlari, resmiSite, resmiListe, urunTuru: tur };
     // Fill the Turkish price from the brand's Turkish site when the user left it empty.
     if (!$("trFiyat").value && resmiSite?.tr) {
       $("trFiyat").value = Math.round(resmiSite.tr.fiyat).toLocaleString("tr-TR");
