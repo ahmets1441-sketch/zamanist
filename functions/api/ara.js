@@ -25,13 +25,28 @@ export async function onRequestGet({ request, env }) {
   if (q.length < 2) return json({ hata: "En az 2 harf yazın." }, 400);
   if (!ulke) return json({ hata: "Bu ülke henüz desteklenmiyor." }, 400);
   const kaynaklar = (ulke.kaynaklar || []).map((k) => KAYNAKLAR[k]).filter((k) => k && k.hazir(env));
-  // No listing source yet (e.g. eBay keys pending): the page still shows the brand's official price.
-  if (!kaynaklar.length) return json({ kaynak: null, sonuclar: [], kaynakYok: true, ...sorguBilgisi(q, ulke) });
 
   const cache = caches.default;
-  const anahtar = new Request(`${u.origin}/api/ara?v=10&ulke=${ulke.kod}&q=${encodeURIComponent(q.toLowerCase())}`);
+  const anahtar = new Request(`${u.origin}/api/ara?v=11&ulke=${ulke.kod}&q=${encodeURIComponent(q.toLowerCase())}`);
   const onbellek = await cache.match(anahtar);
   if (onbellek) return onbellek;
+
+  // No listing source yet (e.g. eBay keys pending): the page still shows the brand's official price.
+  // A name typed without a model code still needs one to find that price, so the Rakuten listings
+  // (model codes are the same worldwide) are returned without prices, only to pick the code from.
+  if (!kaynaklar.length) {
+    let kodIlanlari = [];
+    if (rakuten.hazir(env)) {
+      const { adaylar } = sorguAdaylari(q, "ja");
+      try {
+        const { teklifler } = await rakuten.ara({ adaylar, env, origin: u.origin });
+        kodIlanlari = teklifler.map(({ ad, resim, tur, aksesuar }) => ({ ad, resim, tur, aksesuar }));
+      } catch (e) {}
+    }
+    const cevap = json({ kaynak: null, sonuclar: [], kaynakYok: true, kodIlanlari, ...sorguBilgisi(q, ulke) });
+    await cache.put(anahtar, cevap.clone());
+    return cevap;
+  }
 
   const { adaylar, eklenenMarka, cikarilan, magazaKodu } = sorguAdaylari(q, ulke.dil);
   if (!adaylar.length) return json({ hata: "Aranacak bir kelime kalmadı. Marka ve model adını yazın." }, 400);
