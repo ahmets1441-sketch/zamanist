@@ -46,7 +46,9 @@ function nikeOku(html, kod, para = "JPY") {
   const ad = (html.match(/<meta property="og:title" content="([^"]+)"/) || [])[1] || "";
   const urunAdi = ad.replace(/&#x27;/g, "'").replace(/&amp;/g, "&") + " " + kod;
   const [simdi, liste] = [Number(m[1]), Number(m[2])];
-  return { fiyat: liste, urunAdi, ...(simdi < liste ? { indirimli: simdi } : {}) };
+  // Colourway entry: photo and colour ("White/White") of this style code.
+  const r = html.match(new RegExp(`"squarishImg":"([^"]+)"[^{}]{0,400}?"styleColor":"${kod}","colorCode":"\\w+","groupLabel":[^,]*,"colorDescription":"([^"]+)"`));
+  return { fiyat: liste, urunAdi, ...(simdi < liste ? { indirimli: simdi } : {}), ...(r ? { resim: r[1], renk: r[2] } : {}) };
 }
 
 function fiyatOku(html, kod, para) {
@@ -127,7 +129,7 @@ export async function onRequestGet({ request }) {
   // hepsi=1: several model codes at once (the model choice for a name search); every one with a price.
   if (u.searchParams.has("hepsi")) {
     const hepsi = sonuclar.flatMap((s) => (s.fiyat ? [s, ...(s.renkler || [])] : []));
-    const modeller = hepsi.filter((s, i) => hepsi.findIndex((x) => x.kod === s.kod) === i).map(({ kod, fiyat, indirimli, urunAdi, url }) => ({ kod, fiyat, indirimli: indirimli || null, urunAdi, link: url }));
+    const modeller = hepsi.filter((s, i) => hepsi.findIndex((x) => x.kod === s.kod) === i).map(({ kod, fiyat, indirimli, urunAdi, url, resim, renk }) => ({ kod, fiyat, indirimli: indirimli || null, urunAdi, link: url, resim: resim || null, renk: renk || null }));
     return Response.json({ modeller }, { headers: { "Cache-Control": "public, max-age=21600" } });
   }
   const bulunan = sonuclar.find((s) => s.fiyat);
