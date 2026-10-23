@@ -24,10 +24,7 @@ window.Zamanist = (() => {
   // fiyat: oradaki etiket fiyatı. iadeli: mağazadan pasaportla alışveriş mi.
   // ulke.vergiIadesi: kdv oranı, iade alt sınırı (vergili mi vergisiz mi) ve
   // iade şirketlerinin komisyonundan sonra geri ödenen pay (1 = verginin tamamı).
-  // satisOrani: etikete dahil olmayan, kasada eklenen vergi (ABD'de satış vergisi, örn. 0.08875).
-  function hesapla({ fiyat: etiket, ulke, kur, trFiyat, iadeli = true, satisOrani = 0 }) {
-    const satisVergisi = etiket * satisOrani;
-    const fiyat = etiket + satisVergisi;
+  function hesapla({ fiyat, ulke, kur, trFiyat, iadeli = true }) {
     const vi = ulke.vergiIadesi || { kdv: 0 };
     const vergisiz = fiyat / (1 + vi.kdv);
     const sinirTutari = vi.altSinirVergiDahil ? fiyat : vergisiz;
@@ -51,7 +48,7 @@ window.Zamanist = (() => {
         : farkVergili > 0 ? "yurtdisi"
         : "turkiye-gumruk";
     }
-    return { fiyat, satisVergisi, iadeVar, iade, net, netTl, netEur, gumruk, gumrukTl, farkVergisiz, farkVergili, karar };
+    return { fiyat, iadeVar, iade, net, netTl, netEur, gumruk, gumrukTl, farkVergisiz, farkVergili, karar };
   }
 
   const tl = (n) => n.toLocaleString("tr-TR", { maximumFractionDigits: 0 }) + " TL";
