@@ -404,14 +404,18 @@ function ciz() {
       : `<a class="dugme-kucuk" href="${kacis(genelLink(kod || sonVeri.q))}" target="_blank" rel="noopener">Markanın resmi sitesini bul ↗</a>`;
     const yazilanKod = (sonVeri.q.split(/[\s,/]+/).find((t) => /[a-z]/i.test(t) && /\d/.test(t) && sade(t).length >= 5) || "").toUpperCase();
     const kod = yazilanKod || sonVeri.bulunanKod;
-    const modeller = modelSecenekleri(sonVeri.kodIlanlari, urunTuru);
-    if (kod || !modeller.length) {
+    // Official price of each model on the brand's site; without listings here, only models sold here.
+    const resmiFiyat = (k) => (sonVeri.modelFiyatlari || []).find((x) => sade(x.kod) === sade(k));
+    const modeller = modelSecenekleri(sonVeri.kodIlanlari, urunTuru).filter((m) => sonuclar.length || resmiFiyat(m.kod));
+    if (!kod && !modeller.length && sonVeri.modelFiyatlari) {
+      ozet += `<p>Bu adla bulunan modeller ${u.adDa} markanın sitesinde şu an satılmıyor (eski renkler olabilir). ${siteDugmesi(null)} Orada gördüğünüz fiyatı <strong>Hızlı hesap</strong> kutusuna yazın.</p>`;
+    } else if (kod || !modeller.length) {
       ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${siteDugmesi(kod)} Orada gördüğünüz fiyatı <strong>Hızlı hesap</strong> kutusuna yazın.</p>`;
     } else {
       // Name without a code matches several models: let the user pick one, then search by its code.
       ozet += `<p>Bu adla birden fazla model var. ${siteDugmesi(null)}</p>
         <p>Ya da hangisini aradığınızı seçin; o modelin resmi fiyatı ve ürün sayfası gelir.</p>
-        <ul class="modeller">${modeller.map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong>${m.fiyat < Infinity ? `<span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span>` : ""}</button></li>`).join("")}</ul>`;
+        <ul class="modeller">${modeller.map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong>${resmiFiyat(m.kod) ? `<span>${kacis((resmiFiyat(m.kod).urunAdi || "").replace(resmiFiyat(m.kod).kod, "").trim())}</span><span class="meta">Resmi fiyat ${para(resmiFiyat(m.kod).fiyat, u.para)}</span>` : ""}${sonuclar.length && m.fiyat < Infinity ? `<span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span>` : ""}</button></li>`).join("")}</ul>`;
     }
   }
   // Photo of the product we matched, so the user can check it is the right model before asking in a store.
@@ -477,7 +481,18 @@ $("arama").addEventListener("submit", async (e) => {
     if (bulunanKod && !resmiSite?.bulundu) {
       resmiSite = await fetch(`/api/resmi?ulke=${u.kod}&q=${encodeURIComponent(bulunanKod)}`).then((r) => r.json()).catch(() => resmiSite);
     }
-    sonVeri = { u, kur, q, bulunanKod, magazaKodu: cevap.magazaKodu, sonuclar: cevap.sonuclar, kodIlanlari, resmiSite, resmiListe, urunTuru: turTahmin(kodIlanlari, resmiSite) };
+    // Several models for the name: ask the brand's site for each, so the choice shows which ones are
+    // sold in this country and at what price (listings often hold old colourways no longer sold).
+    let modelFiyatlari = null;
+    const tur = turTahmin(kodIlanlari, resmiSite);
+    if (kodsuz && !resmiSite?.bulundu) {
+      const kodlar = modelSecenekleri(kodIlanlari, tur).map((m) => m.kod);
+      if (kodlar.length) {
+        const r = await fetch(`/api/resmi?ulke=${u.kod}&hepsi=1&q=${encodeURIComponent(kodlar.join(" "))}`).then((r) => r.json()).catch(() => null);
+        modelFiyatlari = r?.modeller || null;
+      }
+    }
+    sonVeri = { u, kur, q, bulunanKod, modelFiyatlari, magazaKodu: cevap.magazaKodu, sonuclar: cevap.sonuclar, kodIlanlari, resmiSite, resmiListe, urunTuru: tur };
     // Fill the Turkish price from the brand's Turkish site when the user left it empty.
     if (!$("trFiyat").value && resmiSite?.tr) {
       $("trFiyat").value = Math.round(resmiSite.tr.fiyat).toLocaleString("tr-TR");
