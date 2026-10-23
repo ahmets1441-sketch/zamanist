@@ -7,6 +7,11 @@ import { sorguAdaylari } from "../../lib/sorgu.js";
 
 const KAYNAKLAR = { rakuten, ebay };
 
+const sorguBilgisi = (q, ulke) => {
+  const { eklenenMarka, cikarilan, magazaKodu } = sorguAdaylari(q, ulke.dil);
+  return { arananSorgu: null, eklenenMarka, cikarilanKelime: cikarilan, magazaKodu, eksikKaynaklar: 0 };
+};
+
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
     status,
@@ -20,7 +25,8 @@ export async function onRequestGet({ request, env }) {
   if (q.length < 2) return json({ hata: "En az 2 harf yazın." }, 400);
   if (!ulke) return json({ hata: "Bu ülke henüz desteklenmiyor." }, 400);
   const kaynaklar = (ulke.kaynaklar || []).map((k) => KAYNAKLAR[k]).filter((k) => k && k.hazir(env));
-  if (!kaynaklar.length) return json({ hata: "Bu ülke için arama servisi henüz ayarlanmadı." }, 503);
+  // No listing source yet (e.g. eBay keys pending): the page still shows the brand's official price.
+  if (!kaynaklar.length) return json({ kaynak: null, sonuclar: [], kaynakYok: true, ...sorguBilgisi(q, ulke) });
 
   const cache = caches.default;
   const anahtar = new Request(`${u.origin}/api/ara?v=10&ulke=${ulke.kod}&q=${encodeURIComponent(q.toLowerCase())}`);

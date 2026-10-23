@@ -5,13 +5,71 @@
     "adDa": "Japonya'da",
     "para": "JPY",
     "dil": "ja",
-    "kaynaklar": ["rakuten"],
+    "kaynaklar": [
+      "rakuten"
+    ],
     "vergiIadesi": {
-      "kdv": 0.10,
+      "kdv": 0.1,
       "altSinir": 5000,
       "altSinirVergiDahil": false,
       "geriOdenen": 1
     },
-    "not": "1 Kasım 2026'dan itibaren Japonya'da vergi mağazada düşülmüyor. Fiyatın tamamını ödüyorsunuz, vergi iadesini havalimanında çıkış yaparken alıyorsunuz. İade için en az 5.000 yen (vergisiz) alışveriş gerekiyor ve ürün 90 gün içinde Japonya'dan çıkarılmalı."
+    "not": "1 Kasım 2026'dan itibaren Japonya'da vergi mağazada düşülmüyor. Fiyatın tamamını ödüyorsunuz, vergi iadesini havalimanında çıkış yaparken alıyorsunuz. İade için en az 5.000 yen (vergisiz) alışveriş gerekiyor ve ürün 90 gün içinde Japonya'dan çıkarılmalı.",
+    "resmiYerel": {
+      "nike": "jp",
+      "swatch": "ja-jp",
+      "gg": "jp/ja",
+      "seiko": "jp-ja"
+    },
+    "aramaNotu": "Resmi fiyat sırasıyla Zamanist'in kontrol ettiği listeden, markanın sitesinden veya markanın resmi Rakuten mağazasından alınır. Diğer fiyatlar Rakuten'deki satıcılardan gelir. Online alışverişte vergi iadesi yoktur ve ürün Japonya'daki bir adrese (örneğin otel) gönderilmelidir. \"Resmi garantili\" bilgisi satıcının beyanıdır. Model kodunu mutlaka kontrol edin.",
+    "ornekFiyat": "16.500"
+  },
+  {
+    "kod": "abd",
+    "ad": "ABD",
+    "adDa": "ABD'de",
+    "para": "USD",
+    "dil": "en",
+    "kaynaklar": [
+      "ebay"
+    ],
+    "ebay": {
+      "pazar": "EBAY_US",
+      "konum": "US",
+      "dil": "en-US",
+      "site": "www.ebay.com"
+    },
+    "resmiYerel": {
+      "nike": "",
+      "swatch": "en-us",
+      "gg": "us/en"
+    },
+    "satisVergisi": {
+      "secenekler": [
+        {
+          "ad": "New York City (%8,875)",
+          "oran": 0.08875
+        },
+        {
+          "ad": "New York City, 110 $ altı giyim ve ayakkabı (%0)",
+          "oran": 0
+        },
+        {
+          "ad": "Los Angeles (%10,25)",
+          "oran": 0.1025
+        },
+        {
+          "ad": "Miami (%7)",
+          "oran": 0.07
+        },
+        {
+          "ad": "Delaware veya Oregon (%0)",
+          "oran": 0
+        }
+      ]
+    },
+    "aramaNotu": "Resmi fiyat Zamanist'in kontrol ettiği listeden veya markanın ABD sitesinden alınır. ABD'de etiket fiyatlarına satış vergisi dahil değildir; hesapta seçtiğiniz şehrin oranı eklenir. Turistlere satış vergisi iadesi yapılmaz. Model kodunu mutlaka kontrol edin.",
+    "ornekFiyat": "150",
+    "not": "ABD'de etiket fiyatlarına satış vergisi dahil değil; kasada eyalete ve şehre göre eklenir (Delaware ve Oregon'da yok). Turistlere satış vergisi iadesi yapılmaz. New York City'de 110 doların altındaki giyim ve ayakkabıda satış vergisi yok; saat ve aksesuarda var."
   }
 ]
