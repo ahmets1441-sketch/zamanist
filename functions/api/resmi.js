@@ -88,7 +88,13 @@ async function dene(aday, ulke) {
     if (!r.ok) return { url: aday.url, durum: r.status };
     const html = await r.text();
     const bulunan = aday.nike ? nikeOku(html, aday.kod, ulke.para) : fiyatOku(html, aday.kod, ulke.para);
-    return bulunan ? { ...aday, ...bulunan, url: r.url } : { url: aday.url, durum: "fiyat yok" };
+    if (!bulunan) return { url: aday.url, durum: "fiyat yok" };
+    // A Nike page also holds its other colourways of the same style, with their prices.
+    const renkler = aday.nike
+      ? [...new Set(html.match(new RegExp(`"styleColor":"${aday.kod.split("-")[0]}-\\d{3}"`, "g")) || [])].map((x) => x.slice(14, -1)).filter((k) => k !== aday.kod)
+        .map((k) => { const b = nikeOku(html, k, ulke.para); return b && { ...aday, ...b, kod: k, url: r.url.replace(aday.kod, k) }; }).filter(Boolean)
+      : [];
+    return { ...aday, ...bulunan, url: r.url, renkler };
   } catch (e) {
     return { url: aday.url, durum: String(e.message) };
   }
@@ -113,7 +119,8 @@ export async function onRequestGet({ request }) {
   const sonuclar = await Promise.all(adaylar.slice(0, 10).map((a) => dene(a, ulke)));
   // hepsi=1: several model codes at once (the model choice for a name search); every one with a price.
   if (u.searchParams.has("hepsi")) {
-    const modeller = sonuclar.filter((s, i) => s.fiyat && sonuclar.findIndex((x) => x.kod === s.kod && x.fiyat) === i).map(({ kod, fiyat, indirimli, urunAdi, url }) => ({ kod, fiyat, indirimli: indirimli || null, urunAdi, link: url }));
+    const hepsi = sonuclar.flatMap((s) => (s.fiyat ? [s, ...(s.renkler || [])] : []));
+    const modeller = hepsi.filter((s, i) => hepsi.findIndex((x) => x.kod === s.kod) === i).map(({ kod, fiyat, indirimli, urunAdi, url }) => ({ kod, fiyat, indirimli: indirimli || null, urunAdi, link: url }));
     return Response.json({ modeller }, { headers: { "Cache-Control": "public, max-age=21600" } });
   }
   const bulunan = sonuclar.find((s) => s.fiyat);
