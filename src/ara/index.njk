@@ -158,7 +158,7 @@ function modelSecenekleri(sonuclar, urunTuru) {
     if (!kod) continue;
     m[kod] = m[kod] || { kod, adet: 0, fiyat: Infinity, resim: r.resim };
     m[kod].adet++;
-    m[kod].fiyat = Math.min(m[kod].fiyat, r.fiyat);
+    if (r.fiyat) m[kod].fiyat = Math.min(m[kod].fiyat, r.fiyat);
   }
   return Object.values(m).sort((a, b) => b.adet - a.adet).slice(0, 8);
 }
@@ -404,13 +404,14 @@ function ciz() {
       : `<a class="dugme-kucuk" href="${kacis(genelLink(kod || sonVeri.q))}" target="_blank" rel="noopener">Markanın resmi sitesini bul ↗</a>`;
     const yazilanKod = (sonVeri.q.split(/[\s,/]+/).find((t) => /[a-z]/i.test(t) && /\d/.test(t) && sade(t).length >= 5) || "").toUpperCase();
     const kod = yazilanKod || sonVeri.bulunanKod;
-    if (kod || !modelSecenekleri(sonuclar, urunTuru).length) {
+    const modeller = modelSecenekleri(sonVeri.kodIlanlari, urunTuru);
+    if (kod || !modeller.length) {
       ozet += `<p>Bu ürünün resmi fiyatı otomatik okunamadı. ${siteDugmesi(kod)} Orada gördüğünüz fiyatı <strong>Hızlı hesap</strong> kutusuna yazın.</p>`;
     } else {
       // Name without a code matches several models: let the user pick one, then search by its code.
       ozet += `<p>Bu adla birden fazla model var. ${siteDugmesi(null)}</p>
         <p>Ya da hangisini aradığınızı seçin; o modelin resmi fiyatı ve ürün sayfası gelir.</p>
-        <ul class="modeller">${modelSecenekleri(sonuclar, urunTuru).map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong><span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span></button></li>`).join("")}</ul>`;
+        <ul class="modeller">${modeller.map((m) => `<li><button type="button" class="model-sec" data-kod="${kacis(m.kod)}">${m.resim ? `<img src="${kacis(m.resim)}" alt="" loading="lazy">` : ""}<strong>${kacis(m.kod)}</strong>${m.fiyat < Infinity ? `<span class="meta">${m.adet} ilan · en düşük ${para(m.fiyat, u.para)}</span>` : ""}</button></li>`).join("")}</ul>`;
     }
   }
   // Photo of the product we matched, so the user can check it is the right model before asking in a store.
@@ -470,11 +471,13 @@ $("arama").addEventListener("submit", async (e) => {
     if (cevap.hata) { $("durum").textContent = cevap.hata; return; }
     // No code in the query: take it from the listings and ask the brand's site again.
     const kodsuz = !q.split(/[\s,/]+/).some((t) => /[a-z]/i.test(t) && /\d/.test(t) && sade(t).length >= 5);
-    const bulunanKod = kodsuz ? ilanKodu(cevap.sonuclar) : null;
+    // Without listings in this country, Rakuten listings (no prices) stand in for finding the code.
+    const kodIlanlari = cevap.sonuclar.length ? cevap.sonuclar : cevap.kodIlanlari || [];
+    const bulunanKod = kodsuz ? ilanKodu(kodIlanlari) : null;
     if (bulunanKod && !resmiSite?.bulundu) {
       resmiSite = await fetch(`/api/resmi?ulke=${u.kod}&q=${encodeURIComponent(bulunanKod)}`).then((r) => r.json()).catch(() => resmiSite);
     }
-    sonVeri = { u, kur, q, bulunanKod, magazaKodu: cevap.magazaKodu, sonuclar: cevap.sonuclar, resmiSite, resmiListe, urunTuru: turTahmin(cevap.sonuclar, resmiSite) };
+    sonVeri = { u, kur, q, bulunanKod, magazaKodu: cevap.magazaKodu, sonuclar: cevap.sonuclar, kodIlanlari, resmiSite, resmiListe, urunTuru: turTahmin(kodIlanlari, resmiSite) };
     // Fill the Turkish price from the brand's Turkish site when the user left it empty.
     if (!$("trFiyat").value && resmiSite?.tr) {
       $("trFiyat").value = Math.round(resmiSite.tr.fiyat).toLocaleString("tr-TR");
