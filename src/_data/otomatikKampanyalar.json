@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-24",
+  "guncelleme": "2026-10-25",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -8,15 +8,15 @@
         "Boyner"
       ],
       "kategori": "genel",
-      "oran": "%72",
+      "oran": "%70'e varan",
       "ornekler": [
-        "TL %72 İndirim",
-        "TL %71 İndirim",
-        "Brooks Brothers %70'e Varan İndirim"
+        "Brooks Brothers %70'e Varan İndirim",
+        "Network %70'e Varan İndirim",
+        "Discovery Expedition %70'e Varan İndirim"
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-24"
+      "kontrol": "2026-10-25"
     },
     {
       "baslik": "Beymen indirimi",
@@ -32,7 +32,7 @@
       ],
       "link": "https://www.beymen.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-24"
+      "kontrol": "2026-10-25"
     },
     {
       "baslik": "Ramsey indirimi",
@@ -47,7 +47,7 @@
       ],
       "link": "https://www.ramsey.com.tr/",
       "ilkGorulme": "2026-10-16",
-      "kontrol": "2026-10-24"
+      "kontrol": "2026-10-25"
     },
     {
       "baslik": "Sarar indirimi",
@@ -64,7 +64,7 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-24"
+      "kontrol": "2026-10-25"
     }
   ]
 }
