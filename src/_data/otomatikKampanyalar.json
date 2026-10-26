@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-25",
+  "guncelleme": "2026-10-26",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -10,13 +10,13 @@
       "kategori": "genel",
       "oran": "%70'e varan",
       "ornekler": [
-        "Brooks Brothers %70'e Varan İndirim",
-        "Network %70'e Varan İndirim",
-        "Discovery Expedition %70'e Varan İndirim"
+        "Discovery Expedition %70'e Varan İndirim",
+        "Çok Satan Ürünler %70'e Varan İndirim",
+        "Columbia %60 İndirim"
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-25"
+      "kontrol": "2026-10-26"
     },
     {
       "baslik": "Beymen indirimi",
@@ -25,14 +25,13 @@
         "Beymen"
       ],
       "kategori": "giyim",
-      "oran": "%30'a varan",
+      "oran": "%20",
       "ornekler": [
-        "Estée Lauder alışverişlerinde %30’a varan indirim",
         "seçili Çanta tasarımlarında %20 indirim"
       ],
       "link": "https://www.beymen.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-25"
+      "kontrol": "2026-10-26"
     },
     {
       "baslik": "Ramsey indirimi",
@@ -47,7 +46,7 @@
       ],
       "link": "https://www.ramsey.com.tr/",
       "ilkGorulme": "2026-10-16",
-      "kontrol": "2026-10-25"
+      "kontrol": "2026-10-26"
     },
     {
       "baslik": "Sarar indirimi",
@@ -64,7 +63,40 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-25"
+      "kontrol": "2026-10-26"
+    },
+    {
+      "baslik": "Occasion indirimi",
+      "grup": "Occasion",
+      "markalar": [
+        "Occasion"
+      ],
+      "kategori": "genel",
+      "oran": "%65'e varan",
+      "ornekler": [
+        "Düşük Fiyatı Sepette %65 İndirim",
+        "Düşük Fiyatı Sepette %60 İndirim",
+        "TL Sepette %55 İndirim"
+      ],
+      "link": "https://www.occasion.com.tr/son-firsat-urunleri/",
+      "ilkGorulme": "2026-10-26",
+      "kontrol": "2026-10-26"
+    },
+    {
+      "baslik": "Columbia indirimi",
+      "grup": "Columbia",
+      "markalar": [
+        "Columbia"
+      ],
+      "kategori": "giyim",
+      "oran": "%60",
+      "ornekler": [
+        "Sezon Ürünlerinde Net %60 İndirim",
+        "Koleksiyonu Outlet ürünlerde %60'a Varan İndirim"
+      ],
+      "link": "https://www.columbia.com.tr/",
+      "ilkGorulme": "2026-10-26",
+      "kontrol": "2026-10-26"
     }
   ]
 }
