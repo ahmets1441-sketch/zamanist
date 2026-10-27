@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-26",
+  "guncelleme": "2026-10-27",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -12,11 +12,11 @@
       "ornekler": [
         "Discovery Expedition %70'e Varan İndirim",
         "Çok Satan Ürünler %70'e Varan İndirim",
-        "Columbia %60 İndirim"
+        "TL İndirim Sepette %65 İndirim"
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-26"
+      "kontrol": "2026-10-27"
     },
     {
       "baslik": "Beymen indirimi",
@@ -31,7 +31,7 @@
       ],
       "link": "https://www.beymen.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-26"
+      "kontrol": "2026-10-27"
     },
     {
       "baslik": "Ramsey indirimi",
@@ -46,7 +46,7 @@
       ],
       "link": "https://www.ramsey.com.tr/",
       "ilkGorulme": "2026-10-16",
-      "kontrol": "2026-10-26"
+      "kontrol": "2026-10-27"
     },
     {
       "baslik": "Sarar indirimi",
@@ -63,7 +63,7 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-26"
+      "kontrol": "2026-10-27"
     },
     {
       "baslik": "Occasion indirimi",
@@ -75,12 +75,12 @@
       "oran": "%65'e varan",
       "ornekler": [
         "Düşük Fiyatı Sepette %65 İndirim",
-        "Düşük Fiyatı Sepette %60 İndirim",
-        "TL Sepette %55 İndirim"
+        "TL Sepette %55 İndirim",
+        "Sepette %50 İndirim"
       ],
       "link": "https://www.occasion.com.tr/son-firsat-urunleri/",
       "ilkGorulme": "2026-10-26",
-      "kontrol": "2026-10-26"
+      "kontrol": "2026-10-27"
     },
     {
       "baslik": "Columbia indirimi",
@@ -96,7 +96,7 @@
       ],
       "link": "https://www.columbia.com.tr/",
       "ilkGorulme": "2026-10-26",
-      "kontrol": "2026-10-26"
+      "kontrol": "2026-10-27"
     }
   ]
 }
