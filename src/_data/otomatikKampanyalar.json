@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-28",
+  "guncelleme": "2026-10-29",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -16,7 +16,7 @@
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-28"
+      "kontrol": "2026-10-29"
     },
     {
       "baslik": "Koton indirimi",
@@ -33,7 +33,7 @@
       ],
       "link": "https://www.koton.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-10-28"
+      "kontrol": "2026-10-29"
     },
     {
       "baslik": "Ramsey indirimi",
@@ -49,7 +49,7 @@
       ],
       "link": "https://www.ramsey.com.tr/",
       "ilkGorulme": "2026-10-16",
-      "kontrol": "2026-10-28"
+      "kontrol": "2026-10-29"
     },
     {
       "baslik": "Kiğılı indirimi",
@@ -64,7 +64,7 @@
       ],
       "link": "https://www.kigili.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-10-28"
+      "kontrol": "2026-10-29"
     },
     {
       "baslik": "Sarar indirimi",
@@ -81,7 +81,7 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-28"
+      "kontrol": "2026-10-29"
     },
     {
       "baslik": "Occasion indirimi",
@@ -98,7 +98,7 @@
       ],
       "link": "https://www.occasion.com.tr/son-firsat-urunleri/",
       "ilkGorulme": "2026-10-26",
-      "kontrol": "2026-10-28"
+      "kontrol": "2026-10-29"
     },
     {
       "baslik": "Columbia indirimi",
@@ -114,7 +114,7 @@
       ],
       "link": "https://www.columbia.com.tr/",
       "ilkGorulme": "2026-10-26",
-      "kontrol": "2026-10-28"
+      "kontrol": "2026-10-29"
     }
   ]
 }
