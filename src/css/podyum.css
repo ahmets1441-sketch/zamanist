@@ -42,6 +42,10 @@
 .podyum-sayfa{display:block;align-self:center;width:min(100%,22rem);margin-top:.4rem;text-align:center;background:#CFA65A;color:#111;font-weight:800;padding:1rem;border-radius:999px;text-decoration:none}
 .podyum-sayfa-ust h1{margin:.5rem 0 .3rem}
 .podyum-sayfa-alt{max-width:44rem}
+/* Desktop: the strip runs edge to edge, so neither the first nor the last look leaves empty space beside it. */
+@media (min-width:56.01rem){
+  .podyum-serit{padding-inline:0}
+}
 @media (max-width:56rem){
   .podyum-serit{margin-inline:-1rem}
   .podyum-liste ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
