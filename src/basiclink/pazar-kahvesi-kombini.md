@@ -7,6 +7,16 @@ slaytlar: 4
 tags: [kombinlerim]
 kontrol: 2026-10-20
 satici: "H&M, Pull&Bear, LC Waikiki, Sanal Çadır"
+looklar:
+  - ad: Pazar kahvesi
+    gorsel: /img/insta/pazar-kahvesi-kombini/look.webp
+    urunler: ["1344383001", "7551/504/827", "7670/510/827", "W6N073Z8-R9J", "DQ8426-100", "133-60595360"]
+    pinler:
+      - { kod: "133-60595360", x: 60, y: 11 }
+      - { kod: "7551/504/827", x: 53, y: 33 }
+      - { kod: "1344383001", x: 30, y: 50 }
+      - { kod: "7670/510/827", x: 46, y: 74 }
+      - { kod: "DQ8426-100", x: 57, y: 90 }
 urunler:
   - marka: H&M
     ad: "Önü tek sıra düğmeli kaban, siyah"

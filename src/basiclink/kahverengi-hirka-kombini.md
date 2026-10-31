@@ -7,6 +7,14 @@ slaytlar: 3
 tags: [kombinlerim]
 kontrol: 2026-10-20
 satici: LC Waikiki
+looklar:
+  - ad: Kahverengi hırka
+    gorsel: /img/insta/kahverengi-hirka-kombini/look.webp
+    urunler: ["W5G200Z8-KDY", "W6N073Z8-R9J", "W54469Z8-RQL"]
+    pinler:
+      - { kod: "W5G200Z8-KDY", x: 35, y: 22 }
+      - { kod: "W6N073Z8-R9J", x: 50, y: 17 }
+      - { kod: "W54469Z8-RQL", x: 47, y: 67 }
 urunler:
   - marka: LCW XSIDE
     ad: "V yaka triko hırka, kahverengi"

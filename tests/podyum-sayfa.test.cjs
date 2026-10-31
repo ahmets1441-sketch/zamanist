@@ -25,13 +25,16 @@ test("zara page shows no totals", () => {
   assert.doesNotMatch(metin(sayfa(ZARA)), /toplam|normalde/i);
 });
 
-test("older outfit post uses the runway with its slides and no pins", () => {
-  const h = sayfa("basiclink/kahverengi-hirka-kombini");
-  assert.equal(say(h, /<li class="podyum-look[ "]/g), 3);
-  assert.equal(say(h, /<button[^>]*class="podyum-pin[ "]/g), 0);
-  const p = podyumBolumu(h);
-  const md = fs.readFileSync(path.join(kok, "src/basiclink/kahverengi-hirka-kombini.md"), "utf8");
-  for (const [, l] of md.matchAll(/^\s+link: (\S+)$/gm)) assert.ok(p.includes(`href="${l}"`), "missing " + l);
+test("every outfit post has a cut-out look with pins and all its links", () => {
+  for (const [slug, pin] of [["kahverengi-hirka-kombini", 3], ["pazar-kahvesi-kombini", 5]]) {
+    const h = sayfa("basiclink/" + slug);
+    assert.equal(say(h, /<li class="podyum-look[ "]/g), 1, slug);
+    assert.equal(say(h, /<button[^>]*class="podyum-pin[ "]/g), pin, slug);
+    assert.ok(!h.includes("podyum-onceki"), slug + " has arrows with one look");
+    const p = podyumBolumu(h);
+    const md = fs.readFileSync(path.join(kok, `src/basiclink/${slug}.md`), "utf8");
+    for (const [, l] of md.matchAll(/^\s+link: (\S+)$/gm)) assert.ok(p.includes(`href="${l.replace(/&/g, "&amp;")}"`), slug + " missing " + l);
+  }
 });
 
 test("non-outfit posts keep the old layout", () => {
