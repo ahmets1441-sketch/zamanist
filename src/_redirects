@@ -16,3 +16,5 @@
 /araba-ve-saat /saat/ 301
 /biyografiler/* /saat/:splat 301
 /biyografiler /saat/ 301
+/kombinlerim/ /basiclink/ 301
+/kombinlerim /basiclink/ 301

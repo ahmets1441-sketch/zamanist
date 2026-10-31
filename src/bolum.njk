@@ -9,7 +9,13 @@ eleventyComputed:
   title: "{{ bolum.ad }}"
   description: "{{ bolum.aciklama }}"
 ---
+{%- if bolum.slug == "kombinlerim" %}
+{#- Outfits now live under /basiclink/ (also a 301 in _redirects); this page only forwards. -#}
+<meta http-equiv="refresh" content="0; url=/basiclink/">
+<p>Kombinler artık <a href="/basiclink/">basiclink.</a> sayfasında.</p>
+{%- else %}
 <h1>{{ bolum.ad }}</h1>
 <p class="ozet">{{ bolum.aciklama }}</p>
 {% set yazilar = collections[bolum.slug] %}
 {% include "liste.njk" %}
+{%- endif %}
