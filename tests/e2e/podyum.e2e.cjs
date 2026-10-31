@@ -31,7 +31,21 @@ const yollar = process.argv.slice(2).length ? process.argv.slice(2) : ["/basicli
       const kok = p.locator("[data-podyum]").first();
       await kok.waitFor();
       assert.ok(await kok.evaluate((e) => e.classList.contains("hazir")), "runway not initialised");
+      // First look starts at the strip's left edge: no empty space before it (a single look is centred on purpose).
+      if (await kok.locator(".podyum-look").count() > 1) {
+      const solBosluk = await kok.evaluate((k) => k.querySelector(".podyum-look").getBoundingClientRect().left - k.querySelector(".podyum-serit").getBoundingClientRect().left);
+      assert.ok(solBosluk < 40, `${yol} ${w}: ${Math.round(solBosluk)}px empty space before the first look`);
+      }
       const sonraki = kok.locator(".podyum-sonraki");
+      if (await sonraki.count() && w >= 1000) {
+        // Last look ends at the strip's right edge: no empty space after it.
+        const n = await kok.locator(".podyum-look").count();
+        for (let i = 1; i < n; i++) { await sonraki.click(); await p.waitForTimeout(600); }
+        await p.waitForTimeout(400);
+        const sagBosluk = await kok.evaluate((k) => k.querySelector(".podyum-serit").getBoundingClientRect().right - [...k.querySelectorAll(".podyum-look")].pop().getBoundingClientRect().right);
+        assert.ok(sagBosluk < 40, `${yol} ${w}: ${Math.round(sagBosluk)}px empty space after the last look`);
+        await p.goto(BASE + yol, { waitUntil: "networkidle" }); // back to the first look for the checks below
+      }
       if (await sonraki.count()) {
         await sonraki.click();
         await p.waitForTimeout(700);

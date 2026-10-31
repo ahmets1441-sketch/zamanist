@@ -58,6 +58,9 @@
       clearTimeout(bekle);
       bekle = setTimeout(() => {
         if (hedef !== null) { sec(hedef); hedef = null; return; }
+        // At either end of the strip the edge look wins, even if another sits nearer the centre.
+        if (serit.scrollLeft <= 2) return sec(0);
+        if (serit.scrollLeft >= serit.scrollWidth - serit.clientWidth - 2) return sec(looks.length - 1);
         const orta = serit.scrollLeft + serit.clientWidth / 2;
         let en = 0;
         looks.forEach((l, j) => {
