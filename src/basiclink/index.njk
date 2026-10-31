@@ -13,15 +13,27 @@ eleventyExcludeFromCollections: true
     <a class="dugme-kucuk" href="https://www.instagram.com/{{ site.instagram }}/" rel="noopener" target="_blank">@{{ site.instagram }}</a>
   </div>
 </header>
-{#- All outfits in one place: Instagram outfit posts and editorial outfits, newest first. Other posts are picks. -#}
-<h2>Kombinler</h2>
+{#- The newest outfit as a runway, then every other outfit (Instagram and editorial), then picks. -#}
+{%- set vitrin = collections.basiclink | vitrinPostu %}
+{%- if vitrin %}
+<link rel="stylesheet" href="/css/podyum.css">
+<section class="basiclink-vitrin" aria-labelledby="vitrinBaslik">
+  <p class="vitrin-ust">Son kombin</p>
+  <h2 class="vitrin-baslik" id="vitrinBaslik"><a href="{{ vitrin.url }}">{{ vitrin.data.title }}</a></h2>
+  {%- set looks = { looklar: vitrin.data.looklar, urunler: vitrin.data.urunler, tags: vitrin.data.tags, slaytlar: vitrin.data.slaytlar, page: vitrin.page } | podyumLooklari %}
+  {%- set baslik = vitrin.data.title %}{% set sayfaLinki = vitrin.url %}
+  {% include "podyum.njk" %}
+</section>
+<script src="/js/podyum.js" defer></script>
+{%- endif %}
+<section id="kombinler" aria-labelledby="kombinBaslik">
+<h2 id="kombinBaslik">Kombinler</h2>
 <ul class="insta-izgara">
-{%- for p in collections.kombinlerim %}
+{%- for p in collections.kombinlerim %}{% if p.url != vitrin.url %}
   <li><a href="{{ p.url }}"><img src="{{ p.data.kapak | kucukGorsel }}" alt="" loading="lazy"><span>{{ p.data.title }}</span></a></li>
-{%- else %}
-  <li class="bos-not">Henüz kombin yok.</li>
-{%- endfor %}
+{%- endif %}{% endfor %}
 </ul>
+</section>
 <section id="secki" aria-labelledby="seckiBaslik">
 <h2 id="seckiBaslik">İndirim ve ürün seçkileri</h2>
 <ul class="insta-izgara">
