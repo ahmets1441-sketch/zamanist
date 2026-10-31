@@ -5,7 +5,7 @@ layout: base.njk
     slides, then every product with code, price and a link to the shop. -#}
 {%- set looks = { looklar: looklar, urunler: urunler, tags: tags, slaytlar: slaytlar, page: page } | podyumLooklari %}
 <p class="kirinti"><a href="/">Ana sayfa</a> › <a href="/basiclink/">Basiclink</a> › {{ title }}</p>
-{%- if looks.length and not looks[0].slayt %}
+{%- if looks.length %}
 <link rel="stylesheet" href="/css/podyum.css">
 <div class="podyum-sayfa-ust">
   <h1>{{ title }}</h1>
