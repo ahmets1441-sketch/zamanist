@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-20",
+  "guncelleme": "2026-10-31",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -10,45 +10,30 @@
       "kategori": "genel",
       "oran": "%70'e varan",
       "ornekler": [
-        "Brooks Brothers %70'e Varan İndirim",
-        "Network %70'e Varan İndirim",
-        "Discovery Expedition %70'e Varan İndirim"
+        "Defacto Sepette %70'e Varan İndirim",
+        "Discovery Expedition %70'e Varan İndirim",
+        "Polo Assn. Sepette %60'a Varan İndirim"
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-20"
+      "kontrol": "2026-10-31"
     },
     {
-      "baslik": "Beymen indirimi",
-      "grup": "Beymen",
+      "baslik": "Koton indirimi",
+      "grup": "Koton",
       "markalar": [
-        "Beymen"
+        "Koton"
       ],
       "kategori": "giyim",
-      "oran": "%30'a varan",
+      "oran": "%50",
       "ornekler": [
-        "Estée Lauder alışverişlerinde %30’a varan indirim",
-        "DIVARESE Sezon koleksiyonlarında %30 indirim",
-        "seçili Çanta tasarımlarında %20 indirim"
+        "%50 İndirim",
+        "%40 İndirim",
+        "Dış Giyim Fırsatlar %30 İndirim"
       ],
-      "link": "https://www.beymen.com/",
-      "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-20"
-    },
-    {
-      "baslik": "Vakko indirimi",
-      "grup": "Vakko",
-      "markalar": [
-        "Vakko"
-      ],
-      "kategori": "giyim",
-      "oran": "%25",
-      "ornekler": [
-        "Monogram SEÇİLİ ÜRÜNLERDE %25 İNDİRİM"
-      ],
-      "link": "https://www.vakko.com/",
-      "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-20"
+      "link": "https://www.koton.com/",
+      "ilkGorulme": "2026-10-28",
+      "kontrol": "2026-10-31"
     },
     {
       "baslik": "Ramsey indirimi",
@@ -57,13 +42,28 @@
         "Ramsey"
       ],
       "kategori": "giyim",
-      "oran": "%50'ye varan",
+      "oran": "%40",
       "ornekler": [
-        "Online Özel Ürünlerde %50'ye Varan İndirim"
+        "Ürüne %40 İndirim"
       ],
       "link": "https://www.ramsey.com.tr/",
       "ilkGorulme": "2026-10-16",
-      "kontrol": "2026-10-19"
+      "kontrol": "2026-10-31"
+    },
+    {
+      "baslik": "Kiğılı indirimi",
+      "grup": "Kiğılı",
+      "markalar": [
+        "Kiğılı"
+      ],
+      "kategori": "giyim",
+      "oran": "%25",
+      "ornekler": [
+        "Taksit İmkanı Sepette %25 İndirim"
+      ],
+      "link": "https://www.kigili.com/",
+      "ilkGorulme": "2026-10-28",
+      "kontrol": "2026-10-31"
     },
     {
       "baslik": "Sarar indirimi",
@@ -80,24 +80,7 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-10-20"
-    },
-    {
-      "baslik": "Sanal Çadır indirimi",
-      "grup": "Sanal Çadır",
-      "markalar": [
-        "Sanal Çadır"
-      ],
-      "kategori": "genel",
-      "oran": "%70'e varan",
-      "ornekler": [
-        "Sepette %70 İndirim",
-        "Sepette %60 İndirim",
-        "Sepette %55 İndirim"
-      ],
-      "link": "https://www.sanalcadir.com/secili-urunlerde-sepette-indirim/",
-      "ilkGorulme": "2026-10-20",
-      "kontrol": "2026-10-20"
+      "kontrol": "2026-10-31"
     },
     {
       "baslik": "Occasion indirimi",
@@ -108,13 +91,13 @@
       "kategori": "genel",
       "oran": "%65'e varan",
       "ornekler": [
-        "Sepette %65 İndirim",
-        "Sepette %60 İndirim",
-        "Sepette %50 İndirim"
+        "Düşük Fiyatı Sepette %65 İndirim",
+        "Düşük Fiyatı Sepette %60 İndirim",
+        "TL Sepette %55 İndirim"
       ],
       "link": "https://www.occasion.com.tr/son-firsat-urunleri/",
-      "ilkGorulme": "2026-10-20",
-      "kontrol": "2026-10-20"
+      "ilkGorulme": "2026-10-26",
+      "kontrol": "2026-10-31"
     },
     {
       "baslik": "Columbia indirimi",
@@ -129,8 +112,8 @@
         "Koleksiyonu Outlet ürünlerde %60'a Varan İndirim"
       ],
       "link": "https://www.columbia.com.tr/",
-      "ilkGorulme": "2026-10-20",
-      "kontrol": "2026-10-20"
+      "ilkGorulme": "2026-10-26",
+      "kontrol": "2026-10-31"
     }
   ]
 }
