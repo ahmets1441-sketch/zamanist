@@ -1,0 +1,50 @@
+/* Runway (podyum) for basiclink outfits: outfit pages and the homepage showcase. Markup: _includes/podyum.njk. */
+.podyum{display:grid;grid-template-columns:minmax(0,1fr) 24rem;gap:2rem;align-items:start;margin:1.5rem 0 2rem}
+.podyum-sahne{min-width:0;display:flex;flex-direction:column;gap:1rem}
+.podyum-serit{position:relative;list-style:none;margin:0;padding:.5rem 18% 1rem;display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.podyum-serit::-webkit-scrollbar{display:none}
+.podyum-look{flex:0 0 64%;max-width:28rem;scroll-snap-align:center;transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1)}
+.podyum.hazir .podyum-look:not(.aktif){opacity:.45;transform:scale(.9);cursor:pointer}
+.podyum-foto{position:relative;margin:0;aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:radial-gradient(120% 90% at 50% 100%,#e4e1da,#f3f2ee 70%)}
+.podyum-foto img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%}
+.podyum-slayt .podyum-foto img{object-fit:cover}
+.podyum-ad{position:absolute;left:.8rem;top:.8rem;background:rgba(255,255,255,.92);color:#111;font:700 .85rem/1 var(--govde,Inter,sans-serif);padding:.45rem .8rem;border-radius:999px}
+.podyum-pin{position:absolute;width:2.75rem;height:2.75rem;margin:-1.375rem 0 0 -1.375rem;border-radius:50%;border:3px solid #fff;background:#111;color:#fff;font:600 1.4rem/1 sans-serif;cursor:pointer;box-shadow:0 0 0 6px rgba(255,255,255,.35),0 6px 16px rgba(0,0,0,.25);transition:transform .2s,background .2s}
+.podyum-pin:hover,.podyum-pin[aria-expanded="true"]{background:#CFA65A;color:#111;transform:scale(1.08)}
+.podyum.hazir .podyum-look:not(.aktif) .podyum-pin{visibility:hidden}
+.podyum-kart{position:absolute;left:.8rem;right:.8rem;bottom:.8rem;background:#fff;color:#111;border-radius:16px;padding:.9rem 1rem;box-shadow:0 18px 40px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:.2rem;animation:podyumKart .22s ease-out}
+.podyum-kart[hidden]{display:none}
+@keyframes podyumKart{from{opacity:0;transform:translateY(8px)}}
+.podyum-kart-kod,.podyum-satir-kod{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#777}
+.podyum-kart-ad{font-weight:700;overflow-wrap:anywhere}
+.podyum-kart-alt{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin-top:.3rem}
+.podyum-fiyat{font-weight:800;font-size:1.15rem}
+.podyum-fiyat s{font-weight:500;font-size:.85rem;color:#888}
+.podyum-git{display:inline-flex;align-items:center;min-height:2.75rem;padding:0 1.1rem;border-radius:999px;background:#111;color:#fff;font-weight:700;font-size:.9rem;text-decoration:none;white-space:nowrap}
+.podyum-git:hover{background:#CFA65A;color:#111}
+.podyum-kontrol{display:flex;align-items:center;gap:1rem}
+.podyum-onceki,.podyum-sonraki{flex:none;width:3rem;height:3rem;border-radius:50%;border:1px solid var(--line,#ccc);background:var(--kart,#fff);color:var(--fg,#111);font-size:1.2rem;cursor:pointer}
+.podyum-ilerleme{flex:1;display:flex;gap:.5rem;min-width:0}
+.podyum-ilerleme span{flex:1;display:flex;flex-direction:column;gap:.35rem;font-size:.75rem;font-weight:600;color:var(--muted,#666);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.podyum-ilerleme i{display:block;height:3px;border-radius:2px;background:var(--line,#d6d3cc);transition:background .4s}
+.podyum-ilerleme .aktif i{background:var(--fg,#111)}
+.podyum-liste{background:var(--kart,#fff);border:1px solid var(--line,#eee);border-radius:22px;padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.2rem}
+.podyum-liste-baslik{margin:0 0 .3rem;font-size:.75rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8a6a2c}
+.podyum-liste ul{list-style:none;margin:0;padding:0}
+.podyum-satir{display:grid;grid-template-columns:4rem minmax(0,1fr);gap:.4rem .9rem;align-items:center;padding:.7rem 0;border-top:1px solid var(--line,#eee)}
+.podyum-satir img{grid-row:span 2;align-self:start;width:4rem;height:4rem;border-radius:12px;object-fit:cover;object-position:50% 25%;background:#f1efea}
+.podyum-satir-bilgi{display:flex;flex-direction:column;gap:.1rem;min-width:0}
+.podyum-satir-ad{font-weight:600;overflow-wrap:anywhere}
+.podyum-satir .podyum-git{grid-column:2;justify-self:start;min-height:2.75rem;padding:0 1rem;font-size:.85rem}
+.podyum-sayfa{display:block;margin-top:.8rem;text-align:center;background:#CFA65A;color:#111;font-weight:800;padding:1rem;border-radius:999px;text-decoration:none}
+.podyum-sayfa-ust h1{margin:.5rem 0 .3rem}
+.podyum-sayfa-alt{max-width:44rem}
+@media (max-width:56rem){
+  .podyum{grid-template-columns:minmax(0,1fr);gap:1.2rem}
+  .podyum-serit{padding-inline:10%;margin-inline:-1rem}
+  .podyum-look{flex-basis:80%}
+  .podyum-satir img{width:3.5rem;height:3.5rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .podyum *,.podyum *::before,.podyum *::after{transition:none!important;animation:none!important}
+}
