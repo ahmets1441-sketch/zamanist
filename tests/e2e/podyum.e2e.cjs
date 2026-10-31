@@ -55,16 +55,10 @@ const yollar = process.argv.slice(2).length ? process.argv.slice(2) : ["/basicli
         await p.keyboard.press("Escape");
         assert.ok(await pin2.evaluate((e) => e === document.activeElement), `${yol} ${w}: Esc lost focus`);
       }
-      if (w >= 1000) {
-        // Desktop: the runway fills the height of the product list beside it, no empty gap under the looks.
-        const bosluk = await kok.evaluate((k) => k.querySelector(".podyum-liste").getBoundingClientRect().bottom - k.querySelector(".podyum-sahne").getBoundingClientRect().bottom);
-        assert.ok(Math.abs(bosluk) < 40, `${yol} ${w}: runway and list bottoms differ by ${Math.round(bosluk)}px`);
-        // The list is never a scroll box: the runway grows instead.
-        assert.ok(await kok.evaluate((k) => { const l = k.querySelector(".podyum-liste"); return l.scrollHeight <= l.clientHeight + 1; }), `${yol} ${w}: product list scrolls`);
-        // The "Kombin sayfasını aç" button stays visible even when the list scrolls.
-        const cta = kok.locator(".podyum-sayfa");
-        if (await cta.count()) assert.ok(await cta.evaluate((a) => { const r = a.getBoundingClientRect(), l = a.closest(".podyum-liste").getBoundingClientRect(); return r.bottom <= l.bottom + 1 && r.top >= l.top; }), `${yol} ${w}: page button hidden in the list`);
-      }
+      // Product cards under the runway: big enough to see the piece, and the list never scrolls.
+      const enKucuk = await kok.evaluate((k) => Math.min(...[...k.querySelectorAll(".podyum-liste ul:not([hidden]) .podyum-satir img")].map((i) => i.getBoundingClientRect().width)));
+      assert.ok(enKucuk >= (w >= 1000 ? 180 : 140), `${yol} ${w}: product image only ${Math.round(enKucuk)}px wide`);
+      assert.ok(await kok.evaluate((k) => { const l = k.querySelector(".podyum-liste"); return l.scrollHeight <= l.clientHeight + 1; }), `${yol} ${w}: product list scrolls`);
       const tasma = await p.evaluate(() => document.documentElement.scrollWidth - innerWidth);
       assert.ok(tasma <= 0, `${yol} ${w}: horizontal overflow ${tasma}px`);
       assert.deepEqual(hatalar, [], `${yol} ${w}: console errors`);
