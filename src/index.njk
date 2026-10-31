@@ -2,133 +2,34 @@
 layout: base.njk
 title: Ana sayfa
 ---
-<header class="ana-giris">
-  <p class="vitrin-ust">Doğru parça, doğru fiyat</p>
-  <h1>Saat, stil, sneaker ve otomobil</h1>
-  <p>Yurt dışı fiyatlar, sınırlı seriler, indirimler ve kombinler. Hepsi tek yerde.</p>
-  <nav class="hizli-linkler" aria-label="Bölümlere git">
-    <a href="#basiclink">Basiclink</a><a href="#yurtdisi">Yurt dışı fiyat</a><a href="#anaCikis">Sınırlı seri</a><a href="#anaIndirim">İndirimler</a><a href="#kombinlerim">Kombinler</a><a href="#rehberler">Rehberler</a>
-  </nav>
-</header>
-
-<section class="tanitim" id="yurtdisi">
-  <figure class="tanitim-cizim">
-    <svg viewBox="0 0 600 420" role="img" aria-labelledby="cizimBaslik">
-      <title id="cizimBaslik">Saat ve sneaker gibi ürünlerin yurt dışı fiyatı ile Türkiye fiyatı karşılaştırılıyor</title>
-      <defs>
-        <linearGradient id="czZemin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#111111"/><stop offset="1" stop-color="#2B2B2B"/></linearGradient>
-        <filter id="czGolge" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".25"/></filter>
-      </defs>
-      <rect width="600" height="420" fill="url(#czZemin)"/>
-      <circle cx="560" cy="30" r="150" fill="none" stroke="#CFA65A" stroke-width="2" opacity=".25"/>
-      <circle cx="40" cy="420" r="110" fill="none" stroke="#CFA65A" stroke-width="1.5" opacity=".18"/>
-      <!-- products: a watch and a sneaker -->
-      <g transform="translate(212 132) scale(.78)">
-        <rect x="-26" y="-112" width="52" height="60" rx="8" fill="#8C6A2C"/>
-        <rect x="-26" y="52" width="52" height="60" rx="8" fill="#8C6A2C"/>
-        <rect x="64" y="-10" width="12" height="20" rx="4" fill="#E6C98A"/>
-        <circle r="70" fill="#E6C98A"/>
-        <circle r="60" fill="#fff"/>
-        <g stroke="#111111" stroke-width="4" stroke-linecap="round">
-          <line y1="-50" y2="-40"/><line y1="50" y2="40"/><line x1="-50" x2="-40"/><line x1="50" x2="40"/>
-        </g>
-        <line x1="0" y1="0" x2="22" y2="-30" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
-        <line x1="0" y1="0" x2="-30" y2="16" stroke="#111111" stroke-width="3.5" stroke-linecap="round"/>
-        <circle r="5" fill="#CFA65A"/>
-      </g>
-      <g transform="translate(392 150) scale(1.15)">
-        <path d="M-72 20 L-72 -28 Q-72 -44 -56 -44 L-22 -44 Q-14 -22 18 -16 Q60 -10 72 6 L72 20 Z" fill="#fff"/>
-        <path d="M-72 -6 Q-30 -2 4 -10" fill="none" stroke="#E6C98A" stroke-width="7" stroke-linecap="round"/>
-        <path d="M-60 12 Q0 0 66 6" fill="none" stroke="#111111" stroke-width="5" stroke-linecap="round" opacity=".85"/>
-        <g stroke="#111111" stroke-width="3" stroke-linecap="round"><line x1="-18" y1="-36" x2="-8" y2="-40"/><line x1="-12" y1="-28" x2="0" y2="-33"/><line x1="-4" y1="-21" x2="8" y2="-26"/></g>
-        <rect x="-76" y="18" width="152" height="18" rx="7" fill="#E6C98A"/>
-        <line x1="-70" y1="27" x2="70" y2="27" stroke="#8C6A2C" stroke-width="2" stroke-dasharray="4 4"/>
-      </g>
-      <path d="M250 205 C200 225 170 230 155 250" fill="none" stroke="#E6C98A" stroke-width="2" stroke-dasharray="6 6"/>
-      <path d="M350 205 C400 225 430 230 445 250" fill="none" stroke="#E6C98A" stroke-width="2" stroke-dasharray="6 6"/>
-      <!-- Japan card -->
-      <g transform="translate(40 252)" filter="url(#czGolge)">
-        <rect width="230" height="138" rx="14" fill="#fff"/>
-        <rect x="18" y="18" width="42" height="28" rx="3" fill="#fff" stroke="#E6E6E3"/>
-        <circle cx="39" cy="32" r="8.5" fill="#BC002D"/>
-        <text x="72" y="38" font-family="Inter,system-ui,sans-serif" font-size="18" font-weight="700" fill="#111111">Japonya</text>
-        <text x="18" y="82" font-family="Inter,system-ui,sans-serif" font-size="13" fill="#6E6E6E">Resmi fiyat ve satıcılar</text>
-        <text x="18" y="118" font-family="Playfair Display,Georgia,serif" font-size="28" font-weight="700" fill="#8C6A2C">¥ → ₺</text>
-      </g>
-      <!-- Turkey card -->
-      <g transform="translate(330 252)" filter="url(#czGolge)">
-        <rect width="230" height="138" rx="14" fill="#fff"/>
-        <rect x="18" y="18" width="42" height="28" rx="3" fill="#E30A17"/>
-        <circle cx="33" cy="32" r="8" fill="#fff"/>
-        <circle cx="35" cy="32" r="6.4" fill="#E30A17"/>
-        <polygon transform="translate(46 32)" points="-5.5,0.0 -1.8,-1.3 -1.7,-5.2 0.7,-2.1 4.4,-3.2 2.2,-0.0 4.4,3.2 0.7,2.1 -1.7,5.2 -1.8,1.3" fill="#fff"/>
-        <text x="72" y="38" font-family="Inter,system-ui,sans-serif" font-size="18" font-weight="700" fill="#111111">Türkiye</text>
-        <text x="18" y="82" font-family="Inter,system-ui,sans-serif" font-size="13" fill="#6E6E6E">Mağazadaki fiyat</text>
-        <text x="18" y="118" font-family="Playfair Display,Georgia,serif" font-size="28" font-weight="700" fill="#8C6A2C">₺</text>
-      </g>
-      <!-- difference badge -->
-      <g transform="translate(300 321)">
-        <circle r="30" fill="#CFA65A" stroke="#111111" stroke-width="5"/>
-        <path d="M-13 -6 H11 M5 -12 L11 -6 L5 0 M13 6 H-11 M-5 0 L-11 6 L-5 12" fill="none" stroke="#111111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </g>
-      <text x="300" y="408" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="600" fill="#E6C98A" letter-spacing="1.5">GÜNCEL KURLA FARKI GÖRÜN</text>
-    </svg>
-  </figure>
-  <div class="tanitim-metin">
-    <p class="tanitim-ust">Yurt dışı fiyat karşılaştırma</p>
-    <h2>Yurt dışında kaça, Türkiye'de kaça?</h2>
-    <ol class="adimlar">
-      <li>Saat, sneaker ya da kıyafet: ürün adını veya model kodunu yazın.</li>
-      <li>Markanın resmi fiyatını, yetkili satıcıları ve pazar yerlerini görün. Hepsi güncel kurla TL.</li>
-      <li>Türkiye fiyatını girin, aradaki farkı görün.</li>
-    </ol>
-    <form class="tanitim-form" action="/ara/" method="get">
-      <label class="gizli" for="anaAra">Ürün adı veya model kodu</label>
-      <input id="anaAra" name="q" type="search" required minlength="2" placeholder="Örn. Seiko SPB143 veya Air Force 1">
-      <button type="submit">Ara</button>
-    </form>
-    <p class="meta">Şimdilik Japonya ve ABD (ABD'de satıcı ilanları yakında; resmi fiyat ve hesap çalışıyor). Elinizde bir fiyat varsa <a href="/hesaplayici/">Hesaplayıcı</a> TL'ye çevirir ve vergi iadesini düşer.</p>
-  </div>
+{#- Basiclink first: the newest outfit as a runway, then earlier posts. -#}
+{%- set vitrin = collections.basiclink | vitrinPostu %}
+{%- if vitrin %}
+<link rel="stylesheet" href="/css/podyum.css">
+<section class="bolum basiclink-vitrin" id="basiclink">
+  <p class="vitrin-ust"><a href="/basiclink/">basiclink.</a> · <a href="https://www.instagram.com/{{ site.instagram }}/" rel="noopener" target="_blank">@{{ site.instagram }}</a></p>
+  <h1 class="vitrin-baslik"><a href="{{ vitrin.url }}">{{ vitrin.data.title }}</a></h1>
+  {%- set looks = { looklar: vitrin.data.looklar, urunler: vitrin.data.urunler, tags: vitrin.data.tags, slaytlar: vitrin.data.slaytlar, page: vitrin.page } | podyumLooklari %}
+  {%- set baslik = vitrin.data.title %}{% set sayfaLinki = vitrin.url %}
+  {% include "podyum.njk" %}
 </section>
+<script src="/js/podyum.js" defer></script>
+{%- endif %}
 
-{% set postlar = collections.basiclink | reverse | head(4) %}
-{% if postlar.length %}
-<section class="bolum" id="basiclink">
-  <div class="bolum-baslik"><h2><a href="/basiclink/">Basiclink</a></h2><a href="/basiclink/">Tümü →</a></div>
-  <p class="bolum-aciklama">Instagram'da <a href="https://www.instagram.com/{{ site.instagram }}/" rel="noopener" target="_blank">@{{ site.instagram }}</a> hesabında paylaştığımız uygun fiyatlı kombinler ve indirimdeki parçalar. Model kodları, fiyatlar ve linkler.</p>
+{%- set onceki = [] %}
+{%- for p in collections.basiclink | reverse %}{% if p.url != vitrin.url and onceki.length < 4 %}{% set onceki = (onceki.push(p), onceki) %}{% endif %}{% endfor %}
+{%- if onceki.length %}
+<section class="bolum goster" id="onceki-kombinler">
+  <div class="bolum-baslik"><h2><a href="/basiclink/">Önceki kombinler</a></h2><a href="/basiclink/">Tümü →</a></div>
   <ul class="insta-izgara">
-  {%- for p in postlar %}
+  {%- for p in onceki %}
     <li><a href="{{ p.url }}"><img src="{{ p.data.kapak }}" width="1080" height="1350" alt="" loading="lazy"><span>{{ p.data.title }}</span></a></li>
   {%- endfor %}
   </ul>
 </section>
-{% endif %}
+{%- endif %}
 
-<section class="bolum" id="anaCikis" hidden>
-  <div class="bolum-baslik"><h2><a href="/sinirli-seri/">Sınırlı Seri ve İş Birlikleri</a></h2><a href="/sinirli-seri/">Tümü →</a></div>
-  <p class="bolum-aciklama">Saat, sneaker, giyim ve otomobilde yaklaşan sınırlı üretimler ve çıkış tarihleri.</p>
-  <div class="yatay-kaydir" id="anaCikisListe"></div>
-</section>
-<script>
-// Next releases with photos, from the same data as /sinirli-seri/.
-(() => {
-  const L = {{ sinirliSeri.cikislar | dump | safe }};
-  const bugun = new Date(new Date().toDateString());
-  const bas = (x) => { const [y, a, g] = x.tarih.split("-").map(Number); return new Date(y, a - 1, g || 1); };
-  const AY = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"];
-  const KAT = { saat: "Saat", sneaker: "Sneaker", giyim: "Giyim", araba: "Otomobil" };
-  const k = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-  const xs = L.filter((x) => x.gorsel && bas(x) >= bugun).sort((a, b) => bas(a) - bas(b)).slice(0, 8);
-  if (!xs.length) return;
-  document.getElementById("anaCikisListe").innerHTML = xs.map((x) => {
-    const d = bas(x);
-    return `<a class="mini-drop" href="/sinirli-seri/?kat=${x.kategori}"><span class="mini-drop-gorsel"><img src="${k(x.gorsel)}" alt="" loading="lazy"><span class="drop-rozet">${x.hassasiyet === "ay" ? AY[d.getMonth()] + " " + d.getFullYear() : d.getDate() + " " + AY[d.getMonth()]}</span></span><span class="mini-drop-kat">${KAT[x.kategori]} · ${k(x.marka)}</span><span class="mini-drop-ad">${k(x.baslik)}</span></a>`;
-  }).join("");
-  document.getElementById("anaCikis").hidden = false;
-})();
-</script>
-
-<section class="bolum ana-indirim" id="anaIndirim" hidden>
+<section class="bolum ana-indirim goster" id="anaIndirim" hidden>
   <div class="bolum-baslik"><h2><a href="/indirimler/">İndirim Takvimi</a></h2><a href="/indirimler/">Tümü →</a></div>
   <p class="bolum-aciklama">Türk markalarının indirimleri. Markaların sitesi her sabah kontrol edilir.</p>
   <div class="ana-indirim-ic">
@@ -154,13 +55,59 @@ title: Ana sayfa
 })();
 </script>
 
+<section class="bolum goster" id="anaCikis" hidden>
+  <div class="bolum-baslik"><h2><a href="/sinirli-seri/">Sınırlı Seri ve İş Birlikleri</a></h2><a href="/sinirli-seri/">Tümü →</a></div>
+  <p class="bolum-aciklama">Saat, sneaker, giyim ve otomobilde yaklaşan sınırlı üretimler ve çıkış tarihleri.</p>
+  <div class="yatay-kaydir" id="anaCikisListe"></div>
+</section>
+<script>
+// Next releases with photos, from the same data as /sinirli-seri/.
+(() => {
+  const L = {{ sinirliSeri.cikislar | dump | safe }};
+  const bugun = new Date(new Date().toDateString());
+  const bas = (x) => { const [y, a, g] = x.tarih.split("-").map(Number); return new Date(y, a - 1, g || 1); };
+  const AY = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"];
+  const KAT = { saat: "Saat", sneaker: "Sneaker", giyim: "Giyim", araba: "Otomobil" };
+  const k = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  const xs = L.filter((x) => x.gorsel && bas(x) >= bugun).sort((a, b) => bas(a) - bas(b)).slice(0, 8);
+  if (!xs.length) return;
+  document.getElementById("anaCikisListe").innerHTML = xs.map((x) => {
+    const d = bas(x);
+    return `<a class="mini-drop" href="/sinirli-seri/?kat=${x.kategori}"><span class="mini-drop-gorsel"><img src="${k(x.gorsel)}" alt="" loading="lazy"><span class="drop-rozet">${x.hassasiyet === "ay" ? AY[d.getMonth()] + " " + d.getFullYear() : d.getDate() + " " + AY[d.getMonth()]}</span></span><span class="mini-drop-kat">${KAT[x.kategori]} · ${k(x.marka)}</span><span class="mini-drop-ad">${k(x.baslik)}</span></a>`;
+  }).join("");
+  document.getElementById("anaCikis").hidden = false;
+})();
+</script>
+
+<section class="ikinci-plan goster" id="ikinci-plan" aria-label="Diğer bölümler">
+  <nav class="hizli-linkler" aria-label="Bölümlere git">
+    <a href="#yurtdisi">Yurt dışı fiyat</a><a href="/saat/">Saat</a><a href="/otomobil/">Otomobil</a><a href="/rehberler/">Rehberler</a><a href="/hesaplayici/">Hesaplayıcı</a>
+  </nav>
+  <div class="yurtdisi-bant" id="yurtdisi">
+  <div class="tanitim-metin">
+    <p class="tanitim-ust">Yurt dışı fiyat karşılaştırma</p>
+    <h2>Yurt dışında kaça, Türkiye'de kaça?</h2>
+    <ol class="adimlar">
+      <li>Saat, sneaker ya da kıyafet: ürün adını veya model kodunu yazın.</li>
+      <li>Markanın resmi fiyatını, yetkili satıcıları ve pazar yerlerini görün. Hepsi güncel kurla TL.</li>
+      <li>Türkiye fiyatını girin, aradaki farkı görün.</li>
+    </ol>
+    <form class="tanitim-form" action="/ara/" method="get">
+      <label class="gizli" for="anaAra">Ürün adı veya model kodu</label>
+      <input id="anaAra" name="q" type="search" required minlength="2" placeholder="Örn. Seiko SPB143 veya Air Force 1">
+      <button type="submit">Ara</button>
+    </form>
+    <p class="meta">Şimdilik Japonya ve ABD (ABD'de satıcı ilanları yakında; resmi fiyat ve hesap çalışıyor). Elinizde bir fiyat varsa <a href="/hesaplayici/">Hesaplayıcı</a> TL'ye çevirir ve vergi iadesini düşer.</p>
+  </div>
+</div>
 {% for bolum in bolumler %}
 {% set yazilar = collections[bolum.slug] | head(3) %}
 {% if yazilar.length %}
-<section class="bolum" id="{{ bolum.slug }}">
+<div class="bolum" id="{{ bolum.slug }}">
   <div class="bolum-baslik"><h2><a href="/{{ bolum.slug }}/">{{ bolum.ad }}</a></h2><a href="/{{ bolum.slug }}/">Tümü →</a></div>
   <p class="bolum-aciklama">{{ bolum.aciklama }}</p>
   {% include "liste.njk" %}
-</section>
+</div>
 {% endif %}
 {% endfor %}
+</section>

@@ -53,4 +53,13 @@
 
   // Install as an app and keep recently viewed pages for weak connections.
   if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("/sw.js").catch(() => {});
+
+  // Homepage sections marked .goster fade in as they scroll into view; CSS keeps them visible without JS.
+  const goster = document.querySelectorAll(".goster");
+  if (goster.length && "IntersectionObserver" in window) {
+    const izle = new IntersectionObserver((xs) => xs.forEach((x) => {
+      if (x.isIntersecting) { x.target.classList.add("gorundu"); izle.unobserve(x.target); }
+    }), { rootMargin: "0px 0px -10% 0px" });
+    goster.forEach((g) => izle.observe(g));
+  } else goster.forEach((g) => g.classList.add("gorundu"));
 })();
