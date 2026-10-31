@@ -13,11 +13,21 @@ eleventyExcludeFromCollections: true
     <a class="dugme-kucuk" href="https://www.instagram.com/{{ site.instagram }}/" rel="noopener" target="_blank">@{{ site.instagram }}</a>
   </div>
 </header>
+{#- All outfits in one place: Instagram outfit posts and editorial outfits, newest first. Other posts are picks. -#}
+<h2>Kombinler</h2>
 <ul class="insta-izgara">
-{%- for p in collections.basiclink | reverse %}
-  <li><a href="{{ p.url }}"><img src="{{ p.data.kapak }}" width="1080" height="1350" alt="" loading="lazy"><span>{{ p.data.title }}</span></a></li>
+{%- for p in collections.kombinlerim %}
+  <li><a href="{{ p.url }}"><img src="{{ p.data.kapak | kucukGorsel }}" alt="" loading="lazy"><span>{{ p.data.title }}</span></a></li>
 {%- else %}
-  <li class="bos-not">Henüz post yok.</li>
+  <li class="bos-not">Henüz kombin yok.</li>
 {%- endfor %}
 </ul>
-<p class="meta"><a href="/indirimler/">İndirim takvimi</a> · <a href="/kombinlerim/">Kombinler</a> · <a href="/ara/">Yurt dışında fiyat ara</a></p>
+<section id="secki" aria-labelledby="seckiBaslik">
+<h2 id="seckiBaslik">İndirim ve ürün seçkileri</h2>
+<ul class="insta-izgara">
+{%- for p in collections.basiclink | reverse %}{% if "kombinlerim" not in (p.data.tags or []) %}
+  <li><a href="{{ p.url }}"><img src="{{ p.data.kapak }}" width="1080" height="1350" alt="" loading="lazy"><span>{{ p.data.title }}</span></a></li>
+{%- endif %}{% endfor %}
+</ul>
+</section>
+<p class="meta"><a href="/indirimler/">İndirim takvimi</a> · <a href="/ara/">Yurt dışında fiyat ara</a></p>

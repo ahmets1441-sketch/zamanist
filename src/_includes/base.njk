@@ -47,7 +47,7 @@
       </div>
     </div>
     <nav id="anaMenu" aria-label="Ana menü">
-      {%- set menu = [["/basiclink/", "Basiclink"], ["/kombinlerim/", "Kombinler"], ["/sinirli-seri/", "Sınırlı Seri"], ["/indirimler/", "İndirimler"], ["/rehberler/", "Rehberler"], ["/saat/", "Saat"], ["/otomobil/", "Otomobil"], ["/ara/", "Yurt Dışı Fiyat"], ["/hesaplayici/", "Hesaplayıcı"]] %}
+      {%- set menu = [["/basiclink/", "Basiclink"], ["/sinirli-seri/", "Sınırlı Seri"], ["/indirimler/", "İndirimler"], ["/rehberler/", "Rehberler"], ["/saat/", "Saat"], ["/otomobil/", "Otomobil"], ["/ara/", "Yurt Dışı Fiyat"], ["/hesaplayici/", "Hesaplayıcı"]] %}
       {%- for m in menu %}
       {%- if m[0] == "/basiclink/" %}
       <a href="{{ m[0] }}" class="menu-basiclink"{% if page.url.startsWith(m[0]) %} aria-current="page"{% endif %}>basiclink<span aria-hidden="true">.</span></a>
@@ -71,7 +71,6 @@
         <h2>Keşfet</h2>
         <ul>
           <li><a href="/basiclink/">Basiclink</a></li>
-          <li><a href="/kombinlerim/">Kombinler</a></li>
           <li><a href="/sinirli-seri/">Sınırlı Seri ve İş Birlikleri</a></li>
           <li><a href="/indirimler/">İndirim Takvimi</a></li>
           <li><a href="/rehberler/">Rehberler</a></li>

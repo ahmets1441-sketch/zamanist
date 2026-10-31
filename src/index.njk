@@ -16,14 +16,15 @@ title: Ana sayfa
 <script src="/js/podyum.js" defer></script>
 {%- endif %}
 
-{%- set onceki = [] %}
-{%- for p in collections.basiclink | reverse %}{% if p.url != vitrin.url and onceki.length < 4 %}{% set onceki = (onceki.push(p), onceki) %}{% endif %}{% endfor %}
-{%- if onceki.length %}
-<section class="bolum goster" id="onceki-kombinler">
-  <div class="bolum-baslik"><h2><a href="/basiclink/">Önceki kombinler</a></h2><a href="/basiclink/">Tümü →</a></div>
+{#- Every outfit (Instagram posts and editorial outfits) in one grid, the showcase left out. -#}
+{%- set kombinler = [] %}
+{%- for p in collections.kombinlerim %}{% if p.url != vitrin.url and kombinler.length < 8 %}{% set kombinler = (kombinler.push(p), kombinler) %}{% endif %}{% endfor %}
+{%- if kombinler.length %}
+<section class="bolum goster" id="kombinler">
+  <div class="bolum-baslik"><h2><a href="/basiclink/">Tüm kombinler</a></h2><a href="/basiclink/">Tümü →</a></div>
   <ul class="insta-izgara">
-  {%- for p in onceki %}
-    <li><a href="{{ p.url }}"><img src="{{ p.data.kapak }}" width="1080" height="1350" alt="" loading="lazy"><span>{{ p.data.title }}</span></a></li>
+  {%- for p in kombinler %}
+    <li><a href="{{ p.url }}"><img src="{{ p.data.kapak | kucukGorsel }}" alt="" loading="lazy"><span>{{ p.data.title }}</span></a></li>
   {%- endfor %}
   </ul>
 </section>
@@ -102,7 +103,7 @@ title: Ana sayfa
 </div>
 {% for bolum in bolumler %}
 {% set yazilar = collections[bolum.slug] | head(3) %}
-{% if yazilar.length %}
+{% if yazilar.length and bolum.slug != "kombinlerim" %}
 <div class="bolum" id="{{ bolum.slug }}">
   <div class="bolum-baslik"><h2><a href="/{{ bolum.slug }}/">{{ bolum.ad }}</a></h2><a href="/{{ bolum.slug }}/">Tümü →</a></div>
   <p class="bolum-aciklama">{{ bolum.aciklama }}</p>

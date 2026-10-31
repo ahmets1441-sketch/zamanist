@@ -392,7 +392,7 @@ article th{background:var(--alan);color:var(--baslik-renk);font-weight:600}
 .insta-ust h1{font-family:"Space Grotesk",var(--govde);font-weight:700;margin:0;letter-spacing:-.02em}
 .insta-ust p{margin:.3rem 0 .7rem;color:var(--muted)}
 .altin{color:var(--altin)}
-.insta-izgara{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1rem}
+.insta-izgara{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(10rem,45%),1fr));gap:1rem .8rem}
 .insta-izgara a{display:block;text-decoration:none;color:var(--fg);font-weight:600}
 .insta-izgara img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:10px;border:1px solid var(--line);margin-bottom:.4rem}
 .insta-post{display:grid;grid-template-columns:minmax(0,26rem) minmax(0,1fr);gap:2rem;align-items:start}
