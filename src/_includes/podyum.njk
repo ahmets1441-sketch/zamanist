@@ -1,0 +1,48 @@
+{#- Runway of outfit looks, used by outfit pages and the homepage showcase.
+    Needs: looks (from the podyumLooklari filter), baslik (post title), sayfaLinki (post URL to link to, or empty).
+    Without JS it is a plain scroll-snap strip and every product link is in the list; podyum.js adds the active look,
+    arrows, pins and progress. Styles: /css/podyum.css. -#}
+<section class="podyum" data-podyum aria-label="{{ baslik }}">
+  <div class="podyum-sahne">
+    <ol class="podyum-serit">
+    {%- for l in looks %}
+      {%- set li = loop.index0 %}
+      <li class="podyum-look{% if l.slayt %} podyum-slayt{% endif %}{% if loop.first %} aktif{% endif %}" data-index="{{ li }}">
+        <figure class="podyum-foto">
+          <img src="{{ l.gorsel }}" width="720" height="900" alt="{{ baslik }}{% if l.ad %}, {{ l.ad }}{% endif %}"{% if not loop.first %} loading="lazy"{% endif %}>
+          {%- if l.ad %}<figcaption class="podyum-ad">{{ l.ad }}</figcaption>{% endif %}
+          {%- for p in l.pinler %}
+          <button type="button" class="podyum-pin" style="left:{{ p.x }}%;top:{{ p.y }}%" aria-expanded="false" aria-controls="podyum-kart-{{ li }}-{{ loop.index0 }}" aria-label="{{ p.urun.ad }}"><span aria-hidden="true">+</span></button>
+          <div class="podyum-kart" id="podyum-kart-{{ li }}-{{ loop.index0 }}" hidden>
+            <span class="podyum-kart-kod">{{ p.urun.marka }} · {{ p.urun.kod }}</span>
+            <span class="podyum-kart-ad">{{ p.urun.ad }}</span>
+            <span class="podyum-kart-alt"><span class="podyum-fiyat">{{ p.urun.fiyat | sayi }} TL{% if p.urun.eskiFiyat %} <s>{{ p.urun.eskiFiyat | sayi }} TL</s>{% endif %}</span>
+            <a class="podyum-git" href="{{ p.urun.link }}" rel="nofollow noopener" target="_blank">Ürüne git</a></span>
+          </div>
+          {%- endfor %}
+        </figure>
+      </li>
+    {%- endfor %}
+    </ol>
+    {%- if looks.length > 1 %}
+    <div class="podyum-kontrol">
+      <button type="button" class="podyum-onceki" aria-label="Önceki kombin">←</button>
+      <div class="podyum-ilerleme" aria-hidden="true">
+        {%- for l in looks %}<span{% if loop.first %} class="aktif"{% endif %}><i></i>{% if l.ad %}0{{ loop.index }} {{ l.ad }}{% endif %}</span>{% endfor %}
+      </div>
+      <button type="button" class="podyum-sonraki" aria-label="Sonraki kombin">→</button>
+    </div>
+    {%- endif %}
+  </div>
+  <div class="podyum-liste">
+    <p class="podyum-liste-baslik">Bu kombinde</p>
+    {%- if looks[0].slayt %}
+    <ul data-look="hepsi">{% for u in looks[0].urunler %}{% include "podyum-satir.njk" %}{% endfor %}</ul>
+    {%- else %}
+    {%- for l in looks %}
+    <ul data-look="{{ loop.index0 }}"{% if l.ad %} aria-label="{{ l.ad }}"{% endif %}>{% for u in l.urunler %}{% include "podyum-satir.njk" %}{% endfor %}</ul>
+    {%- endfor %}
+    {%- endif %}
+    {%- if sayfaLinki %}<a class="podyum-sayfa" href="{{ sayfaLinki }}">Kombin sayfasını aç</a>{% endif %}
+  </div>
+</section>

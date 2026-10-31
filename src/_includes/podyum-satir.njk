@@ -1,0 +1,10 @@
+{#- One product row of the runway's "Bu kombinde" list; expects u (an urunler entry). -#}
+<li class="podyum-satir">
+  <img src="{{ u.gorsel }}" alt="" loading="lazy" width="64" height="64">
+  <span class="podyum-satir-bilgi">
+    <span class="podyum-satir-kod">{{ u.marka }} · {{ u.kod }}</span>
+    <span class="podyum-satir-ad">{{ u.ad }}</span>
+    <span class="podyum-fiyat">{{ u.fiyat | sayi }} TL{% if u.eskiFiyat %} <s>{{ u.eskiFiyat | sayi }} TL</s>{% endif %}</span>
+  </span>
+  <a class="podyum-git" href="{{ u.link }}" rel="nofollow noopener" target="_blank" aria-label="{{ u.ad }}, ürüne git">Ürüne git</a>
+</li>
