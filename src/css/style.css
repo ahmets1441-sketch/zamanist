@@ -411,3 +411,19 @@ article th{background:var(--alan);color:var(--baslik-renk);font-weight:600}
 @media (max-width:48rem){.insta-post{grid-template-columns:minmax(0,1fr)}.insta-urunler li{grid-template-columns:4.5rem 1fr}.insta-urunler img{width:4.5rem}.insta-urunler .dugme-kucuk{grid-column:1/-1;text-align:center}}
 :root[data-tema="karanlik"] .adimlar li::before{background:var(--altin);color:#111}
 @media (prefers-color-scheme:dark){:root:not([data-tema="aydinlik"]) .adimlar li::before{background:var(--altin);color:#111}}
+/* Homepage: Basiclink showcase first, other sections secondary. */
+.basiclink-vitrin{margin-top:1.5rem;scroll-margin-top:5rem}
+.basiclink-vitrin .vitrin-ust{margin:0;color:var(--altin-koyu)}
+.basiclink-vitrin .vitrin-ust a{color:inherit;text-decoration:none}
+.vitrin-baslik{font-size:clamp(1.9rem,5vw,3.2rem);line-height:1.05;margin:.35rem 0 0;letter-spacing:-.01em}
+.vitrin-baslik a{text-decoration:none}
+.ikinci-plan{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--line)}
+.ikinci-plan .bolum h2{font-size:1.25rem}
+.yurtdisi-bant{background:var(--lacivert);color:#eee;border-radius:20px;padding:1.6rem 1.8rem;margin:1.2rem 0 2.5rem;scroll-margin-top:5rem}
+.yurtdisi-bant h2,.yurtdisi-bant a{color:#fff}
+.yurtdisi-bant .tanitim-ust{color:var(--altin);margin:0}
+.yurtdisi-bant .adimlar,.yurtdisi-bant .meta{color:#bbb}
+html.js .goster:not(.gorundu){opacity:0;transform:translateY(16px)}
+.goster{transition:opacity .5s ease-out,transform .5s ease-out}
+@media (prefers-reduced-motion:reduce){.goster{transition:none}html.js .goster:not(.gorundu){opacity:1;transform:none}}
+

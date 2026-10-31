@@ -40,4 +40,10 @@ const podyumLooklari = (data = {}) => {
   }));
 };
 
-module.exports = { lookUrunleri, pinler, podyumLooklari };
+// Homepage showcase: the newest post with looks, else the newest outfit post, else null.
+const vitrinPostu = (postlar = []) => {
+  const yeni = [...postlar].sort((a, b) => b.date - a.date);
+  return yeni.find((p) => p.data.looklar?.length) || yeni.find((p) => (p.data.tags || []).includes("kombinlerim")) || null;
+};
+
+module.exports = { lookUrunleri, pinler, podyumLooklari, vitrinPostu };
