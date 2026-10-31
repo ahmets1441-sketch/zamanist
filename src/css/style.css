@@ -250,6 +250,8 @@ h2{font-size:1.4rem}
 .yurtdisi{font-size:.88rem;font-weight:600;color:var(--altin-koyu)}
 .ana-indirim-ic{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem 2rem;background:var(--kart);border:1px solid var(--line);border-radius:12px;padding:1rem 1.25rem;box-shadow:var(--golge)}
 .ana-indirim-ic:has(#anaYakin:empty) #anaDevam{grid-column:1/-1}
+.ana-indirim-ic:has(#anaDevam:empty) #anaDevam{display:none}
+.ana-indirim-ic:has(#anaDevam:empty) #anaYakin{grid-column:1/-1}
 .ana-indirim-ic h3{margin:.2rem 0 .4rem;color:var(--altin-koyu);font-family:var(--govde);text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
 .ana-indirim-liste{list-style:none;margin:0;padding:0}
 .ana-indirim-liste li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.2rem .75rem;padding:.5rem 0;border-bottom:1px solid var(--line)}
