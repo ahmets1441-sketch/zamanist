@@ -1,5 +1,6 @@
 const bolumler = require("./src/_data/bolumler.json");
 const ulkeler = require("./src/_data/ulkeler.json");
+const podyum = require("./src/_lib/podyum.js");
 
 // URL slug with Turkish letters mapped to plain ones (ü -> u, not ue). The same rule is in src/js/indirim.js.
 const tslug = (t) => String(t).toLocaleLowerCase("tr").replace(/[çğıöşü]/g, (c) => ({ ç: "c", ğ: "g", ı: "i", ö: "o", ş: "s", ü: "u" })[c])
@@ -54,6 +55,7 @@ module.exports = function (eleventyConfig) {
     return [...say].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "tr")).map(([ad, adet]) => ({ ad, adet }));
   });
   eleventyConfig.addFilter("tslug", tslug);
+  for (const [ad, fn] of Object.entries(podyum)) eleventyConfig.addFilter(ad, fn);
   // Cards show photos at most ~400px wide: use the 600px copy made by scripts/gorsel-kucult.mjs when there is one.
   const fs = require("node:fs");
   eleventyConfig.addFilter("kucukGorsel", (src) => {
