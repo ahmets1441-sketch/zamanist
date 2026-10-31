@@ -46,6 +46,15 @@ const yollar = process.argv.slice(2).length ? process.argv.slice(2) : ["/basicli
         await p.keyboard.press("Escape");
         assert.ok(!(await kart.isVisible()), "Esc did not close the card");
       }
+      // Keyboard: Esc inside an open card returns focus to its pin.
+      const pin2 = kok.locator(".podyum-look.aktif .podyum-pin").first();
+      if (await pin2.count()) {
+        await pin2.focus();
+        await p.keyboard.press("Enter");
+        await p.locator("#" + (await pin2.getAttribute("aria-controls")) + " .podyum-git").focus();
+        await p.keyboard.press("Escape");
+        assert.ok(await pin2.evaluate((e) => e === document.activeElement), `${yol} ${w}: Esc lost focus`);
+      }
       const tasma = await p.evaluate(() => document.documentElement.scrollWidth - innerWidth);
       assert.ok(tasma <= 0, `${yol} ${w}: horizontal overflow ${tasma}px`);
       assert.deepEqual(hatalar, [], `${yol} ${w}: console errors`);
@@ -56,6 +65,21 @@ const yollar = process.argv.slice(2).length ? process.argv.slice(2) : ["/basicli
       const sure = await az.locator("[data-podyum] .podyum-look").first().evaluate((e) => getComputedStyle(e).transitionDuration);
       assert.ok(sure.split(",").every((s) => parseFloat(s) === 0), `${yol}: transitions under reduced motion: ${sure}`);
       await az.close();
+      // Dark mode: the list's link button must stand out from the card.
+      const koyu = await tarayici.newPage({ viewport: { width: w, height: h }, colorScheme: "dark" });
+      await koyu.goto(BASE + yol, { waitUntil: "networkidle" });
+      const [btn, kart] = await koyu.locator("[data-podyum] .podyum-liste").first().evaluate((l) =>
+        [getComputedStyle(l.querySelector(".podyum-git")).backgroundColor, getComputedStyle(l).backgroundColor]);
+      assert.notEqual(btn, kart, `${yol}: dark mode button blends into card`);
+      assert.doesNotMatch(btn, /rgb\((1[0-9]|2[0-9]|3[0-9]), \1, \1\)|rgb\(17, 17, 17\)/, `${yol}: dark mode button is near-black ${btn}`);
+      await koyu.close();
+      // No JS: pins would do nothing, so they are not shown; every link is still there.
+      const jsYok = await tarayici.newPage({ viewport: { width: w, height: h }, javaScriptEnabled: false });
+      await jsYok.goto(BASE + yol, { waitUntil: "networkidle" });
+      const gorunurPin = await jsYok.locator(".podyum-pin:visible").count();
+      assert.equal(gorunurPin, 0, `${yol} ${w}: ${gorunurPin} pins visible without JS`);
+      assert.ok(await jsYok.locator(".podyum-liste .podyum-git").count() > 0);
+      await jsYok.close();
     }
     console.log("e2e ok");
   } finally {

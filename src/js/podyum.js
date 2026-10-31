@@ -42,7 +42,14 @@
       if (!acik) { p.setAttribute("aria-expanded", "true"); document.getElementById(p.getAttribute("aria-controls")).hidden = false; }
     }));
     document.addEventListener("click", (e) => { if (!e.target.closest(".podyum-kart, .podyum-pin")) kapat(); });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") kapat(); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      // Focus inside the card would vanish with it: hand it back to the pin that opened it.
+      const kart = document.activeElement?.closest(".podyum-kart");
+      const pin = kart && kok.querySelector(`.podyum-pin[aria-controls="${kart.id}"]`);
+      kapat();
+      pin?.focus();
+    });
 
     // Swiping: when scrolling settles, the look nearest the strip's centre becomes active. A scroll started by git()
     // keeps its target, since the first and last looks cannot always reach the centre.
