@@ -12,26 +12,26 @@ looklar:
     gorsel: /img/insta/zara-indiriminden-blazer-kombinleri/look-gri.webp
     urunler: ["4456/999/802", "4457/999/802", "2893/319/800", "2000/822/800"]
     pinler:
-      - { kod: "4456/999/802", x: 58, y: 40 }
-      - { kod: "4457/999/802", x: 44, y: 78 }
+      - { kod: "4456/999/802", x: 67, y: 38 }
+      - { kod: "4457/999/802", x: 61, y: 87 }
   - ad: Kum
     gorsel: /img/insta/zara-indiriminden-blazer-kombinleri/look-kum.webp
     urunler: ["4456/999/081", "4457/999/081", "2621/302/251", "2000/822/700"]
     pinler:
-      - { kod: "4456/999/081", x: 58, y: 40 }
-      - { kod: "4457/999/081", x: 44, y: 78 }
+      - { kod: "4456/999/081", x: 68, y: 38 }
+      - { kod: "4457/999/081", x: 66, y: 87 }
   - ad: Kahve
     gorsel: /img/insta/zara-indiriminden-blazer-kombinleri/look-kahve.webp
     urunler: ["4456/999/707", "4457/999/707", "2893/319/719", "2000/822/700"]
     pinler:
-      - { kod: "4456/999/707", x: 58, y: 40 }
-      - { kod: "4457/999/707", x: 44, y: 78 }
+      - { kod: "4456/999/707", x: 61, y: 42 }
+      - { kod: "4457/999/707", x: 56, y: 84 }
   - ad: Yeşil kruvaze
     gorsel: /img/insta/zara-indiriminden-blazer-kombinleri/look-yesil.webp
     urunler: ["4457/232/500", "4404/232/500", "2621/302/251", "2000/822/800"]
     pinler:
-      - { kod: "4457/232/500", x: 58, y: 40 }
-      - { kod: "4404/232/500", x: 44, y: 78 }
+      - { kod: "4457/232/500", x: 61, y: 44 }
+      - { kod: "4404/232/500", x: 47, y: 89 }
 urunler:
   - marka: Zara
     ad: "Slim fit takım blazeri, gri (Kombin 1)"
