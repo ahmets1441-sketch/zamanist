@@ -55,6 +55,14 @@ const yollar = process.argv.slice(2).length ? process.argv.slice(2) : ["/basicli
         await p.keyboard.press("Escape");
         assert.ok(await pin2.evaluate((e) => e === document.activeElement), `${yol} ${w}: Esc lost focus`);
       }
+      if (w >= 1000) {
+        // Desktop: the runway fills the height of the product list beside it, no empty gap under the looks.
+        const bosluk = await kok.evaluate((k) => k.querySelector(".podyum-liste").getBoundingClientRect().bottom - k.querySelector(".podyum-sahne").getBoundingClientRect().bottom);
+        assert.ok(bosluk < 40, `${yol} ${w}: ${Math.round(bosluk)}px gap under the runway`);
+        // The "Kombin sayfasını aç" button stays visible even when the list scrolls.
+        const cta = kok.locator(".podyum-sayfa");
+        if (await cta.count()) assert.ok(await cta.evaluate((a) => { const r = a.getBoundingClientRect(), l = a.closest(".podyum-liste").getBoundingClientRect(); return r.bottom <= l.bottom + 1 && r.top >= l.top; }), `${yol} ${w}: page button hidden in the list`);
+      }
       const tasma = await p.evaluate(() => document.documentElement.scrollWidth - innerWidth);
       assert.ok(tasma <= 0, `${yol} ${w}: horizontal overflow ${tasma}px`);
       assert.deepEqual(hatalar, [], `${yol} ${w}: console errors`);
