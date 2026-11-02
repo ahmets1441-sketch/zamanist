@@ -18,19 +18,123 @@
       "not": "Seçili ürünlerde. H&M'nin sitesine göre son gün 15 Ekim; diğer kampanyalarla birleştirilemez, stoklarla sınırlı."
     },
     {
+      "baslik": "Trendyol Erken Fırsatlar",
+      "grup": "Trendyol",
+      "markalar": [
+        "Trendyol"
+      ],
+      "kategori": "pazaryeri",
+      "baslangic": "2026-11-01",
+      "bitis": "2026-11-04",
+      "durum": "duyuruldu",
+      "oran": "",
+      "kanal": "online",
+      "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
+      "link": "https://www.trendyol.com/",
+      "kontrol": "2026-11-02",
+      "not": "Trendyol'un 11.11 öncesi kampanyası; oran ve kategoriler haberde belirtilmemiş (İndigo, 30 Ekim)."
+    },
+    {
+      "baslik": "Trendyol Süper Alışveriş Günleri",
+      "grup": "Trendyol",
+      "markalar": [
+        "Trendyol"
+      ],
+      "kategori": "pazaryeri",
+      "baslangic": "2026-11-06",
+      "bitis": "2026-11-11",
+      "durum": "duyuruldu",
+      "oran": "%50'ye varan",
+      "kanal": "online",
+      "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
+      "link": "https://www.trendyol.com/",
+      "kontrol": "2026-11-02",
+      "not": "Moda dahil bazı kategorilerde, 6-12 taksit seçeneğiyle. Tarih haber kaynağına göre; Trendyol sitesi bot koruması nedeniyle okunamadı."
+    },
+    {
+      "baslik": "Amazon Gülümseten Kasım",
+      "grup": "Amazon Türkiye",
+      "markalar": [
+        "Amazon Türkiye"
+      ],
+      "kategori": "pazaryeri",
+      "baslangic": "2026-10-30",
+      "bitis": "2026-12-01",
+      "durum": "duyuruldu",
+      "oran": "Modada %25'e varan",
+      "kanal": "online",
+      "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
+      "link": "https://www.amazon.com.tr/",
+      "kontrol": "2026-11-02",
+      "not": "Fiyat 1 Aralık 23.59'a kadar düşerse fark hediye kartı olarak iade ediliyor. Amazon ana sayfasında kampanya bağlantısı görüldü, tarihler haberden."
+    },
+    {
+      "baslik": "LC Waikiki Bambaşka Kasım",
+      "grup": "LC Waikiki",
+      "markalar": [
+        "LC Waikiki"
+      ],
+      "kategori": "giyim",
+      "baslangic": "2026-11-02",
+      "bitis": "2026-11-11",
+      "durum": "duyuruldu",
+      "oran": "",
+      "kanal": "online ve mağaza",
+      "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
+      "link": "https://www.lcw.com/",
+      "kontrol": "2026-11-02",
+      "not": "Tarihler haber kaynağından; lcw.com erkekte triko, dış giyim, jean, tişört, gömlek, sweatshirt, ayakkabı ve aksesuarda \"Bambaşka İndirim\" gösteriyor, oran yazmıyor."
+    },
+    {
+      "baslik": "LC Waikiki Bambaşka Cuma",
+      "grup": "LC Waikiki",
+      "markalar": [
+        "LC Waikiki"
+      ],
+      "kategori": "giyim",
+      "baslangic": "2026-11-22",
+      "bitis": "2026-11-29",
+      "durum": "duyuruldu",
+      "oran": "",
+      "kanal": "online ve mağaza",
+      "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
+      "link": "https://www.lcw.com/",
+      "kontrol": "2026-11-02",
+      "not": "Black Friday haftasına denk gelen LC Waikiki kampanyası; tarihler haber kaynağından, oran açıklanmadı."
+    },
+    {
+      "baslik": "Mavi sezon indirimi",
+      "grup": "Mavi",
+      "markalar": [
+        "Mavi"
+      ],
+      "kategori": "giyim",
+      "baslangic": "2026-09-16",
+      "bitis": "2026-11-29",
+      "durum": "duyuruldu",
+      "oran": "",
+      "kanal": "online ve mağaza",
+      "kaynak": "https://www.mavi.com/",
+      "link": "https://www.mavi.com/",
+      "kontrol": "2026-11-02",
+      "not": "Sonbahar-Kış 2026 seçili ürünlerde; sayfada genel oran yok (örnek gömlekte fiyatlardan hesaplanan yaklaşık %40). Bitiş mağaza ve online'da farklı olabilir; diğer kampanyalarla birleşmez."
+    },
+    {
       "baslik": "Hepsiburada Efsane Kasım",
       "grup": "Hepsiburada",
       "markalar": [
         "Hepsiburada"
       ],
       "kategori": "pazaryeri",
-      "baslangic": "2026-11-01",
-      "bitis": "2026-11-30",
-      "durum": "tahmini",
-      "oran": "",
+      "baslangic": "2026-10-26",
+      "bitis": "",
+      "durum": "duyuruldu",
+      "oran": "Mevcut kampanyalara ek %10-%15 net",
       "kanal": "online",
-      "kaynak": "https://www.dha.com.tr/ekonomi/efsane-kasim-indirimleri-yarin-basliyor-2524449",
-      "not": "Hepsiburada'nın duyurularına göre 2023'te ve 2024'te 1 Kasım'da başladı, ay boyunca sürdü. 2026 tarihi duyurulunca güncellenecek."
+      "kaynak": "https://www.dha.com.tr/ekonomi/hepsiburada-11inci-efsane-kasim-donemini-baslatti-2969882",
+      "link": "https://www.hepsiburada.com/",
+      "kontrol": "2026-11-02",
+      "not": "Efsane Premium Günleri'yle 26 Ekim'de başladı, \"Efsane Kasım boyunca\" sürecek; bitiş tarihi açıklanmadı. Bazı günlerde net %20'ye varan indirim; moda kategorisi de kapsamda (DHA, 26 Ekim)."
     },
     {
       "baslik": "11.11 Bekarlar Günü",
@@ -47,8 +151,9 @@
       "durum": "tahmini",
       "oran": "",
       "kanal": "online",
-      "kaynak": "",
-      "not": "Tarih her yıl aynı gün. Hangi markaların katılacağı ve oranlar kampanyaya birkaç gün kala duyurulur."
+      "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
+      "not": "Tarih her yıl aynı gün. Trendyol'un Süper Alışveriş Günleri 6-11 Kasım'da; diğer platformların 11.11 oranları kampanyaya yakın duyurulacak.",
+      "kontrol": "2026-11-02"
     },
     {
       "baslik": "Efsane Cuma / Black Friday",
@@ -67,8 +172,9 @@
       "durum": "tahmini",
       "oran": "",
       "kanal": "online ve mağaza",
-      "kaynak": "",
-      "not": "Kasım'ın son cuması; pazartesi (Cyber Monday) ile biter. 2025'te 28 Kasım'daydı. Bazı markalar birkaç gün önce başlatıyor."
+      "kaynak": "https://www.milligazete.com.tr/kasim-indirimleri-2026-hangi-tarihte-efsane-cuma-1111-ve-cyber-monday-takvimi",
+      "not": "Black Friday 27 Kasım Cuma, Cyber Monday 30 Kasım Pazartesi. Zara, Bershka, Pull&Bear, Massimo Dutti indirimlerinin 26-27 Kasım'da başlaması bekleniyor; markalar henüz açıklamadı.",
+      "kontrol": "2026-11-02"
     },
     {
       "baslik": "Inditex kış sezon sonu indirimi",
