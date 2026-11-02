@@ -1,5 +1,6 @@
 // node scripts/instagram/uret.js post.json -> out/<n>.png, 1080x1350 slides for @basiclinkk.
 // post.json: {baslik, alt, tarih, satici?, urunler:[{dosya, marka, ad, kod, fiyat, eskiFiyat?, fiyatNot?, link}]}, "dosya" relative to post.json.
+// css: extra rules for this post only (e.g. moving the cover photos).
 // hikaye: false hides the "links are in the story" badge on the last slide.
 // satici: the shop the prices and photos come from, when it is not the brand itself.
 // Needs playwright (npx playwright install chromium); product photos are trimmed white-background shots.
@@ -15,8 +16,8 @@ const parca = (xs, n) => xs.reduce((a, x, i) => (i % n ? a[a.length - 1].push(x)
 
 const kapak = `<section class="slayt kapak">
   <div class="marka-ust"><img class="logo-img" src="file://${path.join(__dirname, "logo-b-yuvarlak.png")}"><span class="yazi">basiclink<i>.</i></span></div>
-  <h1>${k(veri.baslik)}</h1>
-  <p class="alt">${k(veri.alt)}</p>
+  <div class="kapak-baslik"><h1>${k(veri.baslik)}</h1>
+  <p class="alt">${k(veri.alt)}</p></div>
   <div class="kapak-urunler">${U.slice(0, 3).map((u, i) => `<img class="ku${i}" src="${src(u)}">`).join("")}</div>
   <p class="kaydir">Kaydır →</p>
 </section>`;
@@ -36,7 +37,7 @@ const son = `<section class="slayt son">
   <h2>Linkler ve güncel fiyatlar</h2>
   <p class="site">zamanist.com</p>
   <p>Profildeki linke dokun.</p>
-  <p class="not">Fiyatlar ${k(veri.tarih)} tarihinde ${veri.satici ? k(veri.satici) + " sitesinde" : "markanın kendi sitesinde"} kontrol edildi. Fiyat ve stok değişebilir. Ürün görselleri: ${k(veri.satici || [...new Set(U.map((u) => u.marka))].join(", "))}.</p>
+  <p class="not">Fiyatlar ${k(veri.tarih)} tarihinde ${veri.satici ? k(veri.satici) + " sitesinde" : "markanın kendi sitesinde"} kontrol edildi. Fiyat ve stok değişebilir.</p>
 </section>`;
 const gruplar = parca(U, 3);
 const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8">
@@ -51,8 +52,9 @@ body{background:#888;font-family:Inter,sans-serif}
 .logo-img{width:44px;height:44px}
 .logo-img.buyuk{width:150px;height:150px;margin-bottom:10px}
 .logo{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;border:2px solid #CFA65A;font:700 22px "Playfair Display";color:#1B3358;letter-spacing:0}
-.kapak h1{position:absolute;left:62px;top:130px;font:800 118px/0.95 Inter;text-transform:uppercase;letter-spacing:-.05em;max-width:900px}
-.kapak .alt{position:absolute;left:66px;top:390px;font:500 40px Inter;color:#666}
+.kapak-baslik{position:absolute;left:62px;top:130px}
+.kapak h1{font:800 118px/0.95 Inter;text-transform:uppercase;letter-spacing:-.05em;max-width:900px}
+.kapak .alt{margin:36px 0 0 4px;font:500 40px Inter;color:#666}
 .kapak-urunler img{position:absolute;mix-blend-mode:multiply;width:600px}
 .kapak-urunler img{width:540px}
 .ku0{left:40px;bottom:560px;transform:rotate(-4deg)}
@@ -81,6 +83,7 @@ body{background:#888;font-family:Inter,sans-serif}
 .son p{font:500 34px Inter}
 .son .hikaye-not{font:700 40px Inter;color:#111;background:#CFA65A;border-radius:999px;padding:22px 48px;margin-bottom:34px}
 .son .not{font:400 24px Inter;color:#888;margin-top:60px;max-width:760px}
+${veri.css || ""}
 </style></head><body>${kapak}${gruplar.map((g, i) => urunSlayt(g, `${i + 1}/${gruplar.length}`)).join("")}${son}</body></html>`;
 fs.writeFileSync(path.join(kok, "post.html"), html);
 (async () => {
