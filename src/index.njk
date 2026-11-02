@@ -27,7 +27,7 @@ title: Ana sayfa
 </section>
 {% include "indirim-veri.njk" %}
 <script>
-// Fills the box from the same data and rules as /indirimler/, so both always agree.
+// Fills the box from the same data and rules as /indirimler/, so both always agree. Every sale is listed; the lists scroll inside the box.
 (() => {
   const { liste, grupla, tarih, kisa, geriSayim, bitisYazisi } = Indirim;
   const kacis = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -35,9 +35,9 @@ title: Ana sayfa
   // Running sales are named by brand with their rate; upcoming ones by event name, since the rate is not known yet.
   const satir = (ad, oran, yan) => `<li><a href="/indirimler/"><strong>${kacis(ad)}</strong>${oran ? ` <span class="ana-oran">${kacis(oran)}</span>` : ""}</a><span class="meta">${yan}</span></li>`;
   const blok = (baslik, xs) => xs.length ? `<h3>${baslik}</h3><ul class="ana-indirim-liste">${xs.join("")}</ul>` : "";
-  document.getElementById("anaDevam").innerHTML = blok("Şu an indirimde", g.devam.slice(0, 5).map((x) =>
+  document.getElementById("anaDevam").innerHTML = blok("Şu an indirimde", g.devam.map((x) =>
     satir(x.grup || x.baslik, x.oran, x.bitis ? bitisYazisi(x) : `kontrol: ${kisa(tarih(x.kontrol || x.baslangic))}`)));
-  document.getElementById("anaYakin").innerHTML = blok("Yaklaşan", g.yakinda.slice(0, 4).map((x) =>
+  document.getElementById("anaYakin").innerHTML = blok("Yaklaşan", g.yakinda.map((x) =>
     satir(x.baslik, "", `${geriSayim(x)} · ${kisa(tarih(x.baslangic))}${x.durum === "tahmini" ? " (tahmini)" : ""}`)));
   if (g.devam.length || g.yakinda.length) document.getElementById("anaIndirim").hidden = false;
 })();
