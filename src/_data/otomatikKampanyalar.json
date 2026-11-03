@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-02",
+  "guncelleme": "2026-11-03",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -12,11 +12,11 @@
       "ornekler": [
         "Defacto Sepette %70'e Varan İndirim",
         "Discovery Expedition %70'e Varan İndirim",
-        "Polo Assn. Sepette %60'a Varan İndirim"
+        "TL %70 İndirim"
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-11-02"
+      "kontrol": "2026-11-03"
     },
     {
       "baslik": "Koton indirimi",
@@ -33,7 +33,7 @@
       ],
       "link": "https://www.koton.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-11-02"
+      "kontrol": "2026-11-03"
     },
     {
       "baslik": "Ramsey indirimi",
@@ -48,7 +48,7 @@
       ],
       "link": "https://www.ramsey.com.tr/",
       "ilkGorulme": "2026-10-16",
-      "kontrol": "2026-11-02"
+      "kontrol": "2026-11-03"
     },
     {
       "baslik": "Kiğılı indirimi",
@@ -63,7 +63,7 @@
       ],
       "link": "https://www.kigili.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-11-02"
+      "kontrol": "2026-11-03"
     },
     {
       "baslik": "Sarar indirimi",
@@ -80,7 +80,24 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-11-02"
+      "kontrol": "2026-11-03"
+    },
+    {
+      "baslik": "Occasion indirimi",
+      "grup": "Occasion",
+      "markalar": [
+        "Occasion"
+      ],
+      "kategori": "genel",
+      "oran": "%60'a varan",
+      "ornekler": [
+        "Düşük Fiyatı Sepette %60 İndirim",
+        "TL Sepette %55 İndirim",
+        "Sepette %45 İndirim"
+      ],
+      "link": "https://www.occasion.com.tr/son-firsat-urunleri/",
+      "ilkGorulme": "2026-11-03",
+      "kontrol": "2026-11-03"
     },
     {
       "baslik": "Columbia indirimi",
@@ -96,7 +113,7 @@
       ],
       "link": "https://www.columbia.com.tr/",
       "ilkGorulme": "2026-10-26",
-      "kontrol": "2026-11-02"
+      "kontrol": "2026-11-03"
     }
   ]
 }
