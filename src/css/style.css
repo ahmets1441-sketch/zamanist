@@ -400,6 +400,7 @@ article th{background:var(--alan);color:var(--baslik-renk);font-weight:600}
 .insta-post{display:grid;grid-template-columns:minmax(0,26rem) minmax(0,1fr);gap:2rem;align-items:start}
 .insta-slaytlar{display:flex;gap:.6rem;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:12px}
 .insta-slaytlar img{flex:0 0 100%;width:100%;height:auto;scroll-snap-align:start;border-radius:12px}
+.insta-slaytlar video{flex:0 0 100%;width:100%;height:auto;aspect-ratio:9/16;max-height:80vh;object-fit:contain;scroll-snap-align:start;border-radius:12px;background:#111}
 .insta-bilgi h1{margin-top:0}
 .insta-urunler{list-style:none;padding:0;margin:1.2rem 0;display:grid;gap:.7rem}
 .insta-urunler li{display:grid;grid-template-columns:5.5rem 1fr auto;gap:1rem;align-items:center;background:var(--kart);border:1px solid var(--line);border-radius:12px;padding:.6rem .9rem}
