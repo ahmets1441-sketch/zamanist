@@ -22,6 +22,9 @@ layout: base.njk
 {%- else %}
 <div class="insta-post">
   <div class="insta-slaytlar" aria-label="Post görselleri">
+    {%- if reel %}
+    <video src="{{ reel }}"{% if reelKapak %} poster="{{ reelKapak }}"{% endif %} width="1080" height="1920" controls muted playsinline loop preload="metadata" aria-label="{{ title }}, reels"></video>
+    {%- endif %}
     {%- for i in range(1, slaytlar + 1) %}
     <img src="/img/insta/{{ page.fileSlug }}/{{ i }}.webp" width="1080" height="1350" alt="{{ title }}, {{ i }}. görsel" {% if i > 1 %}loading="lazy"{% endif %}>
     {%- endfor %}
