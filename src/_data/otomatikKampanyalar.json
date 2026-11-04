@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-03",
+  "guncelleme": "2026-11-04",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -8,15 +8,30 @@
         "Boyner"
       ],
       "kategori": "genel",
-      "oran": "%70'e varan",
+      "oran": "%71",
       "ornekler": [
+        "TL %71 İndirim",
         "Defacto Sepette %70'e Varan İndirim",
-        "Discovery Expedition %70'e Varan İndirim",
-        "TL %70 İndirim"
+        "Discovery Expedition %70'e Varan İndirim"
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-11-03"
+      "kontrol": "2026-11-04"
+    },
+    {
+      "baslik": "Vakko indirimi",
+      "grup": "Vakko",
+      "markalar": [
+        "Vakko"
+      ],
+      "kategori": "giyim",
+      "oran": "%30",
+      "ornekler": [
+        "KIŞ SEZONU ÜRÜNLERİNDE %30 İNDİRİM"
+      ],
+      "link": "https://www.vakko.com/",
+      "ilkGorulme": "2026-11-04",
+      "kontrol": "2026-11-04"
     },
     {
       "baslik": "Koton indirimi",
@@ -33,7 +48,7 @@
       ],
       "link": "https://www.koton.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-11-03"
+      "kontrol": "2026-11-04"
     },
     {
       "baslik": "Ramsey indirimi",
@@ -48,7 +63,7 @@
       ],
       "link": "https://www.ramsey.com.tr/",
       "ilkGorulme": "2026-10-16",
-      "kontrol": "2026-11-03"
+      "kontrol": "2026-11-04"
     },
     {
       "baslik": "Kiğılı indirimi",
@@ -63,7 +78,7 @@
       ],
       "link": "https://www.kigili.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-11-03"
+      "kontrol": "2026-11-04"
     },
     {
       "baslik": "Sarar indirimi",
@@ -80,7 +95,7 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-11-03"
+      "kontrol": "2026-11-04"
     },
     {
       "baslik": "Occasion indirimi",
@@ -93,11 +108,11 @@
       "ornekler": [
         "Düşük Fiyatı Sepette %60 İndirim",
         "TL Sepette %55 İndirim",
-        "Sepette %45 İndirim"
+        "Düşük Fiyatı Sepette %50 İndirim"
       ],
       "link": "https://www.occasion.com.tr/son-firsat-urunleri/",
       "ilkGorulme": "2026-11-03",
-      "kontrol": "2026-11-03"
+      "kontrol": "2026-11-04"
     },
     {
       "baslik": "Columbia indirimi",
@@ -106,14 +121,13 @@
         "Columbia"
       ],
       "kategori": "giyim",
-      "oran": "%60",
+      "oran": "%60'a varan",
       "ornekler": [
-        "Sezon Ürünlerinde Net %60 İndirim",
         "Koleksiyonu Outlet ürünlerde %60'a Varan İndirim"
       ],
       "link": "https://www.columbia.com.tr/",
       "ilkGorulme": "2026-10-26",
-      "kontrol": "2026-11-03"
+      "kontrol": "2026-11-04"
     }
   ]
 }
