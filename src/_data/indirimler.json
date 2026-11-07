@@ -46,10 +46,10 @@
       "durum": "duyuruldu",
       "oran": "%50'ye varan",
       "kanal": "online",
-      "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
+      "kaynak": "https://indigodergisi.com/2026/11/e-ticaret-kasim-indirimleri-2026/",
       "link": "https://www.trendyol.com/",
-      "kontrol": "2026-11-02",
-      "not": "Moda dahil bazı kategorilerde, 6-12 taksit seçeneğiyle. Tarih haber kaynağına göre; Trendyol sitesi bot koruması nedeniyle okunamadı."
+      "kontrol": "2026-11-07",
+      "not": "Moda dahil kategorilerde 6-11 Kasım; taksit seçenekleri 30 Kasım'a kadar. Tarih ve oran İndigo'nun 4 Kasım tarihli haberinden; Trendyol sitesi bot koruması nedeniyle okunamadı."
     },
     {
       "baslik": "Amazon Gülümseten Kasım",
@@ -59,14 +59,14 @@
       ],
       "kategori": "pazaryeri",
       "baslangic": "2026-10-30",
-      "bitis": "2026-12-01",
+      "bitis": "2026-11-30",
       "durum": "duyuruldu",
       "oran": "Modada %25'e varan",
       "kanal": "online",
-      "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
+      "kaynak": "https://indigodergisi.com/2026/11/e-ticaret-kasim-indirimleri-2026/",
       "link": "https://www.amazon.com.tr/",
-      "kontrol": "2026-11-02",
-      "not": "Fiyat 1 Aralık 23.59'a kadar düşerse fark hediye kartı olarak iade ediliyor. Amazon ana sayfasında kampanya bağlantısı görüldü, tarihler haberden."
+      "kontrol": "2026-11-07",
+      "not": "Modada %25'e varan indirim; sepette ek %5 yalnızca flaş fırsat saatlerinde. 75 TL hediye kartı kodu 1 Aralık'a kadar. Tarihler İndigo'nun 4 Kasım haberinden; amazon.com.tr şu an 503 verdi."
     },
     {
       "baslik": "LC Waikiki Bambaşka Kasım",
@@ -78,12 +78,12 @@
       "baslangic": "2026-11-02",
       "bitis": "2026-11-11",
       "durum": "duyuruldu",
-      "oran": "",
+      "oran": "%8-%70",
       "kanal": "online ve mağaza",
-      "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
+      "kaynak": "https://indigodergisi.com/2026/11/moda-kasim-indirimleri-2026/",
       "link": "https://www.lcw.com/",
-      "kontrol": "2026-11-02",
-      "not": "Tarihler haber kaynağından; lcw.com erkekte triko, dış giyim, jean, tişört, gömlek, sweatshirt, ayakkabı ve aksesuarda \"Bambaşka İndirim\" gösteriyor, oran yazmıyor."
+      "kontrol": "2026-11-07",
+      "not": "Erkekte XSIDE baskılı tişört %70'e kadar, blazer ve takım ceket %50 (İndigo, 4 Kasım). Sepette 5 üründe ek %5, 7 üründe ek %10 otomatik uygulanır. Online ve mağaza kampanyaları farklı olabilir; lcw.com erkek kategorilerinde \"Bambaşka İndirim\" görünüyor."
     },
     {
       "baslik": "LC Waikiki Bambaşka Cuma",
@@ -97,10 +97,10 @@
       "durum": "duyuruldu",
       "oran": "",
       "kanal": "online ve mağaza",
-      "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
+      "kaynak": "https://indigodergisi.com/2026/11/moda-kasim-indirimleri-2026/",
       "link": "https://www.lcw.com/",
-      "kontrol": "2026-11-02",
-      "not": "Black Friday haftasına denk gelen LC Waikiki kampanyası; tarihler haber kaynağından, oran açıklanmadı."
+      "kontrol": "2026-11-07",
+      "not": "Black Friday haftasına denk gelen kampanya, tarihler İndigo'nun 4 Kasım haberinde 22-29 Kasım olarak geçiyor; oran açıklanmadı."
     },
     {
       "baslik": "Mavi sezon indirimi",
@@ -116,8 +116,8 @@
       "kanal": "online ve mağaza",
       "kaynak": "https://www.mavi.com/",
       "link": "https://www.mavi.com/",
-      "kontrol": "2026-11-02",
-      "not": "Sonbahar-Kış 2026 seçili ürünlerde; sayfada genel oran yok (örnek gömlekte fiyatlardan hesaplanan yaklaşık %40). Bitiş mağaza ve online'da farklı olabilir; diğer kampanyalarla birleşmez."
+      "kontrol": "2026-11-07",
+      "not": "Sonbahar-Kış 2026 seçili ürünlerde (mavi.com'da 7 Kasım'da yeniden görüldü, bitiş 29 Kasım); sayfada genel oran yok (örnek gömlekte fiyatlardan hesaplanan yaklaşık %40). Bitiş mağaza ve online'da farklı olabilir; diğer kampanyalarla birleşmez."
     },
     {
       "baslik": "Hepsiburada Efsane Kasım",
@@ -133,7 +133,7 @@
       "kanal": "online",
       "kaynak": "https://www.dha.com.tr/ekonomi/hepsiburada-11inci-efsane-kasim-donemini-baslatti-2969882",
       "link": "https://www.hepsiburada.com/",
-      "kontrol": "2026-11-02",
+      "kontrol": "2026-11-07",
       "not": "Efsane Premium Günleri'yle 26 Ekim'de başladı, \"Efsane Kasım boyunca\" sürecek; bitiş tarihi açıklanmadı. Bazı günlerde net %20'ye varan indirim; moda kategorisi de kapsamda (DHA, 26 Ekim)."
     },
     {
@@ -152,8 +152,8 @@
       "oran": "",
       "kanal": "online",
       "kaynak": "https://indigodergisi.com/2026/10/kasim-indirimleri-2026/",
-      "not": "Tarih her yıl aynı gün. Trendyol'un Süper Alışveriş Günleri 6-11 Kasım'da; diğer platformların 11.11 oranları kampanyaya yakın duyurulacak.",
-      "kontrol": "2026-11-02"
+      "not": "Tarih her yıl aynı gün (11 Kasım Çarşamba). Trendyol Süper Alışveriş Günleri 6-11 Kasım, Hepsiburada ek indirimi 10 Kasım'a kadar, AliExpress Big Sale 19 Kasım'a kadar; platformların 11.11'e özel oranları henüz açıklanmadı.",
+      "kontrol": "2026-11-07"
     },
     {
       "baslik": "Efsane Cuma / Black Friday",
@@ -174,7 +174,7 @@
       "kanal": "online ve mağaza",
       "kaynak": "https://www.milligazete.com.tr/kasim-indirimleri-2026-hangi-tarihte-efsane-cuma-1111-ve-cyber-monday-takvimi",
       "not": "Black Friday 27 Kasım Cuma, Cyber Monday 30 Kasım Pazartesi. Zara, Bershka, Pull&Bear, Massimo Dutti indirimlerinin 26-27 Kasım'da başlaması bekleniyor; markalar henüz açıklamadı.",
-      "kontrol": "2026-11-02"
+      "kontrol": "2026-11-07"
     },
     {
       "baslik": "Inditex kış sezon sonu indirimi",
@@ -215,6 +215,77 @@
       "kanal": "24 Haziran online, 25 Haziran mağaza",
       "kaynak": "https://www.milliyet.com.tr/galeri/2026-inditex-yaz-indirimi-tarihleri-belli-oldu-zara-bershka-pull-bear-stradivarius-oysho-indirimi-ne-zaman-basliyor-saat-kacta-7610100",
       "not": "Gelecek yaz için fikir verir: online indirim mağazadan bir gün önce başladı."
+    },
+    {
+      "baslik": "Hepsiburada tüm indirimlere ek %15 net",
+      "grup": "Hepsiburada",
+      "markalar": [
+        "Hepsiburada"
+      ],
+      "kategori": "pazaryeri",
+      "baslangic": "2026-11-01",
+      "bitis": "2026-11-10",
+      "durum": "duyuruldu",
+      "oran": "Ek %15 net",
+      "kanal": "online",
+      "kaynak": "https://indigodergisi.com/2026/11/e-ticaret-kasim-indirimleri-2026/",
+      "link": "https://www.hepsiburada.com/",
+      "kontrol": "2026-11-07",
+      "not": "1 Kasım 17.00 - 10 Kasım 23.59 arası, katılımcı marka ve ürünlerde; giyimde sepet alt limiti 600 TL. Hepsiburada sitesi bot koruması nedeniyle okunamadı, bilgi İndigo'nun 4 Kasım haberinden."
+    },
+    {
+      "baslik": "Trendyolmilla Süper Moda İndirimleri",
+      "grup": "Trendyol",
+      "markalar": [
+        "Trendyol",
+        "Trendyolmilla"
+      ],
+      "kategori": "pazaryeri",
+      "baslangic": "2026-11-02",
+      "bitis": "2026-11-11",
+      "durum": "duyuruldu",
+      "oran": "",
+      "kanal": "online",
+      "kaynak": "https://indigodergisi.com/2026/11/e-ticaret-kasim-indirimleri-2026/",
+      "link": "https://www.trendyol.com/",
+      "kontrol": "2026-11-07",
+      "not": "Trendyolmilla'da 20 binden fazla üründe moda indirimi; oran haberde yok. Trendyol sitesi okunamadı, bilgi İndigo'nun 4 Kasım haberinden."
+    },
+    {
+      "baslik": "AVVA Kasım Ayrıcalıkları",
+      "grup": "AVVA",
+      "markalar": [
+        "AVVA"
+      ],
+      "kategori": "giyim",
+      "baslangic": "2026-11-01",
+      "bitis": "2026-11-30",
+      "durum": "duyuruldu",
+      "oran": "%30'a varan",
+      "kanal": "online ve uygulama",
+      "kaynak": "https://indigodergisi.com/2026/11/moda-kasim-indirimleri-2026/",
+      "link": "https://www.avva.com.tr/",
+      "kontrol": "2026-11-07",
+      "not": "Seçili ürünlerde, stoklarla sınırlı (İndigo, 4 Kasım). Marka sitesi okunmadı."
+    },
+    {
+      "baslik": "idefix Alışılmadık Marka Günleri (D'S Damat)",
+      "grup": "idefix",
+      "markalar": [
+        "idefix",
+        "D'S Damat",
+        "Altınyıldız Classics"
+      ],
+      "kategori": "pazaryeri",
+      "baslangic": "2026-11-02",
+      "bitis": "2026-11-08",
+      "durum": "duyuruldu",
+      "oran": "D'S Damat'ta %35",
+      "kanal": "online",
+      "kaynak": "https://indigodergisi.com/2026/11/e-ticaret-kasim-indirimleri-2026/",
+      "link": "https://www.idefix.com/",
+      "kontrol": "2026-11-07",
+      "not": "D'S Damat'ta %35; Altınyıldız'da tüm indirimlere ek 300 TL kupon (alt limit haberde yok). Bilgi İndigo'nun 4 Kasım haberinden, idefix sitesi okunmadı."
     }
   ]
 }
