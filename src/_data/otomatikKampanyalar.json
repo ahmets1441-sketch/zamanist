@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-13",
+  "guncelleme": "2026-11-14",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -16,7 +16,7 @@
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-11-13"
+      "kontrol": "2026-11-14"
     },
     {
       "baslik": "Beymen indirimi",
@@ -32,7 +32,7 @@
       ],
       "link": "https://www.beymen.com/",
       "ilkGorulme": "2026-11-05",
-      "kontrol": "2026-11-13"
+      "kontrol": "2026-11-14"
     },
     {
       "baslik": "Vakko indirimi",
@@ -47,7 +47,7 @@
       ],
       "link": "https://www.vakko.com/",
       "ilkGorulme": "2026-11-12",
-      "kontrol": "2026-11-13"
+      "kontrol": "2026-11-14"
     },
     {
       "baslik": "Koton indirimi",
@@ -64,7 +64,7 @@
       ],
       "link": "https://www.koton.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-11-13"
+      "kontrol": "2026-11-14"
     },
     {
       "baslik": "Kiğılı indirimi",
@@ -79,7 +79,7 @@
       ],
       "link": "https://www.kigili.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-11-13"
+      "kontrol": "2026-11-14"
     },
     {
       "baslik": "Sarar indirimi",
@@ -96,7 +96,7 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-11-13"
+      "kontrol": "2026-11-14"
     },
     {
       "baslik": "Occasion indirimi",
@@ -105,15 +105,15 @@
         "Occasion"
       ],
       "kategori": "genel",
-      "oran": "%70'e varan",
+      "oran": "%45'e varan",
       "ornekler": [
-        "Sepette %70 İndirim",
         "TL Sepette %45 İndirim",
-        "TL Sepette %40 İndirim"
+        "TL Sepette %40 İndirim",
+        "Düşük Fiyatı Sepette %35 İndirim"
       ],
       "link": "https://www.occasion.com.tr/son-firsat-urunleri/",
       "ilkGorulme": "2026-11-03",
-      "kontrol": "2026-11-13"
+      "kontrol": "2026-11-14"
     },
     {
       "baslik": "Columbia indirimi",
@@ -128,7 +128,7 @@
       ],
       "link": "https://www.columbia.com.tr/",
       "ilkGorulme": "2026-10-26",
-      "kontrol": "2026-11-13"
+      "kontrol": "2026-11-14"
     }
   ]
 }
