@@ -1,23 +1,27 @@
-# İndirim ajanı raporu — 13 Kasım 2026
+# İndirim ajanı raporu — 2026-11-14
 
 ## Eklenen / güncellenen
-- **Eklendi: AVVA Kasım Ayrıcalıkları** (1-30 Kasım, %30'a varan, online + uygulama). Oran avva.com.tr'de okundu; tarih İndigo (4 Kasım) haberinden: https://indigodergisi.com/2026/11/moda-kasim-indirimleri-2026/
-- **Güncellendi: LC Waikiki Bambaşka Cuma** (22-29 Kasım, %8-%70; erkekte XSIDE tişört %70, blazer/ceket %50). Kaynak İndigo moda haberi.
-- **Güncellendi: Mavi sezon indirimi** — mavi.com'da bugün okundu: 16 Eylül-29 Kasım, oran yazmıyor.
-- **Güncellendi: Amazon Gülümseten Kasım** — bitiş 30 Kasım'a çekildi (İndigo e-ticaret haberi, 4 Kasım); modada %25'e varan.
-- **Güncellendi: Hepsiburada Efsane Kasım** — kontrol tarihi; giyimdeki ek %15 (1-10 Kasım) bitti, not düzeltildi.
+- **Güncellendi: Efsane Cuma / Black Friday** (tahmini). Kaynak: kartavantaj.com takvimi (8 Kasım güncel) ve Genç Gazete (10 Kasım). Black Friday 27 Kasım, Cyber Monday 30 Kasım. Trendyol Efsane Günler 26 Kasım-2 Aralık "planlanıyor" (kaynaklar kendi içinde çelişiyor, 24-29 Kasım da geçiyor). Zara/Bershka/Pull&Bear/H&M/Mango tarihleri sadece sosyal medya takviminde, resmi açıklama yok; tarih ve oran olarak yazılmadı.
+- **Güncellendi: Mavi sezon indirimi**, kontrol 14 Kasım. mavi.com'da 16 Eylül-29 Kasım 2026 tarihi hâlâ görünüyor; oran yok.
+- Yeni giriş eklenmedi: okuduğum sayfaların çoğu başlangıç/bitiş tarihi vermiyor.
 
 ## Kontrol edilip atlananlar
-- **Doğrulanamadı (yalnızca sosyal medya takvimi, Yeni Bakış 2 Kasım; markalar teyit etmedi):** Zara 27-30 Kasım %20-50, Mango 20-30 Kasım %30-60, H&M/Bershka/Pull&Bear 21-30 Kasım, Mavi 21-30 Kasım %30-50, Nike 27-30 Kasım, Adidas 27-30 Kasım, Boyner 20-30 Kasım %20-40. Resmî duyuru yok; mevcut "Efsane Cuma / Black Friday" tahmini kaydı (27 Kasım) korundu.
-- **Erişilemedi:** hm.com (403), defacto.com.tr (403), boyner.com.tr (403), amazon.com.tr (503), zara.com (403). Trendyol/Beymen sayfaları kampanya bilgisi vermedi.
-- **Tarihsiz oran:** Koton, Colin's, Network, Altınyıldız, Kiğılı, Boyner "Olay Kasım" (Columbia %60'a, BOSS %45'e, Brooks Brothers %50'ye varan), Beymen — sayfalarda başlangıç/bitiş yok; Boyner, Beymen, Koton, Kiğılı, Sarar otomatik taramada zaten var.
-- **Kapsam dışı:** Altınyıldız "Efsane Yıldız Günleri" (saatlik %5 / 1 alana 1 bedava, uygulama bazlı), Tergan ve Desa 2. ürün indirimleri, APP15 / KSM20 kodlu teklifler, Converse öğrenci indirimi, AliExpress Big Sale (19 Kasım'da bitiyor, başlangıç doğrulanmadı).
-- **Bitenler:** 11.11 ve Trendyol Süper Alışveriş Günleri (6-11 Kasım) geçti; takvimden kendiliğinden düşer.
-- Sarar'da erkekte seçili ürünlerde %30 sarar.com'da görüldü ama tarih yok; otomatik tarama kapsıyor.
+- **Ramsey** (ramsey.com.tr): "Kasım Ayrıcalıkları", oran ve başlangıç yok; "Hafta Sonuna Özel" geri sayımı 16.11.2026 13:00'te bitiyor, ama oran yazmıyor. Atlandı.
+- **U.S. Polo Assn.** (Büyük Kasım İndirimi): sepette yaklaşık %60 görünen örnek ürünler var, ama kampanya tarihi yok. Atlandı.
+- **Altınyıldız Classics**: "2 Al %50", "Efsane Yıldız Günleri" tarihsiz ve çok ürünlü teklif. Atlandı.
+- **New Balance**: "%40'a varan", tarih yok.
+- **Nike TR**: Kışlık Temel Stiller satışta ama oran/tarih yok; Black Friday linki var, detay yok.
+- **Damat Tween, Network, Colin's, Koton, Sarar, LC Waikiki**: ana sayfalarda tarih ve oran okunamadı (Koton, Sarar, LCW zaten kayıtlı/otomatikte). LCW'nin 22-29 Kasım tarihi yalnızca haberde, lcw.com'da yok.
+- **Saat&Saat**: Erken Kasım 8 Kasım'da bitti; World kart puanı sadece karta özel. Atlandı.
+- **Amazon Gülümseten Kasım**: kartavantaj bitişi 28 Kasım diyor, mevcut kayıt İndigo'ya göre 30 Kasım. Çelişki var, değiştirilmedi.
+- **Hepsiburada**: kartavantaj "Efsane 11" 2-11 Kasım diyor, DHA ve İndigo Kasım boyunca diyor. Çelişki, değiştirilmedi; hepsiburada.com okunamadı (403).
+- Zara, Adidas TR, DeFacto, Boyner, Mango (429): erişilemedi (403/429), atlandı.
+- Doğrulanamadı (yalnızca sosyal medya takvimi): Zara 27-30 Kasım %20-50; Mango 20-30 Kasım %30-60; Bershka/Pull&Bear/H&M 21-30 Kasım; Mavi 21-30 Kasım %30-50; Nike 27-30 Kasım; Adidas 27-30 Kasım; DeFacto 20-30 Kasım.
 
 ## Basiclink için paylaşım fikirleri
-1. **LC Waikiki Bambaşka Cuma (22-29 Kasım):** Düşük bütçeli erkek kombini için en erişilebilir kampanya; tişört %70, blazer %50 örnekleriyle "bütçeli ofis/okul kombini" olabilir. Tarih önceden belli, hatırlatma postu uygun.
-2. **Mavi sezon indirimi (29 Kasım'a kadar):** Mont, jean ve kazakta kombin; son günler yaklaştığı için "bitmeden" içeriği. Oran yazmadığı için fiyat karşılaştırmasıyla gösterilmeli.
-3. **AVVA %30'a varan (30 Kasım'a kadar):** Klasik gömlek/pantolon/ceket tamamlama kombini; fiyatı daha yüksek ama indirimle ulaşılabilir.
+1. **LC Waikiki Bambaşka Cuma (22-29 Kasım):** erkekte %50-%70 örnekleri (tişört, blazer) var; uygun fiyatlı kombin için en net seçenek. Haftaya yakın olduğu için hazırlık postu mantıklı.
+2. **Mavi sezon indirimi (29 Kasım'a kadar):** denim ve mont üzerinden kombin; bitiş tarihi mavi.com'da yazılı, tarih güvenilir.
+3. **Black Friday öncesi "ne alınır" rehberi:** oranlar belli değil, o yüzden marka adı vermeden temel parçaların fiyat takibi anlatılabilir.
 
-- Not: tests/anasayfa.test.cjs 'pick post missing' testi temiz main'de de kırık (indirim verisiyle ilgisiz).
+## Test notu
+`npm test`: 22 testten 2'si başarısız (anasayfa.test.cjs "newest outfit", basiclink-merkez.test.cjs "runway"). Aynı iki hata main'de de var; indirim verisiyle ilgisi yok, bu yüzden dokunulmadı.
