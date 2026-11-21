@@ -59,14 +59,14 @@
       ],
       "kategori": "pazaryeri",
       "baslangic": "2026-10-30",
-      "bitis": "2026-11-30",
+      "bitis": "2026-11-27",
       "durum": "duyuruldu",
       "oran": "Modada %25'e varan",
       "kanal": "online",
-      "kaynak": "https://indigodergisi.com/2026/11/e-ticaret-kasim-indirimleri-2026/",
+      "kaynak": "https://www.isinolsa.com/trendyol-26-kasimda-basliyor-amazon-27sinde-bitiriyor-black-friday-2026-takvimi/",
       "link": "https://www.amazon.com.tr/",
-      "kontrol": "2026-11-13",
-      "not": "30 Ekim-30 Kasım; modada %25'e varan. Fiyat farkı iadesi Prime üyeliği ve 'Amazon.com.tr satıcılı' etiketli ürün şartıyla (İndigo, 4 Kasım)."
+      "kontrol": "2026-11-21",
+      "not": "30 Ekim-27 Kasım; modada %25'e varan (İndigo, 4 Kasım). Bitiş 30 Kasım'dan 27 Kasım'a çekildi (İşin Olsa, 19 Kasım; Amazon basın bülteni olarak aktarılıyor). Fiyat farkı iadesi Prime üyeliği ve 'Amazon.com.tr satıcılı' etiketli ürün şartıyla."
     },
     {
       "baslik": "LC Waikiki Bambaşka Kasım",
@@ -173,6 +173,23 @@
       "kontrol": "2026-11-02"
     },
     {
+      "baslik": "Trendyol Efsane Günler",
+      "grup": "Trendyol",
+      "markalar": [
+        "Trendyol"
+      ],
+      "kategori": "pazaryeri",
+      "baslangic": "2026-11-26",
+      "bitis": "2026-12-02",
+      "durum": "duyuruldu",
+      "oran": "",
+      "kanal": "online",
+      "kaynak": "https://www.isinolsa.com/trendyol-26-kasimda-basliyor-amazon-27sinde-bitiriyor-black-friday-2026-takvimi/",
+      "link": "https://www.trendyol.com/",
+      "kontrol": "2026-11-21",
+      "not": "26 Kasım Perşembe-2 Aralık Çarşamba; Trendyol'un kendi sitesinde duyurduğu tarih olarak aktarılıyor (İşin Olsa, 19 Kasım), trendyol.com bot koruması nedeniyle doğrudan okunamadı. Oran açıklanmadı; moda tarafında Trendyol Man ve Trendyol Shoes kapsamda olacağı bildiriliyor."
+    },
+    {
       "baslik": "Efsane Cuma / Black Friday",
       "grup": "Çoğu marka",
       "markalar": [
@@ -190,8 +207,8 @@
       "oran": "",
       "kanal": "online ve mağaza",
       "kaynak": "https://www.milligazete.com.tr/kasim-indirimleri-2026-hangi-tarihte-efsane-cuma-1111-ve-cyber-monday-takvimi",
-      "not": "Black Friday 27 Kasım Cuma, Cyber Monday 30 Kasım Pazartesi. Zara, Bershka, Pull&Bear, Massimo Dutti indirimlerinin 26-27 Kasım'da başlaması bekleniyor; markalar henüz açıklamadı.",
-      "kontrol": "2026-11-02"
+      "not": "Black Friday 27 Kasım Cuma, Cyber Monday 30 Kasım Pazartesi. Zara, Bershka, Pull&Bear, Mango'nun online indirimlerinin 26 Kasım akşamı, mağazaların 27 Kasım'da başlaması bekleniyor; H&M uluslararası sayfalarında 27 Kasım yazıyor. Türkiye için marka açıklaması yok, oran yok (İşin Olsa 19 Kasım, Milli Gazete 24 Ekim).",
+      "kontrol": "2026-11-21"
     },
     {
       "baslik": "Inditex kış sezon sonu indirimi",

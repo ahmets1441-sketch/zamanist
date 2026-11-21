@@ -1,23 +1,22 @@
-# İndirim ajanı raporu — 13 Kasım 2026
+# İndirim ajanı raporu — 21 Kasım 2026
 
 ## Eklenen / güncellenen
-- **Eklendi: AVVA Kasım Ayrıcalıkları** (1-30 Kasım, %30'a varan, online + uygulama). Oran avva.com.tr'de okundu; tarih İndigo (4 Kasım) haberinden: https://indigodergisi.com/2026/11/moda-kasim-indirimleri-2026/
-- **Güncellendi: LC Waikiki Bambaşka Cuma** (22-29 Kasım, %8-%70; erkekte XSIDE tişört %70, blazer/ceket %50). Kaynak İndigo moda haberi.
-- **Güncellendi: Mavi sezon indirimi** — mavi.com'da bugün okundu: 16 Eylül-29 Kasım, oran yazmıyor.
-- **Güncellendi: Amazon Gülümseten Kasım** — bitiş 30 Kasım'a çekildi (İndigo e-ticaret haberi, 4 Kasım); modada %25'e varan.
-- **Güncellendi: Hepsiburada Efsane Kasım** — kontrol tarihi; giyimdeki ek %15 (1-10 Kasım) bitti, not düzeltildi.
+- **Eklendi: Trendyol Efsane Günler** (26 Kasım–2 Aralık, oran yok). Kaynak: İşin Olsa, 19 Kasım (okundu); Trendyol'un kendi sitesinde duyurduğunu yazıyor ama trendyol.com 403 verdi, doğrudan doğrulanamadı.
+- **Güncellendi: Amazon Gülümseten Kasım** — bitiş 30 Kasım yerine **27 Kasım** (aynı İşin Olsa sayfası; arama sonucu da Amazon basın bültenini işaret ediyor). Moda %25'e varan oranı İndigo'dan duruyor.
+- **Güncellendi: Efsane Cuma / Black Friday** (tahmini) — Zara, Bershka, Pull&Bear, Mango için 26 Kasım akşamı online / 27 Kasım mağaza beklentisi; H&M uluslararası sayfalarda 27 Kasım. Hâlâ resmi Türkiye duyurusu yok, oran yok.
 
 ## Kontrol edilip atlananlar
-- **Doğrulanamadı (yalnızca sosyal medya takvimi, Yeni Bakış 2 Kasım; markalar teyit etmedi):** Zara 27-30 Kasım %20-50, Mango 20-30 Kasım %30-60, H&M/Bershka/Pull&Bear 21-30 Kasım, Mavi 21-30 Kasım %30-50, Nike 27-30 Kasım, Adidas 27-30 Kasım, Boyner 20-30 Kasım %20-40. Resmî duyuru yok; mevcut "Efsane Cuma / Black Friday" tahmini kaydı (27 Kasım) korundu.
-- **Erişilemedi:** hm.com (403), defacto.com.tr (403), boyner.com.tr (403), amazon.com.tr (503), zara.com (403). Trendyol/Beymen sayfaları kampanya bilgisi vermedi.
-- **Tarihsiz oran:** Koton, Colin's, Network, Altınyıldız, Kiğılı, Boyner "Olay Kasım" (Columbia %60'a, BOSS %45'e, Brooks Brothers %50'ye varan), Beymen — sayfalarda başlangıç/bitiş yok; Boyner, Beymen, Koton, Kiğılı, Sarar otomatik taramada zaten var.
-- **Kapsam dışı:** Altınyıldız "Efsane Yıldız Günleri" (saatlik %5 / 1 alana 1 bedava, uygulama bazlı), Tergan ve Desa 2. ürün indirimleri, APP15 / KSM20 kodlu teklifler, Converse öğrenci indirimi, AliExpress Big Sale (19 Kasım'da bitiyor, başlangıç doğrulanmadı).
-- **Bitenler:** 11.11 ve Trendyol Süper Alışveriş Günleri (6-11 Kasım) geçti; takvimden kendiliğinden düşer.
-- Sarar'da erkekte seçili ürünlerde %30 sarar.com'da görüldü ama tarih yok; otomatik tarama kapsıyor.
+- **Zara, H&M, Hepsiburada, Trendyol, Boyner**: siteler 403 verdi (bot koruması), atlandı. Amazon.com.tr 503.
+- **Mavi 21-30 Kasım %30-50, Nike 27-30 Kasım %20-50, Adidas %25+, Zara 27-30 %20-50, H&M 21-30**: Yeni Bakış'ın (2 Kasım) sosyal medya takviminden; markalar onaylamamış, çelişen tarihler var → eklenmedi (doğrulanamadı).
+- **Mavi sezon indirimi (16 Eylül–29 Kasım)**: zaten kayıtlı; mavi.com'da bugün okundu, aynı tarih. Kontrol tarihini yenilemedim kayıt zaten 13 Kasım tarihli ve bitişi var.
+- **LC Waikiki Bambaşka Cuma (22-29 Kasım)**: zaten kayıtlı; lcw.com ana sayfası görsel banner olduğu için tarih/oran teyit edilemedi.
+- **Koton En Trend Kasım, Kiğılı sepette %25, Sarar erkek %30**: koton.com, kigili.com, sarar.com'da oranlar görüldü ama başlangıç/bitiş tarihi yok; otomatik listede zaten var → eklenmedi. Koton'daki KSM20 / Kiğılı TKM10 gibi kodlu teklifler kapsam dışı.
+- **Colin's, Network, Altınyıldız Classics, Damat Tween**: ana sayfalarda tarih/oran metni yok (görsel banner); Altınyıldız "Efsane Yıldız Cuma Kasım İndirimleri" adı görüldü, oran yok.
+- **Boyner Olay Kasım (DeFacto %70'e varan vb.), Desa, U.S. Polo, Ramsey, Pierre Cardin, Columbia, New Balance, Converse**: yalnızca İndigo haberinde, tarihsiz → doğrulanamadı. Boyner otomatik listede zaten var.
+- **Hepsiburada Efsane Cuma**: 2026 için giyim kapsamı/tarih bulunamadı.
+- Mango Türkiye: 2026 tarih/oran bulunamadı. Inditex 2025 haberleri (CNN Türk) 2026 için kullanılmadı.
 
 ## Basiclink için paylaşım fikirleri
-1. **LC Waikiki Bambaşka Cuma (22-29 Kasım):** Düşük bütçeli erkek kombini için en erişilebilir kampanya; tişört %70, blazer %50 örnekleriyle "bütçeli ofis/okul kombini" olabilir. Tarih önceden belli, hatırlatma postu uygun.
-2. **Mavi sezon indirimi (29 Kasım'a kadar):** Mont, jean ve kazakta kombin; son günler yaklaştığı için "bitmeden" içeriği. Oran yazmadığı için fiyat karşılaştırmasıyla gösterilmeli.
-3. **AVVA %30'a varan (30 Kasım'a kadar):** Klasik gömlek/pantolon/ceket tamamlama kombini; fiyatı daha yüksek ama indirimle ulaşılabilir.
-
-- Not: tests/anasayfa.test.cjs 'pick post missing' testi temiz main'de de kırık (indirim verisiyle ilgisiz).
+1. **Efsane Cuma öncesi "bekle ya da al" listesi (26-27 Kasım)** — Zara/H&M/Mango/LCW sepetini önceden kuran ucuz erkek kombini; Inditex indirimi 26 akşamı başlarsa en çok etkileşim alacak an.
+2. **LC Waikiki Bambaşka Cuma (22-29 Kasım)** — erkekte %70'e varan tişört ve %50 blazer/ceket örnekleri uygun fiyatlı kombin için somut malzeme; 5/7 ürün ek indirimi var.
+3. **Mavi sezon indirimi (29 Kasım'a kadar)** — jean + kazak kombini için "son 8 gün" hatırlatması; oran yazmadığı için fiyat etiketi üzerinden anlatmak lazım.
