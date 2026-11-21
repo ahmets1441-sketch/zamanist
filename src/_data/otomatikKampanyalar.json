@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-20",
+  "guncelleme": "2026-11-21",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -16,7 +16,7 @@
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-11-20"
+      "kontrol": "2026-11-21"
     },
     {
       "baslik": "Beymen indirimi",
@@ -31,7 +31,7 @@
       ],
       "link": "https://www.beymen.com/",
       "ilkGorulme": "2026-11-05",
-      "kontrol": "2026-11-20"
+      "kontrol": "2026-11-21"
     },
     {
       "baslik": "Vakko indirimi",
@@ -46,7 +46,7 @@
       ],
       "link": "https://www.vakko.com/",
       "ilkGorulme": "2026-11-12",
-      "kontrol": "2026-11-20"
+      "kontrol": "2026-11-21"
     },
     {
       "baslik": "Koton indirimi",
@@ -63,7 +63,7 @@
       ],
       "link": "https://www.koton.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-11-20"
+      "kontrol": "2026-11-21"
     },
     {
       "baslik": "Kiğılı indirimi",
@@ -78,7 +78,7 @@
       ],
       "link": "https://www.kigili.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-11-20"
+      "kontrol": "2026-11-21"
     },
     {
       "baslik": "Sarar indirimi",
@@ -95,7 +95,7 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-11-20"
+      "kontrol": "2026-11-21"
     },
     {
       "baslik": "Occasion indirimi",
@@ -108,11 +108,11 @@
       "ornekler": [
         "TL Sepette %60 İndirim",
         "TL Sepette %55 İndirim",
-        "TL Sepette %45 İndirim"
+        "TL Sepette %50 İndirim"
       ],
       "link": "https://www.occasion.com.tr/son-firsat-urunleri/",
       "ilkGorulme": "2026-11-03",
-      "kontrol": "2026-11-20"
+      "kontrol": "2026-11-21"
     },
     {
       "baslik": "Columbia indirimi",
@@ -127,7 +127,7 @@
       ],
       "link": "https://www.columbia.com.tr/",
       "ilkGorulme": "2026-10-26",
-      "kontrol": "2026-11-20"
+      "kontrol": "2026-11-21"
     }
   ]
 }
