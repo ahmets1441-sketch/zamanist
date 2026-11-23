@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-22",
+  "guncelleme": "2026-11-23",
   "kampanyalar": [
     {
       "baslik": "Boyner indirimi",
@@ -16,7 +16,7 @@
       ],
       "link": "https://www.boyner.com.tr/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-11-22"
+      "kontrol": "2026-11-23"
     },
     {
       "baslik": "Beymen indirimi",
@@ -25,13 +25,13 @@
         "Beymen"
       ],
       "kategori": "giyim",
-      "oran": "%35",
+      "oran": "%25'e varan",
       "ornekler": [
-        "Dış Giyim koleksiyonlarında %35 indirim"
+        "TEKNOLOJİ Seçili ürünlerde %25'e varan indirim"
       ],
       "link": "https://www.beymen.com/",
       "ilkGorulme": "2026-11-05",
-      "kontrol": "2026-11-22"
+      "kontrol": "2026-11-23"
     },
     {
       "baslik": "Vakko indirimi",
@@ -46,7 +46,7 @@
       ],
       "link": "https://www.vakko.com/",
       "ilkGorulme": "2026-11-12",
-      "kontrol": "2026-11-22"
+      "kontrol": "2026-11-23"
     },
     {
       "baslik": "Koton indirimi",
@@ -63,7 +63,7 @@
       ],
       "link": "https://www.koton.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-11-22"
+      "kontrol": "2026-11-23"
     },
     {
       "baslik": "Kiğılı indirimi",
@@ -74,11 +74,11 @@
       "kategori": "giyim",
       "oran": "%25",
       "ornekler": [
-        "Kargo Ücretsiz Sepette %25 İndirim"
+        "Taksit İmkanı Sepette %25 İndirim"
       ],
       "link": "https://www.kigili.com/",
       "ilkGorulme": "2026-10-28",
-      "kontrol": "2026-11-22"
+      "kontrol": "2026-11-23"
     },
     {
       "baslik": "Sarar indirimi",
@@ -95,7 +95,7 @@
       ],
       "link": "https://www.sarar.com/",
       "ilkGorulme": "2026-10-15",
-      "kontrol": "2026-11-22"
+      "kontrol": "2026-11-23"
     },
     {
       "baslik": "Occasion indirimi",
@@ -112,7 +112,7 @@
       ],
       "link": "https://www.occasion.com.tr/son-firsat-urunleri/",
       "ilkGorulme": "2026-11-03",
-      "kontrol": "2026-11-22"
+      "kontrol": "2026-11-23"
     },
     {
       "baslik": "Columbia indirimi",
@@ -127,7 +127,7 @@
       ],
       "link": "https://www.columbia.com.tr/",
       "ilkGorulme": "2026-10-26",
-      "kontrol": "2026-11-22"
+      "kontrol": "2026-11-23"
     }
   ]
 }
